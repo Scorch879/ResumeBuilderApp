@@ -250,6 +250,7 @@
             confirmPasswordTbx.Size = new Size(422, 25);
             confirmPasswordTbx.TabIndex = 17;
             confirmPasswordTbx.Text = "Confirm Password";
+            confirmPasswordTbx.Click += confirmPasswordTbx_Click;
             confirmPasswordTbx.Enter += currentPassword_Enter;
             confirmPasswordTbx.Leave += currentPassword_Leave;
             // 
@@ -286,6 +287,8 @@
             newPasswordTbx.Size = new Size(422, 25);
             newPasswordTbx.TabIndex = 16;
             newPasswordTbx.Text = "Enter New Password";
+            newPasswordTbx.Click += newPasswordTbx_Click;
+            newPasswordTbx.CursorChanged += newPasswordTbx_Click;
             newPasswordTbx.Enter += newPassword_Enter;
             newPasswordTbx.Leave += newPassword_Leave;
             // 

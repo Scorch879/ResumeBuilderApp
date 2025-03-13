@@ -15,8 +15,26 @@ namespace FinalProjectOOP2
         public VerifyUser()
         {
             InitializeComponent();
-            codeTbx.Enabled = false; //Prevent to click verify even without email sent
+            codeTbx.Enabled = true; //Prevent to click verify even without email sent
             verifyBtn.Enabled = false;
+            emailTbx.BackColor = Color.White;
+            panel2.BackColor = Color.White;
+        }
+
+        private void emailTbx_Click(object sender, EventArgs e)
+        {
+            emailTbx.BackColor = Color.White;
+            panel2.BackColor = Color.White;
+            panel4.BackColor = SystemColors.Control;
+            codeTbx.BackColor = SystemColors.Control;
+        }
+
+        private void codeTbx_Click(object sender, EventArgs e)
+        {
+            emailTbx.BackColor = SystemColors.Control;
+            panel2.BackColor = SystemColors.Control;
+            panel4.BackColor = Color.White;
+            codeTbx.BackColor = Color.White;
         }
 
         private void sendCodeBtn_Click(object sender, EventArgs e)
@@ -191,7 +209,7 @@ namespace FinalProjectOOP2
 
         private void emailTbx_Enter(object sender, EventArgs e)
         {
-            if (emailTbx.Text == "Enter Registered Email")
+            if (emailTbx.Text == "Enter registered email")
             {
                 emailTbx.Text = "";
             }
@@ -201,7 +219,7 @@ namespace FinalProjectOOP2
         {
             if (string.IsNullOrWhiteSpace(emailTbx.Text))
             {
-                emailTbx.Text = "Enter Registered Email";
+                emailTbx.Text = "Enter registered email";
             }
         }
 
@@ -233,16 +251,5 @@ namespace FinalProjectOOP2
                 return false;
             }
         }
-
-        private void emailRemoveTxtInside(object sender, EventArgs e)
-        {
-            emailTbx.Text = "";
-        }
-
-        private void codeRemoveTxtInside(object sender, EventArgs e)
-        {
-            codeTbx.Text = "";
-        }
-
     }
 }

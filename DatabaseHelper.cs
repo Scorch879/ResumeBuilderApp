@@ -67,6 +67,14 @@ namespace FinalProjectOOP2
 
         public bool RegisterUser(string username, string password, string role, string email)
         {
+            string existMessage = UserExists(username, email); //checks if user or email or both already exists
+
+            if (!string.IsNullOrEmpty(existMessage))
+            {
+                MessageBox.Show(existMessage, "Registration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false; 
+            }
+
             string query = "INSERT INTO UserQuery (Username, [Password], Role, Email) VALUES (@Username, @Password, @role, @email)";
             
             using (OleDbConnection conn = new OleDbConnection(connectionString))
@@ -179,31 +187,51 @@ namespace FinalProjectOOP2
             }
         }
 
-        // Record Validation
-        public bool RecordExists(string query, params OleDbParameter[] parameters)
+        public string UserExists(string username, string email)
         {
-            try
-            {
-                if (myConn == null)
-                    throw new NullReferenceException();
+            string usernameQuery = "SELECT COUNT(*) FROM UserQuery WHERE Username = @Username";
+            string emailQuery = "SELECT COUNT(*) FROM UserQuery WHERE Email = @Email";
 
-                myConn.Open();
-                using (OleDbCommand cmd = new OleDbCommand(query, myConn))
+            bool usernameExists = false;
+            bool emailExists = false;
+
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                try
                 {
-                    cmd.Parameters.AddRange(parameters);
-                    object? result = cmd.ExecuteScalar();
-                    return result != null;
+                    conn.Open();
+
+                    // Username checker
+                    using (OleDbCommand cmdUsername = new OleDbCommand(usernameQuery, conn))
+                    {
+                        cmdUsername.Parameters.AddWithValue("@Username", username);
+                        object? result = cmdUsername.ExecuteScalar();
+                        int count = Convert.ToInt32(result);
+                        usernameExists = count > 0;
+                    }
+
+                    // Email checker
+                    using (OleDbCommand cmdEmail = new OleDbCommand(emailQuery, conn))
+                    {
+                        cmdEmail.Parameters.AddWithValue("@Email", email);
+                        object? result = cmdEmail.ExecuteScalar();
+                        int count = Convert.ToInt32(result);
+                        emailExists = count > 0;
+                    }
+
+            
+                    if (usernameExists && emailExists)
+                        return "Username and Email already exist.";
+                    else if (usernameExists)
+                        return "Username already exists.";
+                    else if (emailExists)
+                        return "Email already exists.";
+                    else
+                        return ""; 
                 }
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-            finally
-            {
-                if (myConn != null)
+                catch (Exception ex)
                 {
-                    myConn.Close();
+                    return "An error occurred: " + ex.Message;
                 }
             }
         }
@@ -268,4 +296,3 @@ namespace FinalProjectOOP2
         }
     }
 }
-

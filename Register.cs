@@ -7,12 +7,6 @@ namespace FinalProjectOOP2
 {
     public partial class Register : Form
     {
-        OleDbConnection? myConn;
-        OleDbDataAdapter? da;
-        OleDbCommand? cmd;
-        DataSet? ds;
-        int indexRow;
-
         public Register()
         {
             InitializeComponent();
@@ -92,6 +86,7 @@ namespace FinalProjectOOP2
             if (username != "" && password != "" && choice != "" && email != "")
             {
                 DatabaseHelper dbHelper = new DatabaseHelper();
+
                 bool success = dbHelper.RegisterUser(username, password, choice, email);
 
                 if (success)
@@ -101,9 +96,7 @@ namespace FinalProjectOOP2
                 }
                 else
                 {
-                    MessageBox.Show("Registration failed! Username may already exist.", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    return; //just go back to form since the error message is handled in RegisterUser method
                 }
 
                 //Let login form show again
@@ -151,7 +144,5 @@ namespace FinalProjectOOP2
                 registerBtn_Click(sender, e);
             }
         }
-
-        
     }
 }

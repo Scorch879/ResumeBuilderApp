@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VerifyUser));
             panel1 = new Panel();
             label6 = new Label();
             label5 = new Label();
@@ -266,6 +265,7 @@
             codeTbx.Size = new Size(422, 25);
             codeTbx.TabIndex = 17;
             codeTbx.Text = "Enter Code";
+            codeTbx.Click += codeTbx_Click;
             codeTbx.Enter += codeTbx_Enter;
             codeTbx.Leave += codeTbx_Leave;
             // 
@@ -300,13 +300,14 @@
             emailTbx.Size = new Size(422, 25);
             emailTbx.TabIndex = 16;
             emailTbx.Text = "Enter registered email";
+            emailTbx.Click += emailTbx_Click;
             emailTbx.Enter += emailTbx_Enter;
             emailTbx.Leave += emailTbx_Leave;
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(17, 11);
+            pictureBox2.Image = Properties.Resources.emailIcon;
+            pictureBox2.Location = new Point(15, 11);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(34, 34);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;

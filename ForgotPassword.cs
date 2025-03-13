@@ -1,4 +1,6 @@
-﻿namespace FinalProjectOOP2
+﻿using Microsoft.UI.Xaml.Controls;
+
+namespace FinalProjectOOP2
 {
     public partial class ForgotPassword : Form
     {
@@ -8,6 +10,22 @@
         {
             InitializeComponent();
             user = username;
+        }
+
+        private void newPasswordTbx_Click(object sender, EventArgs e)
+        {
+            newPasswordTbx.BackColor = Color.White;
+            panel2.BackColor = Color.White;
+            panel4.BackColor = SystemColors.Control;
+            confirmPasswordTbx.BackColor = SystemColors.Control;
+        }
+
+        private void confirmPasswordTbx_Click(object sender, EventArgs e)
+        {
+            newPasswordTbx.BackColor = SystemColors.Control;
+            panel2.BackColor = SystemColors.Control;
+            panel4.BackColor = Color.White;
+            confirmPasswordTbx.BackColor = Color.White;
         }
 
         public void passwordTbx_TextChanged(object sender, EventArgs e)
@@ -75,6 +93,8 @@
                 confirmPasswordTbx.Text = "Confirm Password";
             }
         }
+
+        
 
         private void closeBtn_Click(object sender, EventArgs e)
         {
