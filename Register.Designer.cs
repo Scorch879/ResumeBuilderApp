@@ -55,6 +55,8 @@
             panel3 = new Panel();
             emailTbx = new TextBox();
             pictureBox5 = new PictureBox();
+            RegisterTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
+            warningLbl = new SiticoneNetCoreUI.SiticoneLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -115,7 +117,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(356, 615);
+            panel1.Size = new Size(356, 726);
             panel1.TabIndex = 13;
             // 
             // pictureBox1
@@ -130,11 +132,11 @@
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(225, 552);
+            label1.Location = new Point(225, 677);
             label1.Name = "label1";
             label1.Size = new Size(113, 17);
             label1.TabIndex = 14;
@@ -142,11 +144,11 @@
             // 
             // label8
             // 
-            label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             label8.AutoSize = true;
             label8.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.White;
-            label8.Location = new Point(262, 535);
+            label8.Location = new Point(262, 660);
             label8.Name = "label8";
             label8.Size = new Size(80, 17);
             label8.TabIndex = 13;
@@ -172,14 +174,17 @@
             passwordTbx.Name = "passwordTbx";
             passwordTbx.Size = new Size(422, 25);
             passwordTbx.TabIndex = 17;
+            RegisterTooltip.SetToolTip(passwordTbx, "Hold Left-click to see password");
             passwordTbx.UseSystemPasswordChar = true;
             passwordTbx.Click += passwordTbx_Click;
             passwordTbx.CursorChanged += passwordTbx_Click;
+            passwordTbx.TextChanged += passwordTbx_TextChanged;
             passwordTbx.Enter += passwordTbx_Click;
             passwordTbx.KeyDown += Register_KeyDown;
             // 
             // pictureBox3
             // 
+            pictureBox3.Cursor = Cursors.Hand;
             pictureBox3.Image = Properties.Resources._5582931;
             pictureBox3.Location = new Point(15, 11);
             pictureBox3.Name = "pictureBox3";
@@ -210,6 +215,7 @@
             usernameTbx.Name = "usernameTbx";
             usernameTbx.Size = new Size(422, 25);
             usernameTbx.TabIndex = 16;
+            RegisterTooltip.SetToolTip(usernameTbx, "Enter your desired username");
             usernameTbx.Click += usernameTbx_Click;
             usernameTbx.CursorChanged += usernameTbx_Click;
             usernameTbx.Enter += usernameTbx_Click;
@@ -260,20 +266,21 @@
             registerBtn.FlatStyle = FlatStyle.Flat;
             registerBtn.Font = new Font("Century Gothic", 10F);
             registerBtn.ForeColor = Color.White;
-            registerBtn.Location = new Point(371, 458);
+            registerBtn.Location = new Point(371, 523);
             registerBtn.Name = "registerBtn";
             registerBtn.Size = new Size(172, 45);
             registerBtn.TabIndex = 19;
-            registerBtn.Text = "REGISTER";
+            registerBtn.Text = "SIGN UP";
             registerBtn.UseVisualStyleBackColor = false;
             registerBtn.Click += registerBtn_Click;
             registerBtn.KeyDown += Register_KeyDown;
             // 
             // linkLabel1
             // 
+            linkLabel1.Anchor = AnchorStyles.Bottom;
             linkLabel1.AutoSize = true;
             linkLabel1.LinkColor = Color.FromArgb(41, 128, 185);
-            linkLabel1.Location = new Point(590, 567);
+            linkLabel1.Location = new Point(590, 692);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(216, 20);
             linkLabel1.TabIndex = 24;
@@ -282,11 +289,11 @@
             // 
             // label10
             // 
-            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label10.Anchor = AnchorStyles.Bottom;
             label10.AutoSize = true;
             label10.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.Silver;
-            label10.Location = new Point(398, 569);
+            label10.Location = new Point(398, 694);
             label10.Name = "label10";
             label10.Size = new Size(195, 17);
             label10.TabIndex = 23;
@@ -294,11 +301,11 @@
             // 
             // label11
             // 
-            label11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label11.Anchor = AnchorStyles.Bottom;
             label11.AutoSize = true;
             label11.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label11.ForeColor = Color.Silver;
-            label11.Location = new Point(398, 552);
+            label11.Location = new Point(398, 677);
             label11.Name = "label11";
             label11.Size = new Size(354, 17);
             label11.TabIndex = 22;
@@ -306,11 +313,11 @@
             // 
             // label12
             // 
-            label12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label12.Anchor = AnchorStyles.Bottom;
             label12.AutoSize = true;
             label12.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label12.ForeColor = Color.Silver;
-            label12.Location = new Point(398, 535);
+            label12.Location = new Point(398, 660);
             label12.Name = "label12";
             label12.Size = new Size(66, 17);
             label12.TabIndex = 21;
@@ -322,10 +329,11 @@
             rolePanel.Controls.Add(userRadioBtn);
             rolePanel.Controls.Add(adminRadioBtn);
             rolePanel.Controls.Add(pictureBox4);
-            rolePanel.Location = new Point(356, 388);
+            rolePanel.Location = new Point(356, 453);
             rolePanel.Name = "rolePanel";
             rolePanel.Size = new Size(504, 55);
             rolePanel.TabIndex = 29;
+            RegisterTooltip.SetToolTip(rolePanel, "Pick your role");
             // 
             // userRadioBtn
             // 
@@ -370,7 +378,7 @@
             panel3.BackColor = SystemColors.Control;
             panel3.Controls.Add(emailTbx);
             panel3.Controls.Add(pictureBox5);
-            panel3.Location = new Point(356, 324);
+            panel3.Location = new Point(356, 389);
             panel3.Name = "panel3";
             panel3.Size = new Size(504, 55);
             panel3.TabIndex = 30;
@@ -385,6 +393,7 @@
             emailTbx.Name = "emailTbx";
             emailTbx.Size = new Size(422, 25);
             emailTbx.TabIndex = 17;
+            RegisterTooltip.SetToolTip(emailTbx, "Enter your email");
             emailTbx.Click += emailTbx_Click;
             emailTbx.CursorChanged += emailTbx_Click;
             emailTbx.Enter += emailTbx_Click;
@@ -400,11 +409,33 @@
             pictureBox5.TabIndex = 4;
             pictureBox5.TabStop = false;
             // 
+            // RegisterTooltip
+            // 
+            RegisterTooltip.AllowLinksHandling = true;
+            RegisterTooltip.Font = new Font("Century Gothic", 9.5F);
+            RegisterTooltip.ForeColor = Color.FromArgb(41, 128, 185);
+            RegisterTooltip.MaximumSize = new Size(0, 0);
+            RegisterTooltip.TitleFont = new Font("Century Gothic", 9.5F);
+            // 
+            // warningLbl
+            // 
+            warningLbl.BackColor = Color.Transparent;
+            warningLbl.FlatStyle = FlatStyle.Flat;
+            warningLbl.Font = new Font("Century Gothic", 9F);
+            warningLbl.ForeColor = Color.FromArgb(41, 128, 185);
+            warningLbl.Location = new Point(371, 323);
+            warningLbl.Name = "warningLbl";
+            warningLbl.Size = new Size(301, 63);
+            warningLbl.TabIndex = 31;
+            warningLbl.Text = "Password must be at least 8 characters.\r\nNo whitespaces allowed.\r\nMake a strong password!\r\n";
+            warningLbl.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(861, 615);
+            ClientSize = new Size(861, 726);
+            Controls.Add(warningLbl);
             Controls.Add(panel3);
             Controls.Add(rolePanel);
             Controls.Add(linkLabel1);
@@ -470,5 +501,7 @@
         private Panel panel3;
         private TextBox emailTbx;
         private PictureBox pictureBox5;
+        private Guna.UI2.WinForms.Guna2HtmlToolTip RegisterTooltip;
+        private SiticoneNetCoreUI.SiticoneLabel warningLbl;
     }
 }

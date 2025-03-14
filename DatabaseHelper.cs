@@ -2,7 +2,6 @@
 using System.Data.OleDb;
 using System.Security.Cryptography;
 using System.Text;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace FinalProjectOOP2
 {
@@ -145,7 +144,6 @@ namespace FinalProjectOOP2
             }
         }
 
-        //To hash password for encryption
         private string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -236,7 +234,6 @@ namespace FinalProjectOOP2
             }
         }
 
-        //Update Password
         public bool UpdatePass(string username, string newPassword)
         {
             bool isUpdated = false;

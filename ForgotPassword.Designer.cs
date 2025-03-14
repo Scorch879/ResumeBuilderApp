@@ -49,6 +49,7 @@
             newPasswordTbx = new TextBox();
             pictureBox2 = new PictureBox();
             closeBtn = new Button();
+            ForgotPassTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -250,6 +251,7 @@
             confirmPasswordTbx.Size = new Size(422, 25);
             confirmPasswordTbx.TabIndex = 17;
             confirmPasswordTbx.Text = "Confirm Password";
+            ForgotPassTooltip.SetToolTip(confirmPasswordTbx, "Please confirm your password");
             confirmPasswordTbx.Click += confirmPasswordTbx_Click;
             confirmPasswordTbx.Enter += currentPassword_Enter;
             confirmPasswordTbx.Leave += currentPassword_Leave;
@@ -287,6 +289,7 @@
             newPasswordTbx.Size = new Size(422, 25);
             newPasswordTbx.TabIndex = 16;
             newPasswordTbx.Text = "Enter New Password";
+            ForgotPassTooltip.SetToolTip(newPasswordTbx, "Please enter your new password");
             newPasswordTbx.Click += newPasswordTbx_Click;
             newPasswordTbx.CursorChanged += newPasswordTbx_Click;
             newPasswordTbx.Enter += newPassword_Enter;
@@ -319,6 +322,14 @@
             closeBtn.Text = "X";
             closeBtn.UseVisualStyleBackColor = true;
             closeBtn.Click += closeBtn_Click;
+            // 
+            // ForgotPassTooltip
+            // 
+            ForgotPassTooltip.AllowLinksHandling = true;
+            ForgotPassTooltip.Font = new Font("Century Gothic", 9.5F);
+            ForgotPassTooltip.ForeColor = Color.FromArgb(41, 128, 185);
+            ForgotPassTooltip.MaximumSize = new Size(0, 0);
+            ForgotPassTooltip.TitleFont = new Font("Century Gothic", 9.5F);
             // 
             // ForgotPassword
             // 
@@ -375,5 +386,6 @@
         private TextBox newPasswordTbx;
         private PictureBox pictureBox2;
         private Button closeBtn;
+        private Guna.UI2.WinForms.Guna2HtmlToolTip ForgotPassTooltip;
     }
 }

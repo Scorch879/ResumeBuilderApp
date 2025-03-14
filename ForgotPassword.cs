@@ -94,8 +94,6 @@ namespace FinalProjectOOP2
             }
         }
 
-        
-
         private void closeBtn_Click(object sender, EventArgs e)
         {
             if (Login.instance == null)
@@ -140,6 +138,5 @@ namespace FinalProjectOOP2
 
 
         }
-
     }
 }

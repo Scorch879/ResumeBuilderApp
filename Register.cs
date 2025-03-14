@@ -14,6 +14,7 @@ namespace FinalProjectOOP2
             panel2.BackColor = Color.White;
         }
 
+
         private void closeBtn_Click(object sender, EventArgs e)
         {
             if (Login.instance == null)
@@ -45,6 +46,7 @@ namespace FinalProjectOOP2
             panel2.BackColor = SystemColors.Control;
             emailTbx.BackColor = SystemColors.Control;
             panel3.BackColor = SystemColors.Control;
+
         }
 
         private void emailTbx_Click(object sender, EventArgs e)
@@ -83,7 +85,7 @@ namespace FinalProjectOOP2
                 choice += userRadioBtn.Text;
             }
 
-            if (username != "" && password != "" && choice != "" && email != "")
+            if (username != "" && password != "" && choice != "" && email != "" && !password.Any(char.IsWhiteSpace))
             {
                 DatabaseHelper dbHelper = new DatabaseHelper();
 
@@ -110,12 +112,16 @@ namespace FinalProjectOOP2
 
                 if (string.IsNullOrWhiteSpace(usernameTbx.Text))
                     errors.Add("Username is required.");
+                if (password.Any(char.IsWhiteSpace))
+                    errors.Add("Pasword cannot contain spaces.");
                 if (string.IsNullOrWhiteSpace(passwordTbx.Text))
                     errors.Add("Password is required.");
                 if (string.IsNullOrWhiteSpace(choice))
                     errors.Add("Please select a role.");
                 if (string.IsNullOrWhiteSpace(emailTbx.Text))
                     errors.Add("Please enter your email.");
+                if (password.Length < 8)
+                    errors.Add("Password must be atleast 8 spaces");
 
                 if (errors.Count > 0)
                 {
@@ -143,6 +149,35 @@ namespace FinalProjectOOP2
             {
                 registerBtn_Click(sender, e);
             }
+        }
+
+        private void passwordTbx_TextChanged(object sender, EventArgs e)
+        {
+
+            string password = passwordTbx.Text;
+
+            bool meetsLength = password.Length >= 8;
+            bool noWhiteSpace = !password.Any(char.IsWhiteSpace);
+
+            string criteriaMessage = "Note:\n";
+
+            if (!meetsLength)
+                criteriaMessage += "✗ At least 8 characters\n";
+
+            if (!noWhiteSpace)
+                criteriaMessage += "✗ No whitespaces allowed\n";
+
+            if (string.IsNullOrEmpty(criteriaMessage) || criteriaMessage == "Note:\n")
+            {
+                criteriaMessage += "✓ Password meets all criteria!\n";
+                warningLbl.ForeColor = Color.Green;
+            }
+            else
+            {
+                warningLbl.ForeColor = Color.Red;
+            }
+
+            warningLbl.Text = criteriaMessage;
         }
     }
 }

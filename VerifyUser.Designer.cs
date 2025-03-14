@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.AnimatorNS.Animation animation1 = new Guna.UI2.AnimatorNS.Animation();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VerifyUser));
             panel1 = new Panel();
             label6 = new Label();
             label5 = new Label();
@@ -51,6 +53,8 @@
             pictureBox2 = new PictureBox();
             verifyBtn = new Button();
             closeBtn = new Button();
+            VerifyUserTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
+            guna2Transition1 = new Guna.UI2.WinForms.Guna2Transition();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -70,6 +74,7 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label2);
+            guna2Transition1.SetDecoration(panel1, Guna.UI2.AnimatorNS.DecorationType.None);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -80,6 +85,7 @@
             // 
             label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label6.AutoSize = true;
+            guna2Transition1.SetDecoration(label6, Guna.UI2.AnimatorNS.DecorationType.None);
             label6.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.White;
             label6.Location = new Point(260, 302);
@@ -92,6 +98,7 @@
             // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.AutoSize = true;
+            guna2Transition1.SetDecoration(label5, Guna.UI2.AnimatorNS.DecorationType.None);
             label5.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.White;
             label5.Location = new Point(416, 302);
@@ -102,6 +109,7 @@
             // 
             // pictureBox1
             // 
+            guna2Transition1.SetDecoration(pictureBox1, Guna.UI2.AnimatorNS.DecorationType.None);
             pictureBox1.Image = Properties.Resources.avatar1;
             pictureBox1.Location = new Point(119, 59);
             pictureBox1.Name = "pictureBox1";
@@ -114,6 +122,7 @@
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
+            guna2Transition1.SetDecoration(label1, Guna.UI2.AnimatorNS.DecorationType.None);
             label1.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
             label1.Location = new Point(537, 552);
@@ -126,6 +135,7 @@
             // 
             label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label8.AutoSize = true;
+            guna2Transition1.SetDecoration(label8, Guna.UI2.AnimatorNS.DecorationType.None);
             label8.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.White;
             label8.Location = new Point(574, 535);
@@ -138,6 +148,7 @@
             // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
+            guna2Transition1.SetDecoration(label3, Guna.UI2.AnimatorNS.DecorationType.None);
             label3.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
             label3.Location = new Point(104, 249);
@@ -150,6 +161,7 @@
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
+            guna2Transition1.SetDecoration(label4, Guna.UI2.AnimatorNS.DecorationType.None);
             label4.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.White;
             label4.Location = new Point(572, 302);
@@ -162,6 +174,7 @@
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
+            guna2Transition1.SetDecoration(label2, Guna.UI2.AnimatorNS.DecorationType.None);
             label2.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
             label2.Location = new Point(93, 196);
@@ -173,6 +186,7 @@
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
+            guna2Transition1.SetDecoration(linkLabel1, Guna.UI2.AnimatorNS.DecorationType.None);
             linkLabel1.LinkColor = Color.FromArgb(41, 128, 185);
             linkLabel1.Location = new Point(591, 548);
             linkLabel1.Name = "linkLabel1";
@@ -185,6 +199,7 @@
             // 
             label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label10.AutoSize = true;
+            guna2Transition1.SetDecoration(label10, Guna.UI2.AnimatorNS.DecorationType.None);
             label10.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.Silver;
             label10.Location = new Point(399, 550);
@@ -197,6 +212,7 @@
             // 
             label11.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label11.AutoSize = true;
+            guna2Transition1.SetDecoration(label11, Guna.UI2.AnimatorNS.DecorationType.None);
             label11.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label11.ForeColor = Color.Silver;
             label11.Location = new Point(399, 533);
@@ -209,6 +225,7 @@
             // 
             label12.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label12.AutoSize = true;
+            guna2Transition1.SetDecoration(label12, Guna.UI2.AnimatorNS.DecorationType.None);
             label12.Font = new Font("Century Gothic", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label12.ForeColor = Color.Silver;
             label12.Location = new Point(399, 516);
@@ -221,6 +238,7 @@
             // 
             sendCodeBtn.BackColor = Color.FromArgb(41, 128, 185);
             sendCodeBtn.Cursor = Cursors.Hand;
+            guna2Transition1.SetDecoration(sendCodeBtn, Guna.UI2.AnimatorNS.DecorationType.None);
             sendCodeBtn.FlatStyle = FlatStyle.Flat;
             sendCodeBtn.Font = new Font("Century Gothic", 10F);
             sendCodeBtn.ForeColor = Color.White;
@@ -236,6 +254,7 @@
             // 
             label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label9.AutoSize = true;
+            guna2Transition1.SetDecoration(label9, Guna.UI2.AnimatorNS.DecorationType.None);
             label9.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label9.ForeColor = Color.FromArgb(41, 128, 185);
             label9.Location = new Point(398, 135);
@@ -249,6 +268,7 @@
             panel4.BackColor = SystemColors.Control;
             panel4.Controls.Add(codeTbx);
             panel4.Controls.Add(pictureBox3);
+            guna2Transition1.SetDecoration(panel4, Guna.UI2.AnimatorNS.DecorationType.None);
             panel4.Location = new Point(356, 338);
             panel4.Name = "panel4";
             panel4.Size = new Size(504, 55);
@@ -258,6 +278,7 @@
             // 
             codeTbx.BackColor = SystemColors.Control;
             codeTbx.BorderStyle = BorderStyle.None;
+            guna2Transition1.SetDecoration(codeTbx, Guna.UI2.AnimatorNS.DecorationType.None);
             codeTbx.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             codeTbx.ForeColor = Color.FromArgb(41, 128, 185);
             codeTbx.Location = new Point(55, 16);
@@ -265,12 +286,14 @@
             codeTbx.Size = new Size(422, 25);
             codeTbx.TabIndex = 17;
             codeTbx.Text = "Enter Code";
+            VerifyUserTooltip.SetToolTip(codeTbx, "Please enter your code ");
             codeTbx.Click += codeTbx_Click;
             codeTbx.Enter += codeTbx_Enter;
             codeTbx.Leave += codeTbx_Leave;
             // 
             // pictureBox3
             // 
+            guna2Transition1.SetDecoration(pictureBox3, Guna.UI2.AnimatorNS.DecorationType.None);
             pictureBox3.Image = Properties.Resources._5582931;
             pictureBox3.Location = new Point(15, 11);
             pictureBox3.Name = "pictureBox3";
@@ -284,6 +307,7 @@
             panel2.BackColor = SystemColors.Control;
             panel2.Controls.Add(emailTbx);
             panel2.Controls.Add(pictureBox2);
+            guna2Transition1.SetDecoration(panel2, Guna.UI2.AnimatorNS.DecorationType.None);
             panel2.Location = new Point(356, 196);
             panel2.Name = "panel2";
             panel2.Size = new Size(504, 55);
@@ -293,6 +317,7 @@
             // 
             emailTbx.BackColor = SystemColors.Control;
             emailTbx.BorderStyle = BorderStyle.None;
+            guna2Transition1.SetDecoration(emailTbx, Guna.UI2.AnimatorNS.DecorationType.None);
             emailTbx.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             emailTbx.ForeColor = Color.FromArgb(41, 128, 185);
             emailTbx.Location = new Point(55, 16);
@@ -300,12 +325,14 @@
             emailTbx.Size = new Size(422, 25);
             emailTbx.TabIndex = 16;
             emailTbx.Text = "Enter registered email";
+            VerifyUserTooltip.SetToolTip(emailTbx, "Please enter registered email");
             emailTbx.Click += emailTbx_Click;
             emailTbx.Enter += emailTbx_Enter;
             emailTbx.Leave += emailTbx_Leave;
             // 
             // pictureBox2
             // 
+            guna2Transition1.SetDecoration(pictureBox2, Guna.UI2.AnimatorNS.DecorationType.None);
             pictureBox2.Image = Properties.Resources.emailIcon;
             pictureBox2.Location = new Point(15, 11);
             pictureBox2.Name = "pictureBox2";
@@ -318,6 +345,7 @@
             // 
             verifyBtn.BackColor = Color.FromArgb(41, 128, 185);
             verifyBtn.Cursor = Cursors.Hand;
+            guna2Transition1.SetDecoration(verifyBtn, Guna.UI2.AnimatorNS.DecorationType.None);
             verifyBtn.FlatStyle = FlatStyle.Flat;
             verifyBtn.Font = new Font("Century Gothic", 10F);
             verifyBtn.ForeColor = Color.White;
@@ -332,6 +360,7 @@
             // closeBtn
             // 
             closeBtn.Cursor = Cursors.Hand;
+            guna2Transition1.SetDecoration(closeBtn, Guna.UI2.AnimatorNS.DecorationType.None);
             closeBtn.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 0, 0);
             closeBtn.FlatAppearance.BorderSize = 0;
             closeBtn.FlatStyle = FlatStyle.Flat;
@@ -345,10 +374,39 @@
             closeBtn.UseVisualStyleBackColor = true;
             closeBtn.Click += closeBtn_Click;
             // 
+            // VerifyUserTooltip
+            // 
+            VerifyUserTooltip.AllowLinksHandling = true;
+            VerifyUserTooltip.Font = new Font("Century Gothic", 9.5F);
+            VerifyUserTooltip.ForeColor = Color.FromArgb(41, 128, 185);
+            VerifyUserTooltip.MaximumSize = new Size(0, 0);
+            VerifyUserTooltip.TitleFont = new Font("Century Gothic", 9.5F);
+            // 
+            // guna2Transition1
+            // 
+            guna2Transition1.Cursor = null;
+            animation1.AnimateOnlyDifferences = true;
+            animation1.BlindCoeff = (PointF)resources.GetObject("animation1.BlindCoeff");
+            animation1.LeafCoeff = 0F;
+            animation1.MaxTime = 1F;
+            animation1.MinTime = 0F;
+            animation1.MosaicCoeff = (PointF)resources.GetObject("animation1.MosaicCoeff");
+            animation1.MosaicShift = (PointF)resources.GetObject("animation1.MosaicShift");
+            animation1.MosaicSize = 0;
+            animation1.Padding = new Padding(0);
+            animation1.RotateCoeff = 0F;
+            animation1.RotateLimit = 0F;
+            animation1.ScaleCoeff = (PointF)resources.GetObject("animation1.ScaleCoeff");
+            animation1.SlideCoeff = (PointF)resources.GetObject("animation1.SlideCoeff");
+            animation1.TimeCoeff = 0F;
+            animation1.TransparencyCoeff = 0F;
+            guna2Transition1.DefaultAnimation = animation1;
+            // 
             // VerifyUser
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = closeBtn;
             ClientSize = new Size(861, 615);
             Controls.Add(closeBtn);
             Controls.Add(verifyBtn);
@@ -361,6 +419,7 @@
             Controls.Add(panel4);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            guna2Transition1.SetDecoration(this, Guna.UI2.AnimatorNS.DecorationType.None);
             FormBorderStyle = FormBorderStyle.None;
             Name = "VerifyUser";
             StartPosition = FormStartPosition.CenterScreen;
@@ -403,5 +462,7 @@
         private Label label6;
         private Button verifyBtn;
         private Button closeBtn;
+        private Guna.UI2.WinForms.Guna2HtmlToolTip VerifyUserTooltip;
+        private Guna.UI2.WinForms.Guna2Transition guna2Transition1;
     }
 }

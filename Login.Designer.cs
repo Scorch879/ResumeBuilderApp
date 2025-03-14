@@ -53,6 +53,7 @@
             linkLabel1 = new LinkLabel();
             registerBtn = new Button();
             label9 = new Label();
+            LoginTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -219,6 +220,7 @@
             usernameTbx.Name = "usernameTbx";
             usernameTbx.Size = new Size(422, 25);
             usernameTbx.TabIndex = 16;
+            LoginTooltip.SetToolTip(usernameTbx, "Enter your username");
             usernameTbx.Click += usernameTbx_Click;
             usernameTbx.Enter += usernameTbx_Click;
             usernameTbx.KeyDown += Login_KeyDown;
@@ -253,6 +255,7 @@
             passwordTbx.Name = "passwordTbx";
             passwordTbx.Size = new Size(422, 25);
             passwordTbx.TabIndex = 17;
+            LoginTooltip.SetToolTip(passwordTbx, "Click on the icon to show password");
             passwordTbx.UseSystemPasswordChar = true;
             passwordTbx.Click += passwordTbx_Click;
             passwordTbx.Enter += passwordTbx_Click;
@@ -375,6 +378,14 @@
             label9.TabIndex = 22;
             label9.Text = "Don't have an account?";
             // 
+            // LoginTooltip
+            // 
+            LoginTooltip.AllowLinksHandling = true;
+            LoginTooltip.Font = new Font("Century Gothic", 9.5F);
+            LoginTooltip.ForeColor = Color.FromArgb(41, 128, 185);
+            LoginTooltip.MaximumSize = new Size(0, 0);
+            LoginTooltip.TitleFont = new Font("Century Gothic", 9.5F);
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -438,5 +449,6 @@
         private Button registerBtn;
         private Button testConnection;
         private Label label9;
+        private Guna.UI2.WinForms.Guna2HtmlToolTip LoginTooltip;
     }
 }

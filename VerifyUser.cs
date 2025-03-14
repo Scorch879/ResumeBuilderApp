@@ -83,7 +83,7 @@ namespace FinalProjectOOP2
                 <div style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);'>
       
                   <div style='text-align: center; margin-bottom: 20px;'>
-                    <img src='cid:LogoImage' alt='Logo' style='width: 250px; height: 250px;'>
+                    <img src='cid:LogoImage' alt='Logo' style='width: 150px; height: 150px;'>
                   </div>
       
                   <h2 style='color: #4CAF50; text-align: center;'>Password Reset Request</h2>
