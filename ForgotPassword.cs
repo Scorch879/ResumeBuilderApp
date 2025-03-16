@@ -30,12 +30,39 @@ namespace FinalProjectOOP2
 
         public void passwordTbx_TextChanged(object sender, EventArgs e)
         {
-            confirmPasswordTbx.UseSystemPasswordChar = true;
-        }
+            string newPassword = newPasswordTbx.Text;
 
-        public void newPasswordTbx_TextChanged(object sender, EventArgs e)
-        {
-            newPasswordTbx.UseSystemPasswordChar = true;
+            bool meetsLength = newPassword.Length >= 8;
+            bool noWhiteSpace = !newPassword.Any(char.IsWhiteSpace);
+
+         
+            string criteriaMessage = "";
+
+          
+            if (meetsLength)
+                criteriaMessage += "✓ At least 8 characters\n";
+            else
+                criteriaMessage += "✗ At least 8 characters\n";
+
+          
+            if (noWhiteSpace)
+                criteriaMessage += "✓ No whitespaces allowed\n";
+            else
+                criteriaMessage += "✗ No whitespaces allowed\n";
+
+          
+            if (meetsLength && noWhiteSpace)
+            {
+                warningLbl.ForeColor = Color.Green;
+                criteriaMessage += "\nPassword meets all criteria!";
+            }
+            else
+            {
+                warningLbl.ForeColor = Color.Red;
+            }
+
+          
+            warningLbl.Text = criteriaMessage;
         }
 
         private void pictureBox3_MouseDown(object sender, MouseEventArgs e)
@@ -63,7 +90,7 @@ namespace FinalProjectOOP2
             if (newPasswordTbx.Text == "Enter New Password")
             {
                 newPasswordTbx.Text = "";
-                newPasswordTbx.UseSystemPasswordChar = true; // show dots
+                newPasswordTbx.UseSystemPasswordChar = true;
             }
         }
 
@@ -81,7 +108,7 @@ namespace FinalProjectOOP2
             if (confirmPasswordTbx.Text == "Confirm Password")
             {
                 confirmPasswordTbx.Text = "";
-                confirmPasswordTbx.UseSystemPasswordChar = true;// show dots
+                confirmPasswordTbx.UseSystemPasswordChar = true;
             }
         }
 
@@ -97,7 +124,10 @@ namespace FinalProjectOOP2
         private void closeBtn_Click(object sender, EventArgs e)
         {
             if (Login.instance == null)
+            {
+                Application.Exit();
                 return;
+            }
 
             if (Application.OpenForms.Count == 1)
                 Application.Exit();
@@ -117,6 +147,10 @@ namespace FinalProjectOOP2
                 errors.Add("Please enter a new password.");
             if (string.IsNullOrWhiteSpace(confirmPassword) || confirmPassword == "Confirm Password")
                 errors.Add("Please enter the same password.");
+            if (newPassword.Trim().Length < 8 || confirmPassword.Trim().Length < 8)
+                errors.Add("Password must atleast be 8 characters long");
+            if (newPassword.Contains(" "))
+                errors.Add("Password must not contain any spaces.");
             if (newPassword != confirmPassword)
                 errors.Add("Passwords does not match!!");
 
@@ -135,8 +169,6 @@ namespace FinalProjectOOP2
                 Login.instance.Show();
                 this.Close();
             }
-
-
         }
     }
 }

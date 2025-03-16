@@ -418,7 +418,7 @@
             siticoneAdvancedPanel1.InnerShadowColor = Color.Black;
             siticoneAdvancedPanel1.InnerShadowDepth = 3;
             siticoneAdvancedPanel1.InnerShadowOpacity = 0.2F;
-            siticoneAdvancedPanel1.Location = new Point(357, 38);
+            siticoneAdvancedPanel1.Location = new Point(363, 36);
             siticoneAdvancedPanel1.Name = "siticoneAdvancedPanel1";
             siticoneAdvancedPanel1.Padding = new Padding(10);
             siticoneAdvancedPanel1.RadialGradientCenter = (PointF)resources.GetObject("siticoneAdvancedPanel1.RadialGradientCenter");
@@ -430,7 +430,7 @@
             siticoneAdvancedPanel1.ShadowDepth = 5;
             siticoneAdvancedPanel1.ShadowOffset = new Point(2, 2);
             siticoneAdvancedPanel1.ShadowOpacity = 0.3F;
-            siticoneAdvancedPanel1.Size = new Size(899, 781);
+            siticoneAdvancedPanel1.Size = new Size(636, 605);
             siticoneAdvancedPanel1.SlideDirection = new Point(0, -30);
             siticoneAdvancedPanel1.TabIndex = 11;
             siticoneAdvancedPanel1.TopLeftRadius = 5;

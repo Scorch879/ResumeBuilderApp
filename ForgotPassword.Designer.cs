@@ -50,6 +50,7 @@
             pictureBox2 = new PictureBox();
             closeBtn = new Button();
             ForgotPassTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
+            warningLbl = new SiticoneNetCoreUI.SiticoneLabel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -251,13 +252,14 @@
             confirmPasswordTbx.Size = new Size(422, 25);
             confirmPasswordTbx.TabIndex = 17;
             confirmPasswordTbx.Text = "Confirm Password";
-            ForgotPassTooltip.SetToolTip(confirmPasswordTbx, "Please confirm your password");
+            ForgotPassTooltip.SetToolTip(confirmPasswordTbx, "Hold left click on the icon to see password");
             confirmPasswordTbx.Click += confirmPasswordTbx_Click;
             confirmPasswordTbx.Enter += currentPassword_Enter;
             confirmPasswordTbx.Leave += currentPassword_Leave;
             // 
             // pictureBox3
             // 
+            pictureBox3.Cursor = Cursors.Hand;
             pictureBox3.Image = Properties.Resources._5582931;
             pictureBox3.Location = new Point(15, 11);
             pictureBox3.Name = "pictureBox3";
@@ -289,14 +291,16 @@
             newPasswordTbx.Size = new Size(422, 25);
             newPasswordTbx.TabIndex = 16;
             newPasswordTbx.Text = "Enter New Password";
-            ForgotPassTooltip.SetToolTip(newPasswordTbx, "Please enter your new password");
+            ForgotPassTooltip.SetToolTip(newPasswordTbx, "Hold left click on the icon to see password");
             newPasswordTbx.Click += newPasswordTbx_Click;
             newPasswordTbx.CursorChanged += newPasswordTbx_Click;
+            newPasswordTbx.TextChanged += passwordTbx_TextChanged;
             newPasswordTbx.Enter += newPassword_Enter;
             newPasswordTbx.Leave += newPassword_Leave;
             // 
             // pictureBox2
             // 
+            pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = Properties.Resources.forgot_password_icon_vector_stock_260nw_2578331201;
             pictureBox2.Location = new Point(17, 11);
             pictureBox2.Name = "pictureBox2";
@@ -331,11 +335,25 @@
             ForgotPassTooltip.MaximumSize = new Size(0, 0);
             ForgotPassTooltip.TitleFont = new Font("Century Gothic", 9.5F);
             // 
+            // warningLbl
+            // 
+            warningLbl.BackColor = Color.Transparent;
+            warningLbl.FlatStyle = FlatStyle.Flat;
+            warningLbl.Font = new Font("Century Gothic", 9F);
+            warningLbl.ForeColor = Color.FromArgb(41, 128, 185);
+            warningLbl.Location = new Point(551, 331);
+            warningLbl.Name = "warningLbl";
+            warningLbl.Size = new Size(301, 63);
+            warningLbl.TabIndex = 39;
+            warningLbl.Text = "Password must be at least 8 characters.\r\nNo whitespaces allowed.\r\nMake a strong password!\r\n";
+            warningLbl.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // ForgotPassword
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(861, 615);
+            Controls.Add(warningLbl);
             Controls.Add(closeBtn);
             Controls.Add(linkLabel1);
             Controls.Add(label10);
@@ -387,5 +405,6 @@
         private PictureBox pictureBox2;
         private Button closeBtn;
         private Guna.UI2.WinForms.Guna2HtmlToolTip ForgotPassTooltip;
+        private SiticoneNetCoreUI.SiticoneLabel warningLbl;
     }
 }
