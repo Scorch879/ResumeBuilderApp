@@ -36,7 +36,6 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             label8 = new Label();
-            label3 = new Label();
             label4 = new Label();
             label2 = new Label();
             linkLabel1 = new LinkLabel();
@@ -55,6 +54,7 @@
             closeBtn = new Button();
             VerifyUserTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             guna2Transition1 = new Guna.UI2.WinForms.Guna2Transition();
+            label7 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -66,12 +66,12 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(41, 128, 185);
+            panel1.Controls.Add(label7);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label8);
-            panel1.Controls.Add(label3);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label2);
             guna2Transition1.SetDecoration(panel1, Guna.UI2.AnimatorNS.DecorationType.None);
@@ -143,19 +143,6 @@
             label8.Size = new Size(80, 17);
             label8.TabIndex = 13;
             label8.Text = "Project by: ";
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label3.AutoSize = true;
-            guna2Transition1.SetDecoration(label3, Guna.UI2.AnimatorNS.DecorationType.None);
-            label3.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(104, 249);
-            label3.Name = "label3";
-            label3.Size = new Size(244, 37);
-            label3.TabIndex = 12;
-            label3.Text = "Resume Builder ";
             // 
             // label4
             // 
@@ -402,6 +389,19 @@
             animation1.TransparencyCoeff = 0F;
             guna2Transition1.DefaultAnimation = animation1;
             // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label7.AutoSize = true;
+            guna2Transition1.SetDecoration(label7, Guna.UI2.AnimatorNS.DecorationType.None);
+            label7.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(142, 249);
+            label7.Name = "label7";
+            label7.Size = new Size(196, 37);
+            label7.TabIndex = 18;
+            label7.Text = "ProResume+";
+            // 
             // VerifyUser
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -444,7 +444,6 @@
         private PictureBox pictureBox1;
         private Label label1;
         private Label label8;
-        private Label label3;
         private Label label4;
         private Label label2;
         private LinkLabel linkLabel1;
@@ -464,5 +463,6 @@
         private Button closeBtn;
         private Guna.UI2.WinForms.Guna2HtmlToolTip VerifyUserTooltip;
         private Guna.UI2.WinForms.Guna2Transition guna2Transition1;
+        private Label label7;
     }
 }

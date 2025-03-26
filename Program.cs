@@ -12,7 +12,10 @@ namespace FinalProjectOOP2
             // see https://aka.ms/applicationconfiguration.
           
             ApplicationConfiguration.Initialize();
-            Application.Run(new ForgotPassword("Gamboa"));
+
+
+            //Application.Run(new Login());
+            Application.Run(new Dashboard(""));
         }
     }
 }

@@ -17,6 +17,19 @@ namespace FinalProjectOOP2
             myConn = new OleDbConnection(connectionString);
         }
 
+        public bool isValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public string GetUserNameByEmail(string email)
         {
             string userName = "User";

@@ -1,8 +1,3 @@
-using System.Data.OleDb;
-using System.Data;
-using System.Drawing;
-using System.Runtime.InteropServices;
-
 namespace FinalProjectOOP2
 {
     public partial class Login : Form
@@ -14,7 +9,6 @@ namespace FinalProjectOOP2
             InitializeComponent();
             instance = this;
             Dashboard dashboard = new Dashboard("");
-
         }
 
         private void closeBtn_Click(object sender, EventArgs e)
@@ -53,6 +47,8 @@ namespace FinalProjectOOP2
         {
             Register registerForm = new Register();
             registerForm.Show();
+            usernameTbx.Text = "";
+            passwordTbx.Text = "";
             this.Hide();
         }
 
@@ -76,6 +72,8 @@ namespace FinalProjectOOP2
 
                     MessageBox.Show("Login Successful!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    usernameTbx.Text = "";
+                    passwordTbx.Text = "";
                     this.Hide();
                     dashboard.Show();
                 }
@@ -95,6 +93,8 @@ namespace FinalProjectOOP2
         {
             VerifyUser verifyForm = new VerifyUser();
             verifyForm.Show();
+            usernameTbx.Text = "";
+            passwordTbx.Text = "";
             this.Hide();
         }
 

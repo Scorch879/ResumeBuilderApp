@@ -1,6 +1,6 @@
 ﻿namespace FinalProjectOOP2
 {
-    partial class UserControl1
+    partial class Profile
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            SuspendLayout();
+            // 
+            // Profile
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Name = "Profile";
+            Size = new Size(1544, 900);
+            ResumeLayout(false);
         }
 
         #endregion

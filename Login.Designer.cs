@@ -83,6 +83,7 @@
             // 
             testConnection.BackColor = Color.FromArgb(41, 128, 185);
             testConnection.Cursor = Cursors.Hand;
+            testConnection.Enabled = false;
             testConnection.FlatStyle = FlatStyle.Flat;
             testConnection.Font = new Font("Century Gothic", 10F);
             testConnection.ForeColor = Color.White;
@@ -92,6 +93,7 @@
             testConnection.TabIndex = 22;
             testConnection.Text = "Test Connection";
             testConnection.UseVisualStyleBackColor = false;
+            testConnection.Visible = false;
             testConnection.Click += testConnection_Click;
             // 
             // panel3
@@ -132,11 +134,11 @@
             label3.AutoSize = true;
             label3.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(104, 257);
+            label3.Location = new Point(142, 257);
             label3.Name = "label3";
-            label3.Size = new Size(244, 37);
+            label3.Size = new Size(196, 37);
             label3.TabIndex = 9;
-            label3.Text = "Resume Builder ";
+            label3.Text = "ProResume+";
             // 
             // label4
             // 

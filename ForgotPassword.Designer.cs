@@ -33,7 +33,6 @@
             pictureBox1 = new PictureBox();
             label1 = new Label();
             label8 = new Label();
-            label3 = new Label();
             label4 = new Label();
             label2 = new Label();
             linkLabel1 = new LinkLabel();
@@ -51,6 +50,7 @@
             closeBtn = new Button();
             ForgotPassTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             warningLbl = new SiticoneNetCoreUI.SiticoneLabel();
+            label3 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -62,11 +62,11 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(41, 128, 185);
+            panel1.Controls.Add(label3);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label8);
-            panel1.Controls.Add(label3);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label2);
             panel1.Dock = DockStyle.Left;
@@ -120,18 +120,6 @@
             label8.Size = new Size(80, 17);
             label8.TabIndex = 13;
             label8.Text = "Project by: ";
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(104, 249);
-            label3.Name = "label3";
-            label3.Size = new Size(244, 37);
-            label3.TabIndex = 12;
-            label3.Text = "Resume Builder ";
             // 
             // label4
             // 
@@ -343,10 +331,22 @@
             warningLbl.ForeColor = Color.FromArgb(41, 128, 185);
             warningLbl.Location = new Point(551, 331);
             warningLbl.Name = "warningLbl";
-            warningLbl.Size = new Size(301, 63);
+            warningLbl.Size = new Size(301, 87);
             warningLbl.TabIndex = 39;
             warningLbl.Text = "Password must be at least 8 characters.\r\nNo whitespaces allowed.\r\nMake a strong password!\r\n";
             warningLbl.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(142, 250);
+            label3.Name = "label3";
+            label3.Size = new Size(196, 37);
+            label3.TabIndex = 17;
+            label3.Text = "ProResume+";
             // 
             // ForgotPassword
             // 
@@ -387,7 +387,6 @@
         private PictureBox pictureBox1;
         private Label label1;
         private Label label8;
-        private Label label3;
         private Label label4;
         private Label label2;
         private Label label5;
@@ -406,5 +405,6 @@
         private Button closeBtn;
         private Guna.UI2.WinForms.Guna2HtmlToolTip ForgotPassTooltip;
         private SiticoneNetCoreUI.SiticoneLabel warningLbl;
+        private Label label3;
     }
 }

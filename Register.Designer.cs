@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label3 = new Label();
             label4 = new Label();
             label2 = new Label();
             panel1 = new Panel();
@@ -57,6 +56,7 @@
             pictureBox5 = new PictureBox();
             RegisterTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             warningLbl = new SiticoneNetCoreUI.SiticoneLabel();
+            label5 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -68,18 +68,6 @@
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             SuspendLayout();
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(104, 249);
-            label3.Name = "label3";
-            label3.Size = new Size(244, 37);
-            label3.TabIndex = 12;
-            label3.Text = "Resume Builder ";
             // 
             // label4
             // 
@@ -108,10 +96,10 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(41, 128, 185);
+            panel1.Controls.Add(label5);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label8);
-            panel1.Controls.Add(label3);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label2);
             panel1.Dock = DockStyle.Left;
@@ -430,6 +418,18 @@
             warningLbl.Text = "Password must be at least 8 characters.\r\nNo whitespaces allowed.\r\nMake a strong password!\r\n";
             warningLbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(142, 249);
+            label5.Name = "label5";
+            label5.Size = new Size(196, 37);
+            label5.TabIndex = 16;
+            label5.Text = "ProResume+";
+            // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -473,8 +473,6 @@
         }
 
         #endregion
-
-        private Label label3;
         private Label label4;
         private Label label2;
         private Panel panel1;
@@ -503,5 +501,6 @@
         private PictureBox pictureBox5;
         private Guna.UI2.WinForms.Guna2HtmlToolTip RegisterTooltip;
         private SiticoneNetCoreUI.SiticoneLabel warningLbl;
+        private Label label5;
     }
 }

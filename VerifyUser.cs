@@ -9,6 +9,7 @@ namespace FinalProjectOOP2
         private string username = ""; 
         private string? randomCode;
         private readonly string appPassword = "geuj lqnj rkfo prvs";
+        private readonly string appEmail = "scorch857@gmail.com";
         private bool codeSent = false;
         private DateTime expiryTime;
 
@@ -111,8 +112,7 @@ namespace FinalProjectOOP2
                 </div>
               </body>
             </html>";
-
-            //alternate view for HTML
+         
             AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
 
             string logoPath = @"D:\C# Codes\FinalProjectOOP2\bin\Debug\logo.png"; 
@@ -132,7 +132,7 @@ namespace FinalProjectOOP2
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
 
-                client.Credentials = new NetworkCredential("scorch857@gmail.com", appPassword); //MA CHANGE PANI
+                client.Credentials = new NetworkCredential(appEmail, appPassword); //MA CHANGE PANI
 
                 try
                 {

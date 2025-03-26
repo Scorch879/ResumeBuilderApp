@@ -14,7 +14,6 @@ namespace FinalProjectOOP2
             panel2.BackColor = Color.White;
         }
 
-
         private void closeBtn_Click(object sender, EventArgs e)
         {
             if (Login.instance == null)
@@ -71,6 +70,7 @@ namespace FinalProjectOOP2
 
         private void registerBtn_Click(object sender, EventArgs e)
         {
+            DatabaseHelper dbHelper = new DatabaseHelper();
             string username = usernameTbx.Text;
             string password = passwordTbx.Text;
             string email = emailTbx.Text;
@@ -85,11 +85,10 @@ namespace FinalProjectOOP2
                 choice += userRadioBtn.Text;
             }
 
-            if (username != "" && password != "" && choice != "" && email != "" && !password.Any(char.IsWhiteSpace))
+            if (username != "" && password != "" && choice != "" && email != "" && !password.Any(char.IsWhiteSpace) && dbHelper.isValidEmail(email))
             {
-                DatabaseHelper dbHelper = new DatabaseHelper();
-
                 bool success = dbHelper.RegisterUser(username, password, choice, email);
+
 
                 if (success)
                 {
@@ -98,7 +97,7 @@ namespace FinalProjectOOP2
                 }
                 else
                 {
-                    return; //just go back to form since the error message is handled in RegisterUser method
+                    return; 
                 }
 
                 //Let login form show again
@@ -110,6 +109,8 @@ namespace FinalProjectOOP2
             {
                 List<string> errors = new List<string>();
 
+                if (!dbHelper.isValidEmail(email))
+                    errors.Add("Email format is invalid!");
                 if (string.IsNullOrWhiteSpace(usernameTbx.Text))
                     errors.Add("Username is required.");
                 if (password.Any(char.IsWhiteSpace))
@@ -129,7 +130,6 @@ namespace FinalProjectOOP2
                     MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
             }
         }
 
