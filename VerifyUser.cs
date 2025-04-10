@@ -38,7 +38,7 @@ namespace FinalProjectOOP2
             codeTbx.BackColor = Color.White;
         }
 
-        private void sendCodeBtn_Click(object sender, EventArgs e)
+        private async void sendCodeBtn_Click(object sender, EventArgs e)
         {
             string email = emailTbx.Text;
 
@@ -66,96 +66,117 @@ namespace FinalProjectOOP2
                 return;
             }
 
-            Random rand = new Random();
-            randomCode = rand.Next(100000, 999999).ToString();
-            expiryTime = DateTime.Now.AddMinutes(5); // 5 min expiry;
+            //Show loading screen
+            LoadingForm loading = new LoadingForm();
+            loading.Show();
 
-            // Create a new MailMessage object
-            MailMessage message = new MailMessage();
-            message.To.Add(email);
-            message.From = new MailAddress("scorch857@gmail.com", "Resume Builder Support"); // Your Gmail address
-            message.Subject = "🔐 Resume Builder App - Your Password Reset Code!";
-
-            message.IsBodyHtml = true; // HTML content
-
-            string htmlBody = $@"
-            <html>
-              <body style='font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333;'>
-                <div style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);'>
-      
-                  <div style='text-align: center; margin-bottom: 20px;'>
-                    <img src='cid:LogoImage' alt='Logo' style='width: 150px; height: 150px;'>
-                  </div>
-      
-                  <h2 style='color: #4CAF50; text-align: center;'>Password Reset Request</h2>
-
-                  <p>Hello <strong>{username}</strong>,</p>
-      
-                  <p>We received a request to reset your password for your <strong>Resume Builder App</strong> account.</p>
-
-                  <p style='margin: 20px 0;'>Please use the verification code below to reset your password:</p>
-
-                  <div style='font-size: 28px; font-weight: bold; background-color: #f1f1f1; color: #333; padding: 15px 25px; border-radius: 8px; text-align: center; letter-spacing: 3px;'>
-                    {randomCode}
-                  </div>
-
-                  <p style='margin-top: 20px;'>This code will expire after <strong>5 minutes</strong> at {expiryTime.ToString("hh:mm tt")}.</p>
-
-                  <p>If you did not request a password reset, you can safely ignore this email.</p>
-
-                  <hr style='margin: 30px 0; border: none; border-top: 1px solid #eee;'>
-
-                  <p style='font-size: 12px; color: #888; text-align: center;'>
-                    © {DateTime.Now.Year} Resume Builder App. All rights reserved.<br>
-                    Need help? Contact us at <a href='mailto:jobertdamian.gamboa@cit.edu'>jobertdamian.gamboa@cit.edu</a>
-                  </p>
-                </div>
-              </body>
-            </html>";
-         
-            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
-
-            string logoPath = @"D:\C# Codes\FinalProjectOOP2\bin\Debug\logo.png"; 
-            LinkedResource logo = new LinkedResource(logoPath, MediaTypeNames.Image.Png)
+            await Task.Run(async () =>
             {
-                ContentId = "LogoImage", 
-                TransferEncoding = TransferEncoding.Base64
-            };
-            htmlView.LinkedResources.Add(logo);
-            message.AlternateViews.Add(htmlView);
+                loading.UpdateProgress(10, "Generating verification code...");
+                await Task.Delay(500);
 
-            // Configure SMTP client
-            using (SmtpClient client = new SmtpClient("smtp.gmail.com"))
-            {
-                client.Port = 587;
-                client.EnableSsl = true;
-                client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                client.UseDefaultCredentials = false;
+                Random rand = new Random();
+                randomCode = rand.Next(100000, 999999).ToString();
+                expiryTime = DateTime.Now.AddMinutes(5); // 5 min expiry;
 
-                client.Credentials = new NetworkCredential(appEmail, appPassword); //MA CHANGE PANI
+                loading.UpdateProgress(30, "Preparing Email...");
 
-                try
+                // Create a new MailMessage object
+                MailMessage message = new MailMessage();
+                message.To.Add(email);
+                message.From = new MailAddress("scorch857@gmail.com", "Resume Builder Support"); // Your Gmail address
+                message.Subject = "🔐 Resume Builder App - Your Password Reset Code!";
+                message.IsBodyHtml = true; // HTML content
+
+                string htmlBody = $@"
+                    <html>
+                      <body style='font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333;'>
+                        <div style='max-width: 600px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);'>
+      
+                          <div style='text-align: center; margin-bottom: 20px;'>
+                            <img src='cid:LogoImage' alt='Logo' style='width: 150px; height: 150px;'>
+                          </div>
+      
+                          <h2 style='color: #4CAF50; text-align: center;'>Password Reset Request</h2>
+
+                          <p>Hello <strong>{username}</strong>,</p>
+      
+                          <p>We received a request to reset your password for your <strong>Resume Builder App</strong> account.</p>
+
+                          <p style='margin: 20px 0;'>Please use the verification code below to reset your password:</p>
+                        
+                          <div style='font-size: 28px; font-weight: bold; background-color: #f1f1f1; color: #333; padding: 15px 25px; border-radius: 8px; text-align: center; letter-spacing: 3px;'>
+                            {randomCode}
+                          </div>
+
+                          <p style='margin-top: 20px;'>This code will expire after <strong>5 minutes</strong> at {expiryTime.ToString("hh:mm tt")}.</p>
+
+                          <p>If you did not request a password reset, you can safely ignore this email.</p>
+
+                          <hr style='margin: 30px 0; border: none; border-top: 1px solid #eee;'>
+
+                          <p style='font-size: 12px; color: #888; text-align: center;'>
+                            © {DateTime.Now.Year} Resume Builder App. All rights reserved.<br>
+                            Need help? Contact us at <a href='mailto:jobertdamian.gamboa@cit.edu'>jobertdamian.gamboa@cit.edu</a>
+                          </p>
+                        </div>
+                      </body>
+                    </html>";
+
+                AlternateView htmlView = AlternateView.CreateAlternateViewFromString(htmlBody, null, MediaTypeNames.Text.Html);
+
+                string logoPath = @"D:\C# Codes\FinalProjectOOP2\bin\Debug\logo.png";
+                LinkedResource logo = new LinkedResource(logoPath, MediaTypeNames.Image.Png)
                 {
-                    client.Send(message);
-                    MessageBox.Show("Verification code sent successfully!", "Success",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    codeSent = true;
+                    ContentId = "LogoImage",
+                    TransferEncoding = TransferEncoding.Base64
+                };
+                htmlView.LinkedResources.Add(logo);
+                message.AlternateViews.Add(htmlView);
+
+                loading.UpdateProgress(50, "Connecting to mail server...");
+
+                // Configure SMTP client
+                using (SmtpClient client = new SmtpClient("smtp.gmail.com"))
+                {
+                    client.Port = 587;
+                    client.EnableSsl = true;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+
+                    client.Credentials = new NetworkCredential(appEmail, appPassword); //MA CHANGE PANI
+
+                    try
+                    {
+                        loading.UpdateProgress(70, "Sending Email");
+                        client.Send(message);
+                        loading.UpdateProgress(100, "Finalizing...");
+
+                        Task.Delay(500).Wait(); // Small delay to show 100% before closing
+                        MessageBox.Show("Verification code sent successfully!", "Success",
+                           MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        codeSent = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error sending email: " + ex.Message, "Error",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        codeSent = false;
+                    }
                 }
-                catch (Exception ex)
+
+                loading.Invoke(new Action(() => loading.Close()));
+                if (codeSent)
                 {
-                    MessageBox.Show("Error sending email: " + ex.Message, "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    codeSent = false;
-                }
-                finally
-                {
-                    if (codeSent)
+                    Invoke(new Action(() =>
                     {
                         codeTbx.Enabled = true;
                         verifyBtn.Enabled = true;
-                    }
+                       
+                    }));
                 }
-            }
+            });
         }
 
         private void verifyBtn_Click(object sender, EventArgs e)

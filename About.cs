@@ -10,13 +10,11 @@ using System.Windows.Forms;
 
 namespace FinalProjectOOP2
 {
-    public partial class MyResumes : UserControl
+    public partial class About : UserControl
     {
-        public MyResumes()
+        public About()
         {
             InitializeComponent();
         }
-
-
     }
 }

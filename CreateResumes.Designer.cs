@@ -28,212 +28,95 @@
         /// </summary>
         private void InitializeComponent()
         {
-            siticoneTileButton7 = new SiticoneNetCoreUI.SiticoneTileButton();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
-            homeBtn = new FontAwesome.Sharp.IconButton();
-            panel5 = new Panel();
-            label20 = new Label();
-            label8 = new Label();
             panel1 = new Panel();
             label1 = new Label();
             userLbl = new Label();
-            panel12 = new Panel();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            panel13 = new Panel();
-            label21 = new Label();
-            siticoneTileButton8 = new SiticoneNetCoreUI.SiticoneTileButton();
-            label22 = new Label();
-            label23 = new Label();
-            panel7 = new Panel();
-            label10 = new Label();
-            label19 = new Label();
-            siticoneTileButton5 = new SiticoneNetCoreUI.SiticoneTileButton();
-            siticoneTileButton6 = new SiticoneNetCoreUI.SiticoneTileButton();
-            label16 = new Label();
-            panel6 = new Panel();
-            label7 = new Label();
-            label18 = new Label();
-            siticoneTileButton3 = new SiticoneNetCoreUI.SiticoneTileButton();
-            siticoneTileButton4 = new SiticoneNetCoreUI.SiticoneTileButton();
+            siticoneTabControl1 = new SiticoneNetCoreUI.SiticoneTabControl();
+            personalInfo = new TabPage();
+            panel5 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            emailTbx = new TextBox();
             label9 = new Label();
-            panel8 = new Panel();
-            label15 = new Label();
-            label17 = new Label();
-            siticoneTileButton1 = new SiticoneNetCoreUI.SiticoneTileButton();
-            siticoneTileButton2 = new SiticoneNetCoreUI.SiticoneTileButton();
+            firstNameTbx = new TextBox();
+            label2 = new Label();
+            summaryTbx = new TextBox();
+            phoneNumTbx = new TextBox();
+            label11 = new Label();
+            label10 = new Label();
+            addressTbx = new TextBox();
+            designationTbx = new TextBox();
+            label7 = new Label();
+            label6 = new Label();
+            lastNameTbx = new TextBox();
+            label4 = new Label();
+            label3 = new Label();
+            label5 = new Label();
+            flowLayoutPanel2 = new FlowLayoutPanel();
+            chooseImgBtn = new FontAwesome.Sharp.IconButton();
+            imageNameTbx = new TextBox();
+            middleNameTbx = new TextBox();
+            panel2 = new Panel();
+            label8 = new Label();
+            ACHIEVEMENTS = new TabPage();
+            panel3 = new Panel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            textBox10 = new TextBox();
             label13 = new Label();
+            textBox17 = new TextBox();
+            label20 = new Label();
+            listView1 = new ListView();
+            panel4 = new Panel();
+            label12 = new Label();
+            EXPERIENCE = new TabPage();
+            flowLayoutPanel3 = new FlowLayoutPanel();
+            tabPage2 = new TabPage();
+            tabPage1 = new TabPage();
+            tabPage3 = new TabPage();
             panel11 = new Panel();
-            panel9 = new Panel();
+            createResumeBtn = new FontAwesome.Sharp.IconButton();
+            panel6 = new Panel();
+            saveResume = new FontAwesome.Sharp.IconButton();
+            panel7 = new Panel();
+            iconButton1 = new FontAwesome.Sharp.IconButton();
             tableLayoutPanel3 = new TableLayoutPanel();
-            panel5.SuspendLayout();
+            panel8 = new Panel();
             panel1.SuspendLayout();
-            panel12.SuspendLayout();
+            siticoneTabControl1.SuspendLayout();
+            personalInfo.SuspendLayout();
+            panel5.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            flowLayoutPanel2.SuspendLayout();
+            panel2.SuspendLayout();
+            ACHIEVEMENTS.SuspendLayout();
+            panel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            panel13.SuspendLayout();
-            panel7.SuspendLayout();
-            panel6.SuspendLayout();
-            panel8.SuspendLayout();
+            panel4.SuspendLayout();
+            EXPERIENCE.SuspendLayout();
             panel11.SuspendLayout();
-            panel9.SuspendLayout();
+            panel6.SuspendLayout();
+            panel7.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
+            panel8.SuspendLayout();
             SuspendLayout();
-            // 
-            // siticoneTileButton7
-            // 
-            siticoneTileButton7.AccessibleDescription = "A customizable tile button";
-            siticoneTileButton7.AccessibleName = "TileButton";
-            siticoneTileButton7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            siticoneTileButton7.BackColor = Color.Transparent;
-            siticoneTileButton7.BadgeColor = Color.Red;
-            siticoneTileButton7.BadgeFont = "Segoe UI";
-            siticoneTileButton7.BadgePosition = new Point(162, 5);
-            siticoneTileButton7.BadgeText = "";
-            siticoneTileButton7.BaseColor = Color.FromArgb(50, 150, 215);
-            siticoneTileButton7.BorderWidth = 1F;
-            siticoneTileButton7.BottomLeftRadius = 12F;
-            siticoneTileButton7.BottomRightRadius = 12F;
-            siticoneTileButton7.ColorTransitionSpeed = 0.15F;
-            siticoneTileButton7.EnableRipple = true;
-            siticoneTileButton7.Font = new Font("Segoe UI", 10F);
-            siticoneTileButton7.ForeColor = Color.White;
-            siticoneTileButton7.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneTileButton7.HoverColor = Color.FromArgb(70, 170, 235);
-            siticoneTileButton7.Icon = null;
-            siticoneTileButton7.IconAlignment = ContentAlignment.MiddleLeft;
-            siticoneTileButton7.IconMargin = new Padding(5);
-            siticoneTileButton7.IconPadding = 5;
-            siticoneTileButton7.IconSize = new Size(24, 24);
-            siticoneTileButton7.IsLoading = false;
-            siticoneTileButton7.IsToggled = false;
-            siticoneTileButton7.LoadingColor = Color.White;
-            siticoneTileButton7.Location = new Point(193, 137);
-            siticoneTileButton7.MaxRipples = 100;
-            siticoneTileButton7.Name = "siticoneTileButton7";
-            siticoneTileButton7.PersistState = false;
-            siticoneTileButton7.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneTileButton7.RippleFadeStart = 0F;
-            siticoneTileButton7.RippleOpacity = 0.1F;
-            siticoneTileButton7.RippleSpeed = 20F;
-            siticoneTileButton7.ShadowColor = Color.Black;
-            siticoneTileButton7.ShadowDepth = 1;
-            siticoneTileButton7.ShadowOffset = new Point(1, 1);
-            siticoneTileButton7.ShadowOpacity = 0.3F;
-            siticoneTileButton7.ShowBadge = false;
-            siticoneTileButton7.ShowBorder = false;
-            siticoneTileButton7.ShowTextShadow = true;
-            siticoneTileButton7.Size = new Size(173, 56);
-            siticoneTileButton7.TabIndex = 26;
-            siticoneTileButton7.Text = "Export";
-            siticoneTileButton7.TooltipAlwaysShow = true;
-            siticoneTileButton7.TooltipAutoPopDelay = 5000;
-            siticoneTileButton7.TooltipBackColor = Color.Black;
-            siticoneTileButton7.TooltipFont = new Font("Segoe UI", 9F);
-            siticoneTileButton7.TooltipForeColor = Color.White;
-            siticoneTileButton7.TooltipInitialDelay = 500;
-            siticoneTileButton7.TooltipReshowDelay = 100;
-            siticoneTileButton7.TooltipText = "";
-            siticoneTileButton7.TopLeftRadius = 12F;
-            siticoneTileButton7.TopRightRadius = 12F;
-            siticoneTileButton7.UseGradient = false;
-            // 
-            // iconButton1
-            // 
-            iconButton1.BackColor = Color.FromArgb(41, 128, 185);
-            iconButton1.Cursor = Cursors.Hand;
-            iconButton1.Dock = DockStyle.Fill;
-            iconButton1.FlatAppearance.BorderSize = 0;
-            iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.Font = new Font("Century Gothic", 13.8F);
-            iconButton1.ForeColor = Color.White;
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Download;
-            iconButton1.IconColor = Color.FromArgb(216, 225, 233);
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 50;
-            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(1, 1);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Padding = new Padding(91, 0, 0, 0);
-            iconButton1.Size = new Size(366, 86);
-            iconButton1.TabIndex = 22;
-            iconButton1.Text = "Export All";
-            iconButton1.TextAlign = ContentAlignment.MiddleLeft;
-            iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton1.UseVisualStyleBackColor = false;
-            // 
-            // homeBtn
-            // 
-            homeBtn.BackColor = Color.FromArgb(41, 128, 185);
-            homeBtn.Cursor = Cursors.Hand;
-            homeBtn.Dock = DockStyle.Fill;
-            homeBtn.FlatAppearance.BorderSize = 0;
-            homeBtn.FlatStyle = FlatStyle.Flat;
-            homeBtn.Font = new Font("Century Gothic", 13.8F);
-            homeBtn.ForeColor = Color.White;
-            homeBtn.IconChar = FontAwesome.Sharp.IconChar.Add;
-            homeBtn.IconColor = Color.FromArgb(216, 225, 233);
-            homeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            homeBtn.IconSize = 50;
-            homeBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            homeBtn.Location = new Point(1, 1);
-            homeBtn.Name = "homeBtn";
-            homeBtn.Padding = new Padding(29, 0, 0, 0);
-            homeBtn.Size = new Size(366, 86);
-            homeBtn.TabIndex = 22;
-            homeBtn.Text = " Create New Resume";
-            homeBtn.TextAlign = ContentAlignment.MiddleLeft;
-            homeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-            homeBtn.UseVisualStyleBackColor = false;
-            // 
-            // panel5
-            // 
-            panel5.Controls.Add(label20);
-            panel5.Controls.Add(label8);
-            panel5.Location = new Point(11, 429);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(1525, 125);
-            panel5.TabIndex = 27;
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label20.ForeColor = Color.FromArgb(41, 128, 185);
-            label20.Location = new Point(3, 76);
-            label20.Name = "label20";
-            label20.Size = new Size(253, 27);
-            label20.TabIndex = 5;
-            label20.Text = "\"Your recent resumes\"";
-            label20.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Century Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.FromArgb(41, 128, 185);
-            label8.Location = new Point(3, 20);
-            label8.Name = "label8";
-            label8.Size = new Size(341, 47);
-            label8.TabIndex = 3;
-            label8.Text = "Recent Resumes";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
+            panel1.BackColor = Color.FromArgb(41, 128, 185);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(userLbl);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1557, 125);
+            panel1.Padding = new Padding(10, 10, 0, 0);
+            panel1.Size = new Size(1510, 94);
             panel1.TabIndex = 25;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.FromArgb(41, 128, 185);
-            label1.Location = new Point(3, 76);
+            label1.ForeColor = Color.FromArgb(216, 225, 233);
+            label1.Location = new Point(10, 57);
             label1.Name = "label1";
             label1.Size = new Size(366, 27);
             label1.TabIndex = 4;
@@ -244,784 +127,738 @@
             // 
             userLbl.AutoSize = true;
             userLbl.Font = new Font("Century Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            userLbl.ForeColor = Color.FromArgb(41, 128, 185);
-            userLbl.Location = new Point(3, 20);
+            userLbl.ForeColor = Color.FromArgb(216, 225, 233);
+            userLbl.Location = new Point(10, 10);
             userLbl.Name = "userLbl";
             userLbl.Size = new Size(357, 47);
             userLbl.TabIndex = 3;
             userLbl.Text = "Create a Resume";
             userLbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // panel12
+            // siticoneTabControl1
             // 
-            panel12.BackColor = Color.FromArgb(41, 128, 185);
-            panel12.BorderStyle = BorderStyle.FixedSingle;
-            panel12.Controls.Add(iconButton2);
-            panel12.Location = new Point(768, 8);
-            panel12.Margin = new Padding(5);
-            panel12.Name = "panel12";
-            panel12.Padding = new Padding(1);
-            panel12.Size = new Size(370, 90);
-            panel12.TabIndex = 19;
+            siticoneTabControl1.AllowTabReorder = false;
+            siticoneTabControl1.Appearance = TabAppearance.Buttons;
+            siticoneTabControl1.BorderColor = Color.FromArgb(41, 128, 185);
+            siticoneTabControl1.BorderWidth = 1;
+            siticoneTabControl1.CloseButtonColor = Color.Gray;
+            siticoneTabControl1.CloseButtonHoverColor = Color.Red;
+            siticoneTabControl1.CloseButtonSymbolPadding = 0.25F;
+            siticoneTabControl1.CloseButtonThickness = 1.8F;
+            siticoneTabControl1.ContextMenuFont = new Font("Segoe UI", 10F);
+            siticoneTabControl1.Controls.Add(personalInfo);
+            siticoneTabControl1.Controls.Add(ACHIEVEMENTS);
+            siticoneTabControl1.Controls.Add(EXPERIENCE);
+            siticoneTabControl1.Controls.Add(tabPage2);
+            siticoneTabControl1.Controls.Add(tabPage1);
+            siticoneTabControl1.Controls.Add(tabPage3);
+            siticoneTabControl1.Dock = DockStyle.Fill;
+            siticoneTabControl1.DragIndicatorColor = Color.FromArgb(25, 118, 210);
+            siticoneTabControl1.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneTabControl1.GhostBackColor = Color.FromArgb(20, 34, 30, 65);
+            siticoneTabControl1.GhostForeColor = Color.FromArgb(180, 0, 0, 0);
+            siticoneTabControl1.ItemSize = new Size(248, 40);
+            siticoneTabControl1.Location = new Point(0, 94);
+            siticoneTabControl1.Name = "siticoneTabControl1";
+            siticoneTabControl1.PinIconHoverColor = Color.DarkGray;
+            siticoneTabControl1.PinnedIconColor = Color.FromArgb(30, 136, 229);
+            siticoneTabControl1.RippleColor = Color.LightGray;
+            siticoneTabControl1.SelectedIndex = 0;
+            siticoneTabControl1.SelectedTabBackColor = Color.Transparent;
+            siticoneTabControl1.SelectedTabFont = new Font("Century Gothic", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneTabControl1.SelectedTabIndicatorColor = Color.FromArgb(0, 31, 84);
+            siticoneTabControl1.SelectedTabIndicatorHeight = 3;
+            siticoneTabControl1.SelectedTextColor = Color.Black;
+            siticoneTabControl1.SeparatorLineColor = Color.FromArgb(0, 0, 0);
+            siticoneTabControl1.SeparatorLineOpacity = 0.4F;
+            siticoneTabControl1.Size = new Size(1510, 756);
+            siticoneTabControl1.SizeMode = TabSizeMode.Fixed;
+            siticoneTabControl1.TabIndex = 33;
+            siticoneTabControl1.TabWidth = 248;
+            siticoneTabControl1.UnpinnedIconColor = Color.Gray;
+            siticoneTabControl1.UnselectedTabColor = Color.Transparent;
+            siticoneTabControl1.UnselectedTextColor = Color.FromArgb(41, 128, 185);
             // 
-            // iconButton2
+            // personalInfo
             // 
-            iconButton2.BackColor = Color.FromArgb(41, 128, 185);
-            iconButton2.Cursor = Cursors.Hand;
-            iconButton2.Dock = DockStyle.Fill;
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 13.8F);
-            iconButton2.ForeColor = Color.White;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.PaperPlane;
-            iconButton2.IconColor = Color.FromArgb(216, 225, 233);
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 50;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(1, 1);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Padding = new Padding(69, 0, 0, 0);
-            iconButton2.Size = new Size(366, 86);
-            iconButton2.TabIndex = 23;
-            iconButton2.Text = "Send Resume";
-            iconButton2.TextAlign = ContentAlignment.MiddleLeft;
-            iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton2.UseVisualStyleBackColor = false;
+            personalInfo.BackColor = Color.White;
+            personalInfo.Controls.Add(panel5);
+            personalInfo.Location = new Point(4, 44);
+            personalInfo.Name = "personalInfo";
+            personalInfo.Padding = new Padding(5);
+            personalInfo.Size = new Size(1502, 708);
+            personalInfo.TabIndex = 0;
+            personalInfo.Text = "PERSONAL INFORMATION";
             // 
-            // tableLayoutPanel2
+            // panel5
             // 
-            tableLayoutPanel2.BackColor = Color.FromArgb(216, 225, 233);
-            tableLayoutPanel2.ColumnCount = 4;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 379F));
-            tableLayoutPanel2.Controls.Add(panel13, 3, 0);
-            tableLayoutPanel2.Controls.Add(panel7, 2, 0);
-            tableLayoutPanel2.Controls.Add(panel6, 1, 0);
-            tableLayoutPanel2.Controls.Add(panel8, 0, 0);
-            tableLayoutPanel2.Location = new Point(11, 559);
-            tableLayoutPanel2.Margin = new Padding(30, 29, 30, 29);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.Padding = new Padding(3);
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle());
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 189F));
-            tableLayoutPanel2.Size = new Size(1525, 195);
-            tableLayoutPanel2.TabIndex = 28;
+            panel5.BackColor = Color.FromArgb(216, 225, 233);
+            panel5.Controls.Add(tableLayoutPanel1);
+            panel5.Controls.Add(panel2);
+            panel5.Dock = DockStyle.Fill;
+            panel5.Location = new Point(5, 5);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(1492, 698);
+            panel5.TabIndex = 29;
             // 
-            // panel13
+            // tableLayoutPanel1
             // 
-            panel13.BackColor = Color.FromArgb(41, 128, 185);
-            panel13.BorderStyle = BorderStyle.FixedSingle;
-            panel13.Controls.Add(siticoneTileButton7);
-            panel13.Controls.Add(label21);
-            panel13.Controls.Add(siticoneTileButton8);
-            panel13.Controls.Add(label22);
-            panel13.Controls.Add(label23);
-            panel13.Location = new Point(1148, 8);
-            panel13.Margin = new Padding(5);
-            panel13.Name = "panel13";
-            panel13.Padding = new Padding(10, 11, 10, 11);
-            panel13.Size = new Size(368, 177);
-            panel13.TabIndex = 18;
+            tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel1.BackColor = Color.FromArgb(41, 128, 185);
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel1.Controls.Add(emailTbx, 0, 5);
+            tableLayoutPanel1.Controls.Add(label9, 0, 4);
+            tableLayoutPanel1.Controls.Add(firstNameTbx, 0, 1);
+            tableLayoutPanel1.Controls.Add(label2, 0, 0);
+            tableLayoutPanel1.Controls.Add(summaryTbx, 2, 5);
+            tableLayoutPanel1.Controls.Add(phoneNumTbx, 1, 5);
+            tableLayoutPanel1.Controls.Add(label11, 2, 4);
+            tableLayoutPanel1.Controls.Add(label10, 1, 4);
+            tableLayoutPanel1.Controls.Add(addressTbx, 2, 3);
+            tableLayoutPanel1.Controls.Add(designationTbx, 1, 3);
+            tableLayoutPanel1.Controls.Add(label7, 2, 2);
+            tableLayoutPanel1.Controls.Add(label6, 1, 2);
+            tableLayoutPanel1.Controls.Add(lastNameTbx, 2, 1);
+            tableLayoutPanel1.Controls.Add(label4, 2, 0);
+            tableLayoutPanel1.Controls.Add(label3, 1, 0);
+            tableLayoutPanel1.Controls.Add(label5, 0, 2);
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel2, 0, 3);
+            tableLayoutPanel1.Controls.Add(middleNameTbx, 1, 1);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 56);
+            tableLayoutPanel1.Margin = new Padding(10);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.Padding = new Padding(10);
+            tableLayoutPanel1.RowCount = 6;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 7.75681353F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 13.2075472F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 8.176101F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 13.8263664F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 6.430868F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50.3215446F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(1492, 642);
+            tableLayoutPanel1.TabIndex = 6;
             // 
-            // label21
+            // emailTbx
             // 
-            label21.Dock = DockStyle.Top;
-            label21.Font = new Font("Century Gothic", 13.8F);
-            label21.ForeColor = Color.White;
-            label21.Location = new Point(10, 87);
-            label21.Name = "label21";
-            label21.Size = new Size(346, 33);
-            label21.TabIndex = 23;
-            label21.Text = "Status : Final";
-            // 
-            // siticoneTileButton8
-            // 
-            siticoneTileButton8.AccessibleDescription = "A customizable tile button";
-            siticoneTileButton8.AccessibleName = "TileButton";
-            siticoneTileButton8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            siticoneTileButton8.BackColor = Color.Transparent;
-            siticoneTileButton8.BadgeColor = Color.Red;
-            siticoneTileButton8.BadgeFont = "Segoe UI";
-            siticoneTileButton8.BadgePosition = new Point(155, 5);
-            siticoneTileButton8.BadgeText = "";
-            siticoneTileButton8.BaseColor = Color.FromArgb(50, 150, 215);
-            siticoneTileButton8.BorderWidth = 1F;
-            siticoneTileButton8.BottomLeftRadius = 12F;
-            siticoneTileButton8.BottomRightRadius = 12F;
-            siticoneTileButton8.ColorTransitionSpeed = 0.15F;
-            siticoneTileButton8.EnableRipple = true;
-            siticoneTileButton8.Font = new Font("Segoe UI", 10F);
-            siticoneTileButton8.ForeColor = Color.White;
-            siticoneTileButton8.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneTileButton8.HoverColor = Color.FromArgb(70, 170, 235);
-            siticoneTileButton8.Icon = null;
-            siticoneTileButton8.IconAlignment = ContentAlignment.MiddleLeft;
-            siticoneTileButton8.IconMargin = new Padding(5);
-            siticoneTileButton8.IconPadding = 5;
-            siticoneTileButton8.IconSize = new Size(24, 24);
-            siticoneTileButton8.IsLoading = false;
-            siticoneTileButton8.IsToggled = false;
-            siticoneTileButton8.LoadingColor = Color.White;
-            siticoneTileButton8.Location = new Point(21, 137);
-            siticoneTileButton8.MaxRipples = 100;
-            siticoneTileButton8.Name = "siticoneTileButton8";
-            siticoneTileButton8.PersistState = false;
-            siticoneTileButton8.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneTileButton8.RippleFadeStart = 0F;
-            siticoneTileButton8.RippleOpacity = 0.1F;
-            siticoneTileButton8.RippleSpeed = 20F;
-            siticoneTileButton8.ShadowColor = Color.Black;
-            siticoneTileButton8.ShadowDepth = 1;
-            siticoneTileButton8.ShadowOffset = new Point(1, 1);
-            siticoneTileButton8.ShadowOpacity = 0.3F;
-            siticoneTileButton8.ShowBadge = false;
-            siticoneTileButton8.ShowBorder = false;
-            siticoneTileButton8.ShowTextShadow = true;
-            siticoneTileButton8.Size = new Size(166, 56);
-            siticoneTileButton8.TabIndex = 25;
-            siticoneTileButton8.Text = "Open";
-            siticoneTileButton8.TooltipAlwaysShow = true;
-            siticoneTileButton8.TooltipAutoPopDelay = 5000;
-            siticoneTileButton8.TooltipBackColor = Color.Black;
-            siticoneTileButton8.TooltipFont = new Font("Segoe UI", 9F);
-            siticoneTileButton8.TooltipForeColor = Color.White;
-            siticoneTileButton8.TooltipInitialDelay = 500;
-            siticoneTileButton8.TooltipReshowDelay = 100;
-            siticoneTileButton8.TooltipText = "";
-            siticoneTileButton8.TopLeftRadius = 12F;
-            siticoneTileButton8.TopRightRadius = 12F;
-            siticoneTileButton8.UseGradient = false;
-            // 
-            // label22
-            // 
-            label22.Dock = DockStyle.Top;
-            label22.Font = new Font("Century Gothic", 13.8F);
-            label22.ForeColor = Color.White;
-            label22.Location = new Point(10, 55);
-            label22.Name = "label22";
-            label22.Size = new Size(346, 32);
-            label22.TabIndex = 22;
-            label22.Text = "Date Modified : 01/02/2024";
-            // 
-            // label23
-            // 
-            label23.Dock = DockStyle.Top;
-            label23.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
-            label23.ForeColor = Color.White;
-            label23.Location = new Point(10, 11);
-            label23.Name = "label23";
-            label23.Size = new Size(346, 44);
-            label23.TabIndex = 17;
-            label23.Text = "\"Application Resume\"";
-            label23.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel7
-            // 
-            panel7.BackColor = Color.FromArgb(41, 128, 185);
-            panel7.BorderStyle = BorderStyle.FixedSingle;
-            panel7.Controls.Add(label10);
-            panel7.Controls.Add(label19);
-            panel7.Controls.Add(siticoneTileButton5);
-            panel7.Controls.Add(siticoneTileButton6);
-            panel7.Controls.Add(label16);
-            panel7.Location = new Point(768, 8);
-            panel7.Margin = new Padding(5);
-            panel7.Name = "panel7";
-            panel7.Padding = new Padding(10, 11, 10, 11);
-            panel7.Size = new Size(370, 177);
-            panel7.TabIndex = 17;
-            // 
-            // label10
-            // 
-            label10.Dock = DockStyle.Top;
-            label10.Font = new Font("Century Gothic", 13.8F);
-            label10.ForeColor = Color.White;
-            label10.Location = new Point(10, 87);
-            label10.Name = "label10";
-            label10.Size = new Size(348, 33);
-            label10.TabIndex = 23;
-            label10.Text = "Status : Draft";
-            // 
-            // label19
-            // 
-            label19.Dock = DockStyle.Top;
-            label19.Font = new Font("Century Gothic", 13.8F);
-            label19.ForeColor = Color.White;
-            label19.Location = new Point(10, 55);
-            label19.Name = "label19";
-            label19.Size = new Size(348, 32);
-            label19.TabIndex = 22;
-            label19.Text = "Date Modified : 12/02/2024";
-            // 
-            // siticoneTileButton5
-            // 
-            siticoneTileButton5.AccessibleDescription = "A customizable tile button";
-            siticoneTileButton5.AccessibleName = "TileButton";
-            siticoneTileButton5.BackColor = Color.Transparent;
-            siticoneTileButton5.BadgeColor = Color.Red;
-            siticoneTileButton5.BadgeFont = "Segoe UI";
-            siticoneTileButton5.BadgePosition = new Point(162, 5);
-            siticoneTileButton5.BadgeText = "";
-            siticoneTileButton5.BaseColor = Color.FromArgb(50, 150, 215);
-            siticoneTileButton5.BorderWidth = 1F;
-            siticoneTileButton5.BottomLeftRadius = 12F;
-            siticoneTileButton5.BottomRightRadius = 12F;
-            siticoneTileButton5.ColorTransitionSpeed = 0.15F;
-            siticoneTileButton5.EnableRipple = true;
-            siticoneTileButton5.Font = new Font("Segoe UI", 10F);
-            siticoneTileButton5.ForeColor = Color.White;
-            siticoneTileButton5.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneTileButton5.HoverColor = Color.FromArgb(70, 170, 235);
-            siticoneTileButton5.Icon = null;
-            siticoneTileButton5.IconAlignment = ContentAlignment.MiddleLeft;
-            siticoneTileButton5.IconMargin = new Padding(5);
-            siticoneTileButton5.IconPadding = 5;
-            siticoneTileButton5.IconSize = new Size(24, 24);
-            siticoneTileButton5.IsLoading = false;
-            siticoneTileButton5.IsToggled = false;
-            siticoneTileButton5.LoadingColor = Color.White;
-            siticoneTileButton5.Location = new Point(185, 125);
-            siticoneTileButton5.MaxRipples = 100;
-            siticoneTileButton5.Name = "siticoneTileButton5";
-            siticoneTileButton5.PersistState = false;
-            siticoneTileButton5.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneTileButton5.RippleFadeStart = 0F;
-            siticoneTileButton5.RippleOpacity = 0.1F;
-            siticoneTileButton5.RippleSpeed = 20F;
-            siticoneTileButton5.ShadowColor = Color.Black;
-            siticoneTileButton5.ShadowDepth = 1;
-            siticoneTileButton5.ShadowOffset = new Point(1, 1);
-            siticoneTileButton5.ShadowOpacity = 0.3F;
-            siticoneTileButton5.ShowBadge = false;
-            siticoneTileButton5.ShowBorder = false;
-            siticoneTileButton5.ShowTextShadow = true;
-            siticoneTileButton5.Size = new Size(173, 39);
-            siticoneTileButton5.TabIndex = 20;
-            siticoneTileButton5.Text = "Delete";
-            siticoneTileButton5.TooltipAlwaysShow = true;
-            siticoneTileButton5.TooltipAutoPopDelay = 5000;
-            siticoneTileButton5.TooltipBackColor = Color.Black;
-            siticoneTileButton5.TooltipFont = new Font("Segoe UI", 9F);
-            siticoneTileButton5.TooltipForeColor = Color.White;
-            siticoneTileButton5.TooltipInitialDelay = 500;
-            siticoneTileButton5.TooltipReshowDelay = 100;
-            siticoneTileButton5.TooltipText = "";
-            siticoneTileButton5.TopLeftRadius = 12F;
-            siticoneTileButton5.TopRightRadius = 12F;
-            siticoneTileButton5.UseGradient = false;
-            // 
-            // siticoneTileButton6
-            // 
-            siticoneTileButton6.AccessibleDescription = "A customizable tile button";
-            siticoneTileButton6.AccessibleName = "TileButton";
-            siticoneTileButton6.BackColor = Color.Transparent;
-            siticoneTileButton6.BadgeColor = Color.Red;
-            siticoneTileButton6.BadgeFont = "Segoe UI";
-            siticoneTileButton6.BadgePosition = new Point(155, 5);
-            siticoneTileButton6.BadgeText = "";
-            siticoneTileButton6.BaseColor = Color.FromArgb(50, 150, 215);
-            siticoneTileButton6.BorderWidth = 1F;
-            siticoneTileButton6.BottomLeftRadius = 12F;
-            siticoneTileButton6.BottomRightRadius = 12F;
-            siticoneTileButton6.ColorTransitionSpeed = 0.15F;
-            siticoneTileButton6.EnableRipple = true;
-            siticoneTileButton6.Font = new Font("Segoe UI", 10F);
-            siticoneTileButton6.ForeColor = Color.White;
-            siticoneTileButton6.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneTileButton6.HoverColor = Color.FromArgb(70, 170, 235);
-            siticoneTileButton6.Icon = null;
-            siticoneTileButton6.IconAlignment = ContentAlignment.MiddleLeft;
-            siticoneTileButton6.IconMargin = new Padding(5);
-            siticoneTileButton6.IconPadding = 5;
-            siticoneTileButton6.IconSize = new Size(24, 24);
-            siticoneTileButton6.IsLoading = false;
-            siticoneTileButton6.IsToggled = false;
-            siticoneTileButton6.LoadingColor = Color.White;
-            siticoneTileButton6.Location = new Point(13, 125);
-            siticoneTileButton6.MaxRipples = 100;
-            siticoneTileButton6.Name = "siticoneTileButton6";
-            siticoneTileButton6.PersistState = false;
-            siticoneTileButton6.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneTileButton6.RippleFadeStart = 0F;
-            siticoneTileButton6.RippleOpacity = 0.1F;
-            siticoneTileButton6.RippleSpeed = 20F;
-            siticoneTileButton6.ShadowColor = Color.Black;
-            siticoneTileButton6.ShadowDepth = 1;
-            siticoneTileButton6.ShadowOffset = new Point(1, 1);
-            siticoneTileButton6.ShadowOpacity = 0.3F;
-            siticoneTileButton6.ShowBadge = false;
-            siticoneTileButton6.ShowBorder = false;
-            siticoneTileButton6.ShowTextShadow = true;
-            siticoneTileButton6.Size = new Size(166, 39);
-            siticoneTileButton6.TabIndex = 19;
-            siticoneTileButton6.Text = "Edit";
-            siticoneTileButton6.TooltipAlwaysShow = true;
-            siticoneTileButton6.TooltipAutoPopDelay = 5000;
-            siticoneTileButton6.TooltipBackColor = Color.Black;
-            siticoneTileButton6.TooltipFont = new Font("Segoe UI", 9F);
-            siticoneTileButton6.TooltipForeColor = Color.White;
-            siticoneTileButton6.TooltipInitialDelay = 500;
-            siticoneTileButton6.TooltipReshowDelay = 100;
-            siticoneTileButton6.TooltipText = "";
-            siticoneTileButton6.TopLeftRadius = 12F;
-            siticoneTileButton6.TopRightRadius = 12F;
-            siticoneTileButton6.UseGradient = false;
-            // 
-            // label16
-            // 
-            label16.Dock = DockStyle.Top;
-            label16.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
-            label16.ForeColor = Color.White;
-            label16.Location = new Point(10, 11);
-            label16.Name = "label16";
-            label16.Size = new Size(348, 44);
-            label16.TabIndex = 17;
-            label16.Text = "\"Application Resume\"";
-            label16.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel6
-            // 
-            panel6.BackColor = Color.FromArgb(41, 128, 185);
-            panel6.BorderStyle = BorderStyle.FixedSingle;
-            panel6.Controls.Add(label7);
-            panel6.Controls.Add(label18);
-            panel6.Controls.Add(siticoneTileButton3);
-            panel6.Controls.Add(siticoneTileButton4);
-            panel6.Controls.Add(label9);
-            panel6.Location = new Point(388, 8);
-            panel6.Margin = new Padding(5);
-            panel6.Name = "panel6";
-            panel6.Padding = new Padding(10, 11, 10, 11);
-            panel6.Size = new Size(370, 177);
-            panel6.TabIndex = 16;
-            // 
-            // label7
-            // 
-            label7.Dock = DockStyle.Top;
-            label7.Font = new Font("Century Gothic", 13.8F);
-            label7.ForeColor = Color.White;
-            label7.Location = new Point(10, 87);
-            label7.Name = "label7";
-            label7.Size = new Size(348, 33);
-            label7.TabIndex = 23;
-            label7.Text = "Status : Draft";
-            // 
-            // label18
-            // 
-            label18.Dock = DockStyle.Top;
-            label18.Font = new Font("Century Gothic", 13.8F);
-            label18.ForeColor = Color.White;
-            label18.Location = new Point(10, 55);
-            label18.Name = "label18";
-            label18.Size = new Size(348, 32);
-            label18.TabIndex = 22;
-            label18.Text = "Date Modified : Today";
-            // 
-            // siticoneTileButton3
-            // 
-            siticoneTileButton3.AccessibleDescription = "A customizable tile button";
-            siticoneTileButton3.AccessibleName = "TileButton";
-            siticoneTileButton3.BackColor = Color.Transparent;
-            siticoneTileButton3.BadgeColor = Color.Red;
-            siticoneTileButton3.BadgeFont = "Segoe UI";
-            siticoneTileButton3.BadgePosition = new Point(162, 5);
-            siticoneTileButton3.BadgeText = "";
-            siticoneTileButton3.BaseColor = Color.FromArgb(50, 150, 215);
-            siticoneTileButton3.BorderWidth = 1F;
-            siticoneTileButton3.BottomLeftRadius = 12F;
-            siticoneTileButton3.BottomRightRadius = 12F;
-            siticoneTileButton3.ColorTransitionSpeed = 0.15F;
-            siticoneTileButton3.EnableRipple = true;
-            siticoneTileButton3.Font = new Font("Segoe UI", 10F);
-            siticoneTileButton3.ForeColor = Color.White;
-            siticoneTileButton3.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneTileButton3.HoverColor = Color.FromArgb(70, 170, 235);
-            siticoneTileButton3.Icon = null;
-            siticoneTileButton3.IconAlignment = ContentAlignment.MiddleLeft;
-            siticoneTileButton3.IconMargin = new Padding(5);
-            siticoneTileButton3.IconPadding = 5;
-            siticoneTileButton3.IconSize = new Size(24, 24);
-            siticoneTileButton3.IsLoading = false;
-            siticoneTileButton3.IsToggled = false;
-            siticoneTileButton3.LoadingColor = Color.White;
-            siticoneTileButton3.Location = new Point(185, 125);
-            siticoneTileButton3.MaxRipples = 100;
-            siticoneTileButton3.Name = "siticoneTileButton3";
-            siticoneTileButton3.PersistState = false;
-            siticoneTileButton3.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneTileButton3.RippleFadeStart = 0F;
-            siticoneTileButton3.RippleOpacity = 0.1F;
-            siticoneTileButton3.RippleSpeed = 20F;
-            siticoneTileButton3.ShadowColor = Color.Black;
-            siticoneTileButton3.ShadowDepth = 1;
-            siticoneTileButton3.ShadowOffset = new Point(1, 1);
-            siticoneTileButton3.ShadowOpacity = 0.3F;
-            siticoneTileButton3.ShowBadge = false;
-            siticoneTileButton3.ShowBorder = false;
-            siticoneTileButton3.ShowTextShadow = true;
-            siticoneTileButton3.Size = new Size(173, 39);
-            siticoneTileButton3.TabIndex = 20;
-            siticoneTileButton3.Text = "Delete";
-            siticoneTileButton3.TooltipAlwaysShow = true;
-            siticoneTileButton3.TooltipAutoPopDelay = 5000;
-            siticoneTileButton3.TooltipBackColor = Color.Black;
-            siticoneTileButton3.TooltipFont = new Font("Segoe UI", 9F);
-            siticoneTileButton3.TooltipForeColor = Color.White;
-            siticoneTileButton3.TooltipInitialDelay = 500;
-            siticoneTileButton3.TooltipReshowDelay = 100;
-            siticoneTileButton3.TooltipText = "";
-            siticoneTileButton3.TopLeftRadius = 12F;
-            siticoneTileButton3.TopRightRadius = 12F;
-            siticoneTileButton3.UseGradient = false;
-            // 
-            // siticoneTileButton4
-            // 
-            siticoneTileButton4.AccessibleDescription = "A customizable tile button";
-            siticoneTileButton4.AccessibleName = "TileButton";
-            siticoneTileButton4.BackColor = Color.Transparent;
-            siticoneTileButton4.BadgeColor = Color.Red;
-            siticoneTileButton4.BadgeFont = "Segoe UI";
-            siticoneTileButton4.BadgePosition = new Point(155, 5);
-            siticoneTileButton4.BadgeText = "";
-            siticoneTileButton4.BaseColor = Color.FromArgb(50, 150, 215);
-            siticoneTileButton4.BorderWidth = 1F;
-            siticoneTileButton4.BottomLeftRadius = 12F;
-            siticoneTileButton4.BottomRightRadius = 12F;
-            siticoneTileButton4.ColorTransitionSpeed = 0.15F;
-            siticoneTileButton4.EnableRipple = true;
-            siticoneTileButton4.Font = new Font("Segoe UI", 10F);
-            siticoneTileButton4.ForeColor = Color.White;
-            siticoneTileButton4.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneTileButton4.HoverColor = Color.FromArgb(70, 170, 235);
-            siticoneTileButton4.Icon = null;
-            siticoneTileButton4.IconAlignment = ContentAlignment.MiddleLeft;
-            siticoneTileButton4.IconMargin = new Padding(5);
-            siticoneTileButton4.IconPadding = 5;
-            siticoneTileButton4.IconSize = new Size(24, 24);
-            siticoneTileButton4.IsLoading = false;
-            siticoneTileButton4.IsToggled = false;
-            siticoneTileButton4.LoadingColor = Color.White;
-            siticoneTileButton4.Location = new Point(13, 125);
-            siticoneTileButton4.MaxRipples = 100;
-            siticoneTileButton4.Name = "siticoneTileButton4";
-            siticoneTileButton4.PersistState = false;
-            siticoneTileButton4.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneTileButton4.RippleFadeStart = 0F;
-            siticoneTileButton4.RippleOpacity = 0.1F;
-            siticoneTileButton4.RippleSpeed = 20F;
-            siticoneTileButton4.ShadowColor = Color.Black;
-            siticoneTileButton4.ShadowDepth = 1;
-            siticoneTileButton4.ShadowOffset = new Point(1, 1);
-            siticoneTileButton4.ShadowOpacity = 0.3F;
-            siticoneTileButton4.ShowBadge = false;
-            siticoneTileButton4.ShowBorder = false;
-            siticoneTileButton4.ShowTextShadow = true;
-            siticoneTileButton4.Size = new Size(166, 39);
-            siticoneTileButton4.TabIndex = 19;
-            siticoneTileButton4.Text = "Edit";
-            siticoneTileButton4.TooltipAlwaysShow = true;
-            siticoneTileButton4.TooltipAutoPopDelay = 5000;
-            siticoneTileButton4.TooltipBackColor = Color.Black;
-            siticoneTileButton4.TooltipFont = new Font("Segoe UI", 9F);
-            siticoneTileButton4.TooltipForeColor = Color.White;
-            siticoneTileButton4.TooltipInitialDelay = 500;
-            siticoneTileButton4.TooltipReshowDelay = 100;
-            siticoneTileButton4.TooltipText = "";
-            siticoneTileButton4.TopLeftRadius = 12F;
-            siticoneTileButton4.TopRightRadius = 12F;
-            siticoneTileButton4.UseGradient = false;
+            emailTbx.BackColor = Color.White;
+            emailTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            emailTbx.Location = new Point(13, 319);
+            emailTbx.Name = "emailTbx";
+            emailTbx.Size = new Size(471, 36);
+            emailTbx.TabIndex = 41;
             // 
             // label9
             // 
-            label9.Dock = DockStyle.Top;
-            label9.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            label9.AutoSize = true;
+            label9.Font = new Font("Century Gothic", 13.8F);
             label9.ForeColor = Color.White;
-            label9.Location = new Point(10, 11);
+            label9.Location = new Point(13, 276);
             label9.Name = "label9";
-            label9.Size = new Size(348, 44);
-            label9.TabIndex = 17;
-            label9.Text = "\"For Work Resume\"";
-            label9.TextAlign = ContentAlignment.MiddleCenter;
+            label9.Size = new Size(74, 27);
+            label9.TabIndex = 39;
+            label9.Text = "Email";
+            label9.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // panel8
+            // firstNameTbx
             // 
-            panel8.BackColor = Color.FromArgb(41, 128, 185);
-            panel8.BorderStyle = BorderStyle.FixedSingle;
-            panel8.Controls.Add(label15);
-            panel8.Controls.Add(label17);
-            panel8.Controls.Add(siticoneTileButton1);
-            panel8.Controls.Add(siticoneTileButton2);
-            panel8.Controls.Add(label13);
-            panel8.Location = new Point(8, 8);
-            panel8.Margin = new Padding(5);
-            panel8.Name = "panel8";
-            panel8.Padding = new Padding(10, 11, 10, 11);
-            panel8.Size = new Size(370, 177);
-            panel8.TabIndex = 15;
+            firstNameTbx.BackColor = Color.White;
+            firstNameTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            firstNameTbx.Location = new Point(13, 61);
+            firstNameTbx.Name = "firstNameTbx";
+            firstNameTbx.Size = new Size(471, 36);
+            firstNameTbx.TabIndex = 34;
             // 
-            // label15
+            // label2
             // 
-            label15.Dock = DockStyle.Top;
-            label15.Font = new Font("Century Gothic", 13.8F);
-            label15.ForeColor = Color.White;
-            label15.Location = new Point(10, 87);
-            label15.Name = "label15";
-            label15.Size = new Size(348, 33);
-            label15.TabIndex = 24;
-            label15.Text = "Status : Final";
+            label2.AutoSize = true;
+            label2.Font = new Font("Century Gothic", 13.8F);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(13, 10);
+            label2.Name = "label2";
+            label2.Size = new Size(129, 27);
+            label2.TabIndex = 33;
+            label2.Text = "First Name";
             // 
-            // label17
+            // summaryTbx
             // 
-            label17.Dock = DockStyle.Top;
-            label17.Font = new Font("Century Gothic", 13.8F);
-            label17.ForeColor = Color.White;
-            label17.Location = new Point(10, 55);
-            label17.Name = "label17";
-            label17.Size = new Size(348, 32);
-            label17.TabIndex = 23;
-            label17.Text = "Date Modified : Yesterday";
+            summaryTbx.BackColor = Color.White;
+            summaryTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            summaryTbx.Location = new Point(993, 319);
+            summaryTbx.Name = "summaryTbx";
+            summaryTbx.Size = new Size(471, 36);
+            summaryTbx.TabIndex = 23;
             // 
-            // siticoneTileButton1
+            // phoneNumTbx
             // 
-            siticoneTileButton1.AccessibleDescription = "A customizable tile button";
-            siticoneTileButton1.AccessibleName = "TileButton";
-            siticoneTileButton1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            siticoneTileButton1.BackColor = Color.Transparent;
-            siticoneTileButton1.BadgeColor = Color.Red;
-            siticoneTileButton1.BadgeFont = "Segoe UI";
-            siticoneTileButton1.BadgePosition = new Point(162, 5);
-            siticoneTileButton1.BadgeText = "";
-            siticoneTileButton1.BaseColor = Color.FromArgb(50, 150, 215);
-            siticoneTileButton1.BorderWidth = 1F;
-            siticoneTileButton1.BottomLeftRadius = 12F;
-            siticoneTileButton1.BottomRightRadius = 12F;
-            siticoneTileButton1.ColorTransitionSpeed = 0.15F;
-            siticoneTileButton1.EnableRipple = true;
-            siticoneTileButton1.Font = new Font("Segoe UI", 10F);
-            siticoneTileButton1.ForeColor = Color.White;
-            siticoneTileButton1.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneTileButton1.HoverColor = Color.FromArgb(70, 170, 235);
-            siticoneTileButton1.Icon = null;
-            siticoneTileButton1.IconAlignment = ContentAlignment.MiddleLeft;
-            siticoneTileButton1.IconMargin = new Padding(5);
-            siticoneTileButton1.IconPadding = 5;
-            siticoneTileButton1.IconSize = new Size(24, 24);
-            siticoneTileButton1.IsLoading = false;
-            siticoneTileButton1.IsToggled = false;
-            siticoneTileButton1.LoadingColor = Color.White;
-            siticoneTileButton1.Location = new Point(197, 136);
-            siticoneTileButton1.MaxRipples = 100;
-            siticoneTileButton1.Name = "siticoneTileButton1";
-            siticoneTileButton1.PersistState = false;
-            siticoneTileButton1.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneTileButton1.RippleFadeStart = 0F;
-            siticoneTileButton1.RippleOpacity = 0.1F;
-            siticoneTileButton1.RippleSpeed = 20F;
-            siticoneTileButton1.ShadowColor = Color.Black;
-            siticoneTileButton1.ShadowDepth = 1;
-            siticoneTileButton1.ShadowOffset = new Point(1, 1);
-            siticoneTileButton1.ShadowOpacity = 0.3F;
-            siticoneTileButton1.ShowBadge = false;
-            siticoneTileButton1.ShowBorder = false;
-            siticoneTileButton1.ShowTextShadow = true;
-            siticoneTileButton1.Size = new Size(173, 59);
-            siticoneTileButton1.TabIndex = 20;
-            siticoneTileButton1.Text = "Export";
-            siticoneTileButton1.TooltipAlwaysShow = true;
-            siticoneTileButton1.TooltipAutoPopDelay = 5000;
-            siticoneTileButton1.TooltipBackColor = Color.Black;
-            siticoneTileButton1.TooltipFont = new Font("Segoe UI", 9F);
-            siticoneTileButton1.TooltipForeColor = Color.White;
-            siticoneTileButton1.TooltipInitialDelay = 500;
-            siticoneTileButton1.TooltipReshowDelay = 100;
-            siticoneTileButton1.TooltipText = "";
-            siticoneTileButton1.TopLeftRadius = 12F;
-            siticoneTileButton1.TopRightRadius = 12F;
-            siticoneTileButton1.UseGradient = false;
+            phoneNumTbx.BackColor = Color.White;
+            phoneNumTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            phoneNumTbx.Location = new Point(503, 319);
+            phoneNumTbx.Name = "phoneNumTbx";
+            phoneNumTbx.Size = new Size(471, 36);
+            phoneNumTbx.TabIndex = 22;
             // 
-            // siticoneTileButton2
+            // label11
             // 
-            siticoneTileButton2.AccessibleDescription = "A customizable tile button";
-            siticoneTileButton2.AccessibleName = "TileButton";
-            siticoneTileButton2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            siticoneTileButton2.BackColor = Color.Transparent;
-            siticoneTileButton2.BadgeColor = Color.Red;
-            siticoneTileButton2.BadgeFont = "Segoe UI";
-            siticoneTileButton2.BadgePosition = new Point(155, 5);
-            siticoneTileButton2.BadgeText = "";
-            siticoneTileButton2.BaseColor = Color.FromArgb(50, 150, 215);
-            siticoneTileButton2.BorderWidth = 1F;
-            siticoneTileButton2.BottomLeftRadius = 12F;
-            siticoneTileButton2.BottomRightRadius = 12F;
-            siticoneTileButton2.ColorTransitionSpeed = 0.15F;
-            siticoneTileButton2.EnableRipple = true;
-            siticoneTileButton2.Font = new Font("Segoe UI", 10F);
-            siticoneTileButton2.ForeColor = Color.White;
-            siticoneTileButton2.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneTileButton2.HoverColor = Color.FromArgb(70, 170, 235);
-            siticoneTileButton2.Icon = null;
-            siticoneTileButton2.IconAlignment = ContentAlignment.MiddleLeft;
-            siticoneTileButton2.IconMargin = new Padding(5);
-            siticoneTileButton2.IconPadding = 5;
-            siticoneTileButton2.IconSize = new Size(24, 24);
-            siticoneTileButton2.IsLoading = false;
-            siticoneTileButton2.IsToggled = false;
-            siticoneTileButton2.LoadingColor = Color.White;
-            siticoneTileButton2.Location = new Point(24, 136);
-            siticoneTileButton2.MaxRipples = 100;
-            siticoneTileButton2.Name = "siticoneTileButton2";
-            siticoneTileButton2.PersistState = false;
-            siticoneTileButton2.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneTileButton2.RippleFadeStart = 0F;
-            siticoneTileButton2.RippleOpacity = 0.1F;
-            siticoneTileButton2.RippleSpeed = 20F;
-            siticoneTileButton2.ShadowColor = Color.Black;
-            siticoneTileButton2.ShadowDepth = 1;
-            siticoneTileButton2.ShadowOffset = new Point(1, 1);
-            siticoneTileButton2.ShadowOpacity = 0.3F;
-            siticoneTileButton2.ShowBadge = false;
-            siticoneTileButton2.ShowBorder = false;
-            siticoneTileButton2.ShowTextShadow = true;
-            siticoneTileButton2.Size = new Size(166, 56);
-            siticoneTileButton2.TabIndex = 19;
-            siticoneTileButton2.Text = "Open";
-            siticoneTileButton2.TooltipAlwaysShow = true;
-            siticoneTileButton2.TooltipAutoPopDelay = 5000;
-            siticoneTileButton2.TooltipBackColor = Color.Black;
-            siticoneTileButton2.TooltipFont = new Font("Segoe UI", 9F);
-            siticoneTileButton2.TooltipForeColor = Color.White;
-            siticoneTileButton2.TooltipInitialDelay = 500;
-            siticoneTileButton2.TooltipReshowDelay = 100;
-            siticoneTileButton2.TooltipText = "";
-            siticoneTileButton2.TopLeftRadius = 12F;
-            siticoneTileButton2.TopRightRadius = 12F;
-            siticoneTileButton2.UseGradient = false;
+            label11.AutoSize = true;
+            label11.Font = new Font("Century Gothic", 13.8F);
+            label11.ForeColor = Color.White;
+            label11.Location = new Point(993, 276);
+            label11.Name = "label11";
+            label11.Size = new Size(117, 27);
+            label11.TabIndex = 20;
+            label11.Text = "Summary";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Century Gothic", 13.8F);
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(503, 276);
+            label10.Name = "label10";
+            label10.Size = new Size(128, 27);
+            label10.TabIndex = 19;
+            label10.Text = "Phone No.";
+            // 
+            // addressTbx
+            // 
+            addressTbx.BackColor = Color.White;
+            addressTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            addressTbx.Location = new Point(993, 193);
+            addressTbx.Name = "addressTbx";
+            addressTbx.Size = new Size(471, 36);
+            addressTbx.TabIndex = 17;
+            // 
+            // designationTbx
+            // 
+            designationTbx.BackColor = Color.White;
+            designationTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            designationTbx.Location = new Point(503, 193);
+            designationTbx.Name = "designationTbx";
+            designationTbx.Size = new Size(471, 36);
+            designationTbx.TabIndex = 16;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Century Gothic", 13.8F);
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(993, 140);
+            label7.Name = "label7";
+            label7.Size = new Size(101, 27);
+            label7.TabIndex = 14;
+            label7.Text = "Address";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Century Gothic", 13.8F);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(503, 140);
+            label6.Name = "label6";
+            label6.Size = new Size(147, 27);
+            label6.TabIndex = 13;
+            label6.Text = "Designation";
+            // 
+            // lastNameTbx
+            // 
+            lastNameTbx.BackColor = Color.White;
+            lastNameTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            lastNameTbx.Location = new Point(993, 61);
+            lastNameTbx.Name = "lastNameTbx";
+            lastNameTbx.Size = new Size(471, 36);
+            lastNameTbx.TabIndex = 11;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Century Gothic", 13.8F);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(993, 10);
+            label4.Name = "label4";
+            label4.Size = new Size(132, 27);
+            label4.TabIndex = 8;
+            label4.Text = "Last Name";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Century Gothic", 13.8F);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(503, 10);
+            label3.Name = "label3";
+            label3.Size = new Size(294, 27);
+            label3.TabIndex = 7;
+            label3.Text = "Middle Name (Optional)";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Century Gothic", 13.8F);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(13, 140);
+            label5.Name = "label5";
+            label5.Size = new Size(142, 27);
+            label5.TabIndex = 24;
+            label5.Text = "Your Image";
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Controls.Add(chooseImgBtn);
+            flowLayoutPanel2.Controls.Add(imageNameTbx);
+            flowLayoutPanel2.Dock = DockStyle.Top;
+            flowLayoutPanel2.Location = new Point(13, 193);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(484, 36);
+            flowLayoutPanel2.TabIndex = 40;
+            // 
+            // chooseImgBtn
+            // 
+            chooseImgBtn.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            chooseImgBtn.IconChar = FontAwesome.Sharp.IconChar.None;
+            chooseImgBtn.IconColor = Color.Black;
+            chooseImgBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            chooseImgBtn.Location = new Point(3, 3);
+            chooseImgBtn.Name = "chooseImgBtn";
+            chooseImgBtn.Size = new Size(160, 33);
+            chooseImgBtn.TabIndex = 0;
+            chooseImgBtn.Text = "Choose Image";
+            chooseImgBtn.UseVisualStyleBackColor = true;
+            // 
+            // imageNameTbx
+            // 
+            imageNameTbx.BackColor = Color.White;
+            imageNameTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            imageNameTbx.Location = new Point(169, 3);
+            imageNameTbx.Name = "imageNameTbx";
+            imageNameTbx.ReadOnly = true;
+            imageNameTbx.Size = new Size(302, 36);
+            imageNameTbx.TabIndex = 1;
+            // 
+            // middleNameTbx
+            // 
+            middleNameTbx.BackColor = Color.White;
+            middleNameTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            middleNameTbx.Location = new Point(503, 61);
+            middleNameTbx.Name = "middleNameTbx";
+            middleNameTbx.Size = new Size(471, 36);
+            middleNameTbx.TabIndex = 10;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(0, 31, 84);
+            panel2.Controls.Add(label8);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Padding = new Padding(10);
+            panel2.Size = new Size(1492, 56);
+            panel2.TabIndex = 5;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Dock = DockStyle.Left;
+            label8.Font = new Font("Century Gothic", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(10, 10);
+            label8.Name = "label8";
+            label8.Size = new Size(231, 34);
+            label8.TabIndex = 4;
+            label8.Text = "ABOUT SECTION";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // ACHIEVEMENTS
+            // 
+            ACHIEVEMENTS.BackColor = Color.White;
+            ACHIEVEMENTS.Controls.Add(panel3);
+            ACHIEVEMENTS.Location = new Point(4, 44);
+            ACHIEVEMENTS.Name = "ACHIEVEMENTS";
+            ACHIEVEMENTS.Padding = new Padding(10);
+            ACHIEVEMENTS.Size = new Size(1502, 708);
+            ACHIEVEMENTS.TabIndex = 1;
+            ACHIEVEMENTS.Text = "ACHIEVEMENTS";
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(tableLayoutPanel2);
+            panel3.Controls.Add(listView1);
+            panel3.Controls.Add(panel4);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(10, 10);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1482, 688);
+            panel3.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel2.Controls.Add(textBox10, 0, 1);
+            tableLayoutPanel2.Controls.Add(label13, 0, 0);
+            tableLayoutPanel2.Controls.Add(textBox17, 1, 1);
+            tableLayoutPanel2.Controls.Add(label20, 1, 0);
+            tableLayoutPanel2.Dock = DockStyle.Top;
+            tableLayoutPanel2.Location = new Point(0, 49);
+            tableLayoutPanel2.Margin = new Padding(5);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.Padding = new Padding(10);
+            tableLayoutPanel2.RowCount = 2;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 46.20462F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 53.79538F));
+            tableLayoutPanel2.Size = new Size(1120, 323);
+            tableLayoutPanel2.TabIndex = 9;
+            // 
+            // textBox10
+            // 
+            textBox10.BackColor = SystemColors.Control;
+            textBox10.Location = new Point(13, 153);
+            textBox10.Name = "textBox10";
+            textBox10.Size = new Size(125, 28);
+            textBox10.TabIndex = 34;
             // 
             // label13
             // 
-            label13.Dock = DockStyle.Top;
-            label13.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.ForeColor = Color.White;
-            label13.Location = new Point(10, 11);
+            label13.AutoSize = true;
+            label13.Location = new Point(13, 10);
             label13.Name = "label13";
-            label13.Size = new Size(348, 44);
-            label13.TabIndex = 17;
-            label13.Text = "\"John_Doe_Resume\"";
-            label13.TextAlign = ContentAlignment.MiddleCenter;
+            label13.Size = new Size(42, 21);
+            label13.TabIndex = 33;
+            label13.Text = "Title";
+            // 
+            // textBox17
+            // 
+            textBox17.BackColor = SystemColors.Control;
+            textBox17.Location = new Point(562, 153);
+            textBox17.Name = "textBox17";
+            textBox17.Size = new Size(229, 28);
+            textBox17.TabIndex = 10;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(562, 10);
+            label20.Name = "label20";
+            label20.Size = new Size(103, 21);
+            label20.TabIndex = 7;
+            label20.Text = "Description";
+            // 
+            // listView1
+            // 
+            listView1.BackColor = Color.FromArgb(216, 225, 233);
+            listView1.Dock = DockStyle.Right;
+            listView1.Location = new Point(1120, 49);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(362, 639);
+            listView1.TabIndex = 8;
+            listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(label12);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(0, 0);
+            panel4.Name = "panel4";
+            panel4.Padding = new Padding(10);
+            panel4.Size = new Size(1482, 49);
+            panel4.TabIndex = 6;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Dock = DockStyle.Left;
+            label12.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.ForeColor = Color.FromArgb(41, 128, 185);
+            label12.Location = new Point(10, 10);
+            label12.Name = "label12";
+            label12.Size = new Size(248, 27);
+            label12.TabIndex = 4;
+            label12.Text = "YOUR ACHIEVEMENTS";
+            label12.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // EXPERIENCE
+            // 
+            EXPERIENCE.BackColor = Color.White;
+            EXPERIENCE.Controls.Add(flowLayoutPanel3);
+            EXPERIENCE.Location = new Point(4, 44);
+            EXPERIENCE.Name = "EXPERIENCE";
+            EXPERIENCE.Padding = new Padding(10);
+            EXPERIENCE.Size = new Size(1502, 708);
+            EXPERIENCE.TabIndex = 2;
+            EXPERIENCE.Text = "EXPERIENCE";
+            // 
+            // flowLayoutPanel3
+            // 
+            flowLayoutPanel3.Dock = DockStyle.Fill;
+            flowLayoutPanel3.Location = new Point(10, 10);
+            flowLayoutPanel3.Name = "flowLayoutPanel3";
+            flowLayoutPanel3.Padding = new Padding(10);
+            flowLayoutPanel3.Size = new Size(1482, 688);
+            flowLayoutPanel3.TabIndex = 1;
+            // 
+            // tabPage2
+            // 
+            tabPage2.BackColor = Color.White;
+            tabPage2.Location = new Point(4, 44);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Size = new Size(1502, 708);
+            tabPage2.TabIndex = 3;
+            tabPage2.Text = "tabPage2";
+            // 
+            // tabPage1
+            // 
+            tabPage1.BackColor = Color.White;
+            tabPage1.Location = new Point(4, 44);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(1502, 708);
+            tabPage1.TabIndex = 4;
+            tabPage1.Text = "tabPage1";
+            // 
+            // tabPage3
+            // 
+            tabPage3.BackColor = Color.White;
+            tabPage3.Location = new Point(4, 44);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(1502, 708);
+            tabPage3.TabIndex = 5;
+            tabPage3.Text = "tabPage3";
             // 
             // panel11
             // 
-            panel11.BackColor = Color.FromArgb(41, 128, 185);
-            panel11.BorderStyle = BorderStyle.FixedSingle;
-            panel11.Controls.Add(iconButton1);
-            panel11.Location = new Point(388, 8);
-            panel11.Margin = new Padding(5);
+            panel11.BackColor = Color.FromArgb(216, 225, 233);
+            panel11.Controls.Add(createResumeBtn);
+            panel11.Dock = DockStyle.Fill;
+            panel11.Location = new Point(2, 2);
+            panel11.Margin = new Padding(2);
             panel11.Name = "panel11";
-            panel11.Padding = new Padding(1);
-            panel11.Size = new Size(370, 90);
-            panel11.TabIndex = 18;
+            panel11.Padding = new Padding(4);
+            panel11.Size = new Size(496, 72);
+            panel11.TabIndex = 5;
             // 
-            // panel9
+            // createResumeBtn
             // 
-            panel9.BackColor = Color.FromArgb(41, 128, 185);
-            panel9.BorderStyle = BorderStyle.FixedSingle;
-            panel9.Controls.Add(homeBtn);
-            panel9.Location = new Point(8, 8);
-            panel9.Margin = new Padding(5);
-            panel9.Name = "panel9";
-            panel9.Padding = new Padding(1);
-            panel9.Size = new Size(370, 90);
-            panel9.TabIndex = 17;
+            createResumeBtn.BackColor = Color.FromArgb(41, 128, 185);
+            createResumeBtn.Cursor = Cursors.Hand;
+            createResumeBtn.Dock = DockStyle.Fill;
+            createResumeBtn.FlatAppearance.BorderSize = 0;
+            createResumeBtn.FlatStyle = FlatStyle.Flat;
+            createResumeBtn.Font = new Font("Century Gothic", 13.8F);
+            createResumeBtn.ForeColor = Color.White;
+            createResumeBtn.IconChar = FontAwesome.Sharp.IconChar.Add;
+            createResumeBtn.IconColor = Color.FromArgb(216, 225, 233);
+            createResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            createResumeBtn.IconSize = 50;
+            createResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            createResumeBtn.Location = new Point(4, 4);
+            createResumeBtn.Margin = new Padding(2);
+            createResumeBtn.Name = "createResumeBtn";
+            createResumeBtn.Padding = new Padding(90, 0, 0, 0);
+            createResumeBtn.Size = new Size(488, 64);
+            createResumeBtn.TabIndex = 23;
+            createResumeBtn.Text = " Create New Resume";
+            createResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
+            createResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            createResumeBtn.UseVisualStyleBackColor = false;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.FromArgb(216, 225, 233);
+            panel6.Controls.Add(saveResume);
+            panel6.Dock = DockStyle.Fill;
+            panel6.Location = new Point(502, 2);
+            panel6.Margin = new Padding(2);
+            panel6.Name = "panel6";
+            panel6.Padding = new Padding(4);
+            panel6.Size = new Size(496, 72);
+            panel6.TabIndex = 8;
+            // 
+            // saveResume
+            // 
+            saveResume.BackColor = Color.FromArgb(41, 128, 185);
+            saveResume.Cursor = Cursors.Hand;
+            saveResume.Dock = DockStyle.Fill;
+            saveResume.FlatAppearance.BorderSize = 0;
+            saveResume.FlatStyle = FlatStyle.Flat;
+            saveResume.Font = new Font("Century Gothic", 13.8F);
+            saveResume.ForeColor = Color.White;
+            saveResume.IconChar = FontAwesome.Sharp.IconChar.Save;
+            saveResume.IconColor = Color.FromArgb(216, 225, 233);
+            saveResume.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            saveResume.IconSize = 50;
+            saveResume.ImageAlign = ContentAlignment.MiddleLeft;
+            saveResume.Location = new Point(4, 4);
+            saveResume.Margin = new Padding(2);
+            saveResume.Name = "saveResume";
+            saveResume.Padding = new Padding(120, 0, 0, 0);
+            saveResume.Size = new Size(488, 64);
+            saveResume.TabIndex = 23;
+            saveResume.Text = " Save Information";
+            saveResume.TextAlign = ContentAlignment.MiddleLeft;
+            saveResume.TextImageRelation = TextImageRelation.ImageBeforeText;
+            saveResume.UseVisualStyleBackColor = false;
+            saveResume.Click += saveResume_Click;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.FromArgb(216, 225, 233);
+            panel7.Controls.Add(iconButton1);
+            panel7.Dock = DockStyle.Fill;
+            panel7.Location = new Point(1002, 2);
+            panel7.Margin = new Padding(2);
+            panel7.Name = "panel7";
+            panel7.Padding = new Padding(4);
+            panel7.Size = new Size(496, 72);
+            panel7.TabIndex = 9;
+            // 
+            // iconButton1
+            // 
+            iconButton1.BackColor = Color.FromArgb(41, 128, 185);
+            iconButton1.Cursor = Cursors.Hand;
+            iconButton1.Dock = DockStyle.Fill;
+            iconButton1.FlatAppearance.BorderSize = 0;
+            iconButton1.FlatStyle = FlatStyle.Flat;
+            iconButton1.Font = new Font("Century Gothic", 13.8F);
+            iconButton1.ForeColor = Color.White;
+            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Eye;
+            iconButton1.IconColor = Color.FromArgb(216, 225, 233);
+            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton1.IconSize = 50;
+            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            iconButton1.Location = new Point(4, 4);
+            iconButton1.Margin = new Padding(2);
+            iconButton1.Name = "iconButton1";
+            iconButton1.Padding = new Padding(120, 0, 0, 0);
+            iconButton1.Size = new Size(488, 64);
+            iconButton1.TabIndex = 23;
+            iconButton1.Text = " Preview Resume";
+            iconButton1.TextAlign = ContentAlignment.MiddleLeft;
+            iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
+            iconButton1.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel3
             // 
-            tableLayoutPanel3.BackColor = Color.FromArgb(216, 225, 233);
             tableLayoutPanel3.ColumnCount = 3;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 383F));
-            tableLayoutPanel3.Controls.Add(panel12, 2, 0);
-            tableLayoutPanel3.Controls.Add(panel11, 1, 0);
-            tableLayoutPanel3.Controls.Add(panel9, 0, 0);
-            tableLayoutPanel3.Location = new Point(11, 760);
-            tableLayoutPanel3.Margin = new Padding(30, 29, 30, 29);
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.Controls.Add(panel7, 2, 0);
+            tableLayoutPanel3.Controls.Add(panel6, 1, 0);
+            tableLayoutPanel3.Controls.Add(panel11, 0, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(5, 5);
+            tableLayoutPanel3.Margin = new Padding(0);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.Padding = new Padding(3);
             tableLayoutPanel3.RowCount = 1;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle());
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 101F));
-            tableLayoutPanel3.Size = new Size(1149, 107);
-            tableLayoutPanel3.TabIndex = 29;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new Size(1500, 76);
+            tableLayoutPanel3.TabIndex = 0;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.FromArgb(0, 31, 84);
+            panel8.Controls.Add(tableLayoutPanel3);
+            panel8.Dock = DockStyle.Bottom;
+            panel8.Location = new Point(0, 764);
+            panel8.Name = "panel8";
+            panel8.Padding = new Padding(5);
+            panel8.Size = new Size(1510, 86);
+            panel8.TabIndex = 34;
             // 
             // CreateResumes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.Control;
-            Controls.Add(panel5);
+            BackColor = Color.FromArgb(216, 225, 233);
+            Controls.Add(panel8);
+            Controls.Add(siticoneTabControl1);
             Controls.Add(panel1);
-            Controls.Add(tableLayoutPanel2);
-            Controls.Add(tableLayoutPanel3);
             Name = "CreateResumes";
-            Size = new Size(1557, 907);
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
+            Size = new Size(1510, 850);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panel12.ResumeLayout(false);
+            siticoneTabControl1.ResumeLayout(false);
+            personalInfo.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            flowLayoutPanel2.ResumeLayout(false);
+            flowLayoutPanel2.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ACHIEVEMENTS.ResumeLayout(false);
+            panel3.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
-            panel13.ResumeLayout(false);
-            panel7.ResumeLayout(false);
-            panel6.ResumeLayout(false);
-            panel8.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            EXPERIENCE.ResumeLayout(false);
             panel11.ResumeLayout(false);
-            panel9.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel7.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
+            panel8.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton7;
-        private FontAwesome.Sharp.IconButton iconButton1;
-        private FontAwesome.Sharp.IconButton homeBtn;
-        private Panel panel5;
-        private Label label20;
-        private Label label8;
         private Panel panel1;
         private Label label1;
         private Label userLbl;
-        private Panel panel12;
-        private FontAwesome.Sharp.IconButton iconButton2;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Panel panel13;
-        private Label label21;
-        private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton8;
-        private Label label22;
-        private Label label23;
-        private Panel panel7;
+        private SiticoneNetCoreUI.SiticoneTabControl siticoneTabControl1;
+        private TabPage personalInfo;
+        private Panel panel5;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label label5;
+        private TextBox summaryTbx;
+        private TextBox phoneNumTbx;
+        private Label label11;
         private Label label10;
-        private Label label19;
-        private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton5;
-        private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton6;
-        private Label label16;
-        private Panel panel6;
+        private TextBox addressTbx;
+        private TextBox designationTbx;
         private Label label7;
-        private Label label18;
-        private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton3;
-        private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton4;
-        private Label label9;
-        private Panel panel8;
-        private Label label15;
-        private Label label17;
-        private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton1;
-        private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton2;
+        private Label label6;
+        private TextBox lastNameTbx;
+        private TextBox middleNameTbx;
+        private Label label4;
+        private Label label3;
+        private Panel panel2;
+        private Label label8;
+        private TabPage ACHIEVEMENTS;
+        private TabPage EXPERIENCE;
+        private TabPage tabPage2;
+        private TextBox firstNameTbx;
+        private Label label2;
+        private Panel panel3;
+        private Panel panel4;
+        private Label label12;
+        private FlowLayoutPanel flowLayoutPanel3;
+        private ListView listView1;
+        private TableLayoutPanel tableLayoutPanel2;
+        private TextBox textBox10;
         private Label label13;
-        private Panel panel11;
-        private Panel panel9;
+        private TextBox textBox17;
+        private Label label20;
+        private Label label9;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private FontAwesome.Sharp.IconButton chooseImgBtn;
+        private TextBox imageNameTbx;
+        private TextBox emailTbx;
+        private TabPage tabPage1;
+        private TabPage tabPage3;
         private TableLayoutPanel tableLayoutPanel3;
+        private Panel panel7;
+        private FontAwesome.Sharp.IconButton iconButton1;
+        private Panel panel6;
+        private FontAwesome.Sharp.IconButton saveResume;
+        private Panel panel11;
+        private FontAwesome.Sharp.IconButton createResumeBtn;
+        private Panel panel8;
     }
 }

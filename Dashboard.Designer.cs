@@ -35,6 +35,7 @@
             pictureBox1 = new PictureBox();
             sidePanel = new Panel();
             sideLayoutTable = new TableLayoutPanel();
+            messagesBtn = new FontAwesome.Sharp.IconButton();
             profileBtn = new FontAwesome.Sharp.IconButton();
             settingsBtn = new FontAwesome.Sharp.IconButton();
             createResumeBtn = new FontAwesome.Sharp.IconButton();
@@ -53,7 +54,6 @@
             closeBtn = new FontAwesome.Sharp.IconPictureBox();
             siticoneMenuButton1 = new SiticoneNetCoreUI.SiticoneMenuButton();
             mainPanel = new FlowLayoutPanel();
-            messagesBtn = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             sidePanel.SuspendLayout();
@@ -152,6 +152,30 @@
             sideLayoutTable.Size = new Size(309, 955);
             sideLayoutTable.TabIndex = 17;
             // 
+            // messagesBtn
+            // 
+            messagesBtn.BackColor = Color.FromArgb(41, 128, 185);
+            messagesBtn.Dock = DockStyle.Top;
+            messagesBtn.FlatAppearance.BorderSize = 0;
+            messagesBtn.FlatStyle = FlatStyle.Flat;
+            messagesBtn.Font = new Font("Century Gothic", 13.8F);
+            messagesBtn.ForeColor = Color.White;
+            messagesBtn.IconChar = FontAwesome.Sharp.IconChar.Envelope;
+            messagesBtn.IconColor = Color.FromArgb(216, 225, 233);
+            messagesBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            messagesBtn.IconSize = 50;
+            messagesBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            messagesBtn.Location = new Point(3, 561);
+            messagesBtn.Name = "messagesBtn";
+            messagesBtn.Padding = new Padding(30, 0, 0, 0);
+            messagesBtn.Size = new Size(303, 67);
+            messagesBtn.TabIndex = 38;
+            messagesBtn.Text = " Messages";
+            messagesBtn.TextAlign = ContentAlignment.MiddleLeft;
+            messagesBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            messagesBtn.UseVisualStyleBackColor = false;
+            messagesBtn.Click += messagesBtn_Click;
+            // 
             // profileBtn
             // 
             profileBtn.BackColor = Color.FromArgb(41, 128, 185);
@@ -198,6 +222,7 @@
             settingsBtn.TextAlign = ContentAlignment.MiddleLeft;
             settingsBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             settingsBtn.UseVisualStyleBackColor = false;
+            settingsBtn.Click += settingsBtn_Click;
             // 
             // createResumeBtn
             // 
@@ -304,6 +329,7 @@
             logoutBtn.TextAlign = ContentAlignment.MiddleLeft;
             logoutBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             logoutBtn.UseVisualStyleBackColor = false;
+            logoutBtn.Click += logoutBtn_Click;
             // 
             // aboutBtn
             // 
@@ -327,6 +353,7 @@
             aboutBtn.TextAlign = ContentAlignment.MiddleLeft;
             aboutBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             aboutBtn.UseVisualStyleBackColor = false;
+            aboutBtn.Click += aboutBtn_Click;
             // 
             // label1
             // 
@@ -366,7 +393,7 @@
             // 
             // headerPanel
             // 
-            headerPanel.BackColor = Color.FromArgb(216, 225, 233);
+            headerPanel.BackColor = Color.FromArgb(0, 31, 84);
             headerPanel.Controls.Add(minimizeBtn);
             headerPanel.Controls.Add(maximizeBtn);
             headerPanel.Controls.Add(closeBtn);
@@ -380,12 +407,11 @@
             // 
             // minimizeBtn
             // 
-            minimizeBtn.BackColor = Color.FromArgb(216, 225, 233);
+            minimizeBtn.BackColor = Color.Transparent;
             minimizeBtn.Cursor = Cursors.Hand;
             minimizeBtn.Dock = DockStyle.Right;
-            minimizeBtn.ForeColor = Color.FromArgb(41, 128, 185);
             minimizeBtn.IconChar = FontAwesome.Sharp.IconChar.WindowMinimize;
-            minimizeBtn.IconColor = Color.FromArgb(41, 128, 185);
+            minimizeBtn.IconColor = Color.White;
             minimizeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             minimizeBtn.IconSize = 28;
             minimizeBtn.Location = new Point(1465, 0);
@@ -401,12 +427,11 @@
             // 
             // maximizeBtn
             // 
-            maximizeBtn.BackColor = Color.FromArgb(216, 225, 233);
+            maximizeBtn.BackColor = Color.Transparent;
             maximizeBtn.Cursor = Cursors.Hand;
             maximizeBtn.Dock = DockStyle.Right;
-            maximizeBtn.ForeColor = Color.FromArgb(41, 128, 185);
             maximizeBtn.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
-            maximizeBtn.IconColor = Color.FromArgb(41, 128, 185);
+            maximizeBtn.IconColor = Color.White;
             maximizeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             maximizeBtn.IconSize = 35;
             maximizeBtn.Location = new Point(1493, 0);
@@ -422,12 +447,11 @@
             // 
             // closeBtn
             // 
-            closeBtn.BackColor = Color.FromArgb(216, 225, 233);
+            closeBtn.BackColor = Color.Transparent;
             closeBtn.Cursor = Cursors.Hand;
             closeBtn.Dock = DockStyle.Right;
-            closeBtn.ForeColor = Color.FromArgb(41, 128, 185);
             closeBtn.IconChar = FontAwesome.Sharp.IconChar.X;
-            closeBtn.IconColor = Color.FromArgb(41, 128, 185);
+            closeBtn.IconColor = Color.White;
             closeBtn.IconFont = FontAwesome.Sharp.IconFont.Regular;
             closeBtn.IconSize = 29;
             closeBtn.Location = new Point(1528, 0);
@@ -463,7 +487,7 @@
             siticoneMenuButton1.IsOpened = false;
             siticoneMenuButton1.IsReadOnly = false;
             siticoneMenuButton1.Location = new Point(0, 0);
-            siticoneMenuButton1.MenuLineColor = Color.FromArgb(64, 64, 64);
+            siticoneMenuButton1.MenuLineColor = Color.White;
             siticoneMenuButton1.MenuLineHeight = 2F;
             siticoneMenuButton1.MenuLineSpacing = 6F;
             siticoneMenuButton1.MenuLineWidth = 20F;
@@ -487,34 +511,12 @@
             // mainPanel
             // 
             mainPanel.AutoScroll = true;
+            mainPanel.BackColor = Color.FromArgb(216, 225, 233);
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(309, 48);
             mainPanel.Name = "mainPanel";
             mainPanel.Size = new Size(1557, 907);
             mainPanel.TabIndex = 23;
-            // 
-            // messagesBtn
-            // 
-            messagesBtn.BackColor = Color.FromArgb(41, 128, 185);
-            messagesBtn.Dock = DockStyle.Top;
-            messagesBtn.FlatAppearance.BorderSize = 0;
-            messagesBtn.FlatStyle = FlatStyle.Flat;
-            messagesBtn.Font = new Font("Century Gothic", 13.8F);
-            messagesBtn.ForeColor = Color.White;
-            messagesBtn.IconChar = FontAwesome.Sharp.IconChar.Envelope;
-            messagesBtn.IconColor = Color.FromArgb(216, 225, 233);
-            messagesBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            messagesBtn.IconSize = 50;
-            messagesBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            messagesBtn.Location = new Point(3, 561);
-            messagesBtn.Name = "messagesBtn";
-            messagesBtn.Padding = new Padding(30, 0, 0, 0);
-            messagesBtn.Size = new Size(303, 67);
-            messagesBtn.TabIndex = 38;
-            messagesBtn.Text = " Messages";
-            messagesBtn.TextAlign = ContentAlignment.MiddleLeft;
-            messagesBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-            messagesBtn.UseVisualStyleBackColor = false;
             // 
             // Dashboard
             // 

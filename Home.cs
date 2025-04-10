@@ -10,13 +10,16 @@ using System.Windows.Forms;
 
 namespace FinalProjectOOP2
 {
-    public partial class Home : UserControl
+    public partial class Home : UserControl, ICurrentUsername
     {
         private string? currentUsername;
 
         public string? CurrentUsername
         {
-            get { return currentUsername; }
+            get 
+            { 
+                return currentUsername; 
+            }
             set
             {
                 currentUsername = value;
@@ -118,7 +121,7 @@ namespace FinalProjectOOP2
             tableLayoutPanel3.Controls.Add(panel12, 2, 0);
             tableLayoutPanel3.Controls.Add(panel11, 1, 0);
             tableLayoutPanel3.Controls.Add(panel9, 0, 0);
-            tableLayoutPanel3.Location = new Point(10, 525);
+            tableLayoutPanel3.Location = new Point(10, 529);
             tableLayoutPanel3.Margin = new Padding(26, 22, 26, 22);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.Padding = new Padding(3, 2, 3, 2);
@@ -246,7 +249,7 @@ namespace FinalProjectOOP2
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1557, 94);
+            panel1.Size = new Size(1557, 112);
             panel1.TabIndex = 15;
             // 
             // label1
@@ -254,19 +257,19 @@ namespace FinalProjectOOP2
             label1.AutoSize = true;
             label1.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(41, 128, 185);
-            label1.Location = new Point(3, 57);
+            label1.Location = new Point(10, 72);
             label1.Name = "label1";
             label1.Size = new Size(474, 27);
-            label1.TabIndex = 4;
+            label1.TabIndex = 5;
             label1.Text = "\"Here's a quick overview of your activity\"";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // userLbl
             // 
             userLbl.AutoSize = true;
             userLbl.Font = new Font("Century Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             userLbl.ForeColor = Color.FromArgb(41, 128, 185);
-            userLbl.Location = new Point(3, 15);
+            userLbl.Location = new Point(10, 15);
             userLbl.Name = "userLbl";
             userLbl.Size = new Size(324, 47);
             userLbl.TabIndex = 3;
@@ -285,7 +288,7 @@ namespace FinalProjectOOP2
             tableLayoutPanel1.Controls.Add(panel4, 2, 0);
             tableLayoutPanel1.Controls.Add(panel2, 0, 0);
             tableLayoutPanel1.Controls.Add(panel3, 1, 0);
-            tableLayoutPanel1.Location = new Point(10, 109);
+            tableLayoutPanel1.Location = new Point(10, 118);
             tableLayoutPanel1.Margin = new Padding(9, 8, 9, 8);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new Padding(3, 2, 3, 2);
@@ -491,7 +494,7 @@ namespace FinalProjectOOP2
             // 
             panel5.Controls.Add(label20);
             panel5.Controls.Add(label8);
-            panel5.Location = new Point(10, 274);
+            panel5.Location = new Point(10, 278);
             panel5.Margin = new Padding(3, 2, 3, 2);
             panel5.Name = "panel5";
             panel5.Size = new Size(1334, 94);
@@ -533,7 +536,7 @@ namespace FinalProjectOOP2
             tableLayoutPanel2.Controls.Add(panel7, 2, 0);
             tableLayoutPanel2.Controls.Add(panel6, 1, 0);
             tableLayoutPanel2.Controls.Add(panel8, 0, 0);
-            tableLayoutPanel2.Location = new Point(10, 371);
+            tableLayoutPanel2.Location = new Point(10, 375);
             tableLayoutPanel2.Margin = new Padding(26, 22, 26, 22);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.Padding = new Padding(3, 2, 3, 2);
@@ -1220,7 +1223,6 @@ namespace FinalProjectOOP2
             Controls.Add(tableLayoutPanel2);
             Name = "Home";
             Size = new Size(1557, 907);
-            Load += Home_Load;
             tableLayoutPanel3.ResumeLayout(false);
             panel12.ResumeLayout(false);
             panel11.ResumeLayout(false);
@@ -1244,11 +1246,6 @@ namespace FinalProjectOOP2
             panel6.ResumeLayout(false);
             panel8.ResumeLayout(false);
             ResumeLayout(false);
-        }
-
-        private void Home_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -30,7 +30,6 @@
         private Panel panel1;
         private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
         private SiticoneNetCoreUI.SiticoneToggleSwitch siticoneToggleSwitch1;
-        private Label label1;
         private Label userLbl;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel10;
@@ -77,5 +76,6 @@
         private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton1;
         private SiticoneNetCoreUI.SiticoneTileButton siticoneTileButton2;
         private Label label13;
+        private Label label1;
     }
 }

@@ -9,6 +9,9 @@ namespace FinalProjectOOP2
         private MyResumes? myResumes;
         private CreateResumes? createResumes;
         private Profile? profile;
+        private Messages? messages;
+        private Settings? settings;
+        private About? about;
         private Panel highlightPanel;
         private int targetTop;
         
@@ -174,6 +177,7 @@ namespace FinalProjectOOP2
             if (createResumes == null)
             {
                 createResumes = new CreateResumes();
+                createResumes.CurrentUsername = currentUser;
             }
 
             if (!mainPanel.Controls.Contains(createResumes))
@@ -189,7 +193,7 @@ namespace FinalProjectOOP2
 
             if (profile == null)
             {
-                profile = new Profile();
+                profile = new Profile(currentUser);
             }
 
             if (!mainPanel.Controls.Contains(profile))
@@ -200,9 +204,57 @@ namespace FinalProjectOOP2
 
         }
 
+        private void messagesBtn_Click(Object sender, EventArgs e)
+        {
+            ActivateButton(messagesBtn);
+
+            if (messages == null)
+            {
+                messages = new Messages();
+            }
+
+            if (!mainPanel.Controls.Contains(messages))
+            {
+                mainPanel.Controls.Clear();
+                mainPanel.Controls.Add(messages);
+            }
+        }
+
+        private void settingsBtn_Click(Object sender, EventArgs e)
+        {
+            ActivateButton(settingsBtn);
+
+            if (settings == null)
+            {
+                settings = new Settings();
+            }
+
+            if (!mainPanel.Controls.Contains(settings))
+            {
+                mainPanel.Controls.Clear();
+                mainPanel.Controls.Add(settings);
+            }
+        }
+
+        private void aboutBtn_Click(Object sender, EventArgs e)
+        {
+            ActivateButton(aboutBtn);
+
+            if (about == null)
+            {
+                about = new About();
+            }
+
+            if (!mainPanel.Controls.Contains(about))
+            {
+                mainPanel.Controls.Clear();
+                mainPanel.Controls.Add(about);
+            }
+        }
+
         private void menuBtn_Click(object sender, EventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void Dashboard_Load(object sender, EventArgs e)
@@ -247,6 +299,20 @@ namespace FinalProjectOOP2
                 Application.Exit();
 
             Login.instance.Show();
+            this.Close();
+        }
+
+        public void CloseAndShowLogin()
+        {
+            // Create login form first to prevent application exit
+            var loginForm = new Login();
+
+            // Use FormClosed event to handle clean transition
+            this.FormClosed += (s, args) =>
+            {
+                loginForm.Show();
+            };
+
             this.Close();
         }
     }
