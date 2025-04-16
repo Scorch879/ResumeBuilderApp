@@ -10,16 +10,13 @@ namespace FinalProjectOOP2
         private DatabaseHelper dbHelper;
         private string? currentUser;
 
-
-        public string? UpdatedUsername { get; private set; }
-
-        public string CurrentUser { get; set; }
-
         public string? CurrentUsername
         {
             get => currentUser;
             set => currentUser = value;
         }
+
+        public string? UpdatedUsername { get; private set; }
 
         public UpdateProfile()
         {
@@ -44,7 +41,23 @@ namespace FinalProjectOOP2
             {
                 MessageBox.Show("Username updated successfully!");
                 this.UpdatedUsername = newUsername;
+
+                var dashboard = this.Owner as Dashboard;
+                if (dashboard != null)
+                {
+                    dashboard.CurrentUser = newUsername;
+
+                    if (dashboard.Home != null)
+                        dashboard.Home.CurrentUsername = newUsername;
+
+                    if (dashboard.Profile != null)
+                        dashboard.Profile.CurrentUsername = newUsername;
+                }
+
+                this.Close(); // or refresh the fields
+
                 currentUser = newUsername;
+
             }
             else
             {

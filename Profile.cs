@@ -10,10 +10,19 @@ using System.Windows.Forms;
 
 namespace FinalProjectOOP2
 {
-    public partial class Profile : UserControl
+    public partial class Profile : UserControl, ICurrentUsername
     {
-        private string currentUser;
-        public string? CurrentUsername { get; set; }
+        private string? currentUser;
+
+        public string? CurrentUsername 
+        {
+            get => currentUser;
+            set
+            {
+                currentUser = value;
+                usernameLbl.Text = currentUser; // update the profile label or textbox
+            }
+        }
 
         public Profile(string username)
         {
@@ -130,17 +139,20 @@ namespace FinalProjectOOP2
 
         private void updateProfileBtn_Click(object sender, EventArgs e)
         {
-
-            UpdateProfile updateProfile = new UpdateProfile();
-            updateProfile.CurrentUsername = currentUser;
-            updateProfile.ShowDialog();
-
-            if (!string.IsNullOrEmpty(updateProfile.UpdatedUsername))
+            var dashboard = this.FindForm() as Dashboard;
+            if (dashboard == null || string.IsNullOrEmpty(dashboard.CurrentUser))
             {
-                currentUser = updateProfile.UpdatedUsername;
+                MessageBox.Show("Current user is not set.");
+                return;
             }
-            RefreshProfileData();
 
+            UpdateProfile updateForm = new UpdateProfile();
+            updateForm.CurrentUsername = dashboard.CurrentUser;
+            updateForm.Owner = dashboard;
+
+            updateForm.ShowDialog();
+
+            RefreshProfileData(); // Reload data after update
         }
 
         private void changeProfilePicBtn_Click(object sender, EventArgs e)
@@ -195,7 +207,7 @@ namespace FinalProjectOOP2
         {
             // Clear session or user-specific data
             currentUser = null;  // Reset the current user
-            CurrentUsername = null;  // If you're using a property to hold the current username
+            currentUsername = null;  // If you're using a property to hold the current username
 
             // Optionally, clear any UI elements that are user-specific
             usernameLbl.Text = "Guest";

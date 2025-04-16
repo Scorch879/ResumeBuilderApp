@@ -18,7 +18,7 @@ namespace FinalProjectOOP2
         DataSet? ds;
         private OleDbConnection? myConn;
 
-        private string? currentUsername;
+      
 
 
         public DatabaseHelper()
@@ -626,7 +626,8 @@ namespace FinalProjectOOP2
         {
             try
             {
-                return new System.Net.Mail.MailAddress(email).Address == email;
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
             }
             catch
             {
@@ -637,6 +638,19 @@ namespace FinalProjectOOP2
 
     public class ResumeDatabase : DatabaseHelper
     {
+
+        //Template Related Operations
+
+        public string LoadAndFillTemplate(string templatePath, Dictionary<string, string> data)
+        {
+            string template = File.ReadAllText(templatePath);
+            foreach (var entry in data)
+            {
+                template = template.Replace($"{{{entry.Key}}}", entry.Value);
+            }
+            return template;
+        }
+
         public bool SavePersonalInfo(int ownerId, string firstName, string middleName, string lastName, string email,
                               string phoneNum, string address, string designation, string summary)
         {

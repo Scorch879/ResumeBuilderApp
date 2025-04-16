@@ -4,17 +4,21 @@ namespace FinalProjectOOP2
 {
     public partial class Dashboard : Form
     {
-        private readonly string currentUser;
-        private Home? homeControl;
+        private string? currentUser;
+        public string? CurrentUser { get; set; }
+       // private Home? homeControl;
         private MyResumes? myResumes;
         private CreateResumes? createResumes;
-        private Profile? profile;
+       // private Profile? profile;
         private Messages? messages;
         private Settings? settings;
         private About? about;
         private Panel highlightPanel;
         private int targetTop;
-        
+
+        public Home Home { get; set; }  // Your Home user control
+        public Profile Profile { get; set; }  // Your Profile user control
+
         //For dragging the form
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -44,6 +48,8 @@ namespace FinalProjectOOP2
             highlightPanel.Top = homeBtn.Top + 10;
 
             highlightPanel.BringToFront();
+
+
         }
        
         private void Form_MouseDown(object? sender, MouseEventArgs e)
@@ -142,17 +148,21 @@ namespace FinalProjectOOP2
         {
             ActivateButton(homeBtn);
 
-            if (homeControl == null)
+            if (Home == null)
             {
-                homeControl = new Home();
-                homeControl.CurrentUsername = currentUser;
+                Home = new Home();
             }
 
-            if (!mainPanel.Controls.Contains(homeControl))
+            // Always update username
+            Home.CurrentUsername = currentUser;
+
+            if (!mainPanel.Controls.Contains(Home))
             {
                 mainPanel.Controls.Clear();
-                mainPanel.Controls.Add(homeControl);
+                mainPanel.Controls.Add(Home);
             }
+
+            Home.Refresh(); // Move this outside so it always refreshes
         }
 
         private void myResumeBtn_Click(object sender, EventArgs e)
@@ -191,15 +201,17 @@ namespace FinalProjectOOP2
         {
             ActivateButton(profileBtn);
 
-            if (profile == null)
+            if (Profile == null)
             {
-                profile = new Profile(currentUser);
+                Profile = new Profile(CurrentUser);
             }
 
-            if (!mainPanel.Controls.Contains(profile))
+            Profile.CurrentUsername = CurrentUser;
+
+            if (!mainPanel.Controls.Contains(Profile))
             {
                 mainPanel.Controls.Clear();
-                mainPanel.Controls.Add(profile);
+                mainPanel.Controls.Add(Profile);
             }
 
         }

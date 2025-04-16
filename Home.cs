@@ -16,20 +16,19 @@ namespace FinalProjectOOP2
 
         public string? CurrentUsername
         {
-            get 
-            { 
-                return currentUsername; 
-            }
+            get => currentUsername;
             set
             {
                 currentUsername = value;
-                userLbl.Text = $"Welcome, {currentUsername}!";
+                userLbl.Text = $"Welcome, {currentUsername}!"; 
             }
         }
 
         public Home()
         {
             InitializeComponent();
+            userLbl.Text = CurrentUsername;
+           
         }
 
         private void InitializeComponent()
