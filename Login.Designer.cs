@@ -409,7 +409,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Login";
             KeyDown += Login_KeyDown;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

@@ -8,7 +8,9 @@ namespace FinalProjectOOP2
         {
             InitializeComponent();
             instance = this;
-            Dashboard dashboard = new Dashboard("");
+
+            //preload  dashboard
+            Dashboard dashboard = new Dashboard();
         }
 
         private void closeBtn_Click(object sender, EventArgs e)
@@ -68,7 +70,8 @@ namespace FinalProjectOOP2
                 else if (dbHelper.LoginUser(usernameTbx.Text, passwordTbx.Text))
                 {
                     string currentUser = usernameTbx.Text;
-                    Dashboard dashboard = new Dashboard(currentUser);
+                    Dashboard dashboard = new Dashboard();
+                    dashboard.CurrentUser = currentUser;
 
                     MessageBox.Show("Login Successful!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

@@ -12,9 +12,17 @@ namespace FinalProjectOOP2
 {
     public partial class ResumePreviewForm : Form
     {
-        public ResumePreviewForm()
+        public ResumePreviewForm(string htmlContent)
         {
             InitializeComponent();
+            LoadHtml(htmlContent);
         }
+
+        private async void LoadHtml(string html)
+        {
+            await resumePreview.EnsureCoreWebView2Async();
+            resumePreview.NavigateToString(html);
+        }
+
     }
 }

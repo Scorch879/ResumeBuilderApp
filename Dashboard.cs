@@ -5,8 +5,20 @@ namespace FinalProjectOOP2
     public partial class Dashboard : Form
     {
         private string? currentUser;
-        public string? CurrentUser { get; set; }
-       // private Home? homeControl;
+
+        public string? CurrentUser 
+        {
+            get
+            {
+                return currentUser;
+            }
+            set
+            {
+                currentUser = value;
+            }
+        }
+
+        // private Home? homeControl;
         private MyResumes? myResumes;
         private CreateResumes? createResumes;
        // private Profile? profile;
@@ -16,9 +28,9 @@ namespace FinalProjectOOP2
         private Panel highlightPanel;
         private int targetTop;
 
-        public Home Home { get; set; }  // Your Home user control
-        public Profile Profile { get; set; }  // Your Profile user control
-
+        public Home? Home { get; set; }  // Your Home user control
+        public Profile? Profile { get; set; }  // Your Profile user control
+        
         //For dragging the form
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -27,12 +39,11 @@ namespace FinalProjectOOP2
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        public Dashboard(string user)
+        public Dashboard()
         {
             InitializeComponent();
             this.MouseDown += Form_MouseDown;
             headerPanel.MouseDown += Form_MouseDown;
-            currentUser = user;
             highlightTimer = new System.Windows.Forms.Timer();
             highlightTimer.Interval = 1; 
             highlightTimer.Tick += HighlightTimer_Tick;
@@ -203,17 +214,21 @@ namespace FinalProjectOOP2
 
             if (Profile == null)
             {
-                Profile = new Profile(CurrentUser);
+                Profile = new Profile();
+                Profile.CurrentUsername = CurrentUser;
+                Profile.LoadProfileData();
             }
-
-            Profile.CurrentUsername = CurrentUser;
+            else
+            {
+                Profile.CurrentUsername = CurrentUser;
+                Profile.LoadProfileData(); // ✅ This forces refresh
+            }
 
             if (!mainPanel.Controls.Contains(Profile))
             {
                 mainPanel.Controls.Clear();
                 mainPanel.Controls.Add(Profile);
             }
-
         }
 
         private void messagesBtn_Click(Object sender, EventArgs e)

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            label3 = new Label();
             label5 = new Label();
             pictureBox1 = new PictureBox();
             label1 = new Label();
@@ -50,7 +51,6 @@
             closeBtn = new Button();
             ForgotPassTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             warningLbl = new SiticoneNetCoreUI.SiticoneLabel();
-            label3 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -74,6 +74,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(356, 615);
             panel1.TabIndex = 14;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(142, 250);
+            label3.Name = "label3";
+            label3.Size = new Size(196, 37);
+            label3.TabIndex = 17;
+            label3.Text = "ProResume+";
             // 
             // label5
             // 
@@ -336,18 +348,6 @@
             warningLbl.Text = "Password must be at least 8 characters.\r\nNo whitespaces allowed.\r\nMake a strong password!\r\n";
             warningLbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(142, 250);
-            label3.Name = "label3";
-            label3.Size = new Size(196, 37);
-            label3.TabIndex = 17;
-            label3.Text = "ProResume+";
-            // 
             // ForgotPassword
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -367,7 +367,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "ForgotPassword";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Reset your password";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

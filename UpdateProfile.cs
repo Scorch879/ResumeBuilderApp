@@ -47,21 +47,25 @@ namespace FinalProjectOOP2
                 {
                     dashboard.CurrentUser = newUsername;
 
-                    if (dashboard.Home != null)
-                        dashboard.Home.CurrentUsername = newUsername;
-
                     if (dashboard.Profile != null)
+                    {
                         dashboard.Profile.CurrentUsername = newUsername;
+                        dashboard.Profile.LoadProfileData(); // ✅ Force refresh after update
+                    }
+
+                    if (dashboard.Home != null)
+                    {
+                        dashboard.Home.CurrentUsername = newUsername;
+                    }
+
+                    //if (dashboard.CreateResumes != null)
+                    //{
+                    //    dashboard.CreateResumes.CurrentUsername = newUsername;
+                    //}
                 }
 
-                this.Close(); // or refresh the fields
-
-                currentUser = newUsername;
-
-            }
-            else
-            {
-                MessageBox.Show("Failed to update username.");
+                currentUser = newUsername; // update local reference
+                //this.Close();
             }
         }
 
@@ -150,16 +154,17 @@ namespace FinalProjectOOP2
             // Attempt to update username last if it's not empty
             if (!string.IsNullOrWhiteSpace(newUsername))
             {
-                bool usernameUpdated = dbHelper.UpdateUsername(newUsername, currentUser);
-                if (!usernameUpdated)
-                {
-                    failedUpdates += "Username update failed.\n";
-                    allSuccess = false;
-                }
-                else
-                {
-                    currentUser = newUsername; // Update reference if username was changed
-                }
+                //bool usernameUpdated = dbHelper.UpdateUsername(newUsername, currentUser);
+                //if (!usernameUpdated)
+                //{
+                //    failedUpdates += "Username update failed.\n";
+                //    allSuccess = false;
+                //}
+                //else
+                //{
+                //    currentUser = newUsername; // Update reference if username was changed
+                //}
+                usernameUpdate_Click(sender, e);
             }
 
             // Check if all updates were successful
@@ -175,7 +180,6 @@ namespace FinalProjectOOP2
                 MessageBox.Show($"Some updates failed:\n{failedUpdates}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
 
         private void fullNameUpdate_Click(object sender, EventArgs e)
