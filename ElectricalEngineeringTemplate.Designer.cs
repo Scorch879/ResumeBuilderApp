@@ -73,26 +73,63 @@
             listBox1 = new ListBox();
             panel13 = new Panel();
             label22 = new Label();
-            tabEducAndLang = new TabPage();
+            tabTechExpertise = new TabPage();
             panel15 = new Panel();
+            panel30 = new Panel();
+            expertiseTable = new DataGridView();
+            panel29 = new Panel();
+            panel28 = new Panel();
+            panel27 = new Panel();
+            tableLayoutPanel12 = new TableLayoutPanel();
+            iconButton13 = new FontAwesome.Sharp.IconButton();
+            iconButton14 = new FontAwesome.Sharp.IconButton();
+            tableLayoutPanel15 = new TableLayoutPanel();
+            comboBox1 = new ComboBox();
+            label38 = new Label();
+            label39 = new Label();
+            textBox16 = new TextBox();
+            tabExperience = new TabPage();
+            panel1 = new Panel();
+            panel6 = new Panel();
+            dataGridView1 = new DataGridView();
+            panel23 = new Panel();
+            label31 = new Label();
+            panel7 = new Panel();
+            panel20 = new Panel();
+            tableLayoutPanel7 = new TableLayoutPanel();
+            iconButton9 = new FontAwesome.Sharp.IconButton();
+            iconButton10 = new FontAwesome.Sharp.IconButton();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            label1 = new Label();
+            textBox3 = new TextBox();
+            panel9 = new Panel();
+            tableLayoutPanel14 = new TableLayoutPanel();
+            iconButton17 = new FontAwesome.Sharp.IconButton();
+            iconButton18 = new FontAwesome.Sharp.IconButton();
+            tableLayoutPanel13 = new TableLayoutPanel();
+            label32 = new Label();
+            textBox10 = new TextBox();
+            label14 = new Label();
+            label25 = new Label();
+            label26 = new Label();
+            textBox4 = new TextBox();
+            label27 = new Label();
+            textBox5 = new TextBox();
+            textBox6 = new TextBox();
+            textBox9 = new TextBox();
+            panel8 = new Panel();
+            label18 = new Label();
+            tabEducation = new TabPage();
+            panel10 = new Panel();
             panel16 = new Panel();
-            tableLayoutPanel5 = new TableLayoutPanel();
-            iconButton5 = new FontAwesome.Sharp.IconButton();
-            iconButton6 = new FontAwesome.Sharp.IconButton();
-            languageLstBx = new ListBox();
-            panel22 = new Panel();
-            label29 = new Label();
-            tableLayoutPanel11 = new TableLayoutPanel();
-            languageTbx = new TextBox();
-            label28 = new Label();
+            educationlstBx = new ListBox();
+            label30 = new Label();
             panel19 = new Panel();
             panel17 = new Panel();
             tableLayoutPanel10 = new TableLayoutPanel();
             iconButton8 = new FontAwesome.Sharp.IconButton();
             iconButton7 = new FontAwesome.Sharp.IconButton();
-            educationlstBx = new ListBox();
             panel21 = new Panel();
-            label30 = new Label();
             tableLayoutPanel6 = new TableLayoutPanel();
             label24 = new Label();
             label23 = new Label();
@@ -104,51 +141,20 @@
             yearTbx = new TextBox();
             panel14 = new Panel();
             label15 = new Label();
-            tabExperience = new TabPage();
-            panel1 = new Panel();
-            panel6 = new Panel();
-            tableLayoutPanel12 = new TableLayoutPanel();
+            tabCertifications = new TabPage();
+            panel11 = new Panel();
+            panel18 = new Panel();
+            tableLayoutPanel11 = new TableLayoutPanel();
             iconButton11 = new FontAwesome.Sharp.IconButton();
             iconButton12 = new FontAwesome.Sharp.IconButton();
-            listBox4 = new ListBox();
-            tableLayoutPanel3 = new TableLayoutPanel();
-            iconButton9 = new FontAwesome.Sharp.IconButton();
-            iconButton10 = new FontAwesome.Sharp.IconButton();
-            listBox3 = new ListBox();
-            tableLayoutPanel7 = new TableLayoutPanel();
-            textBox3 = new TextBox();
-            label1 = new Label();
-            panel7 = new Panel();
-            panel20 = new Panel();
-            tableLayoutPanel13 = new TableLayoutPanel();
-            label14 = new Label();
-            label25 = new Label();
-            label26 = new Label();
-            textBox4 = new TextBox();
-            label27 = new Label();
-            textBox5 = new TextBox();
-            textBox6 = new TextBox();
-            textBox9 = new TextBox();
-            panel8 = new Panel();
-            label18 = new Label();
-            tabConferenceCourses = new TabPage();
-            panel9 = new Panel();
-            panel10 = new Panel();
-            tableLayoutPanel8 = new TableLayoutPanel();
-            iconButton13 = new FontAwesome.Sharp.IconButton();
-            iconButton14 = new FontAwesome.Sharp.IconButton();
-            label19 = new Label();
-            textBox7 = new TextBox();
-            listBox7 = new ListBox();
-            panel11 = new Panel();
+            developmentLstBx = new ListBox();
+            label34 = new Label();
             tableLayoutPanel9 = new TableLayoutPanel();
-            iconButton15 = new FontAwesome.Sharp.IconButton();
-            label20 = new Label();
-            iconButton16 = new FontAwesome.Sharp.IconButton();
-            textBox8 = new TextBox();
-            listBox8 = new ListBox();
-            panel18 = new Panel();
-            label21 = new Label();
+            label36 = new Label();
+            textBox14 = new TextBox();
+            label37 = new Label();
+            panel26 = new Panel();
+            label33 = new Label();
             resumeTabControl.SuspendLayout();
             tabPersonalInfo.SuspendLayout();
             panel5.SuspendLayout();
@@ -163,33 +169,37 @@
             coreSkillPanel.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             panel13.SuspendLayout();
-            tabEducAndLang.SuspendLayout();
+            tabTechExpertise.SuspendLayout();
             panel15.SuspendLayout();
-            panel16.SuspendLayout();
-            tableLayoutPanel5.SuspendLayout();
-            panel22.SuspendLayout();
-            tableLayoutPanel11.SuspendLayout();
-            panel17.SuspendLayout();
-            tableLayoutPanel10.SuspendLayout();
-            panel21.SuspendLayout();
-            tableLayoutPanel6.SuspendLayout();
-            panel14.SuspendLayout();
+            panel30.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)expertiseTable).BeginInit();
+            panel27.SuspendLayout();
+            tableLayoutPanel12.SuspendLayout();
+            tableLayoutPanel15.SuspendLayout();
             tabExperience.SuspendLayout();
             panel1.SuspendLayout();
             panel6.SuspendLayout();
-            tableLayoutPanel12.SuspendLayout();
-            tableLayoutPanel3.SuspendLayout();
-            tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel23.SuspendLayout();
             panel20.SuspendLayout();
+            tableLayoutPanel7.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel14.SuspendLayout();
             tableLayoutPanel13.SuspendLayout();
             panel8.SuspendLayout();
-            tabConferenceCourses.SuspendLayout();
-            panel9.SuspendLayout();
+            tabEducation.SuspendLayout();
             panel10.SuspendLayout();
-            tableLayoutPanel8.SuspendLayout();
+            panel16.SuspendLayout();
+            panel17.SuspendLayout();
+            tableLayoutPanel10.SuspendLayout();
+            tableLayoutPanel6.SuspendLayout();
+            panel14.SuspendLayout();
+            tabCertifications.SuspendLayout();
             panel11.SuspendLayout();
-            tableLayoutPanel9.SuspendLayout();
             panel18.SuspendLayout();
+            tableLayoutPanel11.SuspendLayout();
+            tableLayoutPanel9.SuspendLayout();
+            panel26.SuspendLayout();
             SuspendLayout();
             // 
             // resumeTabControl
@@ -205,9 +215,10 @@
             resumeTabControl.ContextMenuFont = new Font("Segoe UI", 10F);
             resumeTabControl.Controls.Add(tabPersonalInfo);
             resumeTabControl.Controls.Add(tabSkills);
-            resumeTabControl.Controls.Add(tabEducAndLang);
+            resumeTabControl.Controls.Add(tabTechExpertise);
             resumeTabControl.Controls.Add(tabExperience);
-            resumeTabControl.Controls.Add(tabConferenceCourses);
+            resumeTabControl.Controls.Add(tabEducation);
+            resumeTabControl.Controls.Add(tabCertifications);
             resumeTabControl.Dock = DockStyle.Fill;
             resumeTabControl.DragIndicatorColor = Color.FromArgb(25, 118, 210);
             resumeTabControl.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -780,180 +791,645 @@
             label22.Text = "SKILLS";
             label22.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // tabEducAndLang
+            // tabTechExpertise
             // 
-            tabEducAndLang.BackColor = Color.White;
-            tabEducAndLang.Controls.Add(panel15);
-            tabEducAndLang.Controls.Add(panel14);
-            tabEducAndLang.Location = new Point(4, 44);
-            tabEducAndLang.Name = "tabEducAndLang";
-            tabEducAndLang.Padding = new Padding(5);
-            tabEducAndLang.Size = new Size(1502, 610);
-            tabEducAndLang.TabIndex = 2;
-            tabEducAndLang.Text = "EDUCATION & LANGUAGE";
+            tabTechExpertise.BackColor = Color.White;
+            tabTechExpertise.Controls.Add(panel15);
+            tabTechExpertise.Location = new Point(4, 44);
+            tabTechExpertise.Name = "tabTechExpertise";
+            tabTechExpertise.Padding = new Padding(5);
+            tabTechExpertise.Size = new Size(1502, 610);
+            tabTechExpertise.TabIndex = 2;
+            tabTechExpertise.Text = "TECHNICAL EXPERTISE";
             // 
             // panel15
             // 
             panel15.BackColor = Color.FromArgb(41, 128, 185);
-            panel15.Controls.Add(panel16);
-            panel15.Controls.Add(panel19);
-            panel15.Controls.Add(panel17);
+            panel15.Controls.Add(panel30);
+            panel15.Controls.Add(panel29);
+            panel15.Controls.Add(panel28);
+            panel15.Controls.Add(panel27);
             panel15.Dock = DockStyle.Fill;
-            panel15.Location = new Point(5, 61);
+            panel15.Location = new Point(5, 5);
             panel15.Name = "panel15";
-            panel15.Size = new Size(1492, 544);
+            panel15.Size = new Size(1492, 600);
             panel15.TabIndex = 9;
+            // 
+            // panel30
+            // 
+            panel30.Controls.Add(expertiseTable);
+            panel30.Dock = DockStyle.Fill;
+            panel30.Location = new Point(222, 0);
+            panel30.Name = "panel30";
+            panel30.Padding = new Padding(10);
+            panel30.Size = new Size(1048, 467);
+            panel30.TabIndex = 71;
+            // 
+            // expertiseTable
+            // 
+            expertiseTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            expertiseTable.Dock = DockStyle.Fill;
+            expertiseTable.Location = new Point(10, 10);
+            expertiseTable.Name = "expertiseTable";
+            expertiseTable.RowHeadersWidth = 51;
+            expertiseTable.Size = new Size(1028, 447);
+            expertiseTable.TabIndex = 0;
+            // 
+            // panel29
+            // 
+            panel29.Dock = DockStyle.Right;
+            panel29.Location = new Point(1270, 0);
+            panel29.Name = "panel29";
+            panel29.Size = new Size(222, 467);
+            panel29.TabIndex = 70;
+            // 
+            // panel28
+            // 
+            panel28.Dock = DockStyle.Left;
+            panel28.Location = new Point(0, 0);
+            panel28.Name = "panel28";
+            panel28.Size = new Size(222, 467);
+            panel28.TabIndex = 69;
+            // 
+            // panel27
+            // 
+            panel27.Controls.Add(tableLayoutPanel12);
+            panel27.Controls.Add(tableLayoutPanel15);
+            panel27.Dock = DockStyle.Bottom;
+            panel27.Location = new Point(0, 467);
+            panel27.Name = "panel27";
+            panel27.Padding = new Padding(10);
+            panel27.Size = new Size(1492, 133);
+            panel27.TabIndex = 43;
+            // 
+            // tableLayoutPanel12
+            // 
+            tableLayoutPanel12.ColumnCount = 2;
+            tableLayoutPanel12.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.1202354F));
+            tableLayoutPanel12.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.8797646F));
+            tableLayoutPanel12.Controls.Add(iconButton13, 0, 0);
+            tableLayoutPanel12.Controls.Add(iconButton14, 1, 0);
+            tableLayoutPanel12.Dock = DockStyle.Fill;
+            tableLayoutPanel12.Location = new Point(757, 10);
+            tableLayoutPanel12.Name = "tableLayoutPanel12";
+            tableLayoutPanel12.Padding = new Padding(10);
+            tableLayoutPanel12.RowCount = 1;
+            tableLayoutPanel12.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel12.Size = new Size(725, 113);
+            tableLayoutPanel12.TabIndex = 69;
+            // 
+            // iconButton13
+            // 
+            iconButton13.BackColor = Color.FromArgb(10, 17, 40);
+            iconButton13.Dock = DockStyle.Fill;
+            iconButton13.FlatAppearance.BorderSize = 0;
+            iconButton13.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton13.ForeColor = Color.White;
+            iconButton13.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconButton13.IconColor = Color.Black;
+            iconButton13.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton13.Location = new Point(13, 13);
+            iconButton13.Name = "iconButton13";
+            iconButton13.Size = new Size(340, 87);
+            iconButton13.TabIndex = 1;
+            iconButton13.Text = "Add Expertise";
+            iconButton13.UseVisualStyleBackColor = false;
+            // 
+            // iconButton14
+            // 
+            iconButton14.BackColor = Color.IndianRed;
+            iconButton14.Dock = DockStyle.Fill;
+            iconButton14.FlatAppearance.BorderSize = 0;
+            iconButton14.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton14.ForeColor = Color.White;
+            iconButton14.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconButton14.IconColor = Color.Black;
+            iconButton14.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton14.Location = new Point(359, 13);
+            iconButton14.Name = "iconButton14";
+            iconButton14.Size = new Size(353, 87);
+            iconButton14.TabIndex = 35;
+            iconButton14.Text = "Remove Expertise";
+            iconButton14.UseVisualStyleBackColor = false;
+            // 
+            // tableLayoutPanel15
+            // 
+            tableLayoutPanel15.ColumnCount = 2;
+            tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel15.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 461F));
+            tableLayoutPanel15.Controls.Add(comboBox1, 1, 0);
+            tableLayoutPanel15.Controls.Add(label38, 0, 1);
+            tableLayoutPanel15.Controls.Add(label39, 0, 0);
+            tableLayoutPanel15.Controls.Add(textBox16, 1, 1);
+            tableLayoutPanel15.Dock = DockStyle.Left;
+            tableLayoutPanel15.Location = new Point(10, 10);
+            tableLayoutPanel15.Name = "tableLayoutPanel15";
+            tableLayoutPanel15.RowCount = 2;
+            tableLayoutPanel15.RowStyles.Add(new RowStyle(SizeType.Percent, 53.9325829F));
+            tableLayoutPanel15.RowStyles.Add(new RowStyle(SizeType.Percent, 46.0674171F));
+            tableLayoutPanel15.Size = new Size(747, 113);
+            tableLayoutPanel15.TabIndex = 41;
+            // 
+            // comboBox1
+            // 
+            comboBox1.Dock = DockStyle.Fill;
+            comboBox1.Font = new Font("Century Gothic", 13.8F);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "PLC", "Design", "Methodologies", "Production" });
+            comboBox1.Location = new Point(289, 3);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(455, 35);
+            comboBox1.TabIndex = 44;
+            // 
+            // label38
+            // 
+            label38.AutoSize = true;
+            label38.Font = new Font("Century Gothic", 13.8F);
+            label38.ForeColor = Color.White;
+            label38.Location = new Point(3, 60);
+            label38.Name = "label38";
+            label38.Size = new Size(256, 27);
+            label38.TabIndex = 41;
+            label38.Text = "Enter Expertise Details";
+            // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.Font = new Font("Century Gothic", 13.8F);
+            label39.ForeColor = Color.White;
+            label39.Location = new Point(3, 0);
+            label39.Name = "label39";
+            label39.Size = new Size(187, 27);
+            label39.TabIndex = 34;
+            label39.Text = "Select Expertise";
+            // 
+            // textBox16
+            // 
+            textBox16.Dock = DockStyle.Fill;
+            textBox16.Font = new Font("Century Gothic", 13.8F);
+            textBox16.Location = new Point(289, 63);
+            textBox16.Name = "textBox16";
+            textBox16.Size = new Size(455, 36);
+            textBox16.TabIndex = 36;
+            // 
+            // tabExperience
+            // 
+            tabExperience.BackColor = Color.White;
+            tabExperience.Controls.Add(panel1);
+            tabExperience.Controls.Add(panel8);
+            tabExperience.Location = new Point(4, 44);
+            tabExperience.Name = "tabExperience";
+            tabExperience.Padding = new Padding(5);
+            tabExperience.Size = new Size(1502, 610);
+            tabExperience.TabIndex = 3;
+            tabExperience.Text = "PROFESSIONAL EXPERIENCE";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(41, 128, 185);
+            panel1.Controls.Add(panel6);
+            panel1.Controls.Add(panel7);
+            panel1.Controls.Add(panel20);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(5, 61);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1492, 544);
+            panel1.TabIndex = 13;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(dataGridView1);
+            panel6.Controls.Add(panel23);
+            panel6.Dock = DockStyle.Fill;
+            panel6.Location = new Point(830, 0);
+            panel6.Name = "panel6";
+            panel6.Padding = new Padding(10);
+            panel6.Size = new Size(662, 544);
+            panel6.TabIndex = 44;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Top;
+            dataGridView1.Location = new Point(10, 50);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(642, 463);
+            dataGridView1.TabIndex = 71;
+            // 
+            // panel23
+            // 
+            panel23.Controls.Add(label31);
+            panel23.Dock = DockStyle.Top;
+            panel23.Location = new Point(10, 10);
+            panel23.Name = "panel23";
+            panel23.Size = new Size(642, 40);
+            panel23.TabIndex = 70;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Dock = DockStyle.Top;
+            label31.Font = new Font("Century Gothic", 13.8F);
+            label31.ForeColor = Color.White;
+            label31.Location = new Point(0, 0);
+            label31.Name = "label31";
+            label31.Size = new Size(342, 27);
+            label31.TabIndex = 70;
+            label31.Text = "Your Professional Experiences";
+            // 
+            // panel7
+            // 
+            panel7.Dock = DockStyle.Left;
+            panel7.Location = new Point(807, 0);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(23, 544);
+            panel7.TabIndex = 43;
+            // 
+            // panel20
+            // 
+            panel20.Controls.Add(tableLayoutPanel7);
+            panel20.Controls.Add(tableLayoutPanel3);
+            panel20.Controls.Add(panel9);
+            panel20.Controls.Add(tableLayoutPanel14);
+            panel20.Controls.Add(tableLayoutPanel13);
+            panel20.Dock = DockStyle.Left;
+            panel20.Location = new Point(0, 0);
+            panel20.Name = "panel20";
+            panel20.Padding = new Padding(10);
+            panel20.Size = new Size(807, 544);
+            panel20.TabIndex = 42;
+            // 
+            // tableLayoutPanel7
+            // 
+            tableLayoutPanel7.ColumnCount = 2;
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.1202354F));
+            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.8797646F));
+            tableLayoutPanel7.Controls.Add(iconButton9, 0, 0);
+            tableLayoutPanel7.Controls.Add(iconButton10, 1, 0);
+            tableLayoutPanel7.Dock = DockStyle.Top;
+            tableLayoutPanel7.Location = new Point(10, 432);
+            tableLayoutPanel7.Name = "tableLayoutPanel7";
+            tableLayoutPanel7.Padding = new Padding(10);
+            tableLayoutPanel7.RowCount = 1;
+            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel7.Size = new Size(787, 78);
+            tableLayoutPanel7.TabIndex = 73;
+            // 
+            // iconButton9
+            // 
+            iconButton9.BackColor = Color.FromArgb(10, 17, 40);
+            iconButton9.Dock = DockStyle.Fill;
+            iconButton9.FlatAppearance.BorderSize = 0;
+            iconButton9.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton9.ForeColor = Color.White;
+            iconButton9.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconButton9.IconColor = Color.Black;
+            iconButton9.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton9.Location = new Point(13, 13);
+            iconButton9.Name = "iconButton9";
+            iconButton9.Size = new Size(370, 52);
+            iconButton9.TabIndex = 1;
+            iconButton9.Text = "Add Responsibility";
+            iconButton9.UseVisualStyleBackColor = false;
+            // 
+            // iconButton10
+            // 
+            iconButton10.BackColor = Color.IndianRed;
+            iconButton10.Dock = DockStyle.Fill;
+            iconButton10.FlatAppearance.BorderSize = 0;
+            iconButton10.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton10.ForeColor = Color.White;
+            iconButton10.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconButton10.IconColor = Color.Black;
+            iconButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton10.Location = new Point(389, 13);
+            iconButton10.Name = "iconButton10";
+            iconButton10.Size = new Size(385, 52);
+            iconButton10.TabIndex = 35;
+            iconButton10.Text = "Remove Responsibility";
+            iconButton10.UseVisualStyleBackColor = false;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.1308765F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 68.8691254F));
+            tableLayoutPanel3.Controls.Add(label1, 0, 0);
+            tableLayoutPanel3.Controls.Add(textBox3, 1, 0);
+            tableLayoutPanel3.Dock = DockStyle.Top;
+            tableLayoutPanel3.Location = new Point(10, 370);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel3.Size = new Size(787, 62);
+            tableLayoutPanel3.TabIndex = 72;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Century Gothic", 13.8F);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(3, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(237, 54);
+            label1.TabIndex = 75;
+            label1.Text = "Responsibilities (Add one at a time)";
+            // 
+            // textBox3
+            // 
+            textBox3.Dock = DockStyle.Fill;
+            textBox3.Font = new Font("Century Gothic", 13.8F);
+            textBox3.Location = new Point(248, 3);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(536, 36);
+            textBox3.TabIndex = 74;
+            // 
+            // panel9
+            // 
+            panel9.Dock = DockStyle.Top;
+            panel9.Location = new Point(10, 346);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(787, 24);
+            panel9.TabIndex = 71;
+            // 
+            // tableLayoutPanel14
+            // 
+            tableLayoutPanel14.ColumnCount = 2;
+            tableLayoutPanel14.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.1202354F));
+            tableLayoutPanel14.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.8797646F));
+            tableLayoutPanel14.Controls.Add(iconButton17, 0, 0);
+            tableLayoutPanel14.Controls.Add(iconButton18, 1, 0);
+            tableLayoutPanel14.Dock = DockStyle.Top;
+            tableLayoutPanel14.Location = new Point(10, 268);
+            tableLayoutPanel14.Name = "tableLayoutPanel14";
+            tableLayoutPanel14.Padding = new Padding(10);
+            tableLayoutPanel14.RowCount = 1;
+            tableLayoutPanel14.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel14.Size = new Size(787, 78);
+            tableLayoutPanel14.TabIndex = 68;
+            // 
+            // iconButton17
+            // 
+            iconButton17.BackColor = Color.FromArgb(10, 17, 40);
+            iconButton17.Dock = DockStyle.Fill;
+            iconButton17.FlatAppearance.BorderSize = 0;
+            iconButton17.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton17.ForeColor = Color.White;
+            iconButton17.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconButton17.IconColor = Color.Black;
+            iconButton17.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton17.Location = new Point(13, 13);
+            iconButton17.Name = "iconButton17";
+            iconButton17.Size = new Size(370, 52);
+            iconButton17.TabIndex = 1;
+            iconButton17.Text = "Add Experience";
+            iconButton17.UseVisualStyleBackColor = false;
+            // 
+            // iconButton18
+            // 
+            iconButton18.BackColor = Color.IndianRed;
+            iconButton18.Dock = DockStyle.Fill;
+            iconButton18.FlatAppearance.BorderSize = 0;
+            iconButton18.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            iconButton18.ForeColor = Color.White;
+            iconButton18.IconChar = FontAwesome.Sharp.IconChar.None;
+            iconButton18.IconColor = Color.Black;
+            iconButton18.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconButton18.Location = new Point(389, 13);
+            iconButton18.Name = "iconButton18";
+            iconButton18.Size = new Size(385, 52);
+            iconButton18.TabIndex = 35;
+            iconButton18.Text = "Remove Experience";
+            iconButton18.UseVisualStyleBackColor = false;
+            // 
+            // tableLayoutPanel13
+            // 
+            tableLayoutPanel13.ColumnCount = 2;
+            tableLayoutPanel13.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel13.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 544F));
+            tableLayoutPanel13.Controls.Add(label32, 0, 4);
+            tableLayoutPanel13.Controls.Add(textBox10, 1, 4);
+            tableLayoutPanel13.Controls.Add(label14, 0, 3);
+            tableLayoutPanel13.Controls.Add(label25, 0, 2);
+            tableLayoutPanel13.Controls.Add(label26, 0, 1);
+            tableLayoutPanel13.Controls.Add(textBox4, 1, 0);
+            tableLayoutPanel13.Controls.Add(label27, 0, 0);
+            tableLayoutPanel13.Controls.Add(textBox5, 1, 1);
+            tableLayoutPanel13.Controls.Add(textBox6, 1, 2);
+            tableLayoutPanel13.Controls.Add(textBox9, 1, 3);
+            tableLayoutPanel13.Dock = DockStyle.Top;
+            tableLayoutPanel13.Location = new Point(10, 10);
+            tableLayoutPanel13.Name = "tableLayoutPanel13";
+            tableLayoutPanel13.RowCount = 5;
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel13.Size = new Size(787, 258);
+            tableLayoutPanel13.TabIndex = 41;
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Font = new Font("Century Gothic", 13.8F);
+            label32.ForeColor = Color.White;
+            label32.Location = new Point(3, 204);
+            label32.Name = "label32";
+            label32.Size = new Size(168, 27);
+            label32.TabIndex = 45;
+            label32.Text = "Achievement";
+            // 
+            // textBox10
+            // 
+            textBox10.Dock = DockStyle.Fill;
+            textBox10.Font = new Font("Century Gothic", 13.8F);
+            textBox10.Location = new Point(246, 207);
+            textBox10.Name = "textBox10";
+            textBox10.Size = new Size(538, 36);
+            textBox10.TabIndex = 44;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Century Gothic", 13.8F);
+            label14.ForeColor = Color.White;
+            label14.Location = new Point(3, 153);
+            label14.Name = "label14";
+            label14.Size = new Size(109, 27);
+            label14.TabIndex = 43;
+            label14.Text = "Duration";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Century Gothic", 13.8F);
+            label25.ForeColor = Color.White;
+            label25.Location = new Point(3, 102);
+            label25.Name = "label25";
+            label25.Size = new Size(112, 27);
+            label25.TabIndex = 42;
+            label25.Text = "Location";
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Century Gothic", 13.8F);
+            label26.ForeColor = Color.White;
+            label26.Location = new Point(3, 51);
+            label26.Name = "label26";
+            label26.Size = new Size(127, 27);
+            label26.TabIndex = 41;
+            label26.Text = "Company";
+            // 
+            // textBox4
+            // 
+            textBox4.Dock = DockStyle.Fill;
+            textBox4.Font = new Font("Century Gothic", 13.8F);
+            textBox4.Location = new Point(246, 3);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(538, 36);
+            textBox4.TabIndex = 40;
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Century Gothic", 13.8F);
+            label27.ForeColor = Color.White;
+            label27.Location = new Point(3, 0);
+            label27.Name = "label27";
+            label27.Size = new Size(106, 27);
+            label27.TabIndex = 34;
+            label27.Text = "Job Title";
+            // 
+            // textBox5
+            // 
+            textBox5.Dock = DockStyle.Fill;
+            textBox5.Font = new Font("Century Gothic", 13.8F);
+            textBox5.Location = new Point(246, 54);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(538, 36);
+            textBox5.TabIndex = 36;
+            // 
+            // textBox6
+            // 
+            textBox6.Dock = DockStyle.Fill;
+            textBox6.Font = new Font("Century Gothic", 13.8F);
+            textBox6.Location = new Point(246, 105);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(538, 36);
+            textBox6.TabIndex = 37;
+            // 
+            // textBox9
+            // 
+            textBox9.Dock = DockStyle.Fill;
+            textBox9.Font = new Font("Century Gothic", 13.8F);
+            textBox9.Location = new Point(246, 156);
+            textBox9.Name = "textBox9";
+            textBox9.Size = new Size(538, 36);
+            textBox9.TabIndex = 38;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.FromArgb(0, 31, 84);
+            panel8.Controls.Add(label18);
+            panel8.Dock = DockStyle.Top;
+            panel8.Location = new Point(5, 5);
+            panel8.Name = "panel8";
+            panel8.Padding = new Padding(10);
+            panel8.Size = new Size(1492, 56);
+            panel8.TabIndex = 12;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Dock = DockStyle.Left;
+            label18.Font = new Font("Century Gothic", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.ForeColor = Color.White;
+            label18.Location = new Point(10, 10);
+            label18.Name = "label18";
+            label18.Size = new Size(385, 34);
+            label18.TabIndex = 4;
+            label18.Text = "PROFESSIONAL EXPERIENCE";
+            label18.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // tabEducation
+            // 
+            tabEducation.BackColor = Color.White;
+            tabEducation.Controls.Add(panel10);
+            tabEducation.Location = new Point(4, 44);
+            tabEducation.Name = "tabEducation";
+            tabEducation.Size = new Size(1502, 610);
+            tabEducation.TabIndex = 4;
+            tabEducation.Text = "EDUCATION";
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.FromArgb(41, 128, 185);
+            panel10.Controls.Add(panel16);
+            panel10.Controls.Add(panel19);
+            panel10.Controls.Add(panel17);
+            panel10.Controls.Add(panel14);
+            panel10.Dock = DockStyle.Fill;
+            panel10.Location = new Point(0, 0);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(1502, 610);
+            panel10.TabIndex = 10;
             // 
             // panel16
             // 
-            panel16.Controls.Add(tableLayoutPanel5);
-            panel16.Controls.Add(languageLstBx);
-            panel16.Controls.Add(panel22);
-            panel16.Controls.Add(tableLayoutPanel11);
+            panel16.Controls.Add(educationlstBx);
+            panel16.Controls.Add(label30);
             panel16.Dock = DockStyle.Left;
-            panel16.Location = new Point(721, 0);
+            panel16.Location = new Point(721, 56);
             panel16.Name = "panel16";
             panel16.Padding = new Padding(10);
-            panel16.Size = new Size(667, 544);
-            panel16.TabIndex = 41;
+            panel16.Size = new Size(667, 554);
+            panel16.TabIndex = 52;
             // 
-            // tableLayoutPanel5
+            // educationlstBx
             // 
-            tableLayoutPanel5.ColumnCount = 2;
-            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.1202354F));
-            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.8797646F));
-            tableLayoutPanel5.Controls.Add(iconButton5, 0, 0);
-            tableLayoutPanel5.Controls.Add(iconButton6, 1, 0);
-            tableLayoutPanel5.Dock = DockStyle.Top;
-            tableLayoutPanel5.Location = new Point(10, 233);
-            tableLayoutPanel5.Name = "tableLayoutPanel5";
-            tableLayoutPanel5.Padding = new Padding(10);
-            tableLayoutPanel5.RowCount = 1;
-            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.Size = new Size(647, 78);
-            tableLayoutPanel5.TabIndex = 56;
+            educationlstBx.BackColor = Color.White;
+            educationlstBx.Dock = DockStyle.Top;
+            educationlstBx.FormattingEnabled = true;
+            educationlstBx.ItemHeight = 21;
+            educationlstBx.Location = new Point(10, 37);
+            educationlstBx.Name = "educationlstBx";
+            educationlstBx.Size = new Size(647, 109);
+            educationlstBx.TabIndex = 56;
             // 
-            // iconButton5
+            // label30
             // 
-            iconButton5.BackColor = Color.FromArgb(10, 17, 40);
-            iconButton5.Dock = DockStyle.Fill;
-            iconButton5.FlatAppearance.BorderSize = 0;
-            iconButton5.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            iconButton5.ForeColor = Color.White;
-            iconButton5.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton5.IconColor = Color.Black;
-            iconButton5.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton5.Location = new Point(13, 13);
-            iconButton5.Name = "iconButton5";
-            iconButton5.Size = new Size(301, 52);
-            iconButton5.TabIndex = 1;
-            iconButton5.Text = "Add Language";
-            iconButton5.UseVisualStyleBackColor = false;
-            // 
-            // iconButton6
-            // 
-            iconButton6.BackColor = Color.IndianRed;
-            iconButton6.Dock = DockStyle.Fill;
-            iconButton6.FlatAppearance.BorderSize = 0;
-            iconButton6.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            iconButton6.ForeColor = Color.White;
-            iconButton6.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton6.IconColor = Color.Black;
-            iconButton6.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton6.Location = new Point(320, 13);
-            iconButton6.Name = "iconButton6";
-            iconButton6.Size = new Size(314, 52);
-            iconButton6.TabIndex = 35;
-            iconButton6.Text = "Remove Language";
-            iconButton6.UseVisualStyleBackColor = false;
-            // 
-            // languageLstBx
-            // 
-            languageLstBx.BackColor = Color.White;
-            languageLstBx.Dock = DockStyle.Top;
-            languageLstBx.FormattingEnabled = true;
-            languageLstBx.ItemHeight = 21;
-            languageLstBx.Location = new Point(10, 124);
-            languageLstBx.Name = "languageLstBx";
-            languageLstBx.Size = new Size(647, 109);
-            languageLstBx.TabIndex = 55;
-            // 
-            // panel22
-            // 
-            panel22.Controls.Add(label29);
-            panel22.Dock = DockStyle.Top;
-            panel22.Location = new Point(10, 78);
-            panel22.Name = "panel22";
-            panel22.Size = new Size(647, 46);
-            panel22.TabIndex = 54;
-            // 
-            // label29
-            // 
-            label29.AutoSize = true;
-            label29.Dock = DockStyle.Top;
-            label29.Font = new Font("Century Gothic", 13.8F);
-            label29.ForeColor = Color.White;
-            label29.Location = new Point(0, 0);
-            label29.Name = "label29";
-            label29.Size = new Size(177, 27);
-            label29.TabIndex = 49;
-            label29.Text = "Langauges List";
-            // 
-            // tableLayoutPanel11
-            // 
-            tableLayoutPanel11.ColumnCount = 2;
-            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 432F));
-            tableLayoutPanel11.Controls.Add(languageTbx, 1, 0);
-            tableLayoutPanel11.Controls.Add(label28, 0, 0);
-            tableLayoutPanel11.Dock = DockStyle.Top;
-            tableLayoutPanel11.Location = new Point(10, 10);
-            tableLayoutPanel11.Name = "tableLayoutPanel11";
-            tableLayoutPanel11.RowCount = 1;
-            tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 18.70229F));
-            tableLayoutPanel11.Size = new Size(647, 68);
-            tableLayoutPanel11.TabIndex = 41;
-            // 
-            // languageTbx
-            // 
-            languageTbx.Dock = DockStyle.Fill;
-            languageTbx.Font = new Font("Century Gothic", 13.8F);
-            languageTbx.Location = new Point(218, 3);
-            languageTbx.Name = "languageTbx";
-            languageTbx.Size = new Size(426, 36);
-            languageTbx.TabIndex = 40;
-            // 
-            // label28
-            // 
-            label28.AutoSize = true;
-            label28.Font = new Font("Century Gothic", 13.8F);
-            label28.ForeColor = Color.White;
-            label28.Location = new Point(3, 0);
-            label28.Name = "label28";
-            label28.Size = new Size(128, 27);
-            label28.TabIndex = 34;
-            label28.Text = "Language";
+            label30.AutoSize = true;
+            label30.Dock = DockStyle.Top;
+            label30.Font = new Font("Century Gothic", 13.8F);
+            label30.ForeColor = Color.White;
+            label30.Location = new Point(10, 10);
+            label30.Name = "label30";
+            label30.Size = new Size(168, 27);
+            label30.TabIndex = 55;
+            label30.Text = "Education List";
             // 
             // panel19
             // 
             panel19.Dock = DockStyle.Left;
-            panel19.Location = new Point(663, 0);
+            panel19.Location = new Point(663, 56);
             panel19.Name = "panel19";
-            panel19.Size = new Size(58, 544);
-            panel19.TabIndex = 40;
+            panel19.Size = new Size(58, 554);
+            panel19.TabIndex = 51;
             // 
             // panel17
             // 
             panel17.Controls.Add(tableLayoutPanel10);
-            panel17.Controls.Add(educationlstBx);
             panel17.Controls.Add(panel21);
             panel17.Controls.Add(tableLayoutPanel6);
             panel17.Dock = DockStyle.Left;
-            panel17.Location = new Point(0, 0);
+            panel17.Location = new Point(0, 56);
             panel17.Name = "panel17";
             panel17.Padding = new Padding(10);
-            panel17.Size = new Size(663, 544);
-            panel17.TabIndex = 38;
+            panel17.Size = new Size(663, 554);
+            panel17.TabIndex = 50;
             // 
             // tableLayoutPanel10
             // 
@@ -963,7 +1439,7 @@
             tableLayoutPanel10.Controls.Add(iconButton8, 0, 0);
             tableLayoutPanel10.Controls.Add(iconButton7, 1, 0);
             tableLayoutPanel10.Dock = DockStyle.Top;
-            tableLayoutPanel10.Location = new Point(10, 403);
+            tableLayoutPanel10.Location = new Point(10, 294);
             tableLayoutPanel10.Name = "tableLayoutPanel10";
             tableLayoutPanel10.Padding = new Padding(10);
             tableLayoutPanel10.RowCount = 1;
@@ -1005,37 +1481,13 @@
             iconButton7.Text = "Remove Education";
             iconButton7.UseVisualStyleBackColor = false;
             // 
-            // educationlstBx
-            // 
-            educationlstBx.BackColor = Color.White;
-            educationlstBx.Dock = DockStyle.Top;
-            educationlstBx.FormattingEnabled = true;
-            educationlstBx.ItemHeight = 21;
-            educationlstBx.Location = new Point(10, 294);
-            educationlstBx.Name = "educationlstBx";
-            educationlstBx.Size = new Size(643, 109);
-            educationlstBx.TabIndex = 54;
-            // 
             // panel21
             // 
-            panel21.Controls.Add(label30);
             panel21.Dock = DockStyle.Top;
             panel21.Location = new Point(10, 248);
             panel21.Name = "panel21";
             panel21.Size = new Size(643, 46);
             panel21.TabIndex = 53;
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.Dock = DockStyle.Top;
-            label30.Font = new Font("Century Gothic", 13.8F);
-            label30.ForeColor = Color.White;
-            label30.Location = new Point(0, 0);
-            label30.Name = "label30";
-            label30.Size = new Size(168, 27);
-            label30.TabIndex = 49;
-            label30.Text = "Education List";
             // 
             // tableLayoutPanel6
             // 
@@ -1146,11 +1598,11 @@
             panel14.BackColor = Color.FromArgb(0, 31, 84);
             panel14.Controls.Add(label15);
             panel14.Dock = DockStyle.Top;
-            panel14.Location = new Point(5, 5);
+            panel14.Location = new Point(0, 0);
             panel14.Name = "panel14";
             panel14.Padding = new Padding(10);
-            panel14.Size = new Size(1492, 56);
-            panel14.TabIndex = 8;
+            panel14.Size = new Size(1502, 56);
+            panel14.TabIndex = 46;
             // 
             // label15
             // 
@@ -1165,59 +1617,56 @@
             label15.Text = "EDUCATION";
             label15.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // tabExperience
+            // tabCertifications
             // 
-            tabExperience.BackColor = Color.White;
-            tabExperience.Controls.Add(panel1);
-            tabExperience.Controls.Add(panel8);
-            tabExperience.Location = new Point(4, 44);
-            tabExperience.Name = "tabExperience";
-            tabExperience.Padding = new Padding(5);
-            tabExperience.Size = new Size(1502, 610);
-            tabExperience.TabIndex = 3;
-            tabExperience.Text = "PROFESSIONAL EXPERIENCE";
+            tabCertifications.BackColor = Color.White;
+            tabCertifications.Controls.Add(panel11);
+            tabCertifications.Location = new Point(4, 44);
+            tabCertifications.Name = "tabCertifications";
+            tabCertifications.Size = new Size(1502, 610);
+            tabCertifications.TabIndex = 5;
+            tabCertifications.Text = "PROFESSIONAL DEVELOPMENT";
             // 
-            // panel1
+            // panel11
             // 
-            panel1.BackColor = Color.FromArgb(41, 128, 185);
-            panel1.Controls.Add(panel6);
-            panel1.Controls.Add(panel7);
-            panel1.Controls.Add(panel20);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(5, 61);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1492, 544);
-            panel1.TabIndex = 13;
+            panel11.BackColor = Color.FromArgb(41, 128, 185);
+            panel11.Controls.Add(panel18);
+            panel11.Controls.Add(panel26);
+            panel11.Dock = DockStyle.Fill;
+            panel11.Location = new Point(0, 0);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(1502, 610);
+            panel11.TabIndex = 11;
             // 
-            // panel6
+            // panel18
             // 
-            panel6.Controls.Add(tableLayoutPanel12);
-            panel6.Controls.Add(listBox4);
-            panel6.Controls.Add(tableLayoutPanel3);
-            panel6.Controls.Add(listBox3);
-            panel6.Controls.Add(tableLayoutPanel7);
-            panel6.Dock = DockStyle.Left;
-            panel6.Location = new Point(721, 0);
-            panel6.Name = "panel6";
-            panel6.Padding = new Padding(10);
-            panel6.Size = new Size(667, 544);
-            panel6.TabIndex = 44;
+            panel18.Controls.Add(tableLayoutPanel11);
+            panel18.Controls.Add(developmentLstBx);
+            panel18.Controls.Add(label34);
+            panel18.Controls.Add(tableLayoutPanel9);
+            panel18.Controls.Add(label37);
+            panel18.Dock = DockStyle.Left;
+            panel18.Location = new Point(0, 56);
+            panel18.Name = "panel18";
+            panel18.Padding = new Padding(10);
+            panel18.Size = new Size(667, 554);
+            panel18.TabIndex = 52;
             // 
-            // tableLayoutPanel12
+            // tableLayoutPanel11
             // 
-            tableLayoutPanel12.ColumnCount = 2;
-            tableLayoutPanel12.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.1202354F));
-            tableLayoutPanel12.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.8797646F));
-            tableLayoutPanel12.Controls.Add(iconButton11, 0, 0);
-            tableLayoutPanel12.Controls.Add(iconButton12, 1, 0);
-            tableLayoutPanel12.Dock = DockStyle.Top;
-            tableLayoutPanel12.Location = new Point(10, 374);
-            tableLayoutPanel12.Name = "tableLayoutPanel12";
-            tableLayoutPanel12.Padding = new Padding(10);
-            tableLayoutPanel12.RowCount = 1;
-            tableLayoutPanel12.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel12.Size = new Size(647, 78);
-            tableLayoutPanel12.TabIndex = 52;
+            tableLayoutPanel11.ColumnCount = 2;
+            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.1202354F));
+            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.8797646F));
+            tableLayoutPanel11.Controls.Add(iconButton11, 0, 0);
+            tableLayoutPanel11.Controls.Add(iconButton12, 1, 0);
+            tableLayoutPanel11.Dock = DockStyle.Top;
+            tableLayoutPanel11.Location = new Point(10, 316);
+            tableLayoutPanel11.Name = "tableLayoutPanel11";
+            tableLayoutPanel11.Padding = new Padding(10);
+            tableLayoutPanel11.RowCount = 1;
+            tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel11.Size = new Size(647, 78);
+            tableLayoutPanel11.TabIndex = 58;
             // 
             // iconButton11
             // 
@@ -1233,7 +1682,7 @@
             iconButton11.Name = "iconButton11";
             iconButton11.Size = new Size(301, 52);
             iconButton11.TabIndex = 1;
-            iconButton11.Text = "Add Education";
+            iconButton11.Text = "Add Development";
             iconButton11.UseVisualStyleBackColor = false;
             // 
             // iconButton12
@@ -1250,492 +1699,103 @@
             iconButton12.Name = "iconButton12";
             iconButton12.Size = new Size(314, 52);
             iconButton12.TabIndex = 35;
-            iconButton12.Text = "Remove Education";
+            iconButton12.Text = "Remove Development";
             iconButton12.UseVisualStyleBackColor = false;
             // 
-            // listBox4
+            // developmentLstBx
             // 
-            listBox4.BackColor = Color.White;
-            listBox4.Dock = DockStyle.Top;
-            listBox4.FormattingEnabled = true;
-            listBox4.ItemHeight = 21;
-            listBox4.Location = new Point(10, 265);
-            listBox4.Name = "listBox4";
-            listBox4.Size = new Size(647, 109);
-            listBox4.TabIndex = 51;
+            developmentLstBx.BackColor = Color.White;
+            developmentLstBx.Dock = DockStyle.Top;
+            developmentLstBx.FormattingEnabled = true;
+            developmentLstBx.ItemHeight = 21;
+            developmentLstBx.Location = new Point(10, 144);
+            developmentLstBx.Name = "developmentLstBx";
+            developmentLstBx.Size = new Size(647, 172);
+            developmentLstBx.TabIndex = 57;
             // 
-            // tableLayoutPanel3
+            // label34
             // 
-            tableLayoutPanel3.ColumnCount = 2;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.1202354F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.8797646F));
-            tableLayoutPanel3.Controls.Add(iconButton9, 0, 0);
-            tableLayoutPanel3.Controls.Add(iconButton10, 1, 0);
-            tableLayoutPanel3.Dock = DockStyle.Top;
-            tableLayoutPanel3.Location = new Point(10, 187);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.Padding = new Padding(10);
-            tableLayoutPanel3.RowCount = 1;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Size = new Size(647, 78);
-            tableLayoutPanel3.TabIndex = 43;
-            // 
-            // iconButton9
-            // 
-            iconButton9.BackColor = Color.FromArgb(10, 17, 40);
-            iconButton9.Dock = DockStyle.Fill;
-            iconButton9.FlatAppearance.BorderSize = 0;
-            iconButton9.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            iconButton9.ForeColor = Color.White;
-            iconButton9.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton9.IconColor = Color.Black;
-            iconButton9.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton9.Location = new Point(13, 13);
-            iconButton9.Name = "iconButton9";
-            iconButton9.Size = new Size(301, 52);
-            iconButton9.TabIndex = 1;
-            iconButton9.Text = "Add Language";
-            iconButton9.UseVisualStyleBackColor = false;
-            // 
-            // iconButton10
-            // 
-            iconButton10.BackColor = Color.IndianRed;
-            iconButton10.Dock = DockStyle.Fill;
-            iconButton10.FlatAppearance.BorderSize = 0;
-            iconButton10.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            iconButton10.ForeColor = Color.White;
-            iconButton10.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton10.IconColor = Color.Black;
-            iconButton10.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton10.Location = new Point(320, 13);
-            iconButton10.Name = "iconButton10";
-            iconButton10.Size = new Size(314, 52);
-            iconButton10.TabIndex = 35;
-            iconButton10.Text = "Remove Language";
-            iconButton10.UseVisualStyleBackColor = false;
-            // 
-            // listBox3
-            // 
-            listBox3.BackColor = Color.White;
-            listBox3.Dock = DockStyle.Top;
-            listBox3.FormattingEnabled = true;
-            listBox3.ItemHeight = 21;
-            listBox3.Location = new Point(10, 78);
-            listBox3.Name = "listBox3";
-            listBox3.Size = new Size(647, 109);
-            listBox3.TabIndex = 42;
-            // 
-            // tableLayoutPanel7
-            // 
-            tableLayoutPanel7.ColumnCount = 2;
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 432F));
-            tableLayoutPanel7.Controls.Add(textBox3, 1, 0);
-            tableLayoutPanel7.Controls.Add(label1, 0, 0);
-            tableLayoutPanel7.Dock = DockStyle.Top;
-            tableLayoutPanel7.Location = new Point(10, 10);
-            tableLayoutPanel7.Name = "tableLayoutPanel7";
-            tableLayoutPanel7.RowCount = 1;
-            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 18.70229F));
-            tableLayoutPanel7.Size = new Size(647, 68);
-            tableLayoutPanel7.TabIndex = 41;
-            // 
-            // textBox3
-            // 
-            textBox3.Dock = DockStyle.Fill;
-            textBox3.Font = new Font("Century Gothic", 13.8F);
-            textBox3.Location = new Point(218, 3);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(426, 36);
-            textBox3.TabIndex = 40;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 13.8F);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(128, 27);
-            label1.TabIndex = 34;
-            label1.Text = "Language";
-            // 
-            // panel7
-            // 
-            panel7.Dock = DockStyle.Left;
-            panel7.Location = new Point(663, 0);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(58, 544);
-            panel7.TabIndex = 43;
-            // 
-            // panel20
-            // 
-            panel20.Controls.Add(tableLayoutPanel13);
-            panel20.Dock = DockStyle.Left;
-            panel20.Location = new Point(0, 0);
-            panel20.Name = "panel20";
-            panel20.Padding = new Padding(10);
-            panel20.Size = new Size(663, 544);
-            panel20.TabIndex = 42;
-            // 
-            // tableLayoutPanel13
-            // 
-            tableLayoutPanel13.ColumnCount = 2;
-            tableLayoutPanel13.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel13.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 490F));
-            tableLayoutPanel13.Controls.Add(label14, 0, 3);
-            tableLayoutPanel13.Controls.Add(label25, 0, 2);
-            tableLayoutPanel13.Controls.Add(label26, 0, 1);
-            tableLayoutPanel13.Controls.Add(textBox4, 1, 0);
-            tableLayoutPanel13.Controls.Add(label27, 0, 0);
-            tableLayoutPanel13.Controls.Add(textBox5, 1, 1);
-            tableLayoutPanel13.Controls.Add(textBox6, 1, 2);
-            tableLayoutPanel13.Controls.Add(textBox9, 1, 3);
-            tableLayoutPanel13.Dock = DockStyle.Top;
-            tableLayoutPanel13.Location = new Point(10, 10);
-            tableLayoutPanel13.Name = "tableLayoutPanel13";
-            tableLayoutPanel13.RowCount = 4;
-            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20.53232F));
-            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 19.0114059F));
-            tableLayoutPanel13.Size = new Size(643, 263);
-            tableLayoutPanel13.TabIndex = 41;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Century Gothic", 13.8F);
-            label14.ForeColor = Color.White;
-            label14.Location = new Point(3, 199);
-            label14.Name = "label14";
-            label14.Size = new Size(64, 27);
-            label14.TabIndex = 43;
-            label14.Text = "Year";
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.Font = new Font("Century Gothic", 13.8F);
-            label25.ForeColor = Color.White;
-            label25.Location = new Point(3, 132);
-            label25.Name = "label25";
-            label25.Size = new Size(112, 27);
-            label25.TabIndex = 42;
-            label25.Text = "Location";
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Font = new Font("Century Gothic", 13.8F);
-            label26.ForeColor = Color.White;
-            label26.Location = new Point(3, 66);
-            label26.Name = "label26";
-            label26.Size = new Size(88, 27);
-            label26.TabIndex = 41;
-            label26.Text = "School";
-            // 
-            // textBox4
-            // 
-            textBox4.Dock = DockStyle.Fill;
-            textBox4.Font = new Font("Century Gothic", 13.8F);
-            textBox4.Location = new Point(156, 3);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(484, 36);
-            textBox4.TabIndex = 40;
-            // 
-            // label27
-            // 
-            label27.AutoSize = true;
-            label27.Font = new Font("Century Gothic", 13.8F);
-            label27.ForeColor = Color.White;
-            label27.Location = new Point(3, 0);
-            label27.Name = "label27";
-            label27.Size = new Size(96, 27);
-            label27.TabIndex = 34;
-            label27.Text = "Degree";
-            // 
-            // textBox5
-            // 
-            textBox5.Dock = DockStyle.Fill;
-            textBox5.Font = new Font("Century Gothic", 13.8F);
-            textBox5.Location = new Point(156, 69);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(484, 36);
-            textBox5.TabIndex = 36;
-            // 
-            // textBox6
-            // 
-            textBox6.Dock = DockStyle.Fill;
-            textBox6.Font = new Font("Century Gothic", 13.8F);
-            textBox6.Location = new Point(156, 135);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(484, 36);
-            textBox6.TabIndex = 37;
-            // 
-            // textBox9
-            // 
-            textBox9.Dock = DockStyle.Fill;
-            textBox9.Font = new Font("Century Gothic", 13.8F);
-            textBox9.Location = new Point(156, 202);
-            textBox9.Name = "textBox9";
-            textBox9.Size = new Size(484, 36);
-            textBox9.TabIndex = 38;
-            // 
-            // panel8
-            // 
-            panel8.BackColor = Color.FromArgb(0, 31, 84);
-            panel8.Controls.Add(label18);
-            panel8.Dock = DockStyle.Top;
-            panel8.Location = new Point(5, 5);
-            panel8.Name = "panel8";
-            panel8.Padding = new Padding(10);
-            panel8.Size = new Size(1492, 56);
-            panel8.TabIndex = 12;
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Dock = DockStyle.Left;
-            label18.Font = new Font("Century Gothic", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label18.ForeColor = Color.White;
-            label18.Location = new Point(10, 10);
-            label18.Name = "label18";
-            label18.Size = new Size(177, 34);
-            label18.TabIndex = 4;
-            label18.Text = "EXPERIENCE";
-            label18.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // tabConferenceCourses
-            // 
-            tabConferenceCourses.BackColor = Color.White;
-            tabConferenceCourses.Controls.Add(panel9);
-            tabConferenceCourses.Controls.Add(panel18);
-            tabConferenceCourses.Location = new Point(4, 44);
-            tabConferenceCourses.Name = "tabConferenceCourses";
-            tabConferenceCourses.Padding = new Padding(5);
-            tabConferenceCourses.Size = new Size(1502, 610);
-            tabConferenceCourses.TabIndex = 4;
-            tabConferenceCourses.Text = "CONFERENCES & COURSES";
-            // 
-            // panel9
-            // 
-            panel9.BackColor = Color.FromArgb(41, 128, 185);
-            panel9.Controls.Add(panel10);
-            panel9.Controls.Add(panel11);
-            panel9.Dock = DockStyle.Fill;
-            panel9.Location = new Point(5, 61);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(1492, 544);
-            panel9.TabIndex = 13;
-            // 
-            // panel10
-            // 
-            panel10.Controls.Add(tableLayoutPanel8);
-            panel10.Controls.Add(listBox7);
-            panel10.Dock = DockStyle.Left;
-            panel10.Location = new Point(549, 0);
-            panel10.Name = "panel10";
-            panel10.Padding = new Padding(10);
-            panel10.Size = new Size(598, 544);
-            panel10.TabIndex = 39;
-            // 
-            // tableLayoutPanel8
-            // 
-            tableLayoutPanel8.ColumnCount = 1;
-            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel8.Controls.Add(iconButton13, 0, 3);
-            tableLayoutPanel8.Controls.Add(iconButton14, 0, 2);
-            tableLayoutPanel8.Controls.Add(label19, 0, 0);
-            tableLayoutPanel8.Controls.Add(textBox7, 0, 1);
-            tableLayoutPanel8.Dock = DockStyle.Fill;
-            tableLayoutPanel8.Location = new Point(215, 10);
-            tableLayoutPanel8.Name = "tableLayoutPanel8";
-            tableLayoutPanel8.RowCount = 4;
-            tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 38.28125F));
-            tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 61.71875F));
-            tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
-            tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Absolute, 369F));
-            tableLayoutPanel8.Size = new Size(373, 524);
-            tableLayoutPanel8.TabIndex = 42;
-            // 
-            // iconButton13
-            // 
-            iconButton13.BackColor = Color.IndianRed;
-            iconButton13.Dock = DockStyle.Top;
-            iconButton13.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            iconButton13.ForeColor = Color.White;
-            iconButton13.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton13.IconColor = Color.Black;
-            iconButton13.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton13.Location = new Point(3, 157);
-            iconButton13.Name = "iconButton13";
-            iconButton13.Size = new Size(367, 49);
-            iconButton13.TabIndex = 36;
-            iconButton13.Text = "Remove Core Skill";
-            iconButton13.UseVisualStyleBackColor = false;
-            // 
-            // iconButton14
-            // 
-            iconButton14.BackColor = Color.White;
-            iconButton14.Dock = DockStyle.Top;
-            iconButton14.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            iconButton14.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton14.IconColor = Color.Black;
-            iconButton14.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton14.Location = new Point(3, 105);
-            iconButton14.Name = "iconButton14";
-            iconButton14.Size = new Size(367, 46);
-            iconButton14.TabIndex = 35;
-            iconButton14.Text = "Add Tech Skill";
-            iconButton14.UseVisualStyleBackColor = false;
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Century Gothic", 13.8F);
-            label19.ForeColor = Color.White;
-            label19.Location = new Point(3, 0);
-            label19.Name = "label19";
-            label19.Size = new Size(201, 27);
-            label19.TabIndex = 34;
-            label19.Text = "Technology Skills";
-            // 
-            // textBox7
-            // 
-            textBox7.Dock = DockStyle.Fill;
-            textBox7.Font = new Font("Century Gothic", 13.8F);
-            textBox7.Location = new Point(3, 42);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(367, 36);
-            textBox7.TabIndex = 3;
-            // 
-            // listBox7
-            // 
-            listBox7.BackColor = Color.FromArgb(216, 225, 233);
-            listBox7.Dock = DockStyle.Left;
-            listBox7.FormattingEnabled = true;
-            listBox7.ItemHeight = 21;
-            listBox7.Location = new Point(10, 10);
-            listBox7.Name = "listBox7";
-            listBox7.Size = new Size(205, 524);
-            listBox7.TabIndex = 41;
-            // 
-            // panel11
-            // 
-            panel11.Controls.Add(tableLayoutPanel9);
-            panel11.Controls.Add(listBox8);
-            panel11.Dock = DockStyle.Left;
-            panel11.Location = new Point(0, 0);
-            panel11.Name = "panel11";
-            panel11.Padding = new Padding(10);
-            panel11.Size = new Size(549, 544);
-            panel11.TabIndex = 38;
+            label34.AutoSize = true;
+            label34.Dock = DockStyle.Top;
+            label34.Font = new Font("Century Gothic", 13.8F);
+            label34.ForeColor = Color.White;
+            label34.Location = new Point(10, 117);
+            label34.Name = "label34";
+            label34.Size = new Size(349, 27);
+            label34.TabIndex = 56;
+            label34.Text = "Professional Development List";
             // 
             // tableLayoutPanel9
             // 
-            tableLayoutPanel9.ColumnCount = 1;
-            tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel9.Controls.Add(iconButton15, 0, 3);
-            tableLayoutPanel9.Controls.Add(label20, 0, 0);
-            tableLayoutPanel9.Controls.Add(iconButton16, 0, 2);
-            tableLayoutPanel9.Controls.Add(textBox8, 0, 1);
-            tableLayoutPanel9.Dock = DockStyle.Fill;
-            tableLayoutPanel9.Location = new Point(215, 10);
+            tableLayoutPanel9.ColumnCount = 2;
+            tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 427F));
+            tableLayoutPanel9.Controls.Add(label36, 0, 1);
+            tableLayoutPanel9.Controls.Add(textBox14, 1, 1);
+            tableLayoutPanel9.Dock = DockStyle.Top;
+            tableLayoutPanel9.Location = new Point(10, 37);
             tableLayoutPanel9.Name = "tableLayoutPanel9";
-            tableLayoutPanel9.RowCount = 4;
-            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 42.06349F));
-            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 57.93651F));
-            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
-            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Absolute, 364F));
-            tableLayoutPanel9.Size = new Size(324, 524);
-            tableLayoutPanel9.TabIndex = 41;
+            tableLayoutPanel9.RowCount = 2;
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 14.7058821F));
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 44.5378151F));
+            tableLayoutPanel9.Size = new Size(647, 80);
+            tableLayoutPanel9.TabIndex = 45;
             // 
-            // iconButton15
+            // label36
             // 
-            iconButton15.BackColor = Color.IndianRed;
-            iconButton15.Dock = DockStyle.Top;
-            iconButton15.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            iconButton15.ForeColor = Color.White;
-            iconButton15.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton15.IconColor = Color.Black;
-            iconButton15.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton15.Location = new Point(3, 162);
-            iconButton15.Name = "iconButton15";
-            iconButton15.Size = new Size(318, 46);
-            iconButton15.TabIndex = 35;
-            iconButton15.Text = "Remove Core Skill";
-            iconButton15.UseVisualStyleBackColor = false;
+            label36.AutoSize = true;
+            label36.Font = new Font("Century Gothic", 13.8F);
+            label36.ForeColor = Color.White;
+            label36.Location = new Point(3, 19);
+            label36.Name = "label36";
+            label36.Size = new Size(211, 27);
+            label36.TabIndex = 41;
+            label36.Text = "Enter your details ";
             // 
-            // label20
+            // textBox14
             // 
-            label20.AutoSize = true;
-            label20.Font = new Font("Century Gothic", 13.8F);
-            label20.ForeColor = Color.White;
-            label20.Location = new Point(3, 0);
-            label20.Name = "label20";
-            label20.Size = new Size(124, 27);
-            label20.TabIndex = 34;
-            label20.Text = "Core Skills";
+            textBox14.Dock = DockStyle.Fill;
+            textBox14.Font = new Font("Century Gothic", 13.8F);
+            textBox14.Location = new Point(223, 22);
+            textBox14.Name = "textBox14";
+            textBox14.Size = new Size(421, 36);
+            textBox14.TabIndex = 36;
             // 
-            // iconButton16
+            // label37
             // 
-            iconButton16.BackColor = Color.White;
-            iconButton16.Dock = DockStyle.Top;
-            iconButton16.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            iconButton16.IconChar = FontAwesome.Sharp.IconChar.None;
-            iconButton16.IconColor = Color.Black;
-            iconButton16.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton16.Location = new Point(3, 110);
-            iconButton16.Name = "iconButton16";
-            iconButton16.Size = new Size(318, 39);
-            iconButton16.TabIndex = 1;
-            iconButton16.Text = "Add Core Skill";
-            iconButton16.UseVisualStyleBackColor = false;
+            label37.AutoSize = true;
+            label37.Dock = DockStyle.Top;
+            label37.Font = new Font("Century Gothic", 13.8F);
+            label37.ForeColor = Color.White;
+            label37.Location = new Point(10, 10);
+            label37.Name = "label37";
+            label37.Size = new Size(511, 27);
+            label37.TabIndex = 43;
+            label37.Text = "Enter your Professional Development (if any)";
             // 
-            // textBox8
+            // panel26
             // 
-            textBox8.Dock = DockStyle.Fill;
-            textBox8.Font = new Font("Century Gothic", 13.8F);
-            textBox8.Location = new Point(3, 48);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(318, 36);
-            textBox8.TabIndex = 3;
+            panel26.BackColor = Color.FromArgb(0, 31, 84);
+            panel26.Controls.Add(label33);
+            panel26.Dock = DockStyle.Top;
+            panel26.Location = new Point(0, 0);
+            panel26.Name = "panel26";
+            panel26.Padding = new Padding(10);
+            panel26.Size = new Size(1502, 56);
+            panel26.TabIndex = 46;
             // 
-            // listBox8
+            // label33
             // 
-            listBox8.BackColor = Color.FromArgb(216, 225, 233);
-            listBox8.Dock = DockStyle.Left;
-            listBox8.FormattingEnabled = true;
-            listBox8.ItemHeight = 21;
-            listBox8.Location = new Point(10, 10);
-            listBox8.Name = "listBox8";
-            listBox8.Size = new Size(205, 524);
-            listBox8.TabIndex = 40;
-            // 
-            // panel18
-            // 
-            panel18.BackColor = Color.FromArgb(0, 31, 84);
-            panel18.Controls.Add(label21);
-            panel18.Dock = DockStyle.Top;
-            panel18.Location = new Point(5, 5);
-            panel18.Name = "panel18";
-            panel18.Padding = new Padding(10);
-            panel18.Size = new Size(1492, 56);
-            panel18.TabIndex = 12;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Dock = DockStyle.Left;
-            label21.Font = new Font("Century Gothic", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label21.ForeColor = Color.White;
-            label21.Location = new Point(10, 10);
-            label21.Name = "label21";
-            label21.Size = new Size(176, 34);
-            label21.TabIndex = 4;
-            label21.Text = "EDUCATION";
-            label21.TextAlign = ContentAlignment.MiddleCenter;
+            label33.AutoSize = true;
+            label33.Dock = DockStyle.Left;
+            label33.Font = new Font("Century Gothic", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label33.ForeColor = Color.White;
+            label33.Location = new Point(10, 10);
+            label33.Name = "label33";
+            label33.Size = new Size(418, 34);
+            label33.TabIndex = 4;
+            label33.Text = "PROFESSIONAL DEVELOPMENT";
+            label33.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ElectricalEngineeringTemplate
             // 
@@ -1764,44 +1824,48 @@
             tableLayoutPanel4.PerformLayout();
             panel13.ResumeLayout(false);
             panel13.PerformLayout();
-            tabEducAndLang.ResumeLayout(false);
+            tabTechExpertise.ResumeLayout(false);
             panel15.ResumeLayout(false);
-            panel16.ResumeLayout(false);
-            tableLayoutPanel5.ResumeLayout(false);
-            panel22.ResumeLayout(false);
-            panel22.PerformLayout();
-            tableLayoutPanel11.ResumeLayout(false);
-            tableLayoutPanel11.PerformLayout();
-            panel17.ResumeLayout(false);
-            tableLayoutPanel10.ResumeLayout(false);
-            panel21.ResumeLayout(false);
-            panel21.PerformLayout();
-            tableLayoutPanel6.ResumeLayout(false);
-            tableLayoutPanel6.PerformLayout();
-            panel14.ResumeLayout(false);
-            panel14.PerformLayout();
+            panel30.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)expertiseTable).EndInit();
+            panel27.ResumeLayout(false);
+            tableLayoutPanel12.ResumeLayout(false);
+            tableLayoutPanel15.ResumeLayout(false);
+            tableLayoutPanel15.PerformLayout();
             tabExperience.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel6.ResumeLayout(false);
-            tableLayoutPanel12.ResumeLayout(false);
-            tableLayoutPanel3.ResumeLayout(false);
-            tableLayoutPanel7.ResumeLayout(false);
-            tableLayoutPanel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel23.ResumeLayout(false);
+            panel23.PerformLayout();
             panel20.ResumeLayout(false);
+            tableLayoutPanel7.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
+            tableLayoutPanel14.ResumeLayout(false);
             tableLayoutPanel13.ResumeLayout(false);
             tableLayoutPanel13.PerformLayout();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
-            tabConferenceCourses.ResumeLayout(false);
-            panel9.ResumeLayout(false);
+            tabEducation.ResumeLayout(false);
             panel10.ResumeLayout(false);
-            tableLayoutPanel8.ResumeLayout(false);
-            tableLayoutPanel8.PerformLayout();
+            panel16.ResumeLayout(false);
+            panel16.PerformLayout();
+            panel17.ResumeLayout(false);
+            tableLayoutPanel10.ResumeLayout(false);
+            tableLayoutPanel6.ResumeLayout(false);
+            tableLayoutPanel6.PerformLayout();
+            panel14.ResumeLayout(false);
+            panel14.PerformLayout();
+            tabCertifications.ResumeLayout(false);
             panel11.ResumeLayout(false);
-            tableLayoutPanel9.ResumeLayout(false);
-            tableLayoutPanel9.PerformLayout();
             panel18.ResumeLayout(false);
             panel18.PerformLayout();
+            tableLayoutPanel11.ResumeLayout(false);
+            tableLayoutPanel9.ResumeLayout(false);
+            tableLayoutPanel9.PerformLayout();
+            panel26.ResumeLayout(false);
+            panel26.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1852,26 +1916,48 @@
         private ListBox listBox1;
         private Panel panel13;
         private Label label22;
-        private TabPage tabEducAndLang;
+        private TabPage tabTechExpertise;
+        private TabPage tabExperience;
+        private Panel panel1;
+        private Panel panel6;
+        private DataGridView dataGridView1;
+        private Panel panel23;
+        private Label label31;
+        private Panel panel7;
+        private Panel panel20;
+        private TableLayoutPanel tableLayoutPanel7;
+        private FontAwesome.Sharp.IconButton iconButton9;
+        private FontAwesome.Sharp.IconButton iconButton10;
+        private TableLayoutPanel tableLayoutPanel3;
+        private Label label1;
+        private TextBox textBox3;
+        private Panel panel9;
+        private TableLayoutPanel tableLayoutPanel14;
+        private FontAwesome.Sharp.IconButton iconButton17;
+        private FontAwesome.Sharp.IconButton iconButton18;
+        private TableLayoutPanel tableLayoutPanel13;
+        private Label label32;
+        private TextBox textBox10;
+        private Label label14;
+        private Label label25;
+        private Label label26;
+        private TextBox textBox4;
+        private Label label27;
+        private TextBox textBox5;
+        private TextBox textBox6;
+        private TextBox textBox9;
+        private Panel panel8;
+        private Label label18;
+        private TabPage tabEducation;
         private Panel panel15;
+        private Panel panel10;
         private Panel panel16;
-        private TableLayoutPanel tableLayoutPanel5;
-        private FontAwesome.Sharp.IconButton iconButton5;
-        private FontAwesome.Sharp.IconButton iconButton6;
-        private ListBox languageLstBx;
-        private Panel panel22;
-        private Label label29;
-        private TableLayoutPanel tableLayoutPanel11;
-        private TextBox languageTbx;
-        private Label label28;
         private Panel panel19;
         private Panel panel17;
         private TableLayoutPanel tableLayoutPanel10;
         private FontAwesome.Sharp.IconButton iconButton8;
         private FontAwesome.Sharp.IconButton iconButton7;
-        private ListBox educationlstBx;
         private Panel panel21;
-        private Label label30;
         private TableLayoutPanel tableLayoutPanel6;
         private Label label24;
         private Label label23;
@@ -1883,50 +1969,34 @@
         private TextBox yearTbx;
         private Panel panel14;
         private Label label15;
-        private TabPage tabExperience;
-        private Panel panel1;
-        private Panel panel6;
+        private TabPage tabCertifications;
+        private Panel panel11;
+        private Panel panel18;
+        private Panel panel26;
+        private Label label33;
+        private Panel panel27;
+        private TableLayoutPanel tableLayoutPanel15;
+        private Label label38;
+        private Label label39;
+        private TextBox textBox16;
+        private ComboBox comboBox1;
+        private Panel panel28;
         private TableLayoutPanel tableLayoutPanel12;
-        private FontAwesome.Sharp.IconButton iconButton11;
-        private FontAwesome.Sharp.IconButton iconButton12;
-        private ListBox listBox4;
-        private TableLayoutPanel tableLayoutPanel3;
-        private FontAwesome.Sharp.IconButton iconButton9;
-        private FontAwesome.Sharp.IconButton iconButton10;
-        private ListBox listBox3;
-        private TableLayoutPanel tableLayoutPanel7;
-        private TextBox textBox3;
-        private Label label1;
-        private Panel panel7;
-        private Panel panel20;
-        private TableLayoutPanel tableLayoutPanel13;
-        private Label label14;
-        private Label label25;
-        private Label label26;
-        private TextBox textBox4;
-        private Label label27;
-        private TextBox textBox5;
-        private TextBox textBox6;
-        private TextBox textBox9;
-        private Panel panel8;
-        private Label label18;
-        private TabPage tabConferenceCourses;
-        private Panel panel9;
-        private Panel panel10;
-        private TableLayoutPanel tableLayoutPanel8;
         private FontAwesome.Sharp.IconButton iconButton13;
         private FontAwesome.Sharp.IconButton iconButton14;
-        private Label label19;
-        private TextBox textBox7;
-        private ListBox listBox7;
-        private Panel panel11;
+        private Panel panel29;
+        private Panel panel30;
+        private DataGridView expertiseTable;
+        private ListBox educationlstBx;
+        private Label label30;
         private TableLayoutPanel tableLayoutPanel9;
-        private FontAwesome.Sharp.IconButton iconButton15;
-        private Label label20;
-        private FontAwesome.Sharp.IconButton iconButton16;
-        private TextBox textBox8;
-        private ListBox listBox8;
-        private Panel panel18;
-        private Label label21;
+        private Label label36;
+        private TextBox textBox14;
+        private Label label37;
+        private TableLayoutPanel tableLayoutPanel11;
+        private FontAwesome.Sharp.IconButton iconButton11;
+        private FontAwesome.Sharp.IconButton iconButton12;
+        private ListBox developmentLstBx;
+        private Label label34;
     }
 }

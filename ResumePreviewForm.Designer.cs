@@ -59,7 +59,7 @@
             resumePreview.Dock = DockStyle.Fill;
             resumePreview.Location = new Point(5, 5);
             resumePreview.Name = "resumePreview";
-            resumePreview.Size = new Size(801, 811);
+            resumePreview.Size = new Size(801, 835);
             resumePreview.TabIndex = 1;
             resumePreview.ZoomFactor = 1D;
             // 
@@ -68,41 +68,41 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(967, 37);
+            panel1.Size = new Size(967, 31);
             panel1.TabIndex = 2;
             // 
             // panel3
             // 
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 858);
+            panel3.Location = new Point(0, 876);
             panel3.Name = "panel3";
-            panel3.Size = new Size(967, 49);
+            panel3.Size = new Size(967, 31);
             panel3.TabIndex = 4;
             // 
             // panel4
             // 
             panel4.Dock = DockStyle.Left;
-            panel4.Location = new Point(0, 37);
+            panel4.Location = new Point(0, 31);
             panel4.Name = "panel4";
-            panel4.Size = new Size(72, 821);
+            panel4.Size = new Size(72, 845);
             panel4.TabIndex = 5;
             // 
             // panel2
             // 
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(883, 37);
+            panel2.Location = new Point(883, 31);
             panel2.Name = "panel2";
-            panel2.Size = new Size(84, 821);
+            panel2.Size = new Size(84, 845);
             panel2.TabIndex = 6;
             // 
             // panel5
             // 
             panel5.Controls.Add(resumePreview);
             panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(72, 37);
+            panel5.Location = new Point(72, 31);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(5);
-            panel5.Size = new Size(811, 821);
+            panel5.Size = new Size(811, 845);
             panel5.TabIndex = 7;
             // 
             // ResumePreviewForm

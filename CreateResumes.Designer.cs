@@ -313,9 +313,9 @@
             templateSelector.Font = new Font("Century Gothic", 13.8F);
             templateSelector.FormattingEnabled = true;
             templateSelector.Items.AddRange(new object[] { "Call Center Resume", "Academic Resume", "Doctor Resume", "Attorney Resume", "Electrical Engineer Resume" });
-            templateSelector.Location = new Point(75, 46);
+            templateSelector.Location = new Point(54, 41);
             templateSelector.Name = "templateSelector";
-            templateSelector.Size = new Size(255, 35);
+            templateSelector.Size = new Size(306, 35);
             templateSelector.TabIndex = 0;
             templateSelector.SelectedIndexChanged += templateSelector_SelectedIndexChanged;
             // 

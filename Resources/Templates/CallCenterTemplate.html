@@ -86,64 +86,57 @@
 
         <h3>CORE SKILLS</h3>
         <ul class="highlighted-skills">
-            {{#each CoreSkills}}
-                <li>{{this}}</li>
-            {{/each}}
+            {{ for skill in CoreSkills }}
+                <li>{{ skill }}</li>
+            {{ end }}
         </ul>
 
         <h3>TECHNOLOGY</h3>
         <ul>
-            {{#each TechSkills}}
-                <li>{{this}}</li>
-            {{/each}}
-        </ul>
-
-        <h3>EDUCATION</h3>
-        <ul>
-            {{#each Education}}
-                <li><strong>{{Degree}}</strong><br>{{School}}, {{Location}}<br>{{Year}}</li>
-            {{/each}}
+            {{ for tech in TechSkills }}
+                <li>{{ tech }}</li>
+            {{ end }}
         </ul>
 
         <h3>LANGUAGES</h3>
         <ul>
-            {{#each Languages}}
-                <li>{{this}}</li>
-            {{/each}}
+            {{ for lang in Languages }}
+                <li>{{ lang }}</li>
+            {{ end }}
         </ul>
     </div>
 
     <div class="main">
-        <h1>{{Name}}</h1>
+        <h1>{{ Name }}</h1>
         <p class="contact-info">
-            {{Address}} | {{Phone}} | {{Email}} | {{LinkedIn}}
+            {{ Address }} | {{ Phone }} | {{ Email }}
         </p>
-        
-        <p><strong>{{Title}}</strong></p>
+
+        <p><strong>{{ Title }}</strong></p>
 
         <h2>Summary</h2>
-        <p>{{Summary}}</p>
+        <p>{{ Summary }}</p>
 
         <h2>Professional Experience</h2>
-        {{#each Experience}}
+        {{ for job in Experience }}
         <div class="job-section">
-            <p><strong>{{Title}} – {{Company}}</strong><br>{{Location}}<br>{{Duration}}</p>
+            <p><strong>{{ job.Title }} – {{ job.Company }}</strong><br>{{ job.Location }}<br>{{ job.Duration }}</p>
             <ul>
-                {{#each Responsibilities}}
-                    <li>{{this}}</li>
-                {{/each}}
-                {{#if Achievement}}
-                    <li><strong>Achievement:</strong> {{Achievement}}</li>
-                {{/if}}
+                {{ for item in job.Responsibilities }}
+                    <li>{{ item }}</li>
+                {{ end }}
+                {{ if job.Achievement }}
+                    <li><strong>Achievement:</strong> {{ job.Achievement }}</li>
+                {{ end }}
             </ul>
         </div>
-        {{/each}}
+        {{ end }}
 
-        <h2>Conferences & Courses</h2>
+        <h2>Education</h2>
         <ul>
-            {{#each Courses}}
-                <li>{{this}}</li>
-            {{/each}}
+            {{ for edu in Education }}
+                <li><strong>{{ edu.Degree }}</strong><br>{{ edu.School }}, {{ edu.Location }}<br>{{ edu.Year }}</li>
+            {{ end }}
         </ul>
     </div>
 </div>

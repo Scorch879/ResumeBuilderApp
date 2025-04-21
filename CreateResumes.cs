@@ -7,11 +7,6 @@ namespace FinalProjectOOP2
 {
     public partial class CreateResumes : UserControl, ICurrentUsername
     {
-        ListBox? listCore, listTech, listLang, listInterests, listEdu, listResp, listCourse, listExperienceBlocks;
-        TextBox? txtDegree, txtSchool, txtLocation, txtYear;
-        TextBox? txtJobTitle, txtCompany, txtExpLocation, txtDuration, txtResponsibility, txtAchievement;
-        TextBox? txtCoreSkill, txtTechSkill, txtLang, txtInterest, txtCourse;
-        Button? btnAddExp;
 
         private SavingForm? savingForm;
         private DatabaseHelper? dbHelper;
@@ -32,6 +27,7 @@ namespace FinalProjectOOP2
         {
             contentPanel.Controls.Clear();
 
+            string? selectedTemplate = templateSelector.SelectedItem?.ToString();
             UserControl? selectedControl = null;
 
             switch (selectedTemplate)
@@ -39,10 +35,21 @@ namespace FinalProjectOOP2
                 case "Call Center Resume":
                     selectedControl = new CallCenterResume();
                     break;
-                case "Engineer Resume":
-//                    selectedControl = new EngineerResumeControl();
+                case "Electrical Engineer Resume":
+                    selectedControl = new ElectricalEngineeringTemplate();
                     break;
-                    // Add more cases...
+                case "Doctor Resume":
+                    selectedControl = new DoctorResume();
+                    break;
+                case "Attorney Resume":
+                    selectedControl = new AttorneyResume();
+                    break;
+                case "Academic Resume":
+                    selectedControl = new AcademicResume();
+                    break;
+                default:
+                    MessageBox.Show("Unknown template selected.");
+                    break;
             }
 
             if (selectedControl != null)
@@ -54,9 +61,20 @@ namespace FinalProjectOOP2
 
         private void previewResume_Click(object sender, EventArgs e)
         {
-            string resumeHtml = "<html> ... </html>";  // Replace with actual generated HTML
-            ResumePreviewForm previewForm = new ResumePreviewForm(resumeHtml);
-            previewForm.Show();
+            if (contentPanel.Controls.Count > 0)
+            {
+                var activeControl = contentPanel.Controls[0];
+
+                // Check if the active control is CallCenterResume
+                if (activeControl is CallCenterResume callCenterControl)
+                {
+                    callCenterControl.PreviewResume();
+                }
+                else
+                {
+                    MessageBox.Show("Preview not available for this resume type yet.");
+                }
+            }
         }
 
         private void panel4_Paint(object sender, PaintEventArgs e)
@@ -65,27 +83,14 @@ namespace FinalProjectOOP2
         }
     }
 
-    public abstract class Resume
+    public class PersonalInfo //only constant between templates that does not get changed since it is personal info
     {
-        public string Name { get; set; }
-        public string Title { get; set; }
-        public string Summary { get; set; }
-        public List<string> CoreSkills { get; set; }
-        public List<string> Education { get; set; }
-        public List<string> Languages { get; set; }
-        public List<string> Interests { get; set; }
-
-        public Resume(string name, string title, string summary)
-        {
-            Name = name;
-            Title = title;
-            Summary = summary;
-            CoreSkills = new List<string>();
-            Education = new List<string>();
-            Languages = new List<string>();
-            Interests = new List<string>();
-        }
-
-        public abstract string GenerateHtml();
+        public string? Name { get; set; }
+        public string? Address { get; set; }
+        public string? Phone { get; set; }
+        public string? Email { get; set; }
+        public string? Title { get; set; }
+        public string? Summary { get; set; }
     }
+
 }

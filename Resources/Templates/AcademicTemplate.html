@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            max-width: 950px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .sidebar {
+            background-color: #2c3e50;
+            color: white;
+            width: 30%;
+            padding: 20px;
+        }
+        .sidebar img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .sidebar h3 {
+            margin-top: 20px;
+            border-bottom: 1px solid white;
+            padding-bottom: 5px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .main {
+            width: 70%;
+            padding: 30px;
+        }
+        .main h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .main h2 {
+            color: #2980b9;
+            margin-top: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .main p {
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        .highlighted-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .highlighted-skills span {
+            background-color: #eaf2f8;
+            color: #1a5276;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+        .job-section {
+            margin-bottom: 20px;
+        }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .job-title {
+            font-weight: bold;
+        }
+        .job-company {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .job-duration {
+            color: #7f8c8d;
+        }
+        .job-location {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .job-contributions {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .job-contributions li {
+            margin-bottom: 8px;
+        }
+        .contact-info {
+            font-size: 16px;
+            color: #555;
+            margin-top: 5px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+            margin: 10px 0;
+        }
+        .courses-taught {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #2980b9;
+            margin: 15px 0;
+        }
+        .courses-taught ul {
+            columns: 2;
+            -webkit-columns: 2;
+            -moz-columns: 2;
+        }
+        .education-item {
+            margin-bottom: 15px;
+        }
+        .education-degree {
+            font-weight: bold;
+        }
+        .education-details {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+        .education-honors {
+            font-style: italic;
+        }
+        .publication {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            text-indent: -20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <center>
+            <img src="Assets/default-profile.png" alt="Profile Photo">
+        </center>
+
+        <h3>TEACHING FOCUS</h3>
+        <ul class="highlighted-skills">
+            {{#each TeachingFocus}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+
+        <h3>RESEARCH INTERESTS</h3>
+        <ul>
+            {{#each ResearchInterests}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+
+        <h3>ACADEMIC SERVICE</h3>
+        <ul>
+            {{#each AcademicService}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="main">
+        <h1>{{Name}}</h1>
+        <div class="contact-info">
+            {{Address}} | {{Phone}} | {{Email}} | {{PortfolioURL}}
+        </div>
+        
+        <p><strong>{{Title}}</strong></p>
+
+        <div class="courses-taught">
+            <strong>Courses Taught at {{CurrentInstitution}}</strong>
+            <ul>
+                {{#each CoursesTaught}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <h2>Profile</h2>
+        <ul>
+            {{#each ProfilePoints}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+
+        <h2>Education</h2>
+        <div class="education-item">
+            <div class="education-degree">{{Education.Masters.Degree}}</div>
+            <div class="education-details">
+                {{Education.Masters.Institution}} | {{Education.Masters.Year}}<br>
+                <span class="education-honors">{{Education.Masters.Honors}}</span><br>
+                <strong>Thesis:</strong> "{{Education.Masters.Thesis}}"
+            </div>
+        </div>
+        <div class="education-item">
+            <div class="education-degree">{{Education.Bachelors.Degree}}</div>
+            <div class="education-details">
+                {{Education.Bachelors.Institution}} | {{Education.Bachelors.Year}}<br>
+                <span class="education-honors">{{Education.Bachelors.Honors}}</span><br>
+                <strong>Student Teaching:</strong> {{Education.Bachelors.StudentTeaching}}
+            </div>
+        </div>
+
+        <h2>Professional Experience</h2>
+        <div class="job-section">
+            <div class="job-header">
+                <div>
+                    <span class="job-company">{{CurrentPosition.Institution}}</span>, 
+                    <span class="job-location">{{CurrentPosition.Location}}</span>
+                </div>
+                <div class="job-duration">{{CurrentPosition.Duration}}</div>
+            </div>
+            <div class="job-title">{{CurrentPosition.Title}}</div>
+            <p>{{CurrentPosition.Description}}</p>
+            <ul class="job-contributions">
+                {{#each CurrentPosition.Accomplishments}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <div class="job-section">
+            <div class="job-header">
+                <div>
+                    <span class="job-company">{{PreviousPosition.Institution}}</span>, 
+                    <span class="job-location">{{PreviousPosition.Location}}</span>
+                </div>
+                <div class="job-duration">{{PreviousPosition.Duration}}</div>
+            </div>
+            <div class="job-title">{{PreviousPosition.Title}}</div>
+            <p>{{PreviousPosition.Description}}</p>
+            <ul class="job-contributions">
+                {{#each PreviousPosition.Accomplishments}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <h2>Publications & Presentations</h2>
+        {{#each Publications}}
+        <div class="publication">
+            {{this.Authors}}. "{{this.Title}}." <em>{{this.Journal}}</em>, {{this.Details}}.
+        </div>
+        {{/each}}
+
+        {{#each Presentations}}
+        <div class="publication">
+            {{this.Author}}. "{{this.Title}}." {{this.Type}} presented at {{this.Event}}, {{this.Location}}, {{this.Date}}.
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+</body>
+</html>

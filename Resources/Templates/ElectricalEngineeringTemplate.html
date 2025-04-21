@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            max-width: 950px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .sidebar {
+            background-color: #2c3e50;
+            color: white;
+            width: 30%;
+            padding: 20px;
+        }
+        .sidebar img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .sidebar h3 {
+            margin-top: 20px;
+            border-bottom: 1px solid white;
+            padding-bottom: 5px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .main {
+            width: 70%;
+            padding: 30px;
+        }
+        .main h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .main h2 {
+            color: #2980b9;
+            margin-top: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .main p {
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        .highlighted-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .highlighted-skills span {
+            background-color: #eaf2f8;
+            color: #1a5276;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+        .job-section {
+            margin-bottom: 20px;
+        }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .job-title {
+            font-weight: bold;
+        }
+        .job-company {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .job-duration {
+            color: #7f8c8d;
+        }
+        .job-location {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .job-contributions {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .job-contributions li {
+            margin-bottom: 8px;
+        }
+        .contact-info {
+            font-size: 16px;
+            color: #555;
+            margin-top: 5px;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .skills-category {
+            margin-bottom: 10px;
+        }
+        .skills-category strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <center>
+            <img src="Assets/default-profile.png" alt="Profile Photo">
+        </center>
+
+        <h3>CORE SKILLS</h3>
+        <ul class="highlighted-skills">
+            {{#each CoreSkills}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+
+        <h3>TECHNOLOGY</h3>
+        <ul>
+            {{#each TechSkills}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="main">
+        <h1>{{Name}}</h1>
+        <p class="contact-info">
+            {{Address}} | {{Phone}} | {{Email}}
+        </p>
+        
+        <p><strong>{{Title}}</strong></p>
+
+        <h2>Summary</h2>
+        <p>{{Summary}}</p>
+
+        <h2>Technical Expertise</h2>
+        <div class="skills-grid">
+            <div class="skills-category">
+                <strong>PLCs</strong>
+                <ul>
+                    {{#each PLCs}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="skills-category">
+                <strong>Design</strong>
+                <ul>
+                    {{#each DesignSkills}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="skills-category">
+                <strong>Methodologies</strong>
+                <ul>
+                    {{#each Methodologies}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="skills-category">
+                <strong>Production</strong>
+                <ul>
+                    {{#each ProductionSkills}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+
+        <h2>Professional Experience</h2>
+        {{#each Experience}}
+        <div class="job-section">
+            <div class="job-header">
+                <div>
+                    <span class="job-company">{{Company}}</span>, 
+                    <span class="job-location">{{Location}}</span>
+                </div>
+                <div class="job-duration">{{Duration}}</div>
+            </div>
+            <div class="job-title">{{Title}}</div>
+            <p>{{Description}}</p>
+            <ul class="job-contributions">
+                {{#each Contributions}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+        {{/each}}
+
+        <h2>Education</h2>
+        <div class="job-section">
+            <div class="job-header">
+                <div>
+                    <span class="job-company">{{Education.School}}</span>, 
+                    <span class="job-location">{{Education.Location}}</span>
+                </div>
+                <div class="job-duration">{{Education.Year}}</div>
+            </div>
+            <div class="job-title">{{Education.Degree}}</div>
+            {{#if Education.Honors}}
+            <p>{{Education.Honors}}</p>
+            {{/if}}
+        </div>
+
+        {{#if ProfessionalDevelopment.length}}
+        <h2>Professional Development</h2>
+        <ul>
+            {{#each ProfessionalDevelopment}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{/if}}
+    </div>
+</div>
+
+</body>
+</html>

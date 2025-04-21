@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            max-width: 950px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .sidebar {
+            background-color: #2c3e50;
+            color: white;
+            width: 30%;
+            padding: 20px;
+        }
+        .sidebar img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .sidebar h3 {
+            margin-top: 20px;
+            border-bottom: 1px solid white;
+            padding-bottom: 5px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .main {
+            width: 70%;
+            padding: 30px;
+        }
+        .main h1 {
+            margin: 0;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+        .main h2 {
+            color: #2980b9;
+            margin-top: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .main p {
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        .highlighted-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .highlighted-skills span {
+            background-color: #eaf2f8;
+            color: #1a5276;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+        .job-section {
+            margin-bottom: 20px;
+        }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .job-title {
+            font-weight: bold;
+        }
+        .job-company {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .job-duration {
+            color: #7f8c8d;
+        }
+        .job-location {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .job-contributions {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .job-contributions li {
+            margin-bottom: 8px;
+        }
+        .contact-info {
+            font-size: 16px;
+            color: #555;
+            margin-top: 5px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+            margin: 10px 0;
+        }
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .expertise-category {
+            margin-bottom: 10px;
+        }
+        .expertise-category strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #2980b9;
+        }
+        .education-item {
+            margin-bottom: 15px;
+        }
+        .education-degree {
+            font-weight: bold;
+        }
+        .education-school {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <center>
+            <img src="Assets/default-profile.png" alt="Profile Photo">
+        </center>
+
+        <h3>CORE SKILLS</h3>
+        <ul class="highlighted-skills">
+            {{#each CoreSkills}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+
+        <h3>LEGAL TECHNOLOGY</h3>
+        <ul>
+            {{#each LegalTech}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+
+        <h3>BAR ADMISSIONS</h3>
+        <ul>
+            {{#each BarAdmissions}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="main">
+        <h1>{{Name}}</h1>
+        <div class="contact-info">
+            {{Address}} | {{Phone}} | {{Email}} | {{LinkedIn}}
+        </div>
+        
+        <p><strong>{{Title}}</strong></p>
+        <p>{{Summary}}</p>
+
+        <h2>Expertise</h2>
+        <div class="expertise-grid">
+            <div class="expertise-category">
+                <strong>Litigation Strategy & Management</strong>
+                <ul>
+                    {{#each LitigationSkills}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="expertise-category">
+                <strong>Personal Injury & Mass Tort</strong>
+                <ul>
+                    {{#each PersonalInjurySkills}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div class="expertise-category">
+                <strong>Mediation & Arbitration</strong>
+                <ul>
+                    {{#each MediationSkills}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+
+        <h2>Professional Experience</h2>
+        {{#each Experience}}
+        <div class="job-section">
+            <div class="job-header">
+                <div>
+                    <span class="job-company">{{Company}}</span>, 
+                    <span class="job-location">{{Location}}</span>
+                </div>
+                <div class="job-duration">{{Duration}}</div>
+            </div>
+            <div class="job-title">{{Position}}</div>
+            <p>{{Description}}</p>
+            {{#if Contributions.length}}
+            <strong>Contributions:</strong>
+            <ul class="job-contributions">
+                {{#each Contributions}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            {{/if}}
+        </div>
+        {{/each}}
+
+        {{#if EarlierPositions.length}}
+        <h3>Earlier Positions</h3>
+        <ul>
+            {{#each EarlierPositions}}
+                <li>
+                    <strong>{{Position}}</strong>, {{Duration}} -- {{Company}}, {{Location}}
+                </li>
+            {{/each}}
+        </ul>
+        {{/if}}
+
+        <h2>Education & Credentials</h2>
+        <div class="education-item">
+            <div class="education-degree">Juris Doctor</div>
+            <div class="education-school">{{Education.LawSchool}}</div>
+        </div>
+        <div class="education-item">
+            <div class="education-degree">Bachelor of Arts in {{Education.UndergradMajor}}</div>
+            <div class="education-school">{{Education.UndergradSchool}}</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
