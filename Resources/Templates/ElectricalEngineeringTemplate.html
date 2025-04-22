@@ -131,109 +131,109 @@
 
         <h3>CORE SKILLS</h3>
         <ul class="highlighted-skills">
-            {{#each CoreSkills}}
-                <li>{{this}}</li>
-            {{/each}}
+            {{ for skill in CoreSkills }}
+                <li>{{ skill }}</li>
+            {{ end }}
         </ul>
 
         <h3>TECHNOLOGY</h3>
         <ul>
-            {{#each TechSkills}}
-                <li>{{this}}</li>
-            {{/each}}
+            {{ for tech in TechSkills }}
+                <li>{{ tech }}</li>
+            {{ end }}
         </ul>
     </div>
 
     <div class="main">
-        <h1>{{Name}}</h1>
+        <h1>{{ Name }}</h1>
         <p class="contact-info">
-            {{Address}} | {{Phone}} | {{Email}}
+            {{ Address }} | {{ Phone }} | {{ Email }}
         </p>
         
-        <p><strong>{{Title}}</strong></p>
+        <p><strong>{{ Title }}</strong></p>
 
         <h2>Summary</h2>
-        <p>{{Summary}}</p>
+        <p>{{ Summary }}</p>
 
         <h2>Technical Expertise</h2>
         <div class="skills-grid">
             <div class="skills-category">
                 <strong>PLCs</strong>
                 <ul>
-                    {{#each PLCs}}
-                        <li>{{this}}</li>
-                    {{/each}}
+                    {{ for plc in TechnicalExpertise.PLCs }}
+                        <li>{{ plc }}</li>
+                    {{ end }}
                 </ul>
             </div>
             <div class="skills-category">
                 <strong>Design</strong>
                 <ul>
-                    {{#each DesignSkills}}
-                        <li>{{this}}</li>
-                    {{/each}}
+                    {{ for design in TechnicalExpertise.DesignSkills }}
+                        <li>{{ design }}</li>
+                    {{ end }}
                 </ul>
             </div>
             <div class="skills-category">
                 <strong>Methodologies</strong>
                 <ul>
-                    {{#each Methodologies}}
-                        <li>{{this}}</li>
-                    {{/each}}
+                    {{ for method in TechnicalExpertise.Methodologies }}
+                        <li>{{ method }}</li>
+                    {{ end }}
                 </ul>
             </div>
             <div class="skills-category">
                 <strong>Production</strong>
                 <ul>
-                    {{#each ProductionSkills}}
-                        <li>{{this}}</li>
-                    {{/each}}
+                    {{ for prod in TechnicalExpertise.ProductionSkills }}
+                        <li>{{ prod }}</li>
+                    {{ end }}
                 </ul>
             </div>
         </div>
 
         <h2>Professional Experience</h2>
-        {{#each Experience}}
+        {{ for job in Experience }}
         <div class="job-section">
             <div class="job-header">
                 <div>
-                    <span class="job-company">{{Company}}</span>, 
-                    <span class="job-location">{{Location}}</span>
+                    <span class="job-company">{{ job.Company }}</span>, 
+                    <span class="job-location">{{ job.Location }}</span>
                 </div>
-                <div class="job-duration">{{Duration}}</div>
+                <div class="job-duration">{{ job.Duration }}</div>
             </div>
-            <div class="job-title">{{Title}}</div>
-            <p>{{Description}}</p>
+            <div class="job-title">{{ job.Title }}</div>
+            <p>{{ job.Achievement }}</p>
             <ul class="job-contributions">
-                {{#each Contributions}}
-                    <li>{{this}}</li>
-                {{/each}}
+                {{ for item in job.Responsibilities }}
+                    <li>{{ item }}</li>
+                {{ end }}
             </ul>
         </div>
-        {{/each}}
+        {{ end }}
 
         <h2>Education</h2>
         <div class="job-section">
             <div class="job-header">
                 <div>
-                    <span class="job-company">{{Education.School}}</span>, 
-                    <span class="job-location">{{Education.Location}}</span>
+                    <span class="job-company">{{ Education.School }}</span>, 
+                    <span class="job-location">{{ Education.Location }}</span>
                 </div>
-                <div class="job-duration">{{Education.Year}}</div>
+                <div class="job-duration">{{ Education.Year }}</div>
             </div>
-            <div class="job-title">{{Education.Degree}}</div>
-            {{#if Education.Honors}}
-            <p>{{Education.Honors}}</p>
-            {{/if}}
+            <div class="job-title">{{ Education.Degree }}</div>
+            {{ if Education.Honors }}
+            <p>{{ Education.Honors }}</p>
+            {{ end }}
         </div>
 
-        {{#if ProfessionalDevelopment.length}}
+        {{ if ProfessionalDevelopment && ProfessionalDevelopment.size > 0 }}
         <h2>Professional Development</h2>
         <ul>
-            {{#each ProfessionalDevelopment}}
-                <li>{{this}}</li>
-            {{/each}}
+            {{ for pd in ProfessionalDevelopment }}
+                <li>{{ pd }}</li>
+            {{ end }}
         </ul>
-        {{/if}}
+        {{ end }}
     </div>
 </div>
 

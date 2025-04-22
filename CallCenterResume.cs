@@ -23,6 +23,7 @@ namespace FinalProjectOOP2
             InitializeComponent();
         }
 
+
         public void PreviewResume()
         {
             var resumeData = GetResumeData();
@@ -33,11 +34,23 @@ namespace FinalProjectOOP2
             previewForm.Show();
         }
 
-        public List<string> GetListBoxItems(ListBox listBox)
+        private List<string> GetListBoxItems(ListBox listBox)
         {
             return listBox.Items.Cast<string>().ToList();
         }
 
+        private void dgvProfExp_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvProfExp.SelectedRows.Count > 0 && !dgvProfExp.SelectedRows[0].IsNewRow)
+            {
+                selectedExpRow = dgvProfExp.SelectedRows[0];
+            }
+
+            warningResponsibilityLbl.Text = "";
+            warningJobLbl.Text = "";
+        }
+
+        #region fetching data from data grid methods
         public List<EducationItem> GetEducationFromGrid(DataGridView grid)
         {
             List<EducationItem> educationList = new List<EducationItem>();
@@ -94,6 +107,7 @@ namespace FinalProjectOOP2
 
             return experienceList;
         }
+        #endregion
 
         public CallCenterResumeModel GetResumeData()
         {
@@ -105,7 +119,7 @@ namespace FinalProjectOOP2
                 Email = emailTbx.Text,
                 Title = titleTbx.Text,
                 Summary = summaryTbx.Text,
-                CoreSkills = GetListBoxItems(coreSkillsLstBx), // Fill this from your UI
+                CoreSkills = GetListBoxItems(coreSkillsLstBx),
                 TechSkills = GetListBoxItems(techSkillsLstBx),
                 Languages = GetListBoxItems(languageLstBx),
                 Experience = GetExperienceFromGrid(dgvProfExp),
@@ -113,18 +127,15 @@ namespace FinalProjectOOP2
             };
         }
 
-        private void dgvProfExp_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dgvProfExp.SelectedRows.Count > 0)
-            {
-                selectedExpRow = dgvProfExp.SelectedRows[0];
-            }
-        }
+        //private void dgvProfExp_SelectionChanged(object sender, EventArgs e)
+        //{
+        //    if (dgvProfExp.SelectedRows.Count > 0)
+        //    {
+        //        selectedExpRow = dgvProfExp.SelectedRows[0];
+        //    }
+        //}
 
-        /// <summary>
-        /// This is where the cursor or the et cetera methods are
-        /// </summary>
-        /// 
+        #region For cursor enter and leave methods to replace the placeholder text 
 
         private void HandleEnter(TextBox tbx, string placeholder)
         {
@@ -163,13 +174,9 @@ namespace FinalProjectOOP2
         {
             HandleLeave(techSkillTbx, "Enter your skill");
         }
+        #endregion
 
-        /// <summary>
-        ///  End of the et cetera code block
-        /// </summary>
-
-
-
+        #region Methods for add and remove 
 
         //Core Skills Section
         private void btnAddCoreSkill_Click(object sender, EventArgs e)
@@ -236,10 +243,9 @@ namespace FinalProjectOOP2
                 return; //do nothing if there's nothing selected
             }
         }
+        #endregion
 
-        ///<summary>
-        /// Data Grid Sections
-        /// </summary>
+        #region Data Grid Sections
 
         //Education Section
         private void btnAddEduc_Click(object sender, EventArgs e)
@@ -330,8 +336,8 @@ namespace FinalProjectOOP2
 
             dgvProfExp.Rows.Add(rowValues.ToArray());
 
-            int newRowIdx = dgvProfExp.Rows.Count - 1; //auto selects the new row
-            if (newRowIdx >= 0)
+            int newRowIdx = dgvProfExp.Rows.Count - 1;
+            if (newRowIdx >= 0 && !dgvProfExp.Rows[newRowIdx].IsNewRow)
             {
                 dgvProfExp.ClearSelection();
                 dgvProfExp.Rows[newRowIdx].Selected = true;
@@ -378,7 +384,7 @@ namespace FinalProjectOOP2
         //Responbilities
         private void addResponbilityBtn_Click(object sender, EventArgs e)
         {
-            if (selectedExpRow == null)
+            if (selectedExpRow == null || selectedExpRow.IsNewRow)
             {
                 warningJobLbl.Text = "Please select a job entry to add responsibilities.";
                 warningJobLbl.ForeColor = Color.Red;
@@ -445,9 +451,12 @@ namespace FinalProjectOOP2
 
             warningResponsibilityLbl.Text = "No responsibilities to remove.";
             warningResponsibilityLbl.ForeColor = Color.Red;
+            warningResponsibilityLbl.Font = new Font("Century Gothic", 10, FontStyle.Bold);
         }
+        #endregion
 
 
+        #region Template Specific Information seperated into classes (maybe kind of similar but is not)
         public class CallCenterResumeModel : PersonalInfo
         {
             public List<string>? CoreSkills { get; set; }
@@ -475,5 +484,6 @@ namespace FinalProjectOOP2
             public string? Location { get; set; }
             public string? Year { get; set; }
         }
+        #endregion
     }
 }

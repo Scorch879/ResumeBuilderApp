@@ -12,9 +12,8 @@ namespace FinalProjectOOP2
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            //Application.Run(new Dashboard(""));
-           Application.Run(new Login());
-
+           Application.Run(new Dashboard());
+           //Application.Run(new Login());
         }
     }
 }

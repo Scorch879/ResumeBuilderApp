@@ -70,16 +70,16 @@ namespace FinalProjectOOP2
                 {
                     callCenterControl.PreviewResume();
                 }
+                else if (activeControl is ElectricalEngineeringTemplate electricalEngrControl)
+                {
+                    electricalEngrControl.PreviewResume();
+                }
+
                 else
                 {
                     MessageBox.Show("Preview not available for this resume type yet.");
                 }
             }
-        }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 
@@ -92,5 +92,4 @@ namespace FinalProjectOOP2
         public string? Title { get; set; }
         public string? Summary { get; set; }
     }
-
 }

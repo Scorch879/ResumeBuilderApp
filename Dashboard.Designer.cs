@@ -37,13 +37,11 @@
             sideLayoutTable = new TableLayoutPanel();
             messagesBtn = new FontAwesome.Sharp.IconButton();
             profileBtn = new FontAwesome.Sharp.IconButton();
-            settingsBtn = new FontAwesome.Sharp.IconButton();
             createResumeBtn = new FontAwesome.Sharp.IconButton();
             myResumeBtn = new FontAwesome.Sharp.IconButton();
             homeBtn = new FontAwesome.Sharp.IconButton();
             resumeIcon = new PictureBox();
             logoutBtn = new FontAwesome.Sharp.IconButton();
-            aboutBtn = new FontAwesome.Sharp.IconButton();
             label1 = new Label();
             label8 = new Label();
             label4 = new Label();
@@ -52,7 +50,6 @@
             minimizeBtn = new FontAwesome.Sharp.IconPictureBox();
             maximizeBtn = new FontAwesome.Sharp.IconPictureBox();
             closeBtn = new FontAwesome.Sharp.IconPictureBox();
-            siticoneMenuButton1 = new SiticoneNetCoreUI.SiticoneMenuButton();
             mainPanel = new FlowLayoutPanel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -126,13 +123,11 @@
             sideLayoutTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             sideLayoutTable.Controls.Add(messagesBtn, 0, 5);
             sideLayoutTable.Controls.Add(profileBtn, 0, 4);
-            sideLayoutTable.Controls.Add(settingsBtn, 0, 8);
             sideLayoutTable.Controls.Add(createResumeBtn, 0, 3);
             sideLayoutTable.Controls.Add(myResumeBtn, 0, 2);
             sideLayoutTable.Controls.Add(homeBtn, 0, 1);
             sideLayoutTable.Controls.Add(resumeIcon, 0, 0);
             sideLayoutTable.Controls.Add(logoutBtn, 0, 10);
-            sideLayoutTable.Controls.Add(aboutBtn, 0, 9);
             sideLayoutTable.Dock = DockStyle.Left;
             sideLayoutTable.Location = new Point(0, 0);
             sideLayoutTable.Name = "sideLayoutTable";
@@ -199,30 +194,6 @@
             profileBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             profileBtn.UseVisualStyleBackColor = false;
             profileBtn.Click += profileBtn_Click;
-            // 
-            // settingsBtn
-            // 
-            settingsBtn.BackColor = Color.FromArgb(41, 128, 185);
-            settingsBtn.Dock = DockStyle.Top;
-            settingsBtn.FlatAppearance.BorderSize = 0;
-            settingsBtn.FlatStyle = FlatStyle.Flat;
-            settingsBtn.Font = new Font("Century Gothic", 13.8F);
-            settingsBtn.ForeColor = Color.White;
-            settingsBtn.IconChar = FontAwesome.Sharp.IconChar.Cog;
-            settingsBtn.IconColor = Color.FromArgb(216, 225, 233);
-            settingsBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            settingsBtn.IconSize = 50;
-            settingsBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            settingsBtn.Location = new Point(3, 634);
-            settingsBtn.Name = "settingsBtn";
-            settingsBtn.Padding = new Padding(30, 0, 0, 0);
-            settingsBtn.Size = new Size(303, 67);
-            settingsBtn.TabIndex = 30;
-            settingsBtn.Text = " Settings";
-            settingsBtn.TextAlign = ContentAlignment.MiddleLeft;
-            settingsBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-            settingsBtn.UseVisualStyleBackColor = false;
-            settingsBtn.Click += settingsBtn_Click;
             // 
             // createResumeBtn
             // 
@@ -320,7 +291,7 @@
             logoutBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             logoutBtn.IconSize = 50;
             logoutBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            logoutBtn.Location = new Point(3, 780);
+            logoutBtn.Location = new Point(3, 634);
             logoutBtn.Name = "logoutBtn";
             logoutBtn.Padding = new Padding(30, 0, 0, 0);
             logoutBtn.Size = new Size(303, 67);
@@ -330,30 +301,6 @@
             logoutBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             logoutBtn.UseVisualStyleBackColor = false;
             logoutBtn.Click += logoutBtn_Click;
-            // 
-            // aboutBtn
-            // 
-            aboutBtn.BackColor = Color.FromArgb(41, 128, 185);
-            aboutBtn.Dock = DockStyle.Top;
-            aboutBtn.FlatAppearance.BorderSize = 0;
-            aboutBtn.FlatStyle = FlatStyle.Flat;
-            aboutBtn.Font = new Font("Century Gothic", 13.8F);
-            aboutBtn.ForeColor = Color.White;
-            aboutBtn.IconChar = FontAwesome.Sharp.IconChar.Info;
-            aboutBtn.IconColor = Color.FromArgb(216, 225, 233);
-            aboutBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            aboutBtn.IconSize = 50;
-            aboutBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            aboutBtn.Location = new Point(3, 707);
-            aboutBtn.Name = "aboutBtn";
-            aboutBtn.Padding = new Padding(30, 0, 0, 0);
-            aboutBtn.Size = new Size(303, 67);
-            aboutBtn.TabIndex = 37;
-            aboutBtn.Text = " About";
-            aboutBtn.TextAlign = ContentAlignment.MiddleLeft;
-            aboutBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-            aboutBtn.UseVisualStyleBackColor = false;
-            aboutBtn.Click += aboutBtn_Click;
             // 
             // label1
             // 
@@ -397,7 +344,6 @@
             headerPanel.Controls.Add(minimizeBtn);
             headerPanel.Controls.Add(maximizeBtn);
             headerPanel.Controls.Add(closeBtn);
-            headerPanel.Controls.Add(siticoneMenuButton1);
             headerPanel.Dock = DockStyle.Top;
             headerPanel.ForeColor = Color.FromArgb(41, 128, 185);
             headerPanel.Location = new Point(309, 0);
@@ -465,49 +411,6 @@
             closeBtn.MouseEnter += CloseBtn_MouseEnter;
             closeBtn.MouseLeave += CloseBtn_MouseLeave;
             // 
-            // siticoneMenuButton1
-            // 
-            siticoneMenuButton1.AllowDynamicSwitch = true;
-            siticoneMenuButton1.BackColor = Color.Transparent;
-            siticoneMenuButton1.BorderRadius = 8;
-            siticoneMenuButton1.BounceDuration = 500;
-            siticoneMenuButton1.BounceStrength = 0.3F;
-            siticoneMenuButton1.CanBeep = true;
-            siticoneMenuButton1.CanShake = true;
-            siticoneMenuButton1.EnableParticles = true;
-            siticoneMenuButton1.EnablePulseEffect = true;
-            siticoneMenuButton1.EnableRippleEffect = true;
-            siticoneMenuButton1.EnableShadow = true;
-            siticoneMenuButton1.HoverAnimationSpeed = 200;
-            siticoneMenuButton1.HoverColor = Color.FromArgb(240, 240, 240);
-            siticoneMenuButton1.HoverOpacity = 150;
-            siticoneMenuButton1.IconSize = 24F;
-            siticoneMenuButton1.IconStrokeWidth = 2F;
-            siticoneMenuButton1.InteractiveBounce = false;
-            siticoneMenuButton1.IsOpened = false;
-            siticoneMenuButton1.IsReadOnly = false;
-            siticoneMenuButton1.Location = new Point(0, 0);
-            siticoneMenuButton1.MenuLineColor = Color.White;
-            siticoneMenuButton1.MenuLineHeight = 2F;
-            siticoneMenuButton1.MenuLineSpacing = 6F;
-            siticoneMenuButton1.MenuLineWidth = 20F;
-            siticoneMenuButton1.Name = "siticoneMenuButton1";
-            siticoneMenuButton1.ParticleColor = Color.FromArgb(100, 149, 237);
-            siticoneMenuButton1.ParticleCount = 20;
-            siticoneMenuButton1.ParticleSpeed = 3F;
-            siticoneMenuButton1.PressAnimationSpeed = 100;
-            siticoneMenuButton1.PressColor = Color.FromArgb(240, 240, 240);
-            siticoneMenuButton1.PressDepthOffset = 2;
-            siticoneMenuButton1.PressShadowColor = Color.FromArgb(240, 240, 240);
-            siticoneMenuButton1.ShadowColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneMenuButton1.ShadowDepth = 3;
-            siticoneMenuButton1.Size = new Size(50, 51);
-            siticoneMenuButton1.TabIndex = 18;
-            siticoneMenuButton1.Text = "siticoneMenuButton1";
-            siticoneMenuButton1.XIconColor = Color.FromArgb(64, 64, 64);
-            siticoneMenuButton1.XIconSize = 20F;
-            siticoneMenuButton1.XIconThickness = 2F;
-            // 
             // mainPanel
             // 
             mainPanel.AutoScroll = true;
@@ -563,14 +466,11 @@
         private PictureBox resumeIcon;
         private System.Windows.Forms.Timer highlightTimer;
         private Panel headerPanel;
-        private SiticoneNetCoreUI.SiticoneMenuButton siticoneMenuButton1;
         private FlowLayoutPanel mainPanel;
         private FontAwesome.Sharp.IconPictureBox minimizeBtn;
         private FontAwesome.Sharp.IconPictureBox maximizeBtn;
         private FontAwesome.Sharp.IconPictureBox closeBtn;
-        private FontAwesome.Sharp.IconButton settingsBtn;
         private FontAwesome.Sharp.IconButton logoutBtn;
-        private FontAwesome.Sharp.IconButton aboutBtn;
         private FontAwesome.Sharp.IconButton messagesBtn;
     }
 }

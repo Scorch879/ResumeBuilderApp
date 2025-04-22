@@ -247,43 +247,6 @@ namespace FinalProjectOOP2
             }
         }
 
-        private void settingsBtn_Click(Object sender, EventArgs e)
-        {
-            ActivateButton(settingsBtn);
-
-            if (settings == null)
-            {
-                settings = new Settings();
-            }
-
-            if (!mainPanel.Controls.Contains(settings))
-            {
-                mainPanel.Controls.Clear();
-                mainPanel.Controls.Add(settings);
-            }
-        }
-
-        private void aboutBtn_Click(Object sender, EventArgs e)
-        {
-            ActivateButton(aboutBtn);
-
-            if (about == null)
-            {
-                about = new About();
-            }
-
-            if (!mainPanel.Controls.Contains(about))
-            {
-                mainPanel.Controls.Clear();
-                mainPanel.Controls.Add(about);
-            }
-        }
-
-        private void menuBtn_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void Dashboard_Load(object sender, EventArgs e)
         {
             ImageAnimator.Animate(resumeIcon.Image, OnFrameChanged);
@@ -330,11 +293,9 @@ namespace FinalProjectOOP2
         }
 
         public void CloseAndShowLogin()
-        {
-            // Create login form first to prevent application exit
+        {           
             var loginForm = new Login();
 
-            // Use FormClosed event to handle clean transition
             this.FormClosed += (s, args) =>
             {
                 loginForm.Show();

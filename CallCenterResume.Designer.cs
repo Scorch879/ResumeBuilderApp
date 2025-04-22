@@ -112,6 +112,7 @@
             label12 = new Label();
             techSkillTbx = new TextBox();
             techSkillsLstBx = new ListBox();
+            panel24 = new Panel();
             coreSkillPanel = new Panel();
             tableLayoutPanel4 = new TableLayoutPanel();
             btnRemoveCoreSkill = new FontAwesome.Sharp.IconButton();
@@ -119,6 +120,7 @@
             btnAddCoreSkill = new FontAwesome.Sharp.IconButton();
             coreSkillTbx = new TextBox();
             coreSkillsLstBx = new ListBox();
+            panel10 = new Panel();
             panel13 = new Panel();
             label22 = new Label();
             tabPersonalInfo = new TabPage();
@@ -224,6 +226,7 @@
             // 
             // dgvProfExp
             // 
+            dgvProfExp.BackgroundColor = Color.FromArgb(216, 225, 233);
             dgvProfExp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProfExp.Columns.AddRange(new DataGridViewColumn[] { JobTitle, Company, Location, Duration, Achievement });
             dgvProfExp.Dock = DockStyle.Top;
@@ -237,38 +240,43 @@
             // 
             // JobTitle
             // 
+            JobTitle.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             JobTitle.HeaderText = "JobTitle";
             JobTitle.MinimumWidth = 6;
             JobTitle.Name = "JobTitle";
-            JobTitle.Width = 125;
+            JobTitle.Width = 102;
             // 
             // Company
             // 
+            Company.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             Company.HeaderText = "Company";
             Company.MinimumWidth = 6;
             Company.Name = "Company";
-            Company.Width = 125;
+            Company.Width = 121;
             // 
             // Location
             // 
+            Location.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             Location.HeaderText = "Location";
             Location.MinimumWidth = 6;
             Location.Name = "Location";
-            Location.Width = 125;
+            Location.Width = 112;
             // 
             // Duration
             // 
+            Duration.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             Duration.HeaderText = "Duration";
             Duration.MinimumWidth = 6;
             Duration.Name = "Duration";
-            Duration.Width = 125;
+            Duration.Width = 110;
             // 
             // Achievement
             // 
+            Achievement.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             Achievement.HeaderText = "Achievement";
             Achievement.MinimumWidth = 6;
             Achievement.Name = "Achievement";
-            Achievement.Width = 125;
+            Achievement.Width = 152;
             // 
             // panel23
             // 
@@ -416,11 +424,10 @@
             warningResponsibilityLbl.Dock = DockStyle.Right;
             warningResponsibilityLbl.Font = new Font("Century Gothic", 13.8F);
             warningResponsibilityLbl.ForeColor = Color.White;
-            warningResponsibilityLbl.Location = new Point(630, 0);
+            warningResponsibilityLbl.Location = new Point(736, 0);
             warningResponsibilityLbl.Name = "warningResponsibilityLbl";
-            warningResponsibilityLbl.Size = new Size(106, 27);
+            warningResponsibilityLbl.Size = new Size(0, 27);
             warningResponsibilityLbl.TabIndex = 36;
-            warningResponsibilityLbl.Text = "Job Title";
             // 
             // warningJobLbl
             // 
@@ -815,6 +822,7 @@
             // 
             // dgvEducation
             // 
+            dgvEducation.BackgroundColor = Color.FromArgb(216, 225, 233);
             dgvEducation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvEducation.Columns.AddRange(new DataGridViewColumn[] { Degree, School, Location_Educ, Year });
             dgvEducation.Dock = DockStyle.Top;
@@ -827,31 +835,31 @@
             // 
             // Degree
             // 
+            Degree.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Degree.HeaderText = "Degree";
             Degree.MinimumWidth = 6;
             Degree.Name = "Degree";
-            Degree.Width = 125;
             // 
             // School
             // 
+            School.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             School.HeaderText = "School";
             School.MinimumWidth = 6;
             School.Name = "School";
-            School.Width = 125;
             // 
             // Location_Educ
             // 
+            Location_Educ.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Location_Educ.HeaderText = "Location";
             Location_Educ.MinimumWidth = 6;
             Location_Educ.Name = "Location_Educ";
-            Location_Educ.Width = 125;
             // 
             // Year
             // 
+            Year.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Year.HeaderText = "Year";
             Year.MinimumWidth = 6;
             Year.Name = "Year";
-            Year.Width = 125;
             // 
             // tableLayoutPanel10
             // 
@@ -1102,17 +1110,18 @@
             // 
             panel12.Controls.Add(tableLayoutPanel2);
             panel12.Controls.Add(techSkillsLstBx);
+            panel12.Controls.Add(panel24);
             panel12.Dock = DockStyle.Left;
             panel12.Location = new Point(639, 0);
             panel12.Name = "panel12";
             panel12.Padding = new Padding(10);
             panel12.Size = new Size(598, 544);
-            panel12.TabIndex = 39;
+            panel12.TabIndex = 40;
             // 
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 1;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Controls.Add(btnRemoveTechSkilln4, 0, 3);
             tableLayoutPanel2.Controls.Add(btnAddTechSkill, 0, 2);
             tableLayoutPanel2.Controls.Add(label12, 0, 0);
@@ -1121,12 +1130,12 @@
             tableLayoutPanel2.Location = new Point(243, 10);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 4;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 44.1176453F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 55.8823547F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 369F));
-            tableLayoutPanel2.Size = new Size(345, 524);
-            tableLayoutPanel2.TabIndex = 42;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 11.2820511F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 15.8974361F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 13.0769234F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 59.74359F));
+            tableLayoutPanel2.Size = new Size(345, 390);
+            tableLayoutPanel2.TabIndex = 45;
             // 
             // btnRemoveTechSkilln4
             // 
@@ -1137,7 +1146,7 @@
             btnRemoveTechSkilln4.IconChar = FontAwesome.Sharp.IconChar.None;
             btnRemoveTechSkilln4.IconColor = Color.Black;
             btnRemoveTechSkilln4.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnRemoveTechSkilln4.Location = new Point(3, 157);
+            btnRemoveTechSkilln4.Location = new Point(3, 160);
             btnRemoveTechSkilln4.Name = "btnRemoveTechSkilln4";
             btnRemoveTechSkilln4.Size = new Size(339, 49);
             btnRemoveTechSkilln4.TabIndex = 36;
@@ -1154,9 +1163,9 @@
             btnAddTechSkill.IconChar = FontAwesome.Sharp.IconChar.None;
             btnAddTechSkill.IconColor = Color.Black;
             btnAddTechSkill.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnAddTechSkill.Location = new Point(3, 105);
+            btnAddTechSkill.Location = new Point(3, 109);
             btnAddTechSkill.Name = "btnAddTechSkill";
-            btnAddTechSkill.Size = new Size(339, 46);
+            btnAddTechSkill.Size = new Size(339, 45);
             btnAddTechSkill.TabIndex = 35;
             btnAddTechSkill.Text = "Add Tech Skill";
             btnAddTechSkill.UseVisualStyleBackColor = false;
@@ -1178,41 +1187,49 @@
             techSkillTbx.Dock = DockStyle.Fill;
             techSkillTbx.Font = new Font("Century Gothic", 13.8F);
             techSkillTbx.ForeColor = Color.Gray;
-            techSkillTbx.Location = new Point(3, 48);
+            techSkillTbx.Location = new Point(3, 47);
             techSkillTbx.Name = "techSkillTbx";
             techSkillTbx.Size = new Size(339, 36);
             techSkillTbx.TabIndex = 3;
             techSkillTbx.Text = "Enter your skill";
-            techSkillTbx.Click += btnAddTechSkill_Click;
             techSkillTbx.Enter += techSkillTbx_Enter;
             techSkillTbx.Leave += techSkillTbx_Leave;
             // 
             // techSkillsLstBx
             // 
-            techSkillsLstBx.BackColor = Color.White;
+            techSkillsLstBx.BackColor = Color.FromArgb(216, 225, 233);
             techSkillsLstBx.Dock = DockStyle.Left;
             techSkillsLstBx.FormattingEnabled = true;
             techSkillsLstBx.ItemHeight = 21;
             techSkillsLstBx.Location = new Point(10, 10);
             techSkillsLstBx.Name = "techSkillsLstBx";
-            techSkillsLstBx.Size = new Size(233, 524);
-            techSkillsLstBx.TabIndex = 41;
+            techSkillsLstBx.Size = new Size(233, 390);
+            techSkillsLstBx.TabIndex = 44;
+            // 
+            // panel24
+            // 
+            panel24.Dock = DockStyle.Bottom;
+            panel24.Location = new Point(10, 400);
+            panel24.Name = "panel24";
+            panel24.Size = new Size(578, 134);
+            panel24.TabIndex = 43;
             // 
             // coreSkillPanel
             // 
             coreSkillPanel.Controls.Add(tableLayoutPanel4);
             coreSkillPanel.Controls.Add(coreSkillsLstBx);
+            coreSkillPanel.Controls.Add(panel10);
             coreSkillPanel.Dock = DockStyle.Left;
             coreSkillPanel.Location = new Point(0, 0);
             coreSkillPanel.Name = "coreSkillPanel";
             coreSkillPanel.Padding = new Padding(10);
             coreSkillPanel.Size = new Size(639, 544);
-            coreSkillPanel.TabIndex = 38;
+            coreSkillPanel.TabIndex = 39;
             // 
             // tableLayoutPanel4
             // 
             tableLayoutPanel4.ColumnCount = 1;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel4.Controls.Add(btnRemoveCoreSkill, 0, 3);
             tableLayoutPanel4.Controls.Add(label13, 0, 0);
             tableLayoutPanel4.Controls.Add(btnAddCoreSkill, 0, 2);
@@ -1221,12 +1238,12 @@
             tableLayoutPanel4.Location = new Point(279, 10);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 4;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 42.06349F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 57.93651F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 52F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 364F));
-            tableLayoutPanel4.Size = new Size(350, 524);
-            tableLayoutPanel4.TabIndex = 41;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.7692308F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 15.6410255F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 13.8461542F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 59.74359F));
+            tableLayoutPanel4.Size = new Size(350, 390);
+            tableLayoutPanel4.TabIndex = 43;
             // 
             // btnRemoveCoreSkill
             // 
@@ -1237,7 +1254,7 @@
             btnRemoveCoreSkill.IconChar = FontAwesome.Sharp.IconChar.None;
             btnRemoveCoreSkill.IconColor = Color.Black;
             btnRemoveCoreSkill.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnRemoveCoreSkill.Location = new Point(3, 162);
+            btnRemoveCoreSkill.Location = new Point(3, 160);
             btnRemoveCoreSkill.Name = "btnRemoveCoreSkill";
             btnRemoveCoreSkill.Size = new Size(344, 49);
             btnRemoveCoreSkill.TabIndex = 35;
@@ -1265,7 +1282,7 @@
             btnAddCoreSkill.IconChar = FontAwesome.Sharp.IconChar.None;
             btnAddCoreSkill.IconColor = Color.Black;
             btnAddCoreSkill.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnAddCoreSkill.Location = new Point(3, 110);
+            btnAddCoreSkill.Location = new Point(3, 106);
             btnAddCoreSkill.Name = "btnAddCoreSkill";
             btnAddCoreSkill.Size = new Size(344, 46);
             btnAddCoreSkill.TabIndex = 1;
@@ -1278,25 +1295,32 @@
             coreSkillTbx.Dock = DockStyle.Fill;
             coreSkillTbx.Font = new Font("Century Gothic", 13.8F);
             coreSkillTbx.ForeColor = Color.Gray;
-            coreSkillTbx.Location = new Point(3, 48);
+            coreSkillTbx.Location = new Point(3, 45);
             coreSkillTbx.Name = "coreSkillTbx";
             coreSkillTbx.Size = new Size(344, 36);
             coreSkillTbx.TabIndex = 3;
             coreSkillTbx.Text = "Enter your skill";
-            coreSkillTbx.Click += btnAddCoreSkill_Click;
             coreSkillTbx.Enter += coreSkillTbx_Enter;
             coreSkillTbx.Leave += coreSkillTbx_Leave;
             // 
             // coreSkillsLstBx
             // 
-            coreSkillsLstBx.BackColor = Color.White;
+            coreSkillsLstBx.BackColor = Color.FromArgb(216, 225, 233);
             coreSkillsLstBx.Dock = DockStyle.Left;
             coreSkillsLstBx.FormattingEnabled = true;
             coreSkillsLstBx.ItemHeight = 21;
             coreSkillsLstBx.Location = new Point(10, 10);
             coreSkillsLstBx.Name = "coreSkillsLstBx";
-            coreSkillsLstBx.Size = new Size(269, 524);
-            coreSkillsLstBx.TabIndex = 40;
+            coreSkillsLstBx.Size = new Size(269, 390);
+            coreSkillsLstBx.TabIndex = 42;
+            // 
+            // panel10
+            // 
+            panel10.Dock = DockStyle.Bottom;
+            panel10.Location = new Point(10, 400);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(619, 134);
+            panel10.TabIndex = 40;
             // 
             // panel13
             // 
@@ -1787,20 +1811,6 @@
         private TabPage tabSkills;
         private Panel panel3;
         private Panel panel4;
-        private Panel panel12;
-        private TableLayoutPanel tableLayoutPanel2;
-        private FontAwesome.Sharp.IconButton btnRemoveTechSkilln4;
-        private FontAwesome.Sharp.IconButton btnAddTechSkill;
-        private Label label12;
-        private TextBox techSkillTbx;
-        private ListBox techSkillsLstBx;
-        private Panel coreSkillPanel;
-        private TableLayoutPanel tableLayoutPanel4;
-        private FontAwesome.Sharp.IconButton btnRemoveCoreSkill;
-        private Label label13;
-        private FontAwesome.Sharp.IconButton btnAddCoreSkill;
-        private TextBox coreSkillTbx;
-        private ListBox coreSkillsLstBx;
         private Panel panel13;
         private Label label22;
         private TabPage tabPersonalInfo;
@@ -1837,17 +1847,33 @@
         private TextBox responsibilityTbx;
         private Panel panel9;
         private DataGridView dgvEducation;
+        private Label warningLbl;
+        private Label warningJobLbl;
+        private Label warningResponsibilityLbl;
+        private Panel coreSkillPanel;
+        private TableLayoutPanel tableLayoutPanel4;
+        private FontAwesome.Sharp.IconButton btnRemoveCoreSkill;
+        private Label label13;
+        private FontAwesome.Sharp.IconButton btnAddCoreSkill;
+        private TextBox coreSkillTbx;
+        private ListBox coreSkillsLstBx;
+        private Panel panel10;
+        private Panel panel12;
+        private TableLayoutPanel tableLayoutPanel2;
+        private FontAwesome.Sharp.IconButton btnRemoveTechSkilln4;
+        private FontAwesome.Sharp.IconButton btnAddTechSkill;
+        private Label label12;
+        private TextBox techSkillTbx;
+        private ListBox techSkillsLstBx;
+        private Panel panel24;
+        private DataGridViewTextBoxColumn Degree;
+        private DataGridViewTextBoxColumn School;
+        private DataGridViewTextBoxColumn Location_Educ;
+        private DataGridViewTextBoxColumn Year;
         private DataGridViewTextBoxColumn JobTitle;
         private DataGridViewTextBoxColumn Company;
         private DataGridViewTextBoxColumn Location;
         private DataGridViewTextBoxColumn Duration;
         private DataGridViewTextBoxColumn Achievement;
-        private DataGridViewTextBoxColumn Degree;
-        private DataGridViewTextBoxColumn School;
-        private DataGridViewTextBoxColumn Location_Educ;
-        private DataGridViewTextBoxColumn Year;
-        private Label warningLbl;
-        private Label warningJobLbl;
-        private Label warningResponsibilityLbl;
     }
 }
