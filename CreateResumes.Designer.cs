@@ -36,16 +36,22 @@
             previewResume = new FontAwesome.Sharp.IconButton();
             tableLayoutPanel3 = new TableLayoutPanel();
             panel10 = new Panel();
-            exportBtn = new FontAwesome.Sharp.IconButton();
+            loadResumeBtn = new FontAwesome.Sharp.IconButton();
             panel8 = new Panel();
             userLbl = new Label();
             label1 = new Label();
             comboBox1 = new ComboBox();
             panel1 = new Panel();
-            panel9 = new Panel();
+            templatePanelCorner = new Panel();
             label14 = new Label();
             templateSelector = new ComboBox();
             contentPanel = new Panel();
+            templatePanel = new Panel();
+            panel13 = new Panel();
+            centerTemplateSelectorCbx = new ComboBox();
+            panel12 = new Panel();
+            panel5 = new Panel();
+            titleLbl = new Label();
             panel11.SuspendLayout();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
@@ -53,7 +59,11 @@
             panel10.SuspendLayout();
             panel8.SuspendLayout();
             panel1.SuspendLayout();
-            panel9.SuspendLayout();
+            templatePanelCorner.SuspendLayout();
+            contentPanel.SuspendLayout();
+            templatePanel.SuspendLayout();
+            panel13.SuspendLayout();
+            panel5.SuspendLayout();
             SuspendLayout();
             // 
             // panel11
@@ -65,7 +75,7 @@
             panel11.Margin = new Padding(2);
             panel11.Name = "panel11";
             panel11.Padding = new Padding(4);
-            panel11.Size = new Size(371, 72);
+            panel11.Size = new Size(373, 82);
             panel11.TabIndex = 5;
             // 
             // createResumeBtn
@@ -85,10 +95,10 @@
             createResumeBtn.Location = new Point(4, 4);
             createResumeBtn.Margin = new Padding(2);
             createResumeBtn.Name = "createResumeBtn";
-            createResumeBtn.Padding = new Padding(90, 0, 0, 0);
-            createResumeBtn.Size = new Size(363, 64);
+            createResumeBtn.Padding = new Padding(70, 0, 0, 0);
+            createResumeBtn.Size = new Size(365, 74);
             createResumeBtn.TabIndex = 23;
-            createResumeBtn.Text = " Create New Resume";
+            createResumeBtn.Text = " Create \r\n New Resume";
             createResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
             createResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             createResumeBtn.UseVisualStyleBackColor = false;
@@ -98,11 +108,11 @@
             panel6.BackColor = Color.FromArgb(216, 225, 233);
             panel6.Controls.Add(saveResume);
             panel6.Dock = DockStyle.Fill;
-            panel6.Location = new Point(377, 2);
+            panel6.Location = new Point(379, 2);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
             panel6.Padding = new Padding(4);
-            panel6.Size = new Size(371, 72);
+            panel6.Size = new Size(373, 82);
             panel6.TabIndex = 8;
             // 
             // saveResume
@@ -122,24 +132,25 @@
             saveResume.Location = new Point(4, 4);
             saveResume.Margin = new Padding(2);
             saveResume.Name = "saveResume";
-            saveResume.Padding = new Padding(120, 0, 0, 0);
-            saveResume.Size = new Size(363, 64);
+            saveResume.Padding = new Padding(70, 0, 0, 0);
+            saveResume.Size = new Size(365, 74);
             saveResume.TabIndex = 23;
-            saveResume.Text = " Save Information";
+            saveResume.Text = " Save \r\n Information";
             saveResume.TextAlign = ContentAlignment.MiddleLeft;
             saveResume.TextImageRelation = TextImageRelation.ImageBeforeText;
             saveResume.UseVisualStyleBackColor = false;
+            saveResume.Click += saveResume_Click;
             // 
             // panel7
             // 
             panel7.BackColor = Color.FromArgb(216, 225, 233);
             panel7.Controls.Add(previewResume);
             panel7.Dock = DockStyle.Fill;
-            panel7.Location = new Point(752, 2);
+            panel7.Location = new Point(756, 2);
             panel7.Margin = new Padding(2);
             panel7.Name = "panel7";
             panel7.Padding = new Padding(4);
-            panel7.Size = new Size(371, 72);
+            panel7.Size = new Size(373, 82);
             panel7.TabIndex = 9;
             // 
             // previewResume
@@ -159,10 +170,10 @@
             previewResume.Location = new Point(4, 4);
             previewResume.Margin = new Padding(2);
             previewResume.Name = "previewResume";
-            previewResume.Padding = new Padding(118, 0, 0, 0);
-            previewResume.Size = new Size(363, 64);
+            previewResume.Padding = new Padding(100, 0, 0, 0);
+            previewResume.Size = new Size(365, 74);
             previewResume.TabIndex = 23;
-            previewResume.Text = " Preview Resume";
+            previewResume.Text = " Preview \r\n Resume";
             previewResume.TextAlign = ContentAlignment.MiddleLeft;
             previewResume.TextImageRelation = TextImageRelation.ImageBeforeText;
             previewResume.UseVisualStyleBackColor = false;
@@ -171,59 +182,60 @@
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.ColumnCount = 4;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.0006237F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.0006275F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.0006275F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 24.9981289F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
             tableLayoutPanel3.Controls.Add(panel10, 3, 0);
             tableLayoutPanel3.Controls.Add(panel7, 2, 0);
             tableLayoutPanel3.Controls.Add(panel6, 1, 0);
             tableLayoutPanel3.Controls.Add(panel11, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(5, 5);
+            tableLayoutPanel3.Location = new Point(0, 0);
             tableLayoutPanel3.Margin = new Padding(0);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(1500, 76);
+            tableLayoutPanel3.Size = new Size(1510, 86);
             tableLayoutPanel3.TabIndex = 0;
             // 
             // panel10
             // 
             panel10.BackColor = Color.FromArgb(216, 225, 233);
-            panel10.Controls.Add(exportBtn);
+            panel10.Controls.Add(loadResumeBtn);
             panel10.Dock = DockStyle.Fill;
-            panel10.Location = new Point(1127, 2);
+            panel10.Location = new Point(1133, 2);
             panel10.Margin = new Padding(2);
             panel10.Name = "panel10";
             panel10.Padding = new Padding(4);
-            panel10.Size = new Size(371, 72);
+            panel10.Size = new Size(375, 82);
             panel10.TabIndex = 10;
             // 
-            // exportBtn
+            // loadResumeBtn
             // 
-            exportBtn.BackColor = Color.FromArgb(41, 128, 185);
-            exportBtn.Cursor = Cursors.Hand;
-            exportBtn.Dock = DockStyle.Fill;
-            exportBtn.FlatAppearance.BorderSize = 0;
-            exportBtn.FlatStyle = FlatStyle.Flat;
-            exportBtn.Font = new Font("Century Gothic", 13.8F);
-            exportBtn.ForeColor = Color.White;
-            exportBtn.IconChar = FontAwesome.Sharp.IconChar.Eye;
-            exportBtn.IconColor = Color.FromArgb(216, 225, 233);
-            exportBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            exportBtn.IconSize = 50;
-            exportBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            exportBtn.Location = new Point(4, 4);
-            exportBtn.Margin = new Padding(2);
-            exportBtn.Name = "exportBtn";
-            exportBtn.Padding = new Padding(118, 0, 0, 0);
-            exportBtn.Size = new Size(363, 64);
-            exportBtn.TabIndex = 23;
-            exportBtn.Text = " Export Resume";
-            exportBtn.TextAlign = ContentAlignment.MiddleLeft;
-            exportBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-            exportBtn.UseVisualStyleBackColor = false;
+            loadResumeBtn.BackColor = Color.FromArgb(41, 128, 185);
+            loadResumeBtn.Cursor = Cursors.Hand;
+            loadResumeBtn.Dock = DockStyle.Fill;
+            loadResumeBtn.FlatAppearance.BorderSize = 0;
+            loadResumeBtn.FlatStyle = FlatStyle.Flat;
+            loadResumeBtn.Font = new Font("Century Gothic", 13.8F);
+            loadResumeBtn.ForeColor = Color.White;
+            loadResumeBtn.IconChar = FontAwesome.Sharp.IconChar.File;
+            loadResumeBtn.IconColor = Color.FromArgb(216, 225, 233);
+            loadResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            loadResumeBtn.IconSize = 50;
+            loadResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            loadResumeBtn.Location = new Point(4, 4);
+            loadResumeBtn.Margin = new Padding(2);
+            loadResumeBtn.Name = "loadResumeBtn";
+            loadResumeBtn.Padding = new Padding(100, 0, 0, 0);
+            loadResumeBtn.Size = new Size(367, 74);
+            loadResumeBtn.TabIndex = 27;
+            loadResumeBtn.Text = " Load\r\n Resume";
+            loadResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
+            loadResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            loadResumeBtn.UseVisualStyleBackColor = false;
+            loadResumeBtn.Click += loadResumeBtn_Click;
             // 
             // panel8
             // 
@@ -232,7 +244,6 @@
             panel8.Dock = DockStyle.Bottom;
             panel8.Location = new Point(0, 764);
             panel8.Name = "panel8";
-            panel8.Padding = new Padding(5);
             panel8.Size = new Size(1510, 86);
             panel8.TabIndex = 34;
             // 
@@ -271,7 +282,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(41, 128, 185);
-            panel1.Controls.Add(panel9);
+            panel1.Controls.Add(templatePanelCorner);
             panel1.Controls.Add(comboBox1);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(userLbl);
@@ -282,16 +293,15 @@
             panel1.Size = new Size(1510, 106);
             panel1.TabIndex = 25;
             // 
-            // panel9
+            // templatePanelCorner
             // 
-            panel9.BackColor = Color.FromArgb(10, 17, 40);
-            panel9.Controls.Add(label14);
-            panel9.Controls.Add(templateSelector);
-            panel9.Dock = DockStyle.Right;
-            panel9.Location = new Point(1108, 10);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(402, 96);
-            panel9.TabIndex = 7;
+            templatePanelCorner.BackColor = Color.FromArgb(10, 17, 40);
+            templatePanelCorner.Controls.Add(label14);
+            templatePanelCorner.Controls.Add(templateSelector);
+            templatePanelCorner.Location = new Point(1108, 0);
+            templatePanelCorner.Name = "templatePanelCorner";
+            templatePanelCorner.Size = new Size(402, 106);
+            templatePanelCorner.TabIndex = 7;
             // 
             // label14
             // 
@@ -301,9 +311,9 @@
             label14.ForeColor = Color.FromArgb(216, 225, 233);
             label14.Location = new Point(0, 0);
             label14.Name = "label14";
-            label14.Size = new Size(240, 27);
+            label14.Size = new Size(129, 27);
             label14.TabIndex = 4;
-            label14.Text = "Choose a template :";
+            label14.Text = "Template :";
             label14.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // templateSelector
@@ -312,20 +322,88 @@
             templateSelector.DropDownStyle = ComboBoxStyle.DropDownList;
             templateSelector.Font = new Font("Century Gothic", 13.8F);
             templateSelector.FormattingEnabled = true;
-            templateSelector.Items.AddRange(new object[] { "Call Center Resume", "Academic Resume", "Doctor Resume", "Attorney Resume", "Electrical Engineer Resume" });
-            templateSelector.Location = new Point(54, 41);
+            templateSelector.Items.AddRange(new object[] { "Academic Resume", "Attorney Resume", "Call Center Resume", "Doctor Resume", "Electrical Engineer Resume" });
+            templateSelector.Location = new Point(31, 43);
             templateSelector.Name = "templateSelector";
-            templateSelector.Size = new Size(306, 35);
+            templateSelector.Size = new Size(347, 35);
+            templateSelector.Sorted = true;
             templateSelector.TabIndex = 0;
             templateSelector.SelectedIndexChanged += templateSelector_SelectedIndexChanged;
             // 
             // contentPanel
             // 
+            contentPanel.Controls.Add(templatePanel);
             contentPanel.Dock = DockStyle.Fill;
             contentPanel.Location = new Point(0, 106);
             contentPanel.Name = "contentPanel";
             contentPanel.Size = new Size(1510, 658);
             contentPanel.TabIndex = 35;
+            // 
+            // templatePanel
+            // 
+            templatePanel.Controls.Add(panel13);
+            templatePanel.Controls.Add(panel12);
+            templatePanel.Controls.Add(panel5);
+            templatePanel.Location = new Point(403, 140);
+            templatePanel.Name = "templatePanel";
+            templatePanel.Size = new Size(603, 317);
+            templatePanel.TabIndex = 0;
+            // 
+            // panel13
+            // 
+            panel13.BackColor = Color.FromArgb(254, 252, 251);
+            panel13.Controls.Add(centerTemplateSelectorCbx);
+            panel13.Dock = DockStyle.Fill;
+            panel13.Location = new Point(0, 69);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(603, 232);
+            panel13.TabIndex = 29;
+            // 
+            // centerTemplateSelectorCbx
+            // 
+            centerTemplateSelectorCbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            centerTemplateSelectorCbx.Font = new Font("Century Gothic", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            centerTemplateSelectorCbx.FormattingEnabled = true;
+            centerTemplateSelectorCbx.Items.AddRange(new object[] { "Academic Resume", "Attorney Resume", "Call Center Resume", "Doctor Resume", "Electrical Engineer Resume" });
+            centerTemplateSelectorCbx.Location = new Point(87, 78);
+            centerTemplateSelectorCbx.Name = "centerTemplateSelectorCbx";
+            centerTemplateSelectorCbx.Size = new Size(424, 48);
+            centerTemplateSelectorCbx.Sorted = true;
+            centerTemplateSelectorCbx.TabIndex = 3;
+            centerTemplateSelectorCbx.SelectionChangeCommitted += centerTemplateSelectorCbx_SelectedIndexChanged;
+            // 
+            // panel12
+            // 
+            panel12.BackColor = Color.FromArgb(0, 31, 84);
+            panel12.Dock = DockStyle.Bottom;
+            panel12.Location = new Point(0, 301);
+            panel12.Name = "panel12";
+            panel12.Padding = new Padding(10, 10, 0, 0);
+            panel12.Size = new Size(603, 16);
+            panel12.TabIndex = 28;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.FromArgb(41, 128, 185);
+            panel5.Controls.Add(titleLbl);
+            panel5.Dock = DockStyle.Top;
+            panel5.Location = new Point(0, 0);
+            panel5.Name = "panel5";
+            panel5.Padding = new Padding(10);
+            panel5.Size = new Size(603, 69);
+            panel5.TabIndex = 26;
+            // 
+            // titleLbl
+            // 
+            titleLbl.BackColor = Color.Transparent;
+            titleLbl.Dock = DockStyle.Fill;
+            titleLbl.Font = new Font("Century Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            titleLbl.ForeColor = Color.White;
+            titleLbl.Location = new Point(10, 10);
+            titleLbl.Name = "titleLbl";
+            titleLbl.Size = new Size(583, 49);
+            titleLbl.TabIndex = 22;
+            titleLbl.Text = "Select a template :";
             // 
             // CreateResumes
             // 
@@ -345,8 +423,12 @@
             panel8.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
+            templatePanelCorner.ResumeLayout(false);
+            templatePanelCorner.PerformLayout();
+            contentPanel.ResumeLayout(false);
+            templatePanel.ResumeLayout(false);
+            panel13.ResumeLayout(false);
+            panel5.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -363,11 +445,17 @@
         private Label label1;
         private ComboBox comboBox1;
         private Panel panel1;
-        private Panel panel9;
+        private Panel templatePanelCorner;
         private Label label14;
         private ComboBox templateSelector;
         private Panel panel10;
-        private FontAwesome.Sharp.IconButton exportBtn;
         private Panel contentPanel;
+        private Panel templatePanel;
+        private Panel panel5;
+        private Label titleLbl;
+        private Panel panel12;
+        private Panel panel13;
+        private ComboBox centerTemplateSelectorCbx;
+        private FontAwesome.Sharp.IconButton loadResumeBtn;
     }
 }

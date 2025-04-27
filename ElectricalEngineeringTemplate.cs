@@ -7,15 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static FinalProjectOOP2.CallCenterResume;
+using static FinalProjectOOP2.ResumeDatabase;
 
 namespace FinalProjectOOP2
 {
-    public partial class ElectricalEngineeringTemplate : UserControl
+    public partial class ElectricalEngineeringTemplate : UserControl, IResumeSaveable
     {
         private List<string> tempResponsibilities = new List<string>();
         private DataGridViewRow? selectedExpRow = null;
         private DataGridViewRow? selectedTechRow;
+        private ResumeDatabase? dbHelper;
 
         public ElectricalEngineeringTemplate()
         {
@@ -30,6 +31,108 @@ namespace FinalProjectOOP2
             ResumePreviewForm previewForm = new ResumePreviewForm();
             previewForm.LoadResumePreview(resumeData, templateFileName);
             previewForm.Show();
+        }
+
+        private bool ValidateInputs()
+        {
+            // 1. Check personal info fields
+            if (string.IsNullOrWhiteSpace(firstNameTbx.Text) ||
+                string.IsNullOrWhiteSpace(lastNameTbx.Text) ||
+                string.IsNullOrWhiteSpace(emailTbx.Text) ||
+                string.IsNullOrWhiteSpace(phoneNumTbx.Text) ||
+                string.IsNullOrWhiteSpace(addressTbx.Text) ||
+                string.IsNullOrWhiteSpace(titleTbx.Text) ||
+                string.IsNullOrWhiteSpace(summaryTbx.Text))
+            {
+                MessageBox.Show("Please fill in all personal information fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // 2. Check at least one entry for each required section
+            if (coreSkillsLstBx.Items.Count == 0)
+            {
+                MessageBox.Show("Please add at least one Core Skill.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (techSkillsLstBx.Items.Count == 0)
+            {
+                MessageBox.Show("Please add at least one Technical Skill.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (dgvTechExpertise.Rows.Cast<DataGridViewRow>().All(r => r.IsNewRow))
+            {
+                MessageBox.Show("Please add at least one Technical Expertise entry.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (dgvProfExp.Rows.Cast<DataGridViewRow>().All(r => r.IsNewRow))
+            {
+                MessageBox.Show("Please add at least one Experience entry.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            if (dgvEducation.Rows.Cast<DataGridViewRow>().All(r => r.IsNewRow))
+            {
+                MessageBox.Show("Please add at least one Education entry.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // You can add more detailed checks for each section if needed
+
+            return true;
+        }
+
+        public bool SaveResume(string currentUsername, string resumeTitle)
+        {
+
+            if (!ValidateInputs())
+                return false;
+
+            try
+            {
+                dbHelper = new ResumeDatabase();
+
+                // 1. Get the owner/user ID from the username
+                int ownerId = dbHelper.GetCurrentUserID(currentUsername);
+                if (ownerId == -1)
+                {
+                    MessageBox.Show("User not found.");
+                    return false;
+                }
+
+                // 2. Gather all data from the form/model
+                var resumeData = GetResumeData();
+
+                // 3. Flatten technical expertise for DB
+                var expertise = new List<(string Category, string Skill)>();
+                if (resumeData.TechnicalExpertise != null)
+                {
+                    if (resumeData.TechnicalExpertise.PLCs != null)
+                        expertise.AddRange(resumeData.TechnicalExpertise.PLCs.Select(skill => ("PLC", skill)));
+                    if (resumeData.TechnicalExpertise.DesignSkills != null)
+                        expertise.AddRange(resumeData.TechnicalExpertise.DesignSkills.Select(skill => ("Design", skill)));
+                    if (resumeData.TechnicalExpertise.Methodologies != null)
+                        expertise.AddRange(resumeData.TechnicalExpertise.Methodologies.Select(skill => ("Methodology", skill)));
+                    if (resumeData.TechnicalExpertise.ProductionSkills != null)
+                        expertise.AddRange(resumeData.TechnicalExpertise.ProductionSkills.Select(skill => ("Production", skill)));
+                }
+
+                // 4. Save to database
+                
+                return dbHelper.SaveElectricalEngineeringResume(
+                    ownerId,
+                    resumeTitle,
+                    resumeData.CoreSkills ?? new List<string>(),
+                    resumeData.TechSkills ?? new List<string>(),
+                    expertise,
+                    resumeData.Experience ?? new List<EEExperienceItem>(),
+                    resumeData.Education ?? new List<EEEducationItem>()
+                );
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error saving resume: " + ex.Message);
+                return false;
+            }
         }
 
         //Selection changed handlers
@@ -55,16 +158,16 @@ namespace FinalProjectOOP2
         }
 
         #region fetching data from data grid methods
-        public List<EducationItem> GetEducationFromGrid(DataGridView grid)
+        public List<EEEducationItem> GetEducationFromGrid(DataGridView grid)
         {
-            List<EducationItem> educationList = new List<EducationItem>();
+            List<EEEducationItem> educationList = new List<EEEducationItem>();
 
             foreach (DataGridViewRow row in grid.Rows)
             {
                 // Skip the new row placeholder
                 if (row.IsNewRow) continue;
 
-                educationList.Add(new EducationItem
+                educationList.Add(new EEEducationItem
                 {
                     Degree = row.Cells["Degree"].Value?.ToString(),
                     School = row.Cells["School"].Value?.ToString(),
@@ -76,36 +179,36 @@ namespace FinalProjectOOP2
             return educationList;
         }
 
-        public List<ExperienceItem> GetExperienceFromGrid(DataGridView grid)
+        public List<EEExperienceItem> GetExperienceFromGrid(DataGridView grid)
         {
-            List<ExperienceItem> experienceList = new List<ExperienceItem>();
+            List<EEExperienceItem> experienceList = new List<EEExperienceItem>();
 
             foreach (DataGridViewRow row in grid.Rows)
             {
                 if (row.IsNewRow) continue;
 
-                // Grab all responsibility cells
-                List<string> responsibilities = new();
+                // Grab all responsibility and contribution cells
+                List<string> contributions = new();
                 foreach (DataGridViewColumn col in grid.Columns)
                 {
-                    if (col.Name.StartsWith("Responsibility"))
+                    if (col.Name.StartsWith("Responsibility") || col.Name.StartsWith("Contribution"))
                     {
-                        var value = row.Cells[col.Name].Value?.ToString();
+                        string? value = row.Cells[col.Name].Value?.ToString();
                         if (!string.IsNullOrWhiteSpace(value))
                         {
-                            responsibilities.Add(value);
+                            contributions.Add(value);
                         }
                     }
                 }
 
-                experienceList.Add(new ExperienceItem
+                experienceList.Add(new EEExperienceItem
                 {
-                    Title = row.Cells["JobTitle"].Value?.ToString(),
+                    Position = row.Cells["JobTitle"].Value?.ToString(),
                     Company = row.Cells["Company"].Value?.ToString(),
                     Location = row.Cells["Location"].Value?.ToString(),
                     Duration = row.Cells["Duration"].Value?.ToString(),
                     Achievement = row.Cells["Achievement"].Value?.ToString(),
-                    Responsibilities = responsibilities
+                    Contributions = contributions
                 });
             }
 
@@ -294,7 +397,16 @@ namespace FinalProjectOOP2
                 return;
             }
 
-            if (!dgvTechExpertise.Columns.Contains(expertiseType))
+            string actualColumnName = expertiseType switch
+            {
+                "PLC" => "PLCs",
+                "Design" => "DesignSkills",
+                "Methodologies" => "Methodologies",
+                "Production" => "ProductionSkills",
+                _ => expertiseType
+            };
+
+            if (!dgvTechExpertise.Columns.Contains(actualColumnName))
             {
                 MessageBox.Show("Invalid expertise type selected.");
                 return;
@@ -307,9 +419,9 @@ namespace FinalProjectOOP2
                 // Skip new row placeholder
                 if (row.IsNewRow) continue;
 
-                if (row.Cells[expertiseType].Value == null || string.IsNullOrWhiteSpace(row.Cells[expertiseType].Value.ToString()))
+                if (row.Cells[actualColumnName].Value == null || string.IsNullOrWhiteSpace(row.Cells[actualColumnName].Value.ToString()))
                 {
-                    row.Cells[expertiseType].Value = detail;
+                    row.Cells[actualColumnName].Value = detail;
                     filled = true;
 
                     // Visually scroll to it
@@ -325,7 +437,7 @@ namespace FinalProjectOOP2
             {
                 int newRowIndex = dgvTechExpertise.Rows.Add();
                 DataGridViewRow newRow = dgvTechExpertise.Rows[newRowIndex];
-                newRow.Cells[expertiseType].Value = detail;
+                newRow.Cells[actualColumnName].Value = detail;
 
                 dgvTechExpertise.ClearSelection();
                 newRow.Selected = true;
@@ -337,7 +449,6 @@ namespace FinalProjectOOP2
             warningTechLbl.Text = "";
         }
 
-
         private void removeExpertiseBtn_Click(object sender, EventArgs e)
         {
             if (dgvTechExpertise.SelectedCells.Count == 0)
@@ -347,11 +458,31 @@ namespace FinalProjectOOP2
             }
 
             // Clear selected cells
-            foreach (DataGridViewCell cell in dgvTechExpertise.SelectedCells)
+            foreach (DataGridViewRow row in dgvTechExpertise.SelectedRows)
             {
-                cell.Value = null;
+                bool isEmpty = true;
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && !string.IsNullOrWhiteSpace(cell.Value.ToString()))
+                    {
+                        isEmpty = false;
+                        break;
+                    }
+                }
+
+                if (isEmpty)
+                {
+                    dgvTechExpertise.Rows.Remove(row);
+                }
+                else
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        cell.Value = null;
+                    }
+                }
             }
-            
+
             // Clean up rows that are now completely empty (go in reverse to avoid index issues)
             for (int i = dgvTechExpertise.Rows.Count - 1; i >= 0; i--)
             {
@@ -378,14 +509,15 @@ namespace FinalProjectOOP2
             dgvTechExpertise.ClearSelection();
         }
 
+
         //Experience
         private void btnAddExp_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(jobTitleTbx.Text) ||
-         string.IsNullOrWhiteSpace(companyTbx.Text) ||
-         string.IsNullOrWhiteSpace(locationExpTbx.Text) ||
-         string.IsNullOrWhiteSpace(durationTbx.Text) ||
-         string.IsNullOrWhiteSpace(achievementTbx.Text))
+                string.IsNullOrWhiteSpace(companyTbx.Text) ||
+                string.IsNullOrWhiteSpace(locationExpTbx.Text) ||
+                string.IsNullOrWhiteSpace(durationTbx.Text) ||
+                string.IsNullOrWhiteSpace(achievementTbx.Text))
             {
                 warning1EEProfExp.Text = "Please fill in all fields before adding experience.";
                 warning1EEProfExp.ForeColor = Color.Red;
@@ -451,9 +583,12 @@ namespace FinalProjectOOP2
             }
         }
 
-        //Responbilities
+
+        //Contributions
         private void addResponbilityBtn_Click(object sender, EventArgs e)
         {
+            DataGridViewRow selectedExpRow = dgvProfExp.CurrentRow;
+
             if (selectedExpRow == null || selectedExpRow.IsNewRow)
             {
                 warning1EEProfExp.Text = "Please select a job entry to add responsibilities.";
@@ -468,16 +603,15 @@ namespace FinalProjectOOP2
                 return;
             }
 
-            // 1. Find the next available Responsibility column
             int index = 1;
             string newColName;
 
             while (true)
             {
-                newColName = $"Responsibility{index}";
+                newColName = $"Contribution{index}";
                 if (!dgvProfExp.Columns.Contains(newColName))
                 {
-                    dgvProfExp.Columns.Add(newColName, $"Responsibility {index}");
+                    dgvProfExp.Columns.Add(newColName, $"Contribution {index}");
                 }
 
                 // If this cell is empty in the selected row, use it
@@ -496,6 +630,8 @@ namespace FinalProjectOOP2
 
         private void removeResponsibilityBtn_Click(object sender, EventArgs e)
         {
+            DataGridViewRow selectedExpRow = dgvProfExp.CurrentRow;
+
             if (selectedExpRow == null)
             {
                 warnning2EERespo.Text = "Please select a job entry first.";
@@ -503,26 +639,29 @@ namespace FinalProjectOOP2
                 return;
             }
 
-            // Go through Responsibility columns in reverse to find the last non-empty one
-            for (int i = dgvProfExp.Columns.Count - 1; i >= 0; i--)
+            if (selectedExpRow != null)
             {
-                DataGridViewColumn col = dgvProfExp.Columns[i];
-                if (col.Name.StartsWith("Responsibility"))
+                for (int i = dgvProfExp.Columns.Count - 1; i >= 0; i--)
                 {
-                    var cellValue = selectedExpRow.Cells[col.Name].Value?.ToString();
-                    if (!string.IsNullOrWhiteSpace(cellValue))
+                    DataGridViewColumn col = dgvProfExp.Columns[i];
+                    if (col.Name.StartsWith("Contribution") &&
+                        selectedExpRow.Cells[col.Name].Value != null &&
+                        !string.IsNullOrWhiteSpace(selectedExpRow.Cells[col.Name].Value.ToString()))
                     {
-                        selectedExpRow.Cells[col.Name].Value = "";
-                        warnning2EERespo.Text = ""; // Clear warning
+                        selectedExpRow.Cells[col.Name].Value = null;
+                        warnning2EERespo.Text = "";
                         return;
                     }
                 }
+
+                warnning2EERespo.Text = "No Contribution to remove.";
             }
 
-            warnning2EERespo.Text = "No responsibilities to remove.";
+            warnning2EERespo.Text = "No Contribution to remove.";
             warnning2EERespo.ForeColor = Color.Red;
             warnning2EERespo.Font = new Font("Century Gothic", 10, FontStyle.Bold);
         }
+
 
         //Education
         private void btnAddEduc_Click(object sender, EventArgs e)
@@ -532,7 +671,7 @@ namespace FinalProjectOOP2
                 string.IsNullOrWhiteSpace(locationTbx.Text) ||
                 string.IsNullOrWhiteSpace(yearTbx.Text))
             {
-                warningLbl.Text = "One of the inputs are empty, please fill up necessary details!";
+                warningLbl.Text = "Please fill up necessary details!";
                 warningLbl.ForeColor = Color.Red;
                 warningLbl.Font = new Font("Century Gothic", 14, FontStyle.Bold);
                 return;
@@ -569,22 +708,22 @@ namespace FinalProjectOOP2
             }
         }
 
-       
-        #endregion
+#endregion
     }
 
 
     public class ElectricalEngineeringResumeModel : PersonalInfo
     {
+        public string? Name { get; set; }
         public List<string>? CoreSkills { get; set; }
         public List<string>? TechSkills { get; set; }
         public List<string>? ProfessionalDevelopment { get; set; }
 
         public TechExpertise? TechnicalExpertise { get; set; }
 
-        public List<ExperienceItem>? Experience { get; set; }
-        public List<EducationItem>? Education { get; set; }
-        
+        public List<EEExperienceItem>? Experience { get; set; }
+        public List<EEEducationItem>? Education { get; set; }
+
     }
 
     public class TechExpertise
@@ -595,21 +734,21 @@ namespace FinalProjectOOP2
         public List<string>? ProductionSkills { get; set; } 
     }
 
-    public class ExperienceItem
-    {
-        public string? Title { get; set; }
-        public string? Company { get; set; }
-        public string? Location { get; set; }
-        public string? Duration { get; set; }
-        public List<string>? Responsibilities { get; set; }
-        public string? Achievement { get; set; }
-    }
-
-    public class EducationItem
+    public class EEEducationItem
     {
         public string? Degree { get; set; }
         public string? School { get; set; }
         public string? Location { get; set; }
         public string? Year { get; set; }
+    }
+
+    public class EEExperienceItem
+    {
+        public string? Position { get; set; }
+        public string? Company { get; set; }
+        public string? Location { get; set; }
+        public string? Duration { get; set; }
+        public List<string>? Contributions { get; set; }
+        public string? Achievement { get; set; }
     }
 }

@@ -9,18 +9,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static FinalProjectOOP2.ResumeDatabase;
 
 namespace FinalProjectOOP2
 {
-    public partial class CallCenterResume : UserControl
+    public partial class CallCenterResume : UserControl, IResumeSaveable
     {
         private List<string> tempResponsibilities = new List<string>();
         private DataGridViewRow? selectedExpRow = null;
-
+        private ResumeDatabase _db;
 
         public CallCenterResume()
         {
             InitializeComponent();
+            _db = new ResumeDatabase();
         }
 
 
@@ -32,6 +34,79 @@ namespace FinalProjectOOP2
             ResumePreviewForm previewForm = new ResumePreviewForm();
             previewForm.LoadResumePreview(resumeData, templateFileName);
             previewForm.Show();
+        }
+
+        private bool ValidateInputs()
+        {
+            // Example: Check if personal info fields are not empty
+            if (string.IsNullOrWhiteSpace(firstNameTbx.Text) ||
+                string.IsNullOrWhiteSpace(lastNameTbx.Text) ||
+                string.IsNullOrWhiteSpace(emailTbx.Text) ||
+                string.IsNullOrWhiteSpace(phoneNumTbx.Text) ||
+                string.IsNullOrWhiteSpace(addressTbx.Text) ||
+                string.IsNullOrWhiteSpace(titleTbx.Text) ||
+                string.IsNullOrWhiteSpace(summaryTbx.Text))
+            {
+                MessageBox.Show("Please fill in all personal information fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // Example: Check if at least one core skill, tech skill, language, education, and experience is added
+            if (coreSkillsLstBx.Items.Count == 0 ||
+                techSkillsLstBx.Items.Count == 0 ||
+                languageLstBx.Items.Count == 0 ||
+                dgvEducation.Rows.Cast<DataGridViewRow>().All(r => r.IsNewRow) ||
+                dgvProfExp.Rows.Cast<DataGridViewRow>().All(r => r.IsNewRow))
+            {
+                MessageBox.Show("Please add at least one entry for each section (skills, education, experience, etc.).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            // You can add more detailed checks for each section if needed
+
+            return true;
+        }
+
+        public bool SaveResume(string currentUsername, string resumeTitle)
+        {
+            if (!ValidateInputs())
+                return false;
+            try
+            {
+                var db = new ResumeDatabase();
+
+                // Create PersonalInfo object
+                var personalInfo = new PersonalInfo
+                {
+                    FirstName = firstNameTbx.Text,
+                    MiddleName = middleNameTbx.Text,
+                    LastName = lastNameTbx.Text,
+                    Email = emailTbx.Text,
+                    Phone = phoneNumTbx.Text,
+                    Address = addressTbx.Text,
+                    Title = titleTbx.Text,
+                    Summary = summaryTbx.Text
+                };
+
+                // First save personal info using the existing method
+                int personalInfoId = db.SavePersonalInfo(personalInfo, currentUsername);
+                if (personalInfoId == 0) return false;
+
+                // Get template-specific data from controls
+                var coreSkills = GetListBoxItems(coreSkillsLstBx);
+                var techSkills = GetListBoxItems(techSkillsLstBx);
+                var languages = GetListBoxItems(languageLstBx);
+                var education = GetEducationFromGrid(dgvEducation);
+                var experience = GetExperienceFromGrid(dgvProfExp);
+
+                // Save template-specific data
+                return db.SaveCallCenterResume(_db.GetCurrentUserID(currentUsername), resumeTitle, coreSkills, techSkills, languages, education, experience);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving resume: {ex.Message}");
+                return false;
+            }
         }
 
         private List<string> GetListBoxItems(ListBox listBox)
@@ -127,13 +202,6 @@ namespace FinalProjectOOP2
             };
         }
 
-        //private void dgvProfExp_SelectionChanged(object sender, EventArgs e)
-        //{
-        //    if (dgvProfExp.SelectedRows.Count > 0)
-        //    {
-        //        selectedExpRow = dgvProfExp.SelectedRows[0];
-        //    }
-        //}
 
         #region For cursor enter and leave methods to replace the placeholder text 
 
@@ -255,7 +323,7 @@ namespace FinalProjectOOP2
                 string.IsNullOrWhiteSpace(locationTbx.Text) ||
                 string.IsNullOrWhiteSpace(yearTbx.Text))
             {
-                warningLbl.Text = "One of the inputs are empty, please fill up necessary details!";
+                warningLbl.Text = "Please fill up necessary details!";
                 warningLbl.ForeColor = Color.Red;
                 warningLbl.Font = new Font("Century Gothic", 14, FontStyle.Bold);
                 return;
@@ -459,6 +527,7 @@ namespace FinalProjectOOP2
         #region Template Specific Information seperated into classes (maybe kind of similar but is not)
         public class CallCenterResumeModel : PersonalInfo
         {
+            public string? Name { get; set; }
             public List<string>? CoreSkills { get; set; }
             public List<string>? TechSkills { get; set; }
             public List<string>? Languages { get; set; }
@@ -469,6 +538,7 @@ namespace FinalProjectOOP2
 
         public class ExperienceItem
         {
+
             public string? Title { get; set; }
             public string? Company { get; set; }
             public string? Location { get; set; }

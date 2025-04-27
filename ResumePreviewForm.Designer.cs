@@ -117,6 +117,7 @@
             Controls.Add(panel1);
             Controls.Add(iconButton1);
             Name = "ResumePreviewForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Resume Preview";
             ((System.ComponentModel.ISupportInitialize)resumePreview).EndInit();
             panel5.ResumeLayout(false);

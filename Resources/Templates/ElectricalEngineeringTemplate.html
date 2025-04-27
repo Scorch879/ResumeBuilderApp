@@ -212,28 +212,21 @@
         {{ end }}
 
         <h2>Education</h2>
-        <div class="job-section">
-            <div class="job-header">
-                <div>
-                    <span class="job-company">{{ Education.School }}</span>, 
-                    <span class="job-location">{{ Education.Location }}</span>
-                </div>
-                <div class="job-duration">{{ Education.Year }}</div>
-            </div>
-            <div class="job-title">{{ Education.Degree }}</div>
-            {{ if Education.Honors }}
-            <p>{{ Education.Honors }}</p>
-            {{ end }}
-        </div>
-
-        {{ if ProfessionalDevelopment && ProfessionalDevelopment.size > 0 }}
-        <h2>Professional Development</h2>
-        <ul>
-            {{ for pd in ProfessionalDevelopment }}
-                <li>{{ pd }}</li>
-            {{ end }}
-        </ul>
-        {{ end }}
+	{{ for edu in Education }}
+	<div class="job-section">
+    		<div class="job-header">
+        		<div>
+            		<span class="job-company">{{ edu.School }}</span>, 
+            		<span class="job-location">{{ edu.Location }}</span>
+        		</div>
+        <div class="job-duration">{{ edu.Year }}</div>
+    	</div>
+    	<div class="job-title">{{ edu.Degree }}</div>
+    		{{ if edu.Honors }}
+    			<p>{{ edu.Honors }}</p>
+    			{{ end }}
+	</div>
+			{{ end }}
     </div>
 </div>
 

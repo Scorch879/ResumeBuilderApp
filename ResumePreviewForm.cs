@@ -24,6 +24,7 @@ namespace FinalProjectOOP2
         {
             try
             {
+
                 var resourceName = $"FinalProjectOOP2.Resources.Templates.{templateFileName}";
                 var assembly = Assembly.GetExecutingAssembly();
 
@@ -36,6 +37,9 @@ namespace FinalProjectOOP2
                     {
                         var templateContent = reader.ReadToEnd();
                         var template = Scriban.Template.Parse(templateContent);
+
+
+
                         var htmlOutput = template.Render(resumeData, member => member.Name);
 
                         string tempPath = Path.Combine(Path.GetTempPath(), "resume_preview.html");

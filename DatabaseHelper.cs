@@ -3,6 +3,10 @@ using System.Data.OleDb;
 using System.Security.Cryptography;
 using System.Text;
 using Windows.Networking;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using static FinalProjectOOP2.CallCenterResume;
 
 namespace FinalProjectOOP2
 {
@@ -17,9 +21,6 @@ namespace FinalProjectOOP2
         OleDbDataAdapter? da;
         DataSet? ds;
         private OleDbConnection? myConn;
-
-      
-
 
         public DatabaseHelper()
         {
@@ -348,6 +349,8 @@ namespace FinalProjectOOP2
                 }
             }
         }
+        
+
         public bool UpdateEmail(string newEmail, string currentUsername)
         {
             // Ensure correct table name
@@ -402,6 +405,7 @@ namespace FinalProjectOOP2
                 }
             }
         }
+
         public bool UpdateDescription(string username, string newDescription)
         {
             string query = "UPDATE UserQuery SET Description = ? WHERE Username = ?";
@@ -449,8 +453,6 @@ namespace FinalProjectOOP2
                 }
             }
         }
-
-
 
         public void UpdateLastLogin(string username)
         {
@@ -525,6 +527,8 @@ namespace FinalProjectOOP2
             }
             return isUpdated;
         }
+
+
 
         //Delete Operations
         public bool DeleteAccount(string username, string password)
@@ -638,8 +642,12 @@ namespace FinalProjectOOP2
 
     public class ResumeDatabase : DatabaseHelper
     {
-
         //Template Related Operations
+
+        public interface IResumeSaveable
+        {
+            bool SaveResume(string currentUsername, string resumeTitle);
+        }
 
         public string LoadAndFillTemplate(string templatePath, Dictionary<string, string> data)
         {
@@ -651,54 +659,480 @@ namespace FinalProjectOOP2
             return template;
         }
 
-        public bool SavePersonalInfo(int ownerId, string firstName, string middleName, string lastName, string email,
-                              string phoneNum, string address, string designation, string summary)
+        #region For Analytics Methods
+
+        //Main Fetch Method
+        public (int resumesCreated, int resumesSaved, int resumesExported, int resumesSent) GetUserAnalytics(int userId)
+        {
+            string query = @"
+        SELECT 
+            IIf(IsNull(ResumesCreated),0,ResumesCreated), 
+            IIf(IsNull(ResumesSaved),0,ResumesSaved), 
+            IIf(IsNull(ResumesExported),0,ResumesExported), 
+            IIf(IsNull(ResumesSent),0,ResumesSent) 
+        FROM UserInfo WHERE ID = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("?", userId);
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return (
+                            reader.IsDBNull(0) ? 0 : Convert.ToInt32(reader.GetValue(0)),
+                            reader.IsDBNull(1) ? 0 : Convert.ToInt32(reader.GetValue(1)),
+                            reader.IsDBNull(2) ? 0 : Convert.ToInt32(reader.GetValue(2)),
+                            reader.IsDBNull(3) ? 0 : Convert.ToInt32(reader.GetValue(3))
+                        );
+                    }
+                }
+            }
+            return (0, 0, 0, 0);
+        }
+
+        //For Resumes Created
+        public void IncrementResumesCreated(int userId)
+        {
+            string query = "UPDATE UserInfo SET ResumesCreated = Nz(ResumesCreated,0) + 1 WHERE ID = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("?", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void SyncResumesCreated(int userId)
+        {
+            string query = "UPDATE UserInfo SET ResumesCreated = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?) WHERE ID = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("?", userId);
+                cmd.Parameters.AddWithValue("?", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void IncrementResumesCreatedAndPending(int userId)
+        {
+            string query = "UPDATE UserInfo SET ResumesCreated = Nz(ResumesCreated,0) + 1, PendingResumes = Nz(PendingResumes,0) + 1 WHERE ID = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("?", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DecrementResumesCreatedAndPending(int userId)
+        {
+            string query = @"
+        UPDATE UserInfo 
+        SET 
+            ResumesCreated = IIf(Nz(ResumesCreated,0) > 0, ResumesCreated - 1, 0), 
+            PendingResumes = IIf(Nz(PendingResumes,0) > 0, PendingResumes - 1, 0) 
+        WHERE ID = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("?", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void SyncResumesCreatedAndPending(int userId)
+        {
+            string query = "UPDATE UserInfo SET ResumesCreated = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?), PendingResumes = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?) WHERE ID = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("?", userId);
+                cmd.Parameters.AddWithValue("?", userId);
+                cmd.Parameters.AddWithValue("?", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        //For Resumes Saved
+        public void IncrementResumesSaved(int userId)
+        {
+            string query = "UPDATE UserInfo SET ResumesSaved = IIf(IsNull(ResumesSaved), 0, ResumesSaved) + 1 WHERE ID = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("?", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DecrementResumesSaved(int userId)
+        {
+            string query = "UPDATE UserInfo SET ResumesSaved = IIf(Nz(ResumesSaved,0) > 0, ResumesSaved - 1, 0) WHERE ID = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("?", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void SyncResumesSaved(int userId)
+        {
+            string query = "UPDATE UserInfo SET ResumesSaved = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?) WHERE ID = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            using (OleDbCommand cmd = new OleDbCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("?", userId);
+                cmd.Parameters.AddWithValue("?", userId);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        #endregion
+
+        //Fetching Methods
+        public List<ResumeSummary> GetAllResumesForUser(int ownerId)
+        {
+            var resumes = new List<ResumeSummary>();
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT ID, Title, DateCreated, FilePath FROM Resumes WHERE OwnerID = ? ORDER BY DateCreated DESC";
+                using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", ownerId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            resumes.Add(new ResumeSummary
+                            {
+                                ResumeID = Convert.ToInt32(reader["ID"]),
+                                Title = reader["Title"].ToString(),
+                                DateCreated = Convert.ToDateTime(reader["DateCreated"]),
+                                FilePath = reader["FilePath"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+            return resumes;
+        }
+
+
+        //Delete Method
+        public bool DeleteResume(int resumeId)
         {
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
                 conn.Open();
-
                 using (OleDbTransaction transaction = conn.BeginTransaction())
                 {
                     try
                     {
-                        // 1. Always insert data into PersonalInfo (no checks, just insert)
-                        string personalInfoQuery = @"
-                    INSERT INTO PersonalInfo (
-                        OwnerID, FirstName, MiddleName, LastName, 
-                        Email, PhoneNum, Address, Designation, Summary
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-                        using (OleDbCommand cmd = new OleDbCommand(personalInfoQuery, conn, transaction))
+                        // 1. Delete from child tables first (order matters due to FK constraints)
+                        // Electrical Engineering
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM ElectricalEngineeringExperienceContribution WHERE ExperienceID IN (SELECT ID FROM ElectricalEngineeringExperience WHERE ResumeID = ?)", conn, transaction))
                         {
-                            cmd.Parameters.AddWithValue("?", ownerId);
-                            cmd.Parameters.AddWithValue("?", firstName);
-                            cmd.Parameters.AddWithValue("?", middleName);
-                            cmd.Parameters.AddWithValue("?", lastName);
-                            cmd.Parameters.AddWithValue("?", email);
-                            cmd.Parameters.AddWithValue("?", phoneNum);
-                            cmd.Parameters.AddWithValue("?", address);
-                            cmd.Parameters.AddWithValue("?", designation);
-                            cmd.Parameters.AddWithValue("?", summary);
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM ElectricalEngineeringExperience WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM ElectricalEngineeringExpertise WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM ElectricalEngineeringEducation WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM ElectricalEngineeringResume WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
                             cmd.ExecuteNonQuery();
                         }
 
-                        // 2. Now update the ResumeInfo if the OwnerID exists (no need to check PersonalInfo)
-                        string sectionType = "PersonalInfo"; // The section for Personal Info
-                        string content = $"Contains Basic Information of the User"; // You can expand this content as needed
+                        // Attorney
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM AttorneyExperience WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM AttorneyEducation WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM AttorneyLicense WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM AttorneyEarlierPosition WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM AttorneyResume WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
 
-                        // Insert or update ResumeInfo (this will either update an existing entry or insert a new one)
-                        SaveResumeInfo(conn, transaction, ownerId, sectionType, content);
+                        // Doctor
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM DoctorExperience WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM DoctorEducation WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM DoctorLicense WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM DoctorAffiliation WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM DoctorResume WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
 
-                        // Commit the entire transaction
+                        // Call Center
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM CallCenterExperience WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM CallCenterEducation WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM CallCenterResume WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // ResumeInfo
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM ResumeInfo WHERE ResumeID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 2. Finally, delete from Resumes
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM Resumes WHERE ID = ?", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            int rows = cmd.ExecuteNonQuery();
+                            transaction.Commit();
+                            return rows > 0;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show($"Failed to delete resume: {ex.Message}");
+                        return false;
+                    }
+                }
+            }
+        }
+
+
+
+        #region Saving Personal Info of templates (this remains the same across all templates)
+
+        public int SavePersonalInfo(PersonalInfo personalInfo, string currentUsername)
+        {
+            int ownerID = GetCurrentUserID(currentUsername);
+            if (ownerID == 0)
+            {
+                MessageBox.Show("Error: Could not find current user.");
+                return 0;
+            }
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+
+                // 1. Check if record exists
+                string checkQuery = "SELECT COUNT(*) FROM PersonalInfo WHERE OwnerID = ?";
+                using (OleDbCommand checkCmd = new OleDbCommand(checkQuery, connection))
+                {
+                    checkCmd.Parameters.AddWithValue("?", ownerID);
+                    int count = (int)checkCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        // 2. Update existing record
+                        string updateQuery = @"
+                            UPDATE PersonalInfo 
+                            SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, PhoneNum = ?, Address = ?, Designation = ?, Summary = ?
+                            WHERE OwnerID = ?";
+                        using (OleDbCommand updateCmd = new OleDbCommand(updateQuery, connection))
+                        {
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
+                            updateCmd.Parameters.AddWithValue("?", ownerID);
+                            updateCmd.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        // 3. Insert new record
+                        string insertQuery = @"
+                            INSERT INTO PersonalInfo (OwnerID, FirstName, MiddleName, LastName, Email, PhoneNum, Address, Designation, Summary) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, connection))
+                        {
+                            insertCmd.Parameters.AddWithValue("?", ownerID);
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                return ownerID;
+            }
+        }
+        #endregion
+
+        #region CallCenterResume Database Methods
+        public bool SaveCallCenterResume(int ownerId, string resumeTitle, List<string> coreSkills, List<string> techSkills, List<string> languages,
+            List<CallCenterResume.EducationItem> education, List<CallCenterResume.ExperienceItem> experience)
+        {
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+                using (OleDbTransaction transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Insert into Resumes
+                        int resumeId;
+                        using (OleDbCommand cmd = new OleDbCommand(
+                            "INSERT INTO Resumes (OwnerID, Title, DateCreated, FilePath) VALUES (?, ?, ?, ?)", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", ownerId);
+                            cmd.Parameters.AddWithValue("?", resumeTitle);
+                            cmd.Parameters.AddWithValue("?", DateTime.Today);
+                            cmd.Parameters.AddWithValue("?", ""); // FilePath not used
+                            cmd.ExecuteNonQuery();
+
+                            cmd.CommandText = "SELECT @@IDENTITY";
+                            cmd.Parameters.Clear();
+                            resumeId = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+
+                        // 2. Insert into ResumeInfo
+                        using (OleDbCommand cmd = new OleDbCommand(
+                            "INSERT INTO ResumeInfo (ResumeID, OwnerID, DateCreated, LastUpdated, TemplateType) VALUES (?, ?, ?, ?, ?)", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.Parameters.AddWithValue("?", ownerId);
+                            cmd.Parameters.AddWithValue("?", DateTime.Today);
+                            cmd.Parameters.AddWithValue("?", DateTime.Today);
+                            cmd.Parameters.AddWithValue("?", "CallCenter");
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 3. Insert into CallCenterResume
+                        using (OleDbCommand cmd = new OleDbCommand(
+                            "INSERT INTO CallCenterResume (ResumeID, OwnerID, CoreSkills, TechSkills, Languages) VALUES (?, ?, ?, ?, ?)", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.Parameters.AddWithValue("?", ownerId);
+                            cmd.Parameters.AddWithValue("?", string.Join(";", coreSkills));
+                            cmd.Parameters.AddWithValue("?", string.Join(";", techSkills));
+                            cmd.Parameters.AddWithValue("?", string.Join(";", languages));
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 4. Insert Education
+                        if (education != null)
+                        {
+                            foreach (var edu in education)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO CallCenterEducation (ResumeID, OwnerID, Degree, School, Location, [Year]) VALUES (?, ?, ?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", edu.Degree ?? "");
+                                    cmd.Parameters.AddWithValue("?", edu.School ?? "");
+                                    cmd.Parameters.AddWithValue("?", edu.Location ?? "");
+                                    cmd.Parameters.AddWithValue("?", edu.Year ?? "");
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        // 5. Insert Experience
+                        if (experience != null)
+                        {
+                            foreach (var exp in experience)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO CallCenterExperience (ResumeID, OwnerID, JobTitle, Company, Location, Duration, Achievement, Responsibilities) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", exp.Title ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Company ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Location ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Duration ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Achievement ?? "");
+                                    cmd.Parameters.AddWithValue("?", string.Join(";", exp.Responsibilities ?? new List<string>()));
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
                         transaction.Commit();
-
-                        MessageBox.Show("Personal info and resume info saved successfully!");
                         return true;
                     }
                     catch (Exception ex)
                     {
-                        // Rollback the transaction if any error occurs
                         transaction.Rollback();
                         MessageBox.Show($"Save failed: {ex.Message}");
                         return false;
@@ -707,58 +1141,622 @@ namespace FinalProjectOOP2
             }
         }
 
-        private void SaveResumeInfo(OleDbConnection conn, OleDbTransaction transaction,
-     int ownerId, string sectionType, string content)
+        // Add a method to get all resumes for a user
+        public List<ResumeInfo> GetUserResumes(int ownerId)
         {
-            // Check if record exists
-            bool exists = false;
-            using (OleDbCommand checkCmd = new OleDbCommand(
-                "SELECT COUNT(*) FROM ResumeInfo WHERE OwnerID = ? AND SectionType = ?",
-                conn, transaction))
+            List<ResumeInfo> resumes = new List<ResumeInfo>();
+            
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
-                checkCmd.Parameters.Add(new OleDbParameter("?", OleDbType.Integer)).Value = ownerId;
-                checkCmd.Parameters.Add(new OleDbParameter("?", OleDbType.VarChar)).Value = sectionType;
-                exists = ((int)checkCmd.ExecuteScalar()) > 0;
-            }
+                conn.Open();
+                string query = @"
+            SELECT r.*, ri.DateCreated, ri.LastUpdated, ri.TemplateType
+            FROM CallCenterResume r
+            INNER JOIN ResumeInfo ri ON r.OwnerID = ri.OwnerID
+            WHERE r.OwnerID = ?
+            ORDER BY ri.DateCreated DESC";
 
-            if (exists)
-            {
-                // UPDATE
-                string updateQuery = @"UPDATE ResumeInfo SET 
-                            Content = ?, 
-                            LastUpdated = ? 
-                            WHERE OwnerID = ? AND SectionType = ?";
-
-                using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn, transaction))
+                using (OleDbCommand cmd = new OleDbCommand(query, conn))
                 {
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.LongVarChar)).Value = content;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Date)).Value = DateTime.Now;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Integer)).Value = ownerId;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.VarChar)).Value = sectionType;
-
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("?", ownerId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            resumes.Add(new ResumeInfo
+                            {
+                                ID = Convert.ToInt32(reader["ID"]),
+                                OwnerID = Convert.ToInt32(reader["OwnerID"]),
+                                CoreSkills = reader["CoreSkills"].ToString(),
+                                TechSkills = reader["TechSkills"].ToString(),
+                                Languages = reader["Languages"].ToString(),
+                                DateCreated = Convert.ToDateTime(reader["DateCreated"]),
+                                LastUpdated = Convert.ToDateTime(reader["LastUpdated"]),
+                                TemplateType = reader["TemplateType"].ToString()
+                            });
+                        }
+                    }
                 }
             }
-            else
+            
+            return resumes;
+        }
+
+        // Class to hold resume information
+        public class ResumeInfo
+        {
+            public int ID { get; set; }
+            public int OwnerID { get; set; }
+            public string CoreSkills { get; set; }
+            public string TechSkills { get; set; }
+            public string Languages { get; set; }
+            public DateTime DateCreated { get; set; }
+            public DateTime LastUpdated { get; set; }
+            public string TemplateType { get; set; }
+        }
+
+        // Method to update an existing resume
+        public bool UpdateCallCenterResume(
+            int resumeId,
+            int ownerId,
+            List<string> coreSkills,
+            List<string> techSkills,
+            List<string> languages,
+            List<CallCenterResume.EducationItem> education,
+            List<CallCenterResume.ExperienceItem> experience)
+        {
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
-                // INSERT
-                string insertQuery = @"INSERT INTO ResumeInfo 
-                            (OwnerID, SectionType, Content, DateCreated, LastUpdated) 
+                try
+                {
+                    conn.Open();
+                    using (OleDbTransaction transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            // 1. Update ResumeInfo
+                            string updateResumeInfoQuery = @"
+                        UPDATE ResumeInfo 
+                        SET LastUpdated = ? 
+                        WHERE OwnerID = ? AND TemplateType = 'CallCenter'";
+
+                            using (OleDbCommand cmd = new OleDbCommand(updateResumeInfoQuery, conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("?", DateTime.Now);
+                                cmd.Parameters.AddWithValue("?", ownerId);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            // 2. Update CallCenterResume
+                            string updateQuery = @"
+                        UPDATE CallCenterResume 
+                        SET CoreSkills = ?, TechSkills = ?, Languages = ?
+                        WHERE ID = ? AND OwnerID = ?";
+
+                            using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("?", string.Join(";", coreSkills));
+                                cmd.Parameters.AddWithValue("?", string.Join(";", techSkills));
+                                cmd.Parameters.AddWithValue("?", string.Join(";", languages));
+                                cmd.Parameters.AddWithValue("?", resumeId);
+                                cmd.Parameters.AddWithValue("?", ownerId);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            // 3. Delete existing education and experience records
+                            using (OleDbCommand cmd = new OleDbCommand())
+                            {
+                                cmd.Connection = conn;
+                                cmd.Transaction = transaction;
+
+                                cmd.CommandText = "DELETE FROM CallCenterEducation WHERE CallCenterResumeID = ?";
+                                cmd.Parameters.AddWithValue("?", resumeId);
+                                cmd.ExecuteNonQuery();
+
+                                cmd.CommandText = "DELETE FROM CallCenterExperience WHERE CallCenterResumeID = ?";
+                                cmd.Parameters.Clear();
+                                cmd.Parameters.AddWithValue("?", resumeId);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            // 4. Insert new education records
+                            if (education != null && education.Count > 0)
+                            {
+                                string eduQuery = @"INSERT INTO CallCenterEducation 
+                            (CallCenterResumeID, Degree, School, Location, [Year]) 
                             VALUES (?, ?, ?, ?, ?)";
 
-                using (OleDbCommand cmd = new OleDbCommand(insertQuery, conn, transaction))
-                {
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Integer)).Value = ownerId;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.VarChar)).Value = sectionType;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.LongVarChar)).Value = content;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Date)).Value = DateTime.Now;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Date)).Value = DateTime.Now;
+                                using (OleDbCommand cmd = new OleDbCommand(eduQuery, conn, transaction))
+                                {
+                                    foreach (var edu in education)
+                                    {
+                                        cmd.Parameters.Clear();
+                                        cmd.Parameters.AddWithValue("?", resumeId);
+                                        cmd.Parameters.AddWithValue("?", edu.Degree ?? "");
+                                        cmd.Parameters.AddWithValue("?", edu.School ?? "");
+                                        cmd.Parameters.AddWithValue("?", edu.Location ?? "");
+                                        cmd.Parameters.AddWithValue("?", edu.Year ?? "");
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                }
+                            }
 
-                    cmd.ExecuteNonQuery();
+                            // 5. Insert new experience records
+                            if (experience != null && experience.Count > 0)
+                            {
+                                string expQuery = @"INSERT INTO CallCenterExperience 
+                            (CallCenterResumeID, JobTitle, Company, Location, Duration, Achievement, Responsibilities) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+                                using (OleDbCommand cmd = new OleDbCommand(expQuery, conn, transaction))
+                                {
+                                    foreach (var exp in experience)
+                                    {
+                                        cmd.Parameters.Clear();
+                                        cmd.Parameters.AddWithValue("?", resumeId);
+                                        cmd.Parameters.AddWithValue("?", exp.Title ?? "");
+                                        cmd.Parameters.AddWithValue("?", exp.Company ?? "");
+                                        cmd.Parameters.AddWithValue("?", exp.Location ?? "");
+                                        cmd.Parameters.AddWithValue("?", exp.Duration ?? "");
+                                        cmd.Parameters.AddWithValue("?", exp.Achievement ?? "");
+                                        cmd.Parameters.AddWithValue("?", string.Join(";", exp.Responsibilities ?? new List<string>()));
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+
+                            transaction.Commit();
+                            return true;
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            MessageBox.Show($"Update Error: {ex.Message}");
+                            return false;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Connection Error: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        #endregion
+
+        #region Doctor Resume Database Methods
+        public bool SaveDoctorResume( int ownerId, string resumeTitle,  List<string> clinicalSkills, List<string> medTechSkills, 
+            List<DoctorExperienceItem> experience, List<DoctorLicense> licenses, List<DoctorAffiliation> affiliations, List<DoctorEducationItem> education)
+        {
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+                using (OleDbTransaction transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Insert into Resumes
+                        int resumeId;
+                        using (OleDbCommand cmd = new OleDbCommand(
+                            "INSERT INTO Resumes (OwnerID, Title, DateCreated, FilePath) VALUES (?, ?, ?, ?)", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", ownerId);
+                            cmd.Parameters.AddWithValue("?", resumeTitle);
+                            cmd.Parameters.AddWithValue("?", DateTime.Today);
+                            cmd.Parameters.AddWithValue("?", "");
+                            cmd.ExecuteNonQuery();
+
+                            cmd.CommandText = "SELECT @@IDENTITY";
+                            cmd.Parameters.Clear();
+                            resumeId = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+
+                        // 2. Insert into ResumeInfo
+                        using (OleDbCommand cmd = new OleDbCommand(
+                            "INSERT INTO ResumeInfo (ResumeID, OwnerID, DateCreated, LastUpdated, TemplateType) VALUES (?, ?, ?, ?, ?)", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.Parameters.AddWithValue("?", ownerId);
+                            cmd.Parameters.AddWithValue("?", DateTime.Today);
+                            cmd.Parameters.AddWithValue("?", DateTime.Today);
+                            cmd.Parameters.AddWithValue("?", "Doctor");
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 3. Insert into DoctorResume
+                        using (OleDbCommand cmd = new OleDbCommand(
+                            "INSERT INTO DoctorResume (ResumeID, OwnerID, ClinicalSkills, MedTechSkills) VALUES (?, ?, ?, ?)", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.Parameters.AddWithValue("?", ownerId);
+                            cmd.Parameters.AddWithValue("?", string.Join(";", clinicalSkills));
+                            cmd.Parameters.AddWithValue("?", string.Join(";", medTechSkills));
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 4. Insert Experience
+                        if (experience != null)
+                        {
+                            foreach (var exp in experience)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO DoctorExperience (ResumeID, OwnerID, [Position], [Company], [Location], [Duration], [Description], [Contribution]) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", exp.Position ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Company ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Location ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Duration ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Description ?? "");
+                                    cmd.Parameters.AddWithValue("?", string.Join(";", exp.Contributions ?? new List<string>()));
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        // 5. Insert Licenses
+                        if (licenses != null)
+                        {
+                            foreach (var lic in licenses)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO DoctorLicense (ResumeID, OwnerID, LicenseType, LicenseNumber, InitialDate, ExpiryDate) VALUES (?, ?, ?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", lic.Type ?? "");
+                                    cmd.Parameters.AddWithValue("?", lic.LicenseNumber ?? "");
+                                    cmd.Parameters.AddWithValue("?", lic.InitialDate);
+                                    cmd.Parameters.AddWithValue("?", lic.ExpiryDate);
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        // 6. Insert Affiliations
+                        if (affiliations != null)
+                        {
+                            foreach (var aff in affiliations)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO DoctorAffiliation (ResumeID, OwnerID, Status, Institution) VALUES (?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", aff.Status ?? "");
+                                    cmd.Parameters.AddWithValue("?", aff.Institution ?? "");
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        // 7. Insert Education
+                        if (education != null)
+                        {
+                            foreach (var edu in education)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO DoctorEducation (ResumeID, OwnerID, Degree, Institution, Specialization, Location) VALUES (?, ?, ?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", edu.Degree ?? "");
+                                    cmd.Parameters.AddWithValue("?", edu.Institution ?? "");
+                                    cmd.Parameters.AddWithValue("?", edu.Specialization ?? "");
+                                    cmd.Parameters.AddWithValue("?", edu.Location ?? "");
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show($"Save failed: {ex.Message}");
+                        return false;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Attorney Datbase Methods
+        public bool SaveAttorneyResume(int ownerId, string resumeTitle,List<string> coreSkills,List<string> legalTech,List<string> barAdmissions,List<string> expertise,
+            List<AttorneyEducation> education,List<AttorneyExperience> experience,List<AttorneyLicense> licenses,List<EarlierPosition> earlierPositions)
+        {
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+                using (OleDbTransaction transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Insert into Resumes
+                        int resumeId;
+                        using (OleDbCommand cmd = new OleDbCommand(
+                            "INSERT INTO Resumes (OwnerID, Title, DateCreated, FilePath) VALUES (?, ?, ?, ?)", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", ownerId);
+                            cmd.Parameters.AddWithValue("?", resumeTitle);
+                            cmd.Parameters.AddWithValue("?", DateTime.Today);
+                            cmd.Parameters.AddWithValue("?", "");
+                            cmd.ExecuteNonQuery();
+
+                            cmd.CommandText = "SELECT @@IDENTITY";
+                            cmd.Parameters.Clear();
+                            resumeId = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+
+                        // 2. Insert into ResumeInfo
+                        using (OleDbCommand cmd = new OleDbCommand(
+                            "INSERT INTO ResumeInfo (ResumeID, OwnerID, DateCreated, LastUpdated, TemplateType) VALUES (?, ?, ?, ?, ?)", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.Parameters.AddWithValue("?", ownerId);
+                            cmd.Parameters.AddWithValue("?", DateTime.Today);
+                            cmd.Parameters.AddWithValue("?", DateTime.Today);
+                            cmd.Parameters.AddWithValue("?", "Attorney");
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 3. Insert into AttorneyResume
+                        using (OleDbCommand cmd = new OleDbCommand(
+                            "INSERT INTO [AttorneyResume] ([ResumeID], [OwnerID], [CoreSkills], [LegalTech], [BarAdmissions], [Expertise]) VALUES (?, ?, ?, ?, ?, ?)", conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("?", resumeId);
+                            cmd.Parameters.AddWithValue("?", ownerId);
+                            cmd.Parameters.AddWithValue("?", string.Join(";", coreSkills));
+                            cmd.Parameters.AddWithValue("?", string.Join(";", legalTech));
+                            cmd.Parameters.AddWithValue("?", string.Join(";", barAdmissions));
+                            cmd.Parameters.AddWithValue("?", string.Join(";", expertise));
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // 4. Insert Education
+                        if (education != null)
+                        {
+                            foreach (var edu in education)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO [AttorneyEducation] ([ResumeID], [OwnerID], [DegreePosition], [Institution], [Location]) VALUES (?, ?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", edu.DegreePosition ?? "");
+                                    cmd.Parameters.AddWithValue("?", edu.Institution ?? "");
+                                    cmd.Parameters.AddWithValue("?", edu.Location ?? "");
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        // 5. Insert Experience
+                        if (experience != null)
+                        {
+                            foreach (var exp in experience)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO [AttorneyExperience] ([ResumeID], [OwnerID], [Position], [Company], [Location], [Duration], [Description], [Contributions]) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", exp.Position ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Company ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Location ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Duration ?? "");
+                                    cmd.Parameters.AddWithValue("?", exp.Description ?? "");
+                                    cmd.Parameters.AddWithValue("?", string.Join(";", exp.Contributions ?? new List<string>()));
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        // 6. Insert Licenses
+                        if (licenses != null)
+                        {
+                            foreach (var lic in licenses)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO [AttorneyLicense] ([ResumeID], [OwnerID], [LicenseType], [LicenseNumber], [InitialDate], [ExpiryDate]) VALUES (?, ?, ?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", lic.Type ?? "");
+                                    cmd.Parameters.AddWithValue("?", lic.LicenseNumber ?? "");
+                                    cmd.Parameters.AddWithValue("?", lic.InitialDate);
+                                    cmd.Parameters.AddWithValue("?", lic.ExpiryDate);
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        // 7. Insert Earlier Positions
+                        if (earlierPositions != null)
+                        {
+                            foreach (var pos in earlierPositions)
+                            {
+                                using (OleDbCommand cmd = new OleDbCommand(
+                                    "INSERT INTO [AttorneyEarlierPosition] ([ResumeID], [OwnerID], [Position], [Company], [Location], [Duration]) VALUES (?, ?, ?, ?, ?, ?)", conn, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("?", resumeId);
+                                    cmd.Parameters.AddWithValue("?", ownerId);
+                                    cmd.Parameters.AddWithValue("?", pos.Position ?? "");
+                                    cmd.Parameters.AddWithValue("?", pos.Company ?? "");
+                                    cmd.Parameters.AddWithValue("?", pos.Location ?? "");
+                                    cmd.Parameters.AddWithValue("?", pos.Duration ?? "");
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show($"Save failed: {ex}");
+                        return false;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Electrical Enginnering Methods
+
+    public bool SaveElectricalEngineeringResume(
+        int ownerId,
+        string resumeTitle,
+        List<string> coreSkills,
+        List<string> techSkills,
+        List<(string Category, string Skill)> expertise, // e.g. ("PLC", "Siemens")
+        List<EEExperienceItem> experience,
+        List<EEEducationItem> education)
+    {
+        using (OleDbConnection conn = new OleDbConnection(connectionString))
+        {
+            conn.Open();
+            using (OleDbTransaction transaction = conn.BeginTransaction())
+            {
+                try
+                {
+                    // 1. Insert into Resumes
+                    int resumeId;
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "INSERT INTO [Resumes] ([OwnerID], [Title], [DateCreated], [FilePath]) VALUES (?, ?, ?, ?)", conn, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("?", ownerId);
+                        cmd.Parameters.AddWithValue("?", resumeTitle);
+                        cmd.Parameters.AddWithValue("?", DateTime.Today);
+                        cmd.Parameters.AddWithValue("?", "");
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = "SELECT @@IDENTITY";
+                        cmd.Parameters.Clear();
+                        resumeId = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+
+                    // 2. Insert into ResumeInfo
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "INSERT INTO [ResumeInfo] ([ResumeID], [OwnerID], [DateCreated], [LastUpdated], [TemplateType]) VALUES (?, ?, ?, ?, ?)", conn, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("?", resumeId);
+                        cmd.Parameters.AddWithValue("?", ownerId);
+                        cmd.Parameters.AddWithValue("?", DateTime.Today);
+                        cmd.Parameters.AddWithValue("?", DateTime.Today);
+                        cmd.Parameters.AddWithValue("?", "ElectricalEngineering");
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 3. Insert into ElectricalEngineeringResume
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "INSERT INTO [ElectricalEngineeringResume] ([ResumeID], [OwnerID], [CoreSkills], [TechSkills]) VALUES (?, ?, ?, ?)", conn, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("?", resumeId);
+                        cmd.Parameters.AddWithValue("?", ownerId);
+                        cmd.Parameters.AddWithValue("?", string.Join(";", coreSkills));
+                        cmd.Parameters.AddWithValue("?", string.Join(";", techSkills));
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 4. Insert Expertise
+                    if (expertise != null)
+                    {
+                        foreach (var exp in expertise)
+                        {
+                            using (OleDbCommand cmd = new OleDbCommand(
+                                "INSERT INTO [ElectricalEngineeringExpertise] ([ResumeID], [OwnerID], [Category], [Skill]) VALUES (?, ?, ?, ?)", conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("?", resumeId);
+                                cmd.Parameters.AddWithValue("?", ownerId);
+                                cmd.Parameters.AddWithValue("?", exp.Category ?? "");
+                                cmd.Parameters.AddWithValue("?", exp.Skill ?? "");
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    // 5. Insert Experience and Contributions
+                    if (experience != null)
+                    {
+                        foreach (var exp in experience)
+                        {
+                            int experienceId;
+                            using (OleDbCommand cmd = new OleDbCommand(
+                                "INSERT INTO [ElectricalEngineeringExperience] ([ResumeID], [OwnerID], [Position], [Company], [Location], [Duration], [Achievement]) VALUES (?, ?, ?, ?, ?, ?, ?)", conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("?", resumeId);
+                                cmd.Parameters.AddWithValue("?", ownerId);
+                                cmd.Parameters.AddWithValue("?", exp.Position ?? "");
+                                cmd.Parameters.AddWithValue("?", exp.Company ?? "");
+                                cmd.Parameters.AddWithValue("?", exp.Location ?? "");
+                                cmd.Parameters.AddWithValue("?", exp.Duration ?? "");
+                                cmd.Parameters.AddWithValue("?", exp.Achievement ?? "");
+                                cmd.ExecuteNonQuery();
+
+                                cmd.CommandText = "SELECT @@IDENTITY";
+                                cmd.Parameters.Clear();
+                                experienceId = Convert.ToInt32(cmd.ExecuteScalar());
+                            }
+
+                            // Insert Contributions for this experience
+                            if (exp.Contributions != null)
+                            {
+                                foreach (var contrib in exp.Contributions ?? Enumerable.Empty<string>())
+                                {
+                                    using (OleDbCommand cmd = new OleDbCommand(
+                                        "INSERT INTO [ElectricalEngineeringExperienceContribution] ([ExperienceID], [Contribution]) VALUES (?, ?)", conn, transaction))
+                                    {
+                                        cmd.Parameters.AddWithValue("?", experienceId);
+                                        cmd.Parameters.AddWithValue("?", contrib ?? "");
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // 6. Insert Education
+                    if (education != null)
+                    {
+                        foreach (var edu in education)
+                        {
+                            using (OleDbCommand cmd = new OleDbCommand(
+                                "INSERT INTO [ElectricalEngineeringEducation] ([ResumeID], [OwnerID], [School], [Location], [Year], [Degree]) VALUES (?, ?, ?, ?, ?, ?)", conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("?", resumeId);
+                                cmd.Parameters.AddWithValue("?", ownerId);
+                                cmd.Parameters.AddWithValue("?", edu.School ?? "");
+                                cmd.Parameters.AddWithValue("?", edu.Location ?? "");
+                                cmd.Parameters.AddWithValue("?", edu.Year ?? "");
+                                cmd.Parameters.AddWithValue("?", edu.Degree ?? "");
+                
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    transaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"Save failed: {ex.Message}");
+                    return false;
                 }
             }
         }
     }
+        #endregion
+    }
 }
-
-/*  */

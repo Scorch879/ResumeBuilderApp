@@ -48,7 +48,6 @@
             highlightTimer = new System.Windows.Forms.Timer(components);
             headerPanel = new Panel();
             minimizeBtn = new FontAwesome.Sharp.IconPictureBox();
-            maximizeBtn = new FontAwesome.Sharp.IconPictureBox();
             closeBtn = new FontAwesome.Sharp.IconPictureBox();
             mainPanel = new FlowLayoutPanel();
             panel1.SuspendLayout();
@@ -58,7 +57,6 @@
             ((System.ComponentModel.ISupportInitialize)resumeIcon).BeginInit();
             headerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)minimizeBtn).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)maximizeBtn).BeginInit();
             ((System.ComponentModel.ISupportInitialize)closeBtn).BeginInit();
             SuspendLayout();
             // 
@@ -71,7 +69,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(0, 955);
+            panel1.Size = new Size(0, 919);
             panel1.TabIndex = 12;
             // 
             // iconButton2
@@ -114,7 +112,7 @@
             sidePanel.Dock = DockStyle.Left;
             sidePanel.Location = new Point(0, 0);
             sidePanel.Name = "sidePanel";
-            sidePanel.Size = new Size(309, 955);
+            sidePanel.Size = new Size(309, 919);
             sidePanel.TabIndex = 16;
             // 
             // sideLayoutTable
@@ -144,7 +142,7 @@
             sideLayoutTable.RowStyles.Add(new RowStyle());
             sideLayoutTable.RowStyles.Add(new RowStyle());
             sideLayoutTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            sideLayoutTable.Size = new Size(309, 955);
+            sideLayoutTable.Size = new Size(309, 919);
             sideLayoutTable.TabIndex = 17;
             // 
             // messagesBtn
@@ -342,13 +340,12 @@
             // 
             headerPanel.BackColor = Color.FromArgb(0, 31, 84);
             headerPanel.Controls.Add(minimizeBtn);
-            headerPanel.Controls.Add(maximizeBtn);
             headerPanel.Controls.Add(closeBtn);
             headerPanel.Dock = DockStyle.Top;
             headerPanel.ForeColor = Color.FromArgb(41, 128, 185);
             headerPanel.Location = new Point(309, 0);
             headerPanel.Name = "headerPanel";
-            headerPanel.Size = new Size(1557, 48);
+            headerPanel.Size = new Size(1534, 48);
             headerPanel.TabIndex = 22;
             // 
             // minimizeBtn
@@ -360,7 +357,7 @@
             minimizeBtn.IconColor = Color.White;
             minimizeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             minimizeBtn.IconSize = 28;
-            minimizeBtn.Location = new Point(1465, 0);
+            minimizeBtn.Location = new Point(1477, 0);
             minimizeBtn.Margin = new Padding(3, 4, 3, 4);
             minimizeBtn.Name = "minimizeBtn";
             minimizeBtn.Size = new Size(28, 48);
@@ -371,26 +368,6 @@
             minimizeBtn.MouseEnter += MinimizeBtn_MouseEnter;
             minimizeBtn.MouseLeave += MinimizeBtn_MouseLeave;
             // 
-            // maximizeBtn
-            // 
-            maximizeBtn.BackColor = Color.Transparent;
-            maximizeBtn.Cursor = Cursors.Hand;
-            maximizeBtn.Dock = DockStyle.Right;
-            maximizeBtn.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
-            maximizeBtn.IconColor = Color.White;
-            maximizeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            maximizeBtn.IconSize = 35;
-            maximizeBtn.Location = new Point(1493, 0);
-            maximizeBtn.Margin = new Padding(0);
-            maximizeBtn.Name = "maximizeBtn";
-            maximizeBtn.Size = new Size(35, 48);
-            maximizeBtn.SizeMode = PictureBoxSizeMode.Zoom;
-            maximizeBtn.TabIndex = 29;
-            maximizeBtn.TabStop = false;
-            maximizeBtn.Click += maximizeBtn_Click;
-            maximizeBtn.MouseEnter += MaximizeBtn_MouseEnter;
-            maximizeBtn.MouseLeave += MaximizeBtn_MouseLeave;
-            // 
             // closeBtn
             // 
             closeBtn.BackColor = Color.Transparent;
@@ -400,7 +377,7 @@
             closeBtn.IconColor = Color.White;
             closeBtn.IconFont = FontAwesome.Sharp.IconFont.Regular;
             closeBtn.IconSize = 29;
-            closeBtn.Location = new Point(1528, 0);
+            closeBtn.Location = new Point(1505, 0);
             closeBtn.Margin = new Padding(0);
             closeBtn.Name = "closeBtn";
             closeBtn.Size = new Size(29, 48);
@@ -418,14 +395,14 @@
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(309, 48);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(1557, 907);
+            mainPanel.Size = new Size(1534, 871);
             mainPanel.TabIndex = 23;
             // 
             // Dashboard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1866, 955);
+            ClientSize = new Size(1843, 919);
             Controls.Add(mainPanel);
             Controls.Add(headerPanel);
             Controls.Add(sidePanel);
@@ -443,7 +420,6 @@
             ((System.ComponentModel.ISupportInitialize)resumeIcon).EndInit();
             headerPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)minimizeBtn).EndInit();
-            ((System.ComponentModel.ISupportInitialize)maximizeBtn).EndInit();
             ((System.ComponentModel.ISupportInitialize)closeBtn).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -468,7 +444,6 @@
         private Panel headerPanel;
         private FlowLayoutPanel mainPanel;
         private FontAwesome.Sharp.IconPictureBox minimizeBtn;
-        private FontAwesome.Sharp.IconPictureBox maximizeBtn;
         private FontAwesome.Sharp.IconPictureBox closeBtn;
         private FontAwesome.Sharp.IconButton logoutBtn;
         private FontAwesome.Sharp.IconButton messagesBtn;

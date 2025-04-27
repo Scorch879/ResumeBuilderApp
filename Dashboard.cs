@@ -92,16 +92,6 @@ namespace FinalProjectOOP2
             minimizeBtn.BackColor = Color.Transparent;  
         }
 
-        private void MaximizeBtn_MouseEnter(object sender, EventArgs e)
-        {
-            maximizeBtn.BackColor = Color.LightGray;  // Hover color
-        }
-
-        private void MaximizeBtn_MouseLeave(object sender, EventArgs e)
-        {
-            maximizeBtn.BackColor = Color.Transparent;
-        }
-
         private void HighlightTimer_Tick(object? sender, EventArgs e)
         {
             float easeFactor = 0.3f;
@@ -183,6 +173,8 @@ namespace FinalProjectOOP2
             if (myResumes == null)
             {
                 myResumes = new MyResumes();
+                myResumes.Username = currentUser;
+                myResumes.LoadUserResumes(currentUser);
             }
 
             if (!mainPanel.Controls.Contains(myResumes))
@@ -192,7 +184,7 @@ namespace FinalProjectOOP2
             }
         }
 
-        private void createResumeBtn_Click(object sender, EventArgs e)
+        public void createResumeBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(createResumeBtn);
             if (createResumes == null)

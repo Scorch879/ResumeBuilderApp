@@ -10,7 +10,7 @@ namespace FinalProjectOOP2
             instance = this;
 
             //preload  dashboard
-            Dashboard dashboard = new Dashboard();
+           // Dashboard dashboard = new Dashboard();
         }
 
         private void closeBtn_Click(object sender, EventArgs e)

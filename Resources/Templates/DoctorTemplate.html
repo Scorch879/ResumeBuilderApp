@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <style>
+        /* Same styling as yours — unchanged */
         body {
             margin: 0;
             font-family: 'Segoe UI', sans-serif;
@@ -134,87 +135,92 @@
             <img src="Assets/default-profile.png" alt="Profile Photo">
         </center>
 
-        <h3>CORE SKILLS</h3>
-        <ul class="highlighted-skills">
-            {{#each CoreSkills}}
-                <li>{{this}}</li>
-            {{/each}}
-        </ul>
+        <h3>CLINICAL SKILLS</h3>
+<ul class="highlighted-skills">
+    {{ for skill in ClinicalSkills }}
+        <li>{{ skill }}</li>
+    {{ end }}
+</ul>
 
-        <h3>TECHNOLOGY</h3>
-        <ul>
-            {{#each TechSkills}}
-                <li>{{this}}</li>
-            {{/each}}
-        </ul>
+        <h3>MEDICAL SYSTEMS & TOOLS</h3>
+<ul>
+    {{ for tech in MedicalTech }}
+        <li>{{ tech }}</li>
+    {{ end }}
+</ul>
 
-        <h3>LICENSES & CERTIFICATIONS</h3>
-        <ul>
-            {{#each Certifications}}
-                <li>{{this}}</li>
-            {{/each}}
-        </ul>
+  <h3>LICENSES</h3>
+  <ul>
+    {{ for license in Licenses }}
+    <li>
+  	{{ license.Type }}<br> <br>
+  	<strong> License No: </strong>{{ license.LicenseNumber }}<br>
+  	<strong> Date: </strong> {{ license.FormattedInitialDate }} to {{ license.FormattedExpiryDate }}
+    </li>
+	{{ end }}
+  </ul>
+
     </div>
 
     <div class="main">
-        <h1>{{Name}}</h1>
+        <h1>{{ Name }}</h1>
         <p class="contact-info">
-            {{Address}} | {{Phone}} | {{Email}} | {{LinkedIn}}
+            {{ Address }} | {{ Phone }} | {{ Email }} | {{ LinkedIn }}
         </p>
-        
-        <p><strong>{{Title}}</strong></p>
+
+        <p><strong>{{ Title }}</strong></p>
 
         <h2>Summary</h2>
-        <p>{{Summary}}</p>
+        <p>{{ Summary }}</p>
 
         <h2>Areas of Expertise</h2>
         <div class="highlighted-skills">
-            {{#each AreasOfExpertise}}
-                <span>{{this}}</span>
-            {{/each}}
+            {{ for area in AreasOfExpertise }}
+                <span>{{ area }}</span>
+            {{ end }}
         </div>
 
         <h2>Professional Experience</h2>
-        {{#each Experience}}
+        {{ for job in Experience }}
         <div class="job-section">
             <div class="job-header">
                 <div>
-                    <span class="job-title">{{Position}}</span> • 
-                    <span class="job-company">{{Company}}</span>, 
-                    <span class="job-location">{{Location}}</span>
+                    <span class="job-title">{{ job.Position }}</span> • 
+                    <span class="job-company">{{ job.Company }}</span>, 
+                    <span class="job-location">{{ job.Location }}</span>
                 </div>
-                <div class="job-duration">{{Duration}}</div>
+                <div class="job-duration">{{ job.Duration }}</div>
             </div>
-            <p>{{Description}}</p>
+            <p>{{ job.Description }}</p>
             <ul class="job-contributions">
-                {{#each Contributions}}
-                    <li>{{this}}</li>
-                {{/each}}
+                {{ for contrib in job.Contributions }}
+                    <li>{{ contrib }}</li>
+                {{ end }}
             </ul>
         </div>
-        {{/each}}
+        {{ end }}
 
         <h2>Education</h2>
-        {{#each Education}}
+        {{ for edu in Education }}
         <div class="education-item">
-            <div class="education-degree">{{Degree}}</div>
+            <div class="education-degree">{{ edu.Degree }}</div>
             <div class="education-details">
-                {{Institution}}<br>
-                {{#if Specialization}}
-                <em>{{Specialization}}</em><br>
-                {{/if}}
-                {{Duration}}
+                {{ edu.Institution }}<br>
+                {{ if edu.Specialization }}
+                    <em>{{ edu.Specialization }}</em><br>
+                {{ end }}
+                {{ edu.Location }}
             </div>
         </div>
-        {{/each}}
+        {{ end }}
 
         <h2>Affiliations</h2>
         <div class="affiliations">
             <ul>
-                {{#each Affiliations}}
-                    <li>{{this}}</li>
-                {{/each}}
-            </ul>
+    	{{ for aff in Affiliations }}
+    <li>{{ aff.Status }} at {{ aff.Institution }}</li>
+{{ end }}
+	</ul>
         </div>
     </div>
 </div>

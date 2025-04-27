@@ -111,19 +111,19 @@
             padding: 10px 0;
             margin: 10px 0;
         }
-        .expertise-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 15px;
+        .expertise-columns {
+            display: flex;
+            gap: 40px;
             margin-top: 15px;
+            margin-bottom: 25px;
         }
-        .expertise-category {
-            margin-bottom: 10px;
+        .expertise-columns ul {
+            list-style: disc inside;
+            padding: 0;
+            margin: 0;
         }
-        .expertise-category strong {
-            display: block;
-            margin-bottom: 5px;
-            color: #2980b9;
+        .expertise-columns li {
+            margin-bottom: 8px;
         }
         .education-item {
             margin-bottom: 15px;
@@ -146,108 +146,86 @@
 
         <h3>CORE SKILLS</h3>
         <ul class="highlighted-skills">
-            {{#each CoreSkills}}
-                <li>{{this}}</li>
-            {{/each}}
+            {{ for skill in CoreSkills }}
+                <li>{{ skill }}</li>
+            {{ end }}
         </ul>
 
         <h3>LEGAL TECHNOLOGY</h3>
         <ul>
-            {{#each LegalTech}}
-                <li>{{this}}</li>
-            {{/each}}
+            {{ for tech in LegalTech }}
+                <li>{{ tech }}</li>
+            {{ end }}
         </ul>
 
         <h3>BAR ADMISSIONS</h3>
         <ul>
-            {{#each BarAdmissions}}
-                <li>{{this}}</li>
-            {{/each}}
+            {{ for bar in BarAdmissions }}
+                <li>{{ bar }}</li>
+            {{ end }}
         </ul>
     </div>
 
     <div class="main">
-        <h1>{{Name}}</h1>
+        <h1>{{ Name }}</h1>
         <div class="contact-info">
-            {{Address}} | {{Phone}} | {{Email}} | {{LinkedIn}}
+            {{ Address }} | {{ Phone }} | {{ Email }} | {{ LinkedIn }}
         </div>
         
-        <p><strong>{{Title}}</strong></p>
-        <p>{{Summary}}</p>
+        <p><strong>{{ Title }}</strong></p>
+        <p>{{ Summary }}</p>
 
         <h2>Expertise</h2>
-        <div class="expertise-grid">
-            <div class="expertise-category">
-                <strong>Litigation Strategy & Management</strong>
-                <ul>
-                    {{#each LitigationSkills}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-            <div class="expertise-category">
-                <strong>Personal Injury & Mass Tort</strong>
-                <ul>
-                    {{#each PersonalInjurySkills}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-            <div class="expertise-category">
-                <strong>Mediation & Arbitration</strong>
-                <ul>
-                    {{#each MediationSkills}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-        </div>
+        <ul>
+            {{ for item in Expertise }}
+                <li><em>{{ item }}</em></li>
+            {{ end }}
+        </ul>
 
         <h2>Professional Experience</h2>
-        {{#each Experience}}
+        {{ for job in Experience }}
         <div class="job-section">
             <div class="job-header">
                 <div>
-                    <span class="job-company">{{Company}}</span>, 
-                    <span class="job-location">{{Location}}</span>
+                    <span class="job-company">{{ job.Company }}</span>, 
+                    <span class="job-location">{{ job.Location }}</span>
                 </div>
-                <div class="job-duration">{{Duration}}</div>
+                <div class="job-duration">{{ job.Duration }}</div>
             </div>
-            <div class="job-title">{{Position}}</div>
-            <p>{{Description}}</p>
-            {{#if Contributions.length}}
+            <div class="job-title">{{ job.Position }}</div>
+            <p>{{ job.Description }}</p>
+            {{ if job.Contributions.size > 0 }}
             <strong>Contributions:</strong>
             <ul class="job-contributions">
-                {{#each Contributions}}
-                    <li>{{this}}</li>
-                {{/each}}
+                {{ for contrib in job.Contributions }}
+                    <li>{{ contrib }}</li>
+                {{ end }}
             </ul>
-            {{/if}}
+            {{ end }}
         </div>
-        {{/each}}
+        {{ end }}
 
-        {{#if EarlierPositions.length}}
+        {{ if EarlierPositions.size > 0 }}
         <h3>Earlier Positions</h3>
         <ul>
-            {{#each EarlierPositions}}
+            {{ for position in EarlierPositions }}
                 <li>
-                    <strong>{{Position}}</strong>, {{Duration}} -- {{Company}}, {{Location}}
+                    <strong>{{ position.Position }}</strong>, {{ position.Duration }} -- {{ position.Company }}, {{ position.Location }}
                 </li>
-            {{/each}}
+            {{ end }}
         </ul>
-        {{/if}}
+        {{ end }}
 
         <h2>Education & Credentials</h2>
-        <div class="education-item">
-            <div class="education-degree">Juris Doctor</div>
-            <div class="education-school">{{Education.LawSchool}}</div>
-        </div>
-        <div class="education-item">
-            <div class="education-degree">Bachelor of Arts in {{Education.UndergradMajor}}</div>
-            <div class="education-school">{{Education.UndergradSchool}}</div>
-        </div>
-    </div>
-</div>
+	{{ for edu in Education }}
+	<div class="education-item">
+    		<div class="education-degree">{{ edu.DegreePosition }}</div>
+    		<div class="education-school">{{ edu.Institution }}</div>
+    		<div class="education-location">{{ edu.Location }}</div>
+	</div>
+	{{ end }}
+    </div> <!-- CLOSE .main -->
+</div> <!-- CLOSE .container -->
 
 </body>
 </html>
