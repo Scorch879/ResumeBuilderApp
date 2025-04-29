@@ -1945,6 +1945,7 @@
             addDevelopmentBtn.TabIndex = 1;
             addDevelopmentBtn.Text = "Add Development";
             addDevelopmentBtn.UseVisualStyleBackColor = false;
+            addDevelopmentBtn.Click += addDevelopmentBtn_Click;
             // 
             // removeDevelopmentBtn
             // 
@@ -1962,6 +1963,7 @@
             removeDevelopmentBtn.TabIndex = 35;
             removeDevelopmentBtn.Text = "Remove Development";
             removeDevelopmentBtn.UseVisualStyleBackColor = false;
+            removeDevelopmentBtn.Click += removeDevelopmentBtn_Click;
             // 
             // developmentLstBx
             // 

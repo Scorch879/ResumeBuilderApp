@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tabExperience = new TabPage();
             panel1 = new Panel();
             panel6 = new Panel();
@@ -54,8 +55,8 @@
             btnAddExp = new FontAwesome.Sharp.IconButton();
             btnRemoveExp = new FontAwesome.Sharp.IconButton();
             tableLayoutPanel13 = new TableLayoutPanel();
+            achievementTbx = new RichTextBox();
             label32 = new Label();
-            achievementTbx = new TextBox();
             label14 = new Label();
             label25 = new Label();
             label26 = new Label();
@@ -80,17 +81,9 @@
             label28 = new Label();
             panel19 = new Panel();
             panel17 = new Panel();
-            dgvEducation = new DataGridView();
-            Degree = new DataGridViewTextBoxColumn();
-            School = new DataGridViewTextBoxColumn();
-            Location_Educ = new DataGridViewTextBoxColumn();
-            Year = new DataGridViewTextBoxColumn();
             tableLayoutPanel10 = new TableLayoutPanel();
             btnAddEduc = new FontAwesome.Sharp.IconButton();
             btnRemoveEduc = new FontAwesome.Sharp.IconButton();
-            panel21 = new Panel();
-            warningLbl = new Label();
-            label30 = new Label();
             tableLayoutPanel6 = new TableLayoutPanel();
             label24 = new Label();
             label23 = new Label();
@@ -100,6 +93,15 @@
             schoolTbx = new TextBox();
             locationTbx = new TextBox();
             yearTbx = new TextBox();
+            panel11 = new Panel();
+            dgvEducation = new DataGridView();
+            Degree = new DataGridViewTextBoxColumn();
+            School = new DataGridViewTextBoxColumn();
+            Location_Educ = new DataGridViewTextBoxColumn();
+            Year = new DataGridViewTextBoxColumn();
+            panel21 = new Panel();
+            warningLbl = new Label();
+            label30 = new Label();
             panel14 = new Panel();
             label15 = new Label();
             tabSkills = new TabPage();
@@ -168,10 +170,10 @@
             panel22.SuspendLayout();
             tableLayoutPanel11.SuspendLayout();
             panel17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvEducation).BeginInit();
             tableLayoutPanel10.SuspendLayout();
-            panel21.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvEducation).BeginInit();
+            panel21.SuspendLayout();
             panel14.SuspendLayout();
             tabSkills.SuspendLayout();
             panel3.SuspendLayout();
@@ -218,33 +220,45 @@
             panel6.Controls.Add(dgvProfExp);
             panel6.Controls.Add(panel23);
             panel6.Dock = DockStyle.Fill;
-            panel6.Location = new Point(783, 0);
+            panel6.Location = new Point(760, 0);
             panel6.Name = "panel6";
             panel6.Padding = new Padding(10);
-            panel6.Size = new Size(709, 544);
+            panel6.Size = new Size(732, 544);
             panel6.TabIndex = 44;
             // 
             // dgvProfExp
             // 
+            dgvProfExp.AllowUserToAddRows = false;
+            dgvProfExp.AllowUserToDeleteRows = false;
+            dgvProfExp.AllowUserToResizeColumns = false;
+            dgvProfExp.AllowUserToResizeRows = false;
             dgvProfExp.BackgroundColor = Color.FromArgb(216, 225, 233);
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvProfExp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvProfExp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProfExp.Columns.AddRange(new DataGridViewColumn[] { JobTitle, Company, Location, Duration, Achievement });
             dgvProfExp.Dock = DockStyle.Top;
-            dgvProfExp.Location = new Point(10, 50);
+            dgvProfExp.Location = new Point(10, 49);
             dgvProfExp.Name = "dgvProfExp";
             dgvProfExp.RowHeadersWidth = 51;
             dgvProfExp.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProfExp.Size = new Size(689, 475);
+            dgvProfExp.Size = new Size(712, 475);
             dgvProfExp.TabIndex = 71;
             dgvProfExp.SelectionChanged += dgvProfExp_SelectionChanged;
             // 
             // JobTitle
             // 
             JobTitle.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            JobTitle.HeaderText = "JobTitle";
+            JobTitle.HeaderText = "Job Title";
             JobTitle.MinimumWidth = 6;
             JobTitle.Name = "JobTitle";
-            JobTitle.Width = 102;
+            JobTitle.Width = 118;
             // 
             // Company
             // 
@@ -252,7 +266,7 @@
             Company.HeaderText = "Company";
             Company.MinimumWidth = 6;
             Company.Name = "Company";
-            Company.Width = 121;
+            Company.Width = 138;
             // 
             // Location
             // 
@@ -260,7 +274,7 @@
             Location.HeaderText = "Location";
             Location.MinimumWidth = 6;
             Location.Name = "Location";
-            Location.Width = 112;
+            Location.Width = 123;
             // 
             // Duration
             // 
@@ -268,7 +282,7 @@
             Duration.HeaderText = "Duration";
             Duration.MinimumWidth = 6;
             Duration.Name = "Duration";
-            Duration.Width = 110;
+            Duration.Width = 121;
             // 
             // Achievement
             // 
@@ -276,7 +290,7 @@
             Achievement.HeaderText = "Achievement";
             Achievement.MinimumWidth = 6;
             Achievement.Name = "Achievement";
-            Achievement.Width = 152;
+            Achievement.Width = 172;
             // 
             // panel23
             // 
@@ -284,7 +298,7 @@
             panel23.Dock = DockStyle.Top;
             panel23.Location = new Point(10, 10);
             panel23.Name = "panel23";
-            panel23.Size = new Size(689, 40);
+            panel23.Size = new Size(712, 39);
             panel23.TabIndex = 70;
             // 
             // label31
@@ -302,9 +316,9 @@
             // panel7
             // 
             panel7.Dock = DockStyle.Left;
-            panel7.Location = new Point(756, 0);
+            panel7.Location = new Point(750, 0);
             panel7.Name = "panel7";
-            panel7.Size = new Size(27, 544);
+            panel7.Size = new Size(10, 544);
             panel7.TabIndex = 43;
             // 
             // panel20
@@ -318,7 +332,7 @@
             panel20.Location = new Point(0, 0);
             panel20.Name = "panel20";
             panel20.Padding = new Padding(10);
-            panel20.Size = new Size(756, 544);
+            panel20.Size = new Size(750, 544);
             panel20.TabIndex = 42;
             // 
             // tableLayoutPanel7
@@ -329,12 +343,12 @@
             tableLayoutPanel7.Controls.Add(addResponbilityBtn, 0, 0);
             tableLayoutPanel7.Controls.Add(removeResponsibilityBtn, 1, 0);
             tableLayoutPanel7.Dock = DockStyle.Top;
-            tableLayoutPanel7.Location = new Point(10, 447);
+            tableLayoutPanel7.Location = new Point(10, 452);
             tableLayoutPanel7.Name = "tableLayoutPanel7";
             tableLayoutPanel7.Padding = new Padding(10);
             tableLayoutPanel7.RowCount = 1;
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel7.Size = new Size(736, 78);
+            tableLayoutPanel7.Size = new Size(730, 78);
             tableLayoutPanel7.TabIndex = 73;
             // 
             // addResponbilityBtn
@@ -349,7 +363,7 @@
             addResponbilityBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             addResponbilityBtn.Location = new Point(13, 13);
             addResponbilityBtn.Name = "addResponbilityBtn";
-            addResponbilityBtn.Size = new Size(345, 52);
+            addResponbilityBtn.Size = new Size(342, 52);
             addResponbilityBtn.TabIndex = 1;
             addResponbilityBtn.Text = "Add Responsibility";
             addResponbilityBtn.UseVisualStyleBackColor = false;
@@ -365,9 +379,9 @@
             removeResponsibilityBtn.IconChar = FontAwesome.Sharp.IconChar.None;
             removeResponsibilityBtn.IconColor = Color.Black;
             removeResponsibilityBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            removeResponsibilityBtn.Location = new Point(364, 13);
+            removeResponsibilityBtn.Location = new Point(361, 13);
             removeResponsibilityBtn.Name = "removeResponsibilityBtn";
-            removeResponsibilityBtn.Size = new Size(359, 52);
+            removeResponsibilityBtn.Size = new Size(356, 52);
             removeResponsibilityBtn.TabIndex = 35;
             removeResponsibilityBtn.Text = "Remove Responsibility";
             removeResponsibilityBtn.UseVisualStyleBackColor = false;
@@ -381,11 +395,11 @@
             tableLayoutPanel3.Controls.Add(label1, 0, 0);
             tableLayoutPanel3.Controls.Add(responsibilityTbx, 1, 0);
             tableLayoutPanel3.Dock = DockStyle.Top;
-            tableLayoutPanel3.Location = new Point(10, 385);
+            tableLayoutPanel3.Location = new Point(10, 390);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Size = new Size(736, 62);
+            tableLayoutPanel3.Size = new Size(730, 62);
             tableLayoutPanel3.TabIndex = 72;
             // 
             // label1
@@ -403,9 +417,9 @@
             // 
             responsibilityTbx.Dock = DockStyle.Fill;
             responsibilityTbx.Font = new Font("Century Gothic", 13.8F);
-            responsibilityTbx.Location = new Point(259, 3);
+            responsibilityTbx.Location = new Point(256, 3);
             responsibilityTbx.Name = "responsibilityTbx";
-            responsibilityTbx.Size = new Size(474, 36);
+            responsibilityTbx.Size = new Size(471, 36);
             responsibilityTbx.TabIndex = 74;
             // 
             // panel9
@@ -413,9 +427,9 @@
             panel9.Controls.Add(warningResponsibilityLbl);
             panel9.Controls.Add(warningJobLbl);
             panel9.Dock = DockStyle.Top;
-            panel9.Location = new Point(10, 346);
+            panel9.Location = new Point(10, 370);
             panel9.Name = "panel9";
-            panel9.Size = new Size(736, 39);
+            panel9.Size = new Size(730, 20);
             panel9.TabIndex = 71;
             // 
             // warningResponsibilityLbl
@@ -424,7 +438,7 @@
             warningResponsibilityLbl.Dock = DockStyle.Right;
             warningResponsibilityLbl.Font = new Font("Century Gothic", 13.8F);
             warningResponsibilityLbl.ForeColor = Color.White;
-            warningResponsibilityLbl.Location = new Point(736, 0);
+            warningResponsibilityLbl.Location = new Point(730, 0);
             warningResponsibilityLbl.Name = "warningResponsibilityLbl";
             warningResponsibilityLbl.Size = new Size(0, 27);
             warningResponsibilityLbl.TabIndex = 36;
@@ -448,12 +462,12 @@
             tableLayoutPanel14.Controls.Add(btnAddExp, 0, 0);
             tableLayoutPanel14.Controls.Add(btnRemoveExp, 1, 0);
             tableLayoutPanel14.Dock = DockStyle.Top;
-            tableLayoutPanel14.Location = new Point(10, 268);
+            tableLayoutPanel14.Location = new Point(10, 292);
             tableLayoutPanel14.Name = "tableLayoutPanel14";
             tableLayoutPanel14.Padding = new Padding(10);
             tableLayoutPanel14.RowCount = 1;
             tableLayoutPanel14.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel14.Size = new Size(736, 78);
+            tableLayoutPanel14.Size = new Size(730, 78);
             tableLayoutPanel14.TabIndex = 68;
             // 
             // btnAddExp
@@ -468,7 +482,7 @@
             btnAddExp.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnAddExp.Location = new Point(13, 13);
             btnAddExp.Name = "btnAddExp";
-            btnAddExp.Size = new Size(345, 52);
+            btnAddExp.Size = new Size(342, 52);
             btnAddExp.TabIndex = 1;
             btnAddExp.Text = "Add Experience";
             btnAddExp.UseVisualStyleBackColor = false;
@@ -484,9 +498,9 @@
             btnRemoveExp.IconChar = FontAwesome.Sharp.IconChar.None;
             btnRemoveExp.IconColor = Color.Black;
             btnRemoveExp.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnRemoveExp.Location = new Point(364, 13);
+            btnRemoveExp.Location = new Point(361, 13);
             btnRemoveExp.Name = "btnRemoveExp";
-            btnRemoveExp.Size = new Size(359, 52);
+            btnRemoveExp.Size = new Size(356, 52);
             btnRemoveExp.TabIndex = 35;
             btnRemoveExp.Text = "Remove Experience";
             btnRemoveExp.UseVisualStyleBackColor = false;
@@ -496,9 +510,9 @@
             // 
             tableLayoutPanel13.ColumnCount = 2;
             tableLayoutPanel13.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel13.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 544F));
-            tableLayoutPanel13.Controls.Add(label32, 0, 4);
+            tableLayoutPanel13.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 540F));
             tableLayoutPanel13.Controls.Add(achievementTbx, 1, 4);
+            tableLayoutPanel13.Controls.Add(label32, 0, 4);
             tableLayoutPanel13.Controls.Add(label14, 0, 3);
             tableLayoutPanel13.Controls.Add(label25, 0, 2);
             tableLayoutPanel13.Controls.Add(label26, 0, 1);
@@ -511,40 +525,40 @@
             tableLayoutPanel13.Location = new Point(10, 10);
             tableLayoutPanel13.Name = "tableLayoutPanel13";
             tableLayoutPanel13.RowCount = 5;
-            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel13.Size = new Size(736, 258);
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 17.0212765F));
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 19.1489353F));
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 18.7943268F));
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 18.0851059F));
+            tableLayoutPanel13.RowStyles.Add(new RowStyle(SizeType.Percent, 26.9503555F));
+            tableLayoutPanel13.Size = new Size(730, 282);
             tableLayoutPanel13.TabIndex = 41;
+            // 
+            // achievementTbx
+            // 
+            achievementTbx.Dock = DockStyle.Fill;
+            achievementTbx.Location = new Point(193, 209);
+            achievementTbx.Name = "achievementTbx";
+            achievementTbx.Size = new Size(534, 70);
+            achievementTbx.TabIndex = 37;
+            achievementTbx.Text = "";
             // 
             // label32
             // 
             label32.AutoSize = true;
             label32.Font = new Font("Century Gothic", 13.8F);
             label32.ForeColor = Color.White;
-            label32.Location = new Point(3, 204);
+            label32.Location = new Point(3, 206);
             label32.Name = "label32";
             label32.Size = new Size(168, 27);
             label32.TabIndex = 45;
             label32.Text = "Achievement";
-            // 
-            // achievementTbx
-            // 
-            achievementTbx.Dock = DockStyle.Fill;
-            achievementTbx.Font = new Font("Century Gothic", 13.8F);
-            achievementTbx.Location = new Point(195, 207);
-            achievementTbx.Name = "achievementTbx";
-            achievementTbx.Size = new Size(538, 36);
-            achievementTbx.TabIndex = 44;
             // 
             // label14
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Century Gothic", 13.8F);
             label14.ForeColor = Color.White;
-            label14.Location = new Point(3, 153);
+            label14.Location = new Point(3, 155);
             label14.Name = "label14";
             label14.Size = new Size(109, 27);
             label14.TabIndex = 43;
@@ -566,7 +580,7 @@
             label26.AutoSize = true;
             label26.Font = new Font("Century Gothic", 13.8F);
             label26.ForeColor = Color.White;
-            label26.Location = new Point(3, 51);
+            label26.Location = new Point(3, 48);
             label26.Name = "label26";
             label26.Size = new Size(127, 27);
             label26.TabIndex = 41;
@@ -576,9 +590,9 @@
             // 
             jobTitleTbx.Dock = DockStyle.Fill;
             jobTitleTbx.Font = new Font("Century Gothic", 13.8F);
-            jobTitleTbx.Location = new Point(195, 3);
+            jobTitleTbx.Location = new Point(193, 3);
             jobTitleTbx.Name = "jobTitleTbx";
-            jobTitleTbx.Size = new Size(538, 36);
+            jobTitleTbx.Size = new Size(534, 36);
             jobTitleTbx.TabIndex = 40;
             // 
             // label27
@@ -596,27 +610,27 @@
             // 
             companyTbx.Dock = DockStyle.Fill;
             companyTbx.Font = new Font("Century Gothic", 13.8F);
-            companyTbx.Location = new Point(195, 54);
+            companyTbx.Location = new Point(193, 51);
             companyTbx.Name = "companyTbx";
-            companyTbx.Size = new Size(538, 36);
+            companyTbx.Size = new Size(534, 36);
             companyTbx.TabIndex = 36;
             // 
             // locationExpTbx
             // 
             locationExpTbx.Dock = DockStyle.Fill;
             locationExpTbx.Font = new Font("Century Gothic", 13.8F);
-            locationExpTbx.Location = new Point(195, 105);
+            locationExpTbx.Location = new Point(193, 105);
             locationExpTbx.Name = "locationExpTbx";
-            locationExpTbx.Size = new Size(538, 36);
+            locationExpTbx.Size = new Size(534, 36);
             locationExpTbx.TabIndex = 37;
             // 
             // durationTbx
             // 
             durationTbx.Dock = DockStyle.Fill;
             durationTbx.Font = new Font("Century Gothic", 13.8F);
-            durationTbx.Location = new Point(195, 156);
+            durationTbx.Location = new Point(193, 158);
             durationTbx.Name = "durationTbx";
-            durationTbx.Size = new Size(538, 36);
+            durationTbx.Size = new Size(534, 36);
             durationTbx.TabIndex = 38;
             // 
             // panel8
@@ -674,10 +688,10 @@
             panel16.Controls.Add(panel22);
             panel16.Controls.Add(tableLayoutPanel11);
             panel16.Dock = DockStyle.Left;
-            panel16.Location = new Point(721, 0);
+            panel16.Location = new Point(955, 0);
             panel16.Name = "panel16";
             panel16.Padding = new Padding(10);
-            panel16.Size = new Size(667, 544);
+            panel16.Size = new Size(449, 544);
             panel16.TabIndex = 41;
             // 
             // tableLayoutPanel5
@@ -693,7 +707,7 @@
             tableLayoutPanel5.Padding = new Padding(10);
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel5.Size = new Size(647, 78);
+            tableLayoutPanel5.Size = new Size(429, 78);
             tableLayoutPanel5.TabIndex = 56;
             // 
             // btnLangAdd
@@ -708,9 +722,9 @@
             btnLangAdd.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnLangAdd.Location = new Point(13, 13);
             btnLangAdd.Name = "btnLangAdd";
-            btnLangAdd.Size = new Size(301, 52);
+            btnLangAdd.Size = new Size(194, 52);
             btnLangAdd.TabIndex = 1;
-            btnLangAdd.Text = "Add Language";
+            btnLangAdd.Text = "Add";
             btnLangAdd.UseVisualStyleBackColor = false;
             btnLangAdd.Click += btnLangAdd_Click;
             // 
@@ -724,11 +738,11 @@
             btnLangRemove.IconChar = FontAwesome.Sharp.IconChar.None;
             btnLangRemove.IconColor = Color.Black;
             btnLangRemove.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnLangRemove.Location = new Point(320, 13);
+            btnLangRemove.Location = new Point(213, 13);
             btnLangRemove.Name = "btnLangRemove";
-            btnLangRemove.Size = new Size(314, 52);
+            btnLangRemove.Size = new Size(203, 52);
             btnLangRemove.TabIndex = 35;
-            btnLangRemove.Text = "Remove Language";
+            btnLangRemove.Text = "Remove\r\n";
             btnLangRemove.UseVisualStyleBackColor = false;
             btnLangRemove.Click += btnLangRemove_Click;
             // 
@@ -740,7 +754,7 @@
             languageLstBx.ItemHeight = 21;
             languageLstBx.Location = new Point(10, 124);
             languageLstBx.Name = "languageLstBx";
-            languageLstBx.Size = new Size(647, 109);
+            languageLstBx.Size = new Size(429, 109);
             languageLstBx.TabIndex = 55;
             // 
             // panel22
@@ -749,7 +763,7 @@
             panel22.Dock = DockStyle.Top;
             panel22.Location = new Point(10, 78);
             panel22.Name = "panel22";
-            panel22.Size = new Size(647, 46);
+            panel22.Size = new Size(429, 46);
             panel22.TabIndex = 54;
             // 
             // label29
@@ -768,7 +782,7 @@
             // 
             tableLayoutPanel11.ColumnCount = 2;
             tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 432F));
+            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 261F));
             tableLayoutPanel11.Controls.Add(languageTbx, 1, 0);
             tableLayoutPanel11.Controls.Add(label28, 0, 0);
             tableLayoutPanel11.Dock = DockStyle.Top;
@@ -776,16 +790,16 @@
             tableLayoutPanel11.Name = "tableLayoutPanel11";
             tableLayoutPanel11.RowCount = 1;
             tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 18.70229F));
-            tableLayoutPanel11.Size = new Size(647, 68);
+            tableLayoutPanel11.Size = new Size(429, 68);
             tableLayoutPanel11.TabIndex = 41;
             // 
             // languageTbx
             // 
             languageTbx.Dock = DockStyle.Fill;
             languageTbx.Font = new Font("Century Gothic", 13.8F);
-            languageTbx.Location = new Point(218, 3);
+            languageTbx.Location = new Point(171, 3);
             languageTbx.Name = "languageTbx";
-            languageTbx.Size = new Size(426, 36);
+            languageTbx.Size = new Size(255, 36);
             languageTbx.TabIndex = 40;
             // 
             // label28
@@ -802,64 +816,24 @@
             // panel19
             // 
             panel19.Dock = DockStyle.Left;
-            panel19.Location = new Point(663, 0);
+            panel19.Location = new Point(852, 0);
             panel19.Name = "panel19";
-            panel19.Size = new Size(58, 544);
+            panel19.Size = new Size(103, 544);
             panel19.TabIndex = 40;
             // 
             // panel17
             // 
-            panel17.Controls.Add(dgvEducation);
             panel17.Controls.Add(tableLayoutPanel10);
-            panel17.Controls.Add(panel21);
             panel17.Controls.Add(tableLayoutPanel6);
+            panel17.Controls.Add(panel11);
+            panel17.Controls.Add(dgvEducation);
+            panel17.Controls.Add(panel21);
             panel17.Dock = DockStyle.Left;
             panel17.Location = new Point(0, 0);
             panel17.Name = "panel17";
-            panel17.Padding = new Padding(10);
-            panel17.Size = new Size(663, 544);
+            panel17.Padding = new Padding(5);
+            panel17.Size = new Size(852, 544);
             panel17.TabIndex = 38;
-            // 
-            // dgvEducation
-            // 
-            dgvEducation.BackgroundColor = Color.FromArgb(216, 225, 233);
-            dgvEducation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEducation.Columns.AddRange(new DataGridViewColumn[] { Degree, School, Location_Educ, Year });
-            dgvEducation.Dock = DockStyle.Top;
-            dgvEducation.Location = new Point(10, 372);
-            dgvEducation.Name = "dgvEducation";
-            dgvEducation.RowHeadersWidth = 51;
-            dgvEducation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEducation.Size = new Size(643, 133);
-            dgvEducation.TabIndex = 57;
-            // 
-            // Degree
-            // 
-            Degree.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Degree.HeaderText = "Degree";
-            Degree.MinimumWidth = 6;
-            Degree.Name = "Degree";
-            // 
-            // School
-            // 
-            School.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            School.HeaderText = "School";
-            School.MinimumWidth = 6;
-            School.Name = "School";
-            // 
-            // Location_Educ
-            // 
-            Location_Educ.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Location_Educ.HeaderText = "Location";
-            Location_Educ.MinimumWidth = 6;
-            Location_Educ.Name = "Location_Educ";
-            // 
-            // Year
-            // 
-            Year.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Year.HeaderText = "Year";
-            Year.MinimumWidth = 6;
-            Year.Name = "Year";
             // 
             // tableLayoutPanel10
             // 
@@ -869,13 +843,13 @@
             tableLayoutPanel10.Controls.Add(btnAddEduc, 0, 0);
             tableLayoutPanel10.Controls.Add(btnRemoveEduc, 1, 0);
             tableLayoutPanel10.Dock = DockStyle.Top;
-            tableLayoutPanel10.Location = new Point(10, 294);
+            tableLayoutPanel10.Location = new Point(5, 439);
             tableLayoutPanel10.Name = "tableLayoutPanel10";
             tableLayoutPanel10.Padding = new Padding(10);
             tableLayoutPanel10.RowCount = 1;
             tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel10.Size = new Size(643, 78);
-            tableLayoutPanel10.TabIndex = 55;
+            tableLayoutPanel10.Size = new Size(842, 78);
+            tableLayoutPanel10.TabIndex = 59;
             // 
             // btnAddEduc
             // 
@@ -889,11 +863,10 @@
             btnAddEduc.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnAddEduc.Location = new Point(13, 13);
             btnAddEduc.Name = "btnAddEduc";
-            btnAddEduc.Size = new Size(300, 52);
+            btnAddEduc.Size = new Size(397, 52);
             btnAddEduc.TabIndex = 1;
             btnAddEduc.Text = "Add Education";
             btnAddEduc.UseVisualStyleBackColor = false;
-            btnAddEduc.Click += btnAddEduc_Click;
             // 
             // btnRemoveEduc
             // 
@@ -905,52 +878,18 @@
             btnRemoveEduc.IconChar = FontAwesome.Sharp.IconChar.None;
             btnRemoveEduc.IconColor = Color.Black;
             btnRemoveEduc.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            btnRemoveEduc.Location = new Point(319, 13);
+            btnRemoveEduc.Location = new Point(416, 13);
             btnRemoveEduc.Name = "btnRemoveEduc";
-            btnRemoveEduc.Size = new Size(311, 52);
+            btnRemoveEduc.Size = new Size(413, 52);
             btnRemoveEduc.TabIndex = 35;
             btnRemoveEduc.Text = "Remove Education";
             btnRemoveEduc.UseVisualStyleBackColor = false;
-            btnRemoveEduc.Click += btnRemoveEduc_Click;
-            // 
-            // panel21
-            // 
-            panel21.Controls.Add(warningLbl);
-            panel21.Controls.Add(label30);
-            panel21.Dock = DockStyle.Top;
-            panel21.Location = new Point(10, 248);
-            panel21.Name = "panel21";
-            panel21.Size = new Size(643, 46);
-            panel21.TabIndex = 53;
-            // 
-            // warningLbl
-            // 
-            warningLbl.AutoSize = true;
-            warningLbl.Dock = DockStyle.Right;
-            warningLbl.Font = new Font("Century Gothic", 13.8F);
-            warningLbl.ForeColor = Color.White;
-            warningLbl.Location = new Point(643, 0);
-            warningLbl.Name = "warningLbl";
-            warningLbl.Size = new Size(0, 27);
-            warningLbl.TabIndex = 50;
-            // 
-            // label30
-            // 
-            label30.AutoSize = true;
-            label30.Dock = DockStyle.Left;
-            label30.Font = new Font("Century Gothic", 13.8F);
-            label30.ForeColor = Color.White;
-            label30.Location = new Point(0, 0);
-            label30.Name = "label30";
-            label30.Size = new Size(184, 27);
-            label30.TabIndex = 49;
-            label30.Text = "Your Education";
             // 
             // tableLayoutPanel6
             // 
             tableLayoutPanel6.ColumnCount = 2;
             tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 490F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 658F));
             tableLayoutPanel6.Controls.Add(label24, 0, 3);
             tableLayoutPanel6.Controls.Add(label23, 0, 2);
             tableLayoutPanel6.Controls.Add(label16, 0, 1);
@@ -960,15 +899,15 @@
             tableLayoutPanel6.Controls.Add(locationTbx, 1, 2);
             tableLayoutPanel6.Controls.Add(yearTbx, 1, 3);
             tableLayoutPanel6.Dock = DockStyle.Top;
-            tableLayoutPanel6.Location = new Point(10, 10);
+            tableLayoutPanel6.Location = new Point(5, 201);
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 4;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 18.70229F));
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 20.2290077F));
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 20.9923668F));
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 19.08397F));
-            tableLayoutPanel6.Size = new Size(643, 238);
-            tableLayoutPanel6.TabIndex = 41;
+            tableLayoutPanel6.Size = new Size(842, 238);
+            tableLayoutPanel6.TabIndex = 58;
             // 
             // label24
             // 
@@ -1007,9 +946,9 @@
             // 
             degreeTbx.Dock = DockStyle.Fill;
             degreeTbx.Font = new Font("Century Gothic", 13.8F);
-            degreeTbx.Location = new Point(156, 3);
+            degreeTbx.Location = new Point(187, 3);
             degreeTbx.Name = "degreeTbx";
-            degreeTbx.Size = new Size(484, 36);
+            degreeTbx.Size = new Size(652, 36);
             degreeTbx.TabIndex = 40;
             // 
             // label17
@@ -1027,28 +966,110 @@
             // 
             schoolTbx.Dock = DockStyle.Fill;
             schoolTbx.Font = new Font("Century Gothic", 13.8F);
-            schoolTbx.Location = new Point(156, 59);
+            schoolTbx.Location = new Point(187, 59);
             schoolTbx.Name = "schoolTbx";
-            schoolTbx.Size = new Size(484, 36);
+            schoolTbx.Size = new Size(652, 36);
             schoolTbx.TabIndex = 36;
             // 
             // locationTbx
             // 
             locationTbx.Dock = DockStyle.Fill;
             locationTbx.Font = new Font("Century Gothic", 13.8F);
-            locationTbx.Location = new Point(156, 119);
+            locationTbx.Location = new Point(187, 119);
             locationTbx.Name = "locationTbx";
-            locationTbx.Size = new Size(484, 36);
+            locationTbx.Size = new Size(652, 36);
             locationTbx.TabIndex = 37;
             // 
             // yearTbx
             // 
             yearTbx.Dock = DockStyle.Fill;
             yearTbx.Font = new Font("Century Gothic", 13.8F);
-            yearTbx.Location = new Point(156, 182);
+            yearTbx.Location = new Point(187, 182);
             yearTbx.Name = "yearTbx";
-            yearTbx.Size = new Size(484, 36);
+            yearTbx.Size = new Size(652, 36);
             yearTbx.TabIndex = 38;
+            // 
+            // panel11
+            // 
+            panel11.Dock = DockStyle.Top;
+            panel11.Location = new Point(5, 178);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(842, 23);
+            panel11.TabIndex = 0;
+            // 
+            // dgvEducation
+            // 
+            dgvEducation.BackgroundColor = Color.FromArgb(216, 225, 233);
+            dgvEducation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEducation.Columns.AddRange(new DataGridViewColumn[] { Degree, School, Location_Educ, Year });
+            dgvEducation.Dock = DockStyle.Top;
+            dgvEducation.Location = new Point(5, 45);
+            dgvEducation.Name = "dgvEducation";
+            dgvEducation.RowHeadersWidth = 51;
+            dgvEducation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvEducation.Size = new Size(842, 133);
+            dgvEducation.TabIndex = 57;
+            // 
+            // Degree
+            // 
+            Degree.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Degree.HeaderText = "Degree";
+            Degree.MinimumWidth = 6;
+            Degree.Name = "Degree";
+            // 
+            // School
+            // 
+            School.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            School.HeaderText = "School";
+            School.MinimumWidth = 6;
+            School.Name = "School";
+            // 
+            // Location_Educ
+            // 
+            Location_Educ.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Location_Educ.HeaderText = "Location";
+            Location_Educ.MinimumWidth = 6;
+            Location_Educ.Name = "Location_Educ";
+            // 
+            // Year
+            // 
+            Year.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Year.HeaderText = "Year";
+            Year.MinimumWidth = 6;
+            Year.Name = "Year";
+            // 
+            // panel21
+            // 
+            panel21.Controls.Add(warningLbl);
+            panel21.Controls.Add(label30);
+            panel21.Dock = DockStyle.Top;
+            panel21.Location = new Point(5, 5);
+            panel21.Name = "panel21";
+            panel21.Size = new Size(842, 40);
+            panel21.TabIndex = 53;
+            // 
+            // warningLbl
+            // 
+            warningLbl.AutoSize = true;
+            warningLbl.Dock = DockStyle.Right;
+            warningLbl.Font = new Font("Century Gothic", 13.8F);
+            warningLbl.ForeColor = Color.White;
+            warningLbl.Location = new Point(842, 0);
+            warningLbl.Name = "warningLbl";
+            warningLbl.Size = new Size(0, 27);
+            warningLbl.TabIndex = 50;
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Dock = DockStyle.Left;
+            label30.Font = new Font("Century Gothic", 13.8F);
+            label30.ForeColor = Color.White;
+            label30.Location = new Point(0, 0);
+            label30.Name = "label30";
+            label30.Size = new Size(184, 27);
+            label30.TabIndex = 49;
+            label30.Text = "Your Education";
             // 
             // panel14
             // 
@@ -1722,12 +1743,12 @@
             tableLayoutPanel11.ResumeLayout(false);
             tableLayoutPanel11.PerformLayout();
             panel17.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvEducation).EndInit();
             tableLayoutPanel10.ResumeLayout(false);
-            panel21.ResumeLayout(false);
-            panel21.PerformLayout();
             tableLayoutPanel6.ResumeLayout(false);
             tableLayoutPanel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvEducation).EndInit();
+            panel21.ResumeLayout(false);
+            panel21.PerformLayout();
             panel14.ResumeLayout(false);
             panel14.PerformLayout();
             tabSkills.ResumeLayout(false);
@@ -1767,7 +1788,6 @@
         private FontAwesome.Sharp.IconButton btnRemoveExp;
         private TableLayoutPanel tableLayoutPanel13;
         private Label label32;
-        private TextBox achievementTbx;
         private Label label14;
         private Label label25;
         private Label label26;
@@ -1792,20 +1812,6 @@
         private Label label28;
         private Panel panel19;
         private Panel panel17;
-        private TableLayoutPanel tableLayoutPanel10;
-        private FontAwesome.Sharp.IconButton btnAddEduc;
-        private FontAwesome.Sharp.IconButton btnRemoveEduc;
-        private Panel panel21;
-        private Label label30;
-        private TableLayoutPanel tableLayoutPanel6;
-        private Label label24;
-        private Label label23;
-        private Label label16;
-        private TextBox degreeTbx;
-        private Label label17;
-        private TextBox schoolTbx;
-        private TextBox locationTbx;
-        private TextBox yearTbx;
         private Panel panel14;
         private Label label15;
         private TabPage tabSkills;
@@ -1846,8 +1852,6 @@
         private Label label1;
         private TextBox responsibilityTbx;
         private Panel panel9;
-        private DataGridView dgvEducation;
-        private Label warningLbl;
         private Label warningJobLbl;
         private Label warningResponsibilityLbl;
         private Panel coreSkillPanel;
@@ -1866,10 +1870,28 @@
         private TextBox techSkillTbx;
         private ListBox techSkillsLstBx;
         private Panel panel24;
+        private DataGridView dgvEducation;
         private DataGridViewTextBoxColumn Degree;
         private DataGridViewTextBoxColumn School;
         private DataGridViewTextBoxColumn Location_Educ;
         private DataGridViewTextBoxColumn Year;
+        private Panel panel21;
+        private Label warningLbl;
+        private Label label30;
+        private TableLayoutPanel tableLayoutPanel10;
+        private FontAwesome.Sharp.IconButton btnAddEduc;
+        private FontAwesome.Sharp.IconButton btnRemoveEduc;
+        private TableLayoutPanel tableLayoutPanel6;
+        private Label label24;
+        private Label label23;
+        private Label label16;
+        private TextBox degreeTbx;
+        private Label label17;
+        private TextBox schoolTbx;
+        private TextBox locationTbx;
+        private TextBox yearTbx;
+        private Panel panel11;
+        private RichTextBox achievementTbx;
         private DataGridViewTextBoxColumn JobTitle;
         private DataGridViewTextBoxColumn Company;
         private DataGridViewTextBoxColumn Location;

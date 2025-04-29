@@ -135,9 +135,8 @@
             panel11 = new Panel();
             licenseDgv = new DataGridView();
             LiscenseType = new DataGridViewTextBoxColumn();
-            InitialLiscenseDate = new DataGridViewTextBoxColumn();
+            AdmissionDate = new DataGridViewTextBoxColumn();
             LiscenseNo = new DataGridViewTextBoxColumn();
-            ExpiryDate = new DataGridViewTextBoxColumn();
             panel21 = new Panel();
             label30 = new Label();
             panel24 = new Panel();
@@ -146,9 +145,7 @@
             removeLiscenseBtn = new FontAwesome.Sharp.IconButton();
             tableLayoutPanel8 = new TableLayoutPanel();
             licenseTypeCbx = new ComboBox();
-            expiryDatePicker = new DateTimePicker();
-            initialLicenseDatePicker = new DateTimePicker();
-            label20 = new Label();
+            admissionDatePicker = new DateTimePicker();
             label21 = new Label();
             label28 = new Label();
             label29 = new Label();
@@ -661,7 +658,7 @@
             btnRemoveTechSkilln4.Name = "btnRemoveTechSkilln4";
             btnRemoveTechSkilln4.Size = new Size(339, 49);
             btnRemoveTechSkilln4.TabIndex = 36;
-            btnRemoveTechSkilln4.Text = "Remove Medical Tech Skill";
+            btnRemoveTechSkilln4.Text = "Remove Legal Skill";
             btnRemoveTechSkilln4.UseVisualStyleBackColor = false;
             btnRemoveTechSkilln4.Click += btnRemoveTechSkilln4_Click;
             // 
@@ -678,7 +675,7 @@
             btnAddTechSkill.Name = "btnAddTechSkill";
             btnAddTechSkill.Size = new Size(339, 45);
             btnAddTechSkill.TabIndex = 35;
-            btnAddTechSkill.Text = "Add Medical Tech Skill";
+            btnAddTechSkill.Text = "Add Legal Tech Skill";
             btnAddTechSkill.UseVisualStyleBackColor = false;
             btnAddTechSkill.Click += btnAddTechSkill_Click;
             // 
@@ -769,7 +766,7 @@
             btnRemoveCoreSkill.Name = "btnRemoveCoreSkill";
             btnRemoveCoreSkill.Size = new Size(344, 49);
             btnRemoveCoreSkill.TabIndex = 35;
-            btnRemoveCoreSkill.Text = "Remove Clinical Skill";
+            btnRemoveCoreSkill.Text = "Remove Core Skill";
             btnRemoveCoreSkill.UseVisualStyleBackColor = false;
             btnRemoveCoreSkill.Click += btnRemoveCoreSkill_Click;
             // 
@@ -797,7 +794,7 @@
             btnAddCoreSkill.Name = "btnAddCoreSkill";
             btnAddCoreSkill.Size = new Size(344, 46);
             btnAddCoreSkill.TabIndex = 1;
-            btnAddCoreSkill.Text = "Add Clinical Skill";
+            btnAddCoreSkill.Text = "Add Core Skill";
             btnAddCoreSkill.UseVisualStyleBackColor = false;
             btnAddCoreSkill.Click += btnAddCoreSkill_Click;
             // 
@@ -1529,7 +1526,7 @@
             licenseDgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             licenseDgv.BackgroundColor = Color.FromArgb(216, 225, 233);
             licenseDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            licenseDgv.Columns.AddRange(new DataGridViewColumn[] { LiscenseType, InitialLiscenseDate, LiscenseNo, ExpiryDate });
+            licenseDgv.Columns.AddRange(new DataGridViewColumn[] { LiscenseType, AdmissionDate, LiscenseNo });
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = SystemColors.Window;
             dataGridViewCellStyle3.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -1556,14 +1553,14 @@
             LiscenseType.ReadOnly = true;
             LiscenseType.Width = 132;
             // 
-            // InitialLiscenseDate
+            // AdmissionDate
             // 
-            InitialLiscenseDate.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            InitialLiscenseDate.HeaderText = "Initial License Date";
-            InitialLiscenseDate.MinimumWidth = 6;
-            InitialLiscenseDate.Name = "InitialLiscenseDate";
-            InitialLiscenseDate.ReadOnly = true;
-            InitialLiscenseDate.Width = 179;
+            AdmissionDate.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            AdmissionDate.HeaderText = "Admission Date";
+            AdmissionDate.MinimumWidth = 6;
+            AdmissionDate.Name = "AdmissionDate";
+            AdmissionDate.ReadOnly = true;
+            AdmissionDate.Width = 154;
             // 
             // LiscenseNo
             // 
@@ -1573,15 +1570,6 @@
             LiscenseNo.Name = "LiscenseNo";
             LiscenseNo.ReadOnly = true;
             LiscenseNo.Width = 119;
-            // 
-            // ExpiryDate
-            // 
-            ExpiryDate.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            ExpiryDate.HeaderText = "Expiry Date";
-            ExpiryDate.MinimumWidth = 6;
-            ExpiryDate.Name = "ExpiryDate";
-            ExpiryDate.ReadOnly = true;
-            ExpiryDate.Width = 121;
             // 
             // panel21
             // 
@@ -1623,7 +1611,7 @@
             tableLayoutPanel5.Controls.Add(addLiscenseBtn, 0, 0);
             tableLayoutPanel5.Controls.Add(removeLiscenseBtn, 1, 0);
             tableLayoutPanel5.Dock = DockStyle.Top;
-            tableLayoutPanel5.Location = new Point(10, 289);
+            tableLayoutPanel5.Location = new Point(10, 221);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.Padding = new Padding(10);
             tableLayoutPanel5.RowCount = 1;
@@ -1673,9 +1661,7 @@
             tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 407F));
             tableLayoutPanel8.Controls.Add(licenseTypeCbx, 1, 0);
-            tableLayoutPanel8.Controls.Add(expiryDatePicker, 1, 3);
-            tableLayoutPanel8.Controls.Add(initialLicenseDatePicker, 1, 1);
-            tableLayoutPanel8.Controls.Add(label20, 0, 3);
+            tableLayoutPanel8.Controls.Add(admissionDatePicker, 1, 1);
             tableLayoutPanel8.Controls.Add(label21, 0, 2);
             tableLayoutPanel8.Controls.Add(label28, 0, 1);
             tableLayoutPanel8.Controls.Add(label29, 0, 0);
@@ -1683,12 +1669,11 @@
             tableLayoutPanel8.Dock = DockStyle.Top;
             tableLayoutPanel8.Location = new Point(10, 10);
             tableLayoutPanel8.Name = "tableLayoutPanel8";
-            tableLayoutPanel8.RowCount = 4;
+            tableLayoutPanel8.RowCount = 3;
             tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 23.5294113F));
             tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 28.15126F));
             tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 22.9838715F));
-            tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 25.8064518F));
-            tableLayoutPanel8.Size = new Size(714, 279);
+            tableLayoutPanel8.Size = new Size(714, 211);
             tableLayoutPanel8.TabIndex = 41;
             // 
             // licenseTypeCbx
@@ -1698,48 +1683,28 @@
             licenseTypeCbx.Dock = DockStyle.Top;
             licenseTypeCbx.Font = new Font("Century Gothic", 13.8F);
             licenseTypeCbx.FormattingEnabled = true;
-            licenseTypeCbx.Items.AddRange(new object[] { "Advanced Cardiac Life Support (ACLS)", "ATLS (Advanced Trauma Life Support)", "Basic Life Support (BLS)", "Board Certification – Internal Medicine", "Board Certification – Pediatrics", "Board Certification – Surgery", "CPR Certification", "DEA Registration", "Doctor of Osteopathic Medicine (DO)", "Medical Doctor (MD)", "Other", "PALS (Pediatric Advanced Life Support)", "State Medical License" });
+            licenseTypeCbx.Items.AddRange(new object[] { "Shari'a Lawyer Certification (Shari'a Counselor)", "Standard Attorney License (Attorney-at-Law)" });
             licenseTypeCbx.Location = new Point(310, 3);
             licenseTypeCbx.Name = "licenseTypeCbx";
             licenseTypeCbx.Size = new Size(401, 35);
             licenseTypeCbx.Sorted = true;
             licenseTypeCbx.TabIndex = 74;
             // 
-            // expiryDatePicker
+            // admissionDatePicker
             // 
-            expiryDatePicker.Dock = DockStyle.Fill;
-            expiryDatePicker.Font = new Font("Century Gothic", 13.8F);
-            expiryDatePicker.Location = new Point(310, 209);
-            expiryDatePicker.Name = "expiryDatePicker";
-            expiryDatePicker.Size = new Size(401, 36);
-            expiryDatePicker.TabIndex = 58;
-            // 
-            // initialLicenseDatePicker
-            // 
-            initialLicenseDatePicker.Dock = DockStyle.Fill;
-            initialLicenseDatePicker.Font = new Font("Century Gothic", 13.8F);
-            initialLicenseDatePicker.Location = new Point(310, 68);
-            initialLicenseDatePicker.Name = "initialLicenseDatePicker";
-            initialLicenseDatePicker.Size = new Size(401, 36);
-            initialLicenseDatePicker.TabIndex = 56;
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Font = new Font("Century Gothic", 13.8F);
-            label20.ForeColor = Color.White;
-            label20.Location = new Point(3, 206);
-            label20.Name = "label20";
-            label20.Size = new Size(139, 27);
-            label20.TabIndex = 43;
-            label20.Text = "Expiry Date";
+            admissionDatePicker.Dock = DockStyle.Fill;
+            admissionDatePicker.Font = new Font("Century Gothic", 13.8F);
+            admissionDatePicker.Location = new Point(310, 69);
+            admissionDatePicker.Name = "admissionDatePicker";
+            admissionDatePicker.Size = new Size(401, 36);
+            admissionDatePicker.TabIndex = 56;
             // 
             // label21
             // 
             label21.AutoSize = true;
             label21.Font = new Font("Century Gothic", 13.8F);
             label21.ForeColor = Color.White;
-            label21.Location = new Point(3, 143);
+            label21.Location = new Point(3, 145);
             label21.Name = "label21";
             label21.Size = new Size(141, 27);
             label21.TabIndex = 42;
@@ -1750,11 +1715,11 @@
             label28.AutoSize = true;
             label28.Font = new Font("Century Gothic", 13.8F);
             label28.ForeColor = Color.White;
-            label28.Location = new Point(3, 65);
+            label28.Location = new Point(3, 66);
             label28.Name = "label28";
-            label28.Size = new Size(227, 27);
+            label28.Size = new Size(188, 27);
             label28.TabIndex = 41;
-            label28.Text = "Initial License Date";
+            label28.Text = "Admission Date";
             // 
             // label29
             // 
@@ -1771,7 +1736,7 @@
             // 
             licenseNoTbx.Dock = DockStyle.Fill;
             licenseNoTbx.Font = new Font("Century Gothic", 13.8F);
-            licenseNoTbx.Location = new Point(310, 146);
+            licenseNoTbx.Location = new Point(310, 148);
             licenseNoTbx.Name = "licenseNoTbx";
             licenseNoTbx.Size = new Size(401, 36);
             licenseNoTbx.TabIndex = 37;
@@ -2380,9 +2345,7 @@
         private FontAwesome.Sharp.IconButton removeLiscenseBtn;
         private TableLayoutPanel tableLayoutPanel8;
         private ComboBox licenseTypeCbx;
-        private DateTimePicker expiryDatePicker;
-        private DateTimePicker initialLicenseDatePicker;
-        private Label label20;
+        private DateTimePicker admissionDatePicker;
         private Label label21;
         private Label label28;
         private Label label29;
@@ -2411,10 +2374,6 @@
         private DataGridViewTextBoxColumn Position;
         private DataGridViewTextBoxColumn Institution;
         private DataGridViewTextBoxColumn Location_Doc;
-        private DataGridViewTextBoxColumn LiscenseType;
-        private DataGridViewTextBoxColumn InitialLiscenseDate;
-        private DataGridViewTextBoxColumn LiscenseNo;
-        private DataGridViewTextBoxColumn ExpiryDate;
         private Panel panel16;
         private TableLayoutPanel tableLayoutPanel7;
         private FontAwesome.Sharp.IconButton addAdmissionBtn;
@@ -2427,5 +2386,8 @@
         private Label label23;
         private Label warningAdmissionLbl;
         private TextBox admissionTbx;
+        private DataGridViewTextBoxColumn LiscenseType;
+        private DataGridViewTextBoxColumn AdmissionDate;
+        private DataGridViewTextBoxColumn LiscenseNo;
     }
 }

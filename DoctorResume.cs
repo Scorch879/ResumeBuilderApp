@@ -5,12 +5,46 @@ namespace FinalProjectOOP2
 {
     public partial class DoctorResume : UserControl, IResumeSaveable
     {
+        public string? CurrentUsername { get; set; }
+
         public DoctorResume()
         {
             InitializeComponent();
             dgvProfExp.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgvProfExp.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            LoadExistingPersonalInfo();
+        }
 
+        public void LoadExistingPersonalInfo()
+        {
+            try
+            {
+                var db = new ResumeDatabase();
+                string? username = this.CurrentUsername;
+                if (!string.IsNullOrEmpty(username))
+                {
+                    int userId = db.GetCurrentUserID(username);
+                    if (userId > 0)
+                    {
+                        var personalInfo = db.LoadPersonalInfo(userId);
+                        if (personalInfo != null)
+                        {
+                            firstNameTbx.Text = personalInfo.FirstName ?? "";
+                            middleNameTbx.Text = personalInfo.MiddleName ?? "";
+                            lastNameTbx.Text = personalInfo.LastName ?? "";
+                            emailTbx.Text = personalInfo.Email ?? "";
+                            phoneNumTbx.Text = personalInfo.Phone ?? "";
+                            addressTbx.Text = personalInfo.Address ?? "";
+                            titleTbx.Text = personalInfo.Title ?? "";
+                            summaryTbx.Text = personalInfo.Summary ?? "";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading personal information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         #region These methods are for the Button Click within the EditContributions Column
@@ -114,7 +148,7 @@ namespace FinalProjectOOP2
             return true;
         }
 
-
+        //Saving
         public bool SaveResume(string currentUsername, string resumeTitle)
         {
             if (!ValidateInputs())
@@ -143,13 +177,14 @@ namespace FinalProjectOOP2
                 // Gather DoctorResume data
                 var clinicalSkills = coreSkillsLstBx.Items.Cast<string>().ToList();
                 var medTechSkills = techSkillsLstBx.Items.Cast<string>().ToList();
+                var areasOfExpertise = expertiseLstBx.Items.Cast<string>().ToList();
                 var experience = GetExperience();
                 var licenses = GetLicenses();
                 var affiliations = GetAffiliations();
                 var education = GetEducationItems();
 
                 // Save everything
-                return db.SaveDoctorResume(personalInfoId,resumeTitle,clinicalSkills,medTechSkills,experience,licenses,affiliations,education);
+                return db.SaveDoctorResume(personalInfoId,resumeTitle,clinicalSkills,medTechSkills,areasOfExpertise, experience,licenses,affiliations,education);
 
             }
             catch (Exception ex)
@@ -159,7 +194,122 @@ namespace FinalProjectOOP2
             }
         }
 
+        //Loading daata
+        public void LoadResume(ResumeSummary resume)
+        {
+            try
+            {
+                // Load resume data from database
+                var db = new ResumeDatabase();
+                var resumeModel = db.LoadDoctorResume(resume.ResumeID);
 
+                // Populate personal info
+                firstNameTbx.Text = resumeModel.FirstName;
+                middleNameTbx.Text = resumeModel.MiddleName;
+                lastNameTbx.Text = resumeModel.LastName;
+                emailTbx.Text = resumeModel.Email;
+                phoneNumTbx.Text = resumeModel.Phone;
+                addressTbx.Text = resumeModel.Address;
+                titleTbx.Text = resumeModel.Title;
+                summaryTbx.Text = resumeModel.Summary;
+
+                // Populate clinical skills
+                coreSkillsLstBx.Items.Clear();
+                if (resumeModel.ClinicalSkills != null)
+                {
+                    foreach (var skill in resumeModel.ClinicalSkills)
+                    {
+                        coreSkillsLstBx.Items.Add(skill);
+                    }
+                }
+
+                // Populate medical tech skills
+                techSkillsLstBx.Items.Clear();
+                if (resumeModel.MedicalTech != null)
+                {
+                    foreach (var skill in resumeModel.MedicalTech)
+                    {
+                        techSkillsLstBx.Items.Add(skill);
+                    }
+                }
+
+                // Populate expertise
+                expertiseLstBx.Items.Clear();
+                if (resumeModel.AreasOfExpertise != null)
+                {
+                    foreach (var exp in resumeModel.AreasOfExpertise)
+                    {
+                        expertiseLstBx.Items.Add(exp);
+                    }
+                }
+
+                // Populate education
+                dgvEducation.Rows.Clear();
+                if (resumeModel.Education != null)
+                {
+                    foreach (var education in resumeModel.Education)
+                    {
+                        dgvEducation.Rows.Add(
+                            education.Degree,
+                            education.Institution,
+                            education.Specialization,
+                            education.Location
+                        );
+                    }
+                }
+
+                // Populate experience
+                dgvProfExp.Rows.Clear();
+                if (resumeModel.Experience != null)
+                {
+                    foreach (var experience in resumeModel.Experience)
+                    {
+                        dgvProfExp.Rows.Add(
+                            experience.Position,
+                            experience.Company,
+                            experience.Location,
+                            experience.Duration,
+                            experience.Description,
+                            string.Join("\n", experience.Contributions ?? new List<string>())
+                        );
+                    }
+                }
+
+                // Populate licenses
+                licenseDgv.Rows.Clear();
+                if (resumeModel.Licenses != null)
+                {
+                    foreach (var license in resumeModel.Licenses)
+                    {
+                        licenseDgv.Rows.Add(
+                            license.Type,
+                            license.InitialDate.ToShortDateString(),
+                            license.LicenseNumber,
+                            license.ExpiryDate.ToShortDateString()
+                        );
+                    }
+                }
+
+                // Populate affiliations
+                dgvAffiliate.Rows.Clear();
+                if (resumeModel.Affiliations != null)
+                {
+                    foreach (var affiliation in resumeModel.Affiliations)
+                    {
+                        dgvAffiliate.Rows.Add(
+                            affiliation.Status,
+                            affiliation.Institution
+                        );
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading resume: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Fetching Data
         private DoctorResumeModel GetResumeData()
         {
             return new DoctorResumeModel

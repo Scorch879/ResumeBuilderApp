@@ -17,7 +17,6 @@ namespace FinalProjectOOP2
         private const int TYPE_COLUMN = 0;
         private const int INITIAL_DATE_COLUMN = 1;
         private const int LICENSE_NUMBER_COLUMN = 2;
-        private const int EXPIRY_DATE_COLUMN = 3;
 
         // Simplified column constants
         private const int DEGREE_POSITION_COLUMN = 0;
@@ -31,9 +30,23 @@ namespace FinalProjectOOP2
 
         private List<EarlierPosition> earlierPositionsList = new List<EarlierPosition>();
 
+        private string? currentUsername;
+        public string? CurrentUsername 
+        {
+            get
+            {
+                return currentUsername; 
+            }        
+            set
+            {
+                currentUsername = value;
+            }
+        }
+
         public AttorneyResume()
         {
             InitializeComponent();
+            LoadPersonalInfo();
         }
 
         public void PreviewResume()
@@ -44,6 +57,28 @@ namespace FinalProjectOOP2
             ResumePreviewForm previewForm = new ResumePreviewForm();
             previewForm.LoadResumePreview(resumeData, templateFileName);
             previewForm.Show();
+        }
+
+        public void LoadPersonalInfo()
+        {
+            var db = new ResumeDatabase();
+
+            if (currentUsername != null)
+            {
+                int ownerID = db.GetCurrentUserID(currentUsername);
+                var model = db.LoadPersonalInfo(ownerID);
+                // Populate personal info
+                firstNameTbx.Text = model.FirstName;
+                middleNameTbx.Text = model.MiddleName;
+                lastNameTbx.Text = model.LastName;
+                emailTbx.Text = model.Email;
+                phoneNumTbx.Text = model.Phone;
+                addressTbx.Text = model.Address;
+                titleTbx.Text = model.Title;
+                summaryTbx.Text = model.Summary;
+
+            }
+
         }
 
         private bool ValidateInputs()
@@ -103,6 +138,7 @@ namespace FinalProjectOOP2
             return true;
         }
 
+        //Saving Resume to database
         public bool SaveResume(string currentUsername, string resumeTitle)
         {
             if (!ValidateInputs())
@@ -149,6 +185,123 @@ namespace FinalProjectOOP2
             }
         }
 
+        //Loading Resume from Database
+        public void LoadResume(ResumeSummary resume)
+        {
+            try
+            {
+                // Load resume data from database
+                var db = new ResumeDatabase();
+
+                var resumeModel = db.LoadAttorneyResume(resume.ResumeID);
+
+                // Populate personal info
+                firstNameTbx.Text = resumeModel.FirstName;
+                middleNameTbx.Text = resumeModel.MiddleName;
+                lastNameTbx.Text = resumeModel.LastName;
+                emailTbx.Text = resumeModel.Email;
+                phoneNumTbx.Text = resumeModel.Phone;
+                addressTbx.Text = resumeModel.Address;
+                titleTbx.Text = resumeModel.Title;
+                summaryTbx.Text = resumeModel.Summary;
+
+                // Populate skills
+                coreSkillsLstBx.Items.Clear();
+                if (resumeModel.CoreSkills != null)
+                {
+                    foreach (var skill in resumeModel.CoreSkills)
+                    {
+                        coreSkillsLstBx.Items.Add(skill);
+                    }
+                }
+
+                techSkillsLstBx.Items.Clear();
+                if (resumeModel.LegalTech != null)
+                {
+                    foreach (var skill in resumeModel.LegalTech)
+                    {
+                        techSkillsLstBx.Items.Add(skill);
+                    }
+                }
+
+                barAdmissionsLstBx.Items.Clear();
+                if (resumeModel.BarAdmissions != null)
+                {
+                    foreach (var admission in resumeModel.BarAdmissions)
+                    {
+                        barAdmissionsLstBx.Items.Add(admission);
+                    }
+                }
+
+                expertiseLstBx.Items.Clear();
+                if (resumeModel.Expertise != null)
+                {
+                    foreach (var exp in resumeModel.Expertise)
+                    {
+                        expertiseLstBx.Items.Add(exp);
+                    }
+                }
+
+                // Populate education
+                dgvEducation.Rows.Clear();
+                if (resumeModel.Education != null)
+                {
+                    foreach (var education in resumeModel.Education)
+                    {
+                        dgvEducation.Rows.Add(
+                            education.DegreePosition,
+                            education.Institution,
+                            education.Location
+                        );
+                    }
+                }
+
+                // Populate experience
+                dgvProfExp.Rows.Clear();
+                if (resumeModel.Experience != null)
+                {
+                    foreach (var experience in resumeModel.Experience)
+                    {
+                        dgvProfExp.Rows.Add(
+                            experience.Position,
+                            experience.Company,
+                            experience.Location,
+                            experience.Duration,
+                            experience.Description,
+                            string.Join("\n", experience.Contributions ?? new List<string>())
+                        );
+                    }
+                }
+
+                // Populate licenses
+                licenseDgv.Rows.Clear();
+                if (resumeModel.Licenses != null)
+                {
+                    foreach (var license in resumeModel.Licenses)
+                    {
+                        licenseDgv.Rows.Add(
+                            license.Type,
+                            license.AdmissionDate.ToShortDateString(),
+                            license.LicenseNumber
+                        );
+                    }
+                }
+
+                // Populate earlier positions
+                earlierPositionsList.Clear();
+                if (resumeModel.EarlierPositions != null)
+                {
+                    earlierPositionsList.AddRange(resumeModel.EarlierPositions);
+                }
+
+                // Update resume title
+                //txtResumeTitle.Text = resume.Title;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading resume: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void dgvProfExp_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -292,11 +445,9 @@ namespace FinalProjectOOP2
                     var license = new AttorneyLicense
                     {
                         Type = row.Cells[TYPE_COLUMN].Value?.ToString(),
-                        InitialDate = DateTime.Parse(row.Cells[INITIAL_DATE_COLUMN].Value?.ToString() ??
-                                                  throw new Exception("Invalid initial date")),
+                        AdmissionDate = DateTime.Parse(row.Cells[INITIAL_DATE_COLUMN].Value?.ToString() ??
+                                                  throw new Exception("Invalid Admission date")),
                         LicenseNumber = row.Cells[LICENSE_NUMBER_COLUMN].Value?.ToString(),
-                        ExpiryDate = DateTime.Parse(row.Cells[EXPIRY_DATE_COLUMN].Value?.ToString() ??
-                                                 throw new Exception("Invalid expiry date"))
                     };
 
                     if (license.IsValid())
@@ -309,6 +460,7 @@ namespace FinalProjectOOP2
                                       "Data Error",
                                       MessageBoxButtons.OK,
                                       MessageBoxIcon.Warning);
+                        throw new Exception($"Invalid license data found for license number {license.LicenseNumber}");
                     }
                 }
                 catch (Exception ex)
@@ -612,8 +764,8 @@ namespace FinalProjectOOP2
             {
                 string licenseType = licenseTypeCbx.Text;
                 string licenseNo = licenseNoTbx.Text.Trim();
-                DateTime initialDate = initialLicenseDatePicker.Value;
-                DateTime expiryDate = expiryDatePicker.Value;
+                DateTime admissionDate = admissionDatePicker.Value;
+               
 
                 // Validate all inputs
                 if (string.IsNullOrWhiteSpace(licenseType))
@@ -634,12 +786,6 @@ namespace FinalProjectOOP2
                     return;
                 }
 
-                if (expiryDate <= initialDate)
-                {
-                    MessageBox.Show("Expiry date must be after the initial date.", "Invalid Dates", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 // Check for duplicate license numbers
                 if (IsDuplicateLicense(licenseNo))
                 {
@@ -648,7 +794,7 @@ namespace FinalProjectOOP2
                 }
 
                 // Add the new license
-                licenseDgv.Rows.Add(licenseType, initialDate.ToShortDateString(), licenseNo, expiryDate.ToShortDateString());
+                licenseDgv.Rows.Add(licenseType, admissionDate.ToShortDateString(), licenseNo);
 
                 // Clear inputs
                 ClearLicenseInputs();
@@ -696,10 +842,8 @@ namespace FinalProjectOOP2
         {
             licenseNoTbx.Clear();
             licenseTypeCbx.SelectedIndex = -1;
-            initialLicenseDatePicker.Value = DateTime.Today;
-            expiryDatePicker.Value = DateTime.Today.AddYears(1);
+            admissionDatePicker.Value = DateTime.Today;
         }
-
 
 
         //Education
@@ -861,8 +1005,6 @@ namespace FinalProjectOOP2
 
         #endregion
 
-
-      
     }
 
     public class AttorneyResumeModel : PersonalInfo
@@ -905,37 +1047,25 @@ namespace FinalProjectOOP2
 
     public class AttorneyLicense
     {
-        private DateTime _initialDate;
+        private DateTime _admissionDate;
         private DateTime _expiryDate;
 
         public string? Type { get; set; }
         public string? LicenseNumber { get; set; }
         
-        public DateTime InitialDate
+        public DateTime AdmissionDate
         {
-            get => _initialDate;
-            set => _initialDate = value;
+            get => _admissionDate;
+            set => _admissionDate = value;
         }
         
-        public DateTime ExpiryDate
-        {
-            get => _expiryDate;
-            set
-            {
-                if (value < InitialDate)
-                    throw new ArgumentException("Expiry date cannot be earlier than initial date");
-                _expiryDate = value;
-            }
-        }
 
-        public string FormattedInitialDate => InitialDate.ToString("dd/MM/yyyy");
-        public string FormattedExpiryDate => ExpiryDate.ToString("dd/MM/yyyy");
+        public string FormattedInitialDate => _admissionDate.ToString("dd/MM/yyyy");
 
         public bool IsValid()
         {
             return !string.IsNullOrWhiteSpace(Type) &&
-                   !string.IsNullOrWhiteSpace(LicenseNumber) &&
-                   ExpiryDate > InitialDate;
+                   !string.IsNullOrWhiteSpace(LicenseNumber);
         }
     }
 

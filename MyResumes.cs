@@ -24,6 +24,7 @@ namespace FinalProjectOOP2
         public MyResumes()
         {
             InitializeComponent();
+            this.Refresh();
         }
 
         public void LoadUserResumes(string currentUsername)
@@ -38,8 +39,11 @@ namespace FinalProjectOOP2
 
             var resumes = db.GetAllResumesForUser(ownerId);
 
-            // Example: Bind to a DataGridView
             dgvResumes.DataSource = resumes;
+            if (dgvResumes.Columns["FilePath"] != null)
+            {
+                dgvResumes.Columns["FilePath"].Visible = false;
+            }
         }
 
         private void createNewBtn_Click(object sender, EventArgs e)
@@ -49,6 +53,11 @@ namespace FinalProjectOOP2
             {
                 dashboard.createResumeBtn_Click(sender, e);
             }
+        }
+
+        private void sendResumeBtn_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void exportResumeBtn_Click(object sender, EventArgs e)
@@ -91,18 +100,72 @@ namespace FinalProjectOOP2
             {
                 var db = new ResumeDatabase();
                 bool deleted = db.DeleteResume(resumeId); // Implement this
-                MessageBox.Show(deleted ? "Resume deleted." : "Failed to delete resume.");
-                if (deleted)
-                    LoadUserResumes(Username);
+
+                if (currentUser != null && Username != null)
+                {
+                    int ownerID = db.GetCurrentUserID(currentUser);
+                    MessageBox.Show(deleted ? "Resume deleted." : "Failed to delete resume.");
+                    if (deleted)
+                    {
+                        LoadUserResumes(Username);
+                        db.DecrementResumesCreatedAndSaved(ownerID);
+                    }
+                }
+            }
+        }
+
+        private void dgvResumes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var row = dgvResumes.Rows[e.RowIndex];
+                var resumeSummary = row.DataBoundItem as ResumeSummary;
+                if (resumeSummary == null) return;
+
+                // Load the full resume data based on template type
+                var db = new ResumeDatabase();
+                object resumeData = null;
+                string templateFileName = "";
+
+                switch (resumeSummary.TemplateType)
+                {
+                    case "Attorney":
+                        resumeData = db.LoadAttorneyResume(resumeSummary.ResumeID);
+                        templateFileName = "AttorneyTemplate.html";
+                        break;
+                    case "Doctor":
+                        resumeData = db.LoadDoctorResume(resumeSummary.ResumeID);
+                        templateFileName = "DoctorTemplate.html";
+                        break;
+                    case "CallCenter":
+                        resumeData = db.LoadCallCenterResume(resumeSummary.ResumeID);
+                        templateFileName = "CallCenterTemplate.html";
+                        break;
+                    //case "ElectricalEngineering":
+                    //    resumeData = db.LoadElectricalEngineeringResume(resumeSummary.ResumeID);
+                    //    templateFileName = "ElectricalEngineeringTemplate.html";
+                    //    break;
+                    //// Add more cases as needed
+                    default:
+                        MessageBox.Show("Unknown template type.");
+                        return;
+                }
+
+                // Show the preview form
+                var previewForm = new ResumePreviewForm();
+                previewForm.LoadResumePreview(resumeData, templateFileName);
+                previewForm.ShowDialog();
             }
         }
     }
 
-    public class ResumeSummary
+   public class ResumeSummary()
     {
         public int ResumeID { get; set; }
         public string? Title { get; set; }
         public DateTime DateCreated { get; set; }
         public string? FilePath { get; set; }
+        public string? TemplateType { get; set; }
+        public DateTime DateModified { get; set; }
     }
 }

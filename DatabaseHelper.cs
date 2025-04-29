@@ -6,7 +6,8 @@ using Windows.Networking;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using static FinalProjectOOP2.CallCenterResume;
+using System.Collections;
+using System.Linq;
 
 namespace FinalProjectOOP2
 {
@@ -309,17 +310,6 @@ namespace FinalProjectOOP2
 
             return currentUserID;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="newUsername"></param>
-        /// <param name="newEmail"></param>
-        /// <param name="newProfilePicPath"></param>
-        /// <param name="newDescription"></param>
-        /// <returns></returns>
-        /// 
 
 
         //Update Operations
@@ -647,17 +637,9 @@ namespace FinalProjectOOP2
         public interface IResumeSaveable
         {
             bool SaveResume(string currentUsername, string resumeTitle);
+            void LoadResume(ResumeSummary resume);
         }
 
-        public string LoadAndFillTemplate(string templatePath, Dictionary<string, string> data)
-        {
-            string template = File.ReadAllText(templatePath);
-            foreach (var entry in data)
-            {
-                template = template.Replace($"{{{entry.Key}}}", entry.Value);
-            }
-            return template;
-        }
 
         #region For Analytics Methods
 
@@ -692,52 +674,91 @@ namespace FinalProjectOOP2
             return (0, 0, 0, 0);
         }
 
-        //For Resumes Created
-        public void IncrementResumesCreated(int userId)
-        {
-            string query = "UPDATE UserInfo SET ResumesCreated = Nz(ResumesCreated,0) + 1 WHERE ID = ?";
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
-            using (OleDbCommand cmd = new OleDbCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("?", userId);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public void SyncResumesCreated(int userId)
-        {
-            string query = "UPDATE UserInfo SET ResumesCreated = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?) WHERE ID = ?";
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
-            using (OleDbCommand cmd = new OleDbCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("?", userId);
-                cmd.Parameters.AddWithValue("?", userId);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public void IncrementResumesCreatedAndPending(int userId)
-        {
-            string query = "UPDATE UserInfo SET ResumesCreated = Nz(ResumesCreated,0) + 1, PendingResumes = Nz(PendingResumes,0) + 1 WHERE ID = ?";
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
-            using (OleDbCommand cmd = new OleDbCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("?", userId);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public void DecrementResumesCreatedAndPending(int userId)
+        //For Resumes Created and Saved
+        public void IncrementResumesCreatedAndSaved(int userId)
         {
             string query = @"
         UPDATE UserInfo 
         SET 
-            ResumesCreated = IIf(Nz(ResumesCreated,0) > 0, ResumesCreated - 1, 0), 
-            PendingResumes = IIf(Nz(PendingResumes,0) > 0, PendingResumes - 1, 0) 
+            ResumesCreated = IIF(ResumesCreated IS NULL, 1, ResumesCreated + 1),
+            ResumesSaved = IIF(ResumesSaved IS NULL, 1, ResumesSaved + 1)
         WHERE ID = ?";
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", userId);
+                    conn.Open();
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows == 0)
+                        MessageBox.Show("No rows updated. Check if userId is correct and exists in UserInfo.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error incrementing ResumesCreated and ResumesSaved: " + ex.Message);
+            }
+        }
+
+        public void DecrementResumesCreatedAndSaved(int userId)
+        {
+            string query = @"
+        UPDATE UserInfo 
+        SET 
+            ResumesCreated = IIF(ResumesCreated IS NULL OR ResumesCreated <= 0, 0, ResumesCreated - 1),
+            ResumesSaved = IIF(ResumesSaved IS NULL OR ResumesSaved <= 0, 0, ResumesSaved - 1)
+        WHERE ID = ?";
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", userId);
+                    conn.Open();
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows == 0)
+                        MessageBox.Show("No rows updated. Check if userId is correct and exists in UserInfo.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error decrementing ResumesCreated and ResumesSaved: " + ex.Message);
+            }
+        }
+
+        public void SyncResumesCreatedAndSaved(int userId)
+        {
+            string query = @"
+        UPDATE UserInfo 
+        SET 
+            ResumesCreated = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?),
+            ResumesSaved = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?)
+        WHERE ID = ?";
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", userId);
+                    cmd.Parameters.AddWithValue("?", userId);
+                    cmd.Parameters.AddWithValue("?", userId);
+                    conn.Open();
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows == 0)
+                        MessageBox.Show("No rows updated during sync. Check if userId is correct and exists in UserInfo.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error syncing ResumesCreated and ResumesSaved: " + ex.Message);
+            }
+        }
+
+        //For Resumes Exported
+        public void IncrementResumesExported(int userId)
+        {
+            string query = "UPDATE UserInfo SET ResumesExported = IIf(IsNull(ResumesExported), 0, ResumesExported) + 1 WHERE ID = ?";
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             using (OleDbCommand cmd = new OleDbCommand(query, conn))
             {
@@ -747,52 +768,13 @@ namespace FinalProjectOOP2
             }
         }
 
-        public void SyncResumesCreatedAndPending(int userId)
+        //For Resumes Sent
+        public void IncrementResumesSent(int userId)
         {
-            string query = "UPDATE UserInfo SET ResumesCreated = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?), PendingResumes = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?) WHERE ID = ?";
+            string query = "UPDATE UserInfo SET ResumesSent = IIf(IsNull(ResumesSent), 0, ResumesSent) + 1 WHERE ID = ?";
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             using (OleDbCommand cmd = new OleDbCommand(query, conn))
             {
-                cmd.Parameters.AddWithValue("?", userId);
-                cmd.Parameters.AddWithValue("?", userId);
-                cmd.Parameters.AddWithValue("?", userId);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        //For Resumes Saved
-        public void IncrementResumesSaved(int userId)
-        {
-            string query = "UPDATE UserInfo SET ResumesSaved = IIf(IsNull(ResumesSaved), 0, ResumesSaved) + 1 WHERE ID = ?";
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
-            using (OleDbCommand cmd = new OleDbCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("?", userId);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public void DecrementResumesSaved(int userId)
-        {
-            string query = "UPDATE UserInfo SET ResumesSaved = IIf(Nz(ResumesSaved,0) > 0, ResumesSaved - 1, 0) WHERE ID = ?";
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
-            using (OleDbCommand cmd = new OleDbCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("?", userId);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public void SyncResumesSaved(int userId)
-        {
-            string query = "UPDATE UserInfo SET ResumesSaved = (SELECT COUNT(*) FROM Resumes WHERE OwnerID = ?) WHERE ID = ?";
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
-            using (OleDbCommand cmd = new OleDbCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("?", userId);
                 cmd.Parameters.AddWithValue("?", userId);
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -801,14 +783,27 @@ namespace FinalProjectOOP2
 
         #endregion
 
+
+        #region Fetching Data from Database (Not resume specific)
+
         //Fetching Methods
+        public List<ResumeSummary> GetRecentResumesForUser(int ownerId, int count = 5)
+        {
+            return GetAllResumesForUser(ownerId).OrderByDescending(r => r.DateCreated).Take(count).ToList();
+        }
+
         public List<ResumeSummary> GetAllResumesForUser(int ownerId)
         {
             var resumes = new List<ResumeSummary>();
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
                 conn.Open();
-                string query = "SELECT ID, Title, DateCreated, FilePath FROM Resumes WHERE OwnerID = ? ORDER BY DateCreated DESC";
+                // Join Resumes and ResumeInfo to get TemplateType and LastUpdated
+                string query = @"SELECT r.ID, r.Title, r.DateCreated, r.FilePath, ri.TemplateType, ri.LastUpdated
+                                 FROM Resumes r
+                                 LEFT JOIN ResumeInfo ri ON r.ID = ri.ResumeID
+                                 WHERE r.OwnerID = ?
+                                 ORDER BY r.DateCreated DESC";
                 using (OleDbCommand cmd = new OleDbCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("?", ownerId);
@@ -821,7 +816,9 @@ namespace FinalProjectOOP2
                                 ResumeID = Convert.ToInt32(reader["ID"]),
                                 Title = reader["Title"].ToString(),
                                 DateCreated = Convert.ToDateTime(reader["DateCreated"]),
-                                FilePath = reader["FilePath"].ToString()
+                                FilePath = reader["FilePath"].ToString(),
+                                TemplateType = reader["TemplateType"] == DBNull.Value ? null : reader["TemplateType"].ToString(),
+                                DateModified = Convert.ToDateTime(reader["DateCreated"]),
                             });
                         }
                     }
@@ -830,8 +827,50 @@ namespace FinalProjectOOP2
             return resumes;
         }
 
+        public string GetTemplateTypeForResume(int resumeId)
+        {
+            string templateType = "";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT TemplateType FROM ResumeInfo WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                        templateType = result.ToString();
+                }
+            }
+            return templateType;
+        }
 
-        //Delete Method
+        public string GetResumeDateModified(int resumeID)
+        {
+            string? dateModified = "";
+
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT LastUpdated FROM ResumeInfo WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeID);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                        dateModified = result.ToString();
+                }
+            }
+            if (dateModified != null)
+                return dateModified;
+            else
+                return "";
+        }
+
+        #endregion
+
+
+        //Delete Methods
         public bool DeleteResume(int resumeId)
         {
             using (OleDbConnection conn = new OleDbConnection(connectionString))
@@ -967,6 +1006,586 @@ namespace FinalProjectOOP2
         }
 
 
+        #region Load Methods for Resume Templates
+
+        //For PersonalInfo
+        public PersonalInfo LoadPersonalInfo(int OwnerID)
+        {
+            var info = new PersonalInfo();
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+
+                //1. Search for the Info of the Owner if it exists
+                string searchInfoQuery = "SELECT COUNT(*) FROM PersonalInfo WHERE OwnerID = ?";
+                using (OleDbCommand searchCmd = new OleDbCommand(searchInfoQuery, conn))
+                {
+                    searchCmd.Parameters.AddWithValue("?", OwnerID);
+
+                    int count = (int)searchCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        // 2. Load PersonalInfo
+                        string personalInfoQuery = "SELECT * FROM PersonalInfo WHERE OwnerID = ?";
+                        using (OleDbCommand cmd = new OleDbCommand(personalInfoQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("?", OwnerID);
+                            using (OleDbDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    info.FirstName = reader["FirstName"].ToString();
+                                    info.MiddleName = reader["MiddleName"].ToString();
+                                    info.LastName = reader["LastName"].ToString();
+                                    info.Email = reader["Email"].ToString();
+                                    info.Phone = reader["PhoneNum"].ToString();
+                                    info.Address = reader["Address"].ToString();
+                                    info.Title = reader["Designation"].ToString();
+                                    info.Summary = reader["Summary"].ToString();
+                                }
+                            }
+                        }
+                    }
+                }
+                   
+            }
+
+            return info;
+        }
+
+
+        //For Attorney Resume
+        public AttorneyResumeModel LoadAttorneyResume(int resumeId)
+        {
+            var resumeModel = new AttorneyResumeModel();
+
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+
+                // 1. Load PersonalInfo
+                string personalInfoQuery = "SELECT * FROM PersonalInfo WHERE OwnerID = (SELECT OwnerID FROM Resumes WHERE ID = ?)";
+                using (OleDbCommand cmd = new OleDbCommand(personalInfoQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            resumeModel.FirstName = reader["FirstName"].ToString();
+                            resumeModel.MiddleName = reader["MiddleName"].ToString();
+                            resumeModel.LastName = reader["LastName"].ToString();
+                            resumeModel.Email = reader["Email"].ToString();
+                            resumeModel.Phone = reader["PhoneNum"].ToString();
+                            resumeModel.Address = reader["Address"].ToString();
+                            resumeModel.Title = reader["Designation"].ToString();
+                            resumeModel.Summary = reader["Summary"].ToString();
+                        }
+                    }
+                }
+
+                // 2. Load AttorneyResume
+                string attorneyQuery = "SELECT * FROM AttorneyResume WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(attorneyQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            resumeModel.CoreSkills = reader["CoreSkills"].ToString()?.Split(';').ToList();
+                            resumeModel.LegalTech = reader["LegalTech"].ToString()?.Split(';').ToList();
+                            resumeModel.BarAdmissions = reader["BarAdmissions"].ToString()?.Split(';').ToList();
+                            resumeModel.Expertise = reader["Expertise"].ToString()?.Split(';').ToList();
+                        }
+                    }
+                }
+
+                // 3. Load Education
+                string educationQuery = "SELECT * FROM AttorneyEducation WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(educationQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumeModel.Education = new List<AttorneyEducation>();
+                        while (reader.Read())
+                        {
+                            resumeModel.Education.Add(new AttorneyEducation
+                            {
+                                DegreePosition = reader["DegreePosition"].ToString(),
+                                Institution = reader["Institution"].ToString(),
+                                Location = reader["Location"].ToString()
+                            });
+                        }
+                    }
+                }
+
+                // 4. Load Experience
+                string experienceQuery = "SELECT * FROM AttorneyExperience WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(experienceQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumeModel.Experience = new List<AttorneyExperience>();
+                        while (reader.Read())
+                        {
+                            resumeModel.Experience.Add(new AttorneyExperience
+                            {
+                                Position = reader["Position"].ToString(),
+                                Company = reader["Company"].ToString(),
+                                Location = reader["Location"].ToString(),
+                                Duration = reader["Duration"].ToString(),
+                                Description = reader["Description"].ToString(),
+                                Contributions = reader["Contributions"].ToString()?.Split(';').ToList()
+                            });
+                        }
+                    }
+                }
+
+                // 5. Load Licenses
+                string licenseQuery = "SELECT * FROM AttorneyLicense WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(licenseQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumeModel.Licenses = new List<AttorneyLicense>();
+                        while (reader.Read())
+                        {
+                            resumeModel.Licenses.Add(new AttorneyLicense
+                            {
+                                Type = reader["LicenseType"].ToString(),
+                                LicenseNumber = reader["LicenseNumber"].ToString(),
+                                AdmissionDate = Convert.ToDateTime(reader["AdmissionDate"])
+                            });
+                        }
+                    }
+                }
+
+                // 6. Load Earlier Positions
+                string earlierPositionsQuery = "SELECT * FROM AttorneyEarlierPosition WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(earlierPositionsQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumeModel.EarlierPositions = new List<EarlierPosition>();
+                        while (reader.Read())
+                        {
+                            resumeModel.EarlierPositions.Add(new EarlierPosition
+                            {
+                                Position = reader["Position"].ToString(),
+                                Company = reader["Company"].ToString(),
+                                Location = reader["Location"].ToString(),
+                                Duration = reader["Duration"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return resumeModel;
+        }
+
+        //Doctor Resume
+        public DoctorResumeModel LoadDoctorResume(int resumeId)
+        {
+            var resumeModel = new DoctorResumeModel();
+
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+
+                // 1. Load PersonalInfo
+                string personalInfoQuery = "SELECT * FROM PersonalInfo WHERE OwnerID = (SELECT OwnerID FROM Resumes WHERE ID = ?)";
+                using (OleDbCommand cmd = new OleDbCommand(personalInfoQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            resumeModel.FirstName = reader["FirstName"].ToString();
+                            resumeModel.MiddleName = reader["MiddleName"].ToString();
+                            resumeModel.LastName = reader["LastName"].ToString();
+                            resumeModel.Email = reader["Email"].ToString();
+                            resumeModel.Phone = reader["PhoneNum"].ToString();
+                            resumeModel.Address = reader["Address"].ToString();
+                            resumeModel.Title = reader["Designation"].ToString();
+                            resumeModel.Summary = reader["Summary"].ToString();
+                        }
+                    }
+                }
+
+                // 2. Load DoctorResume
+                string doctorQuery = "SELECT * FROM DoctorResume WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(doctorQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            resumeModel.ClinicalSkills = reader["ClinicalSkills"].ToString()?.Split(';').ToList();
+                            resumeModel.MedicalTech = reader["MedTechSkills"].ToString()?.Split(';').ToList();
+                            resumeModel.AreasOfExpertise = reader["AreasOfExpertise"].ToString()?.Split(';').ToList();
+                        }
+                    }
+                }
+
+                // 3. Load Education
+                string educationQuery = "SELECT * FROM DoctorEducation WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(educationQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumeModel.Education = new List<DoctorEducationItem>();
+                        while (reader.Read())
+                        {
+                            resumeModel.Education.Add(new DoctorEducationItem
+                            {
+                                Degree = reader["Degree"].ToString(),
+                                Institution = reader["Institution"].ToString(),
+                                Specialization = reader["Specialization"].ToString(),
+                                Location = reader["Location"].ToString()
+                            });
+                        }
+                    }
+                }
+
+                // 4. Load Experience
+                string experienceQuery = "SELECT * FROM DoctorExperience WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(experienceQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumeModel.Experience = new List<DoctorExperienceItem>();
+                        while (reader.Read())
+                        {
+                            string? contributionsStr = reader["Contribution"].ToString();
+                            List<string> contributions = string.IsNullOrEmpty(contributionsStr) 
+                                ? new List<string>() 
+                                : contributionsStr.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                                                .Select(s => s.Trim())
+                                                .ToList();
+
+                            resumeModel.Experience.Add(new DoctorExperienceItem
+                            {
+                                Position = reader["Position"].ToString(),
+                                Company = reader["Company"].ToString(),
+                                Location = reader["Location"].ToString(),
+                                Duration = reader["Duration"].ToString(),
+                                Description = reader["Description"].ToString(),
+                                Contributions = contributions
+                            });
+                        }
+                    }
+                }
+
+                // 5. Load Licenses
+                string licenseQuery = "SELECT * FROM DoctorLicense WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(licenseQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumeModel.Licenses = new List<DoctorLicense>();
+                        while (reader.Read())
+                        {
+                            resumeModel.Licenses.Add(new DoctorLicense
+                            {
+                                Type = reader["LicenseType"].ToString(),
+                                LicenseNumber = reader["LicenseNumber"].ToString(),
+                                InitialDate = Convert.ToDateTime(reader["InitialDate"]),
+                                ExpiryDate = Convert.ToDateTime(reader["ExpiryDate"])
+                            });
+                        }
+                    }
+                }
+
+                // 6. Load Affiliations
+                string affiliationsQuery = "SELECT * FROM DoctorAffiliation WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(affiliationsQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        resumeModel.Affiliations = new List<DoctorAffiliation>();
+                        while (reader.Read())
+                        {
+                            resumeModel.Affiliations.Add(new DoctorAffiliation
+                            {
+                                Status = reader["Status"].ToString(),
+                                Institution = reader["Institution"].ToString()
+                            });
+                        }
+                    }
+                }
+            }
+
+            return resumeModel;
+        }
+
+        //CallCenter Resume
+        public CallCenterResume.CallCenterResumeModel LoadCallCenterResume(int resumeId)
+        {
+            var resumeModel = new CallCenterResume.CallCenterResumeModel();
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+
+                // 1. Get OwnerID
+                int ownerId = 0;
+                string ownerQuery = "SELECT OwnerID FROM Resumes WHERE ID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(ownerQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                        ownerId = Convert.ToInt32(result);
+                }
+
+                // 2. Load Personal Info
+                string personalInfoQuery = "SELECT * FROM PersonalInfo WHERE OwnerID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(personalInfoQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", ownerId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            resumeModel.FirstName = reader["FirstName"].ToString();
+                            resumeModel.MiddleName = reader["MiddleName"].ToString();
+                            resumeModel.LastName = reader["LastName"].ToString();
+                            resumeModel.Email = reader["Email"].ToString();
+                            resumeModel.Phone = reader["PhoneNum"].ToString();
+                            resumeModel.Address = reader["Address"].ToString();
+                            resumeModel.Title = reader["Designation"].ToString();
+                            resumeModel.Summary = reader["Summary"].ToString();
+                        }
+                    }
+                }
+
+                // 3. Load CallCenterResume (skills/languages)
+                string resumeQuery = "SELECT * FROM CallCenterResume WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(resumeQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            resumeModel.CoreSkills = reader["CoreSkills"].ToString()?.Split(';').ToList();
+                            resumeModel.TechSkills = reader["TechSkills"].ToString()?.Split(';').ToList();
+                            resumeModel.Languages = reader["Languages"].ToString()?.Split(';').ToList();
+                        }
+                    }
+                }
+
+                // 4. Load Education
+                resumeModel.Education = new List<CallCenterResume.EducationItem>();
+                string educationQuery = "SELECT * FROM CallCenterEducation WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(educationQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            resumeModel.Education.Add(new CallCenterResume.EducationItem
+                            {
+                                Degree = reader["Degree"].ToString(),
+                                School = reader["School"].ToString(),
+                                Location = reader["Location"].ToString(),
+                                Year = reader["Year"].ToString()
+                            });
+                        }
+                    }
+                }
+
+                // 5. Load Experience
+                resumeModel.Experience = new List<CallCenterResume.ExperienceItem>();
+                string experienceQuery = "SELECT * FROM CallCenterExperience WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(experienceQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var responsibilities = reader["Responsibilities"].ToString()?.Split(';').ToList() ?? new List<string>();
+                            resumeModel.Experience.Add(new CallCenterResume.ExperienceItem
+                            {
+                                Title = reader["JobTitle"].ToString(),
+                                Company = reader["Company"].ToString(),
+                                Location = reader["Location"].ToString(),
+                                Duration = reader["Duration"].ToString(),
+                                Achievement = reader["Achievement"].ToString(),
+                                Responsibilities = responsibilities
+                            });
+                        }
+                    }
+                }
+            }
+            return resumeModel;
+        }
+
+        //Electrical Engineer Resume
+        public ElectricalEngineeringResumeModel LoadEEResume(int resumeId)
+        {
+            var resumeModel = new ElectricalEngineeringResumeModel();
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+
+                // 1. Get OwnerID
+                int ownerId = 0;
+                string ownerQuery = "SELECT OwnerID FROM Resumes WHERE ID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(ownerQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    var result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                        ownerId = Convert.ToInt32(result);
+                }
+
+                // 2. Load Personal Info
+                string personalInfoQuery = "SELECT * FROM PersonalInfo WHERE OwnerID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(personalInfoQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", ownerId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            resumeModel.FirstName = reader["FirstName"].ToString();
+                            resumeModel.MiddleName = reader["MiddleName"].ToString();
+                            resumeModel.LastName = reader["LastName"].ToString();
+                            resumeModel.Email = reader["Email"].ToString();
+                            resumeModel.Phone = reader["PhoneNum"].ToString();
+                            resumeModel.Address = reader["Address"].ToString();
+                            resumeModel.Title = reader["Designation"].ToString();
+                            resumeModel.Summary = reader["Summary"].ToString();
+                        }
+                    }
+                }
+
+                // 3. Load Resume Skills
+                string resumeQuery = "SELECT * FROM ElectricalEngineeringResume WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(resumeQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            resumeModel.CoreSkills = reader["CoreSkills"].ToString()?.Split(';').ToList();
+                            resumeModel.TechSkills = reader["TechSkills"].ToString()?.Split(';').ToList();
+                            resumeModel.ProfessionalDevelopment = reader["ProfessionalDevelopment"] != DBNull.Value ? reader["ProfessionalDevelopment"].ToString()?.Split(';').ToList() : new List<string>();
+                        }
+                    }
+                }
+
+                // 4. Load Technical Expertise
+                var techExpertise = new TechExpertise();
+                string expertiseQuery = "SELECT Category, Skill FROM ElectricalEngineeringExpertise WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(expertiseQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        var plcs = new List<string>();
+                        var designSkills = new List<string>();
+                        var methodologies = new List<string>();
+                        var productionSkills = new List<string>();
+                        while (reader.Read())
+                        {
+                            string? category = reader["Category"].ToString();
+                            string? skill = reader["Skill"].ToString();
+                            switch (category)
+                            {
+                                case "PLC": plcs.Add(skill); break;
+                                case "Design": designSkills.Add(skill); break;
+                                case "Methodology": methodologies.Add(skill); break;
+                                case "Production": productionSkills.Add(skill); break;
+                            }
+                        }
+                        techExpertise.PLCs = plcs;
+                        techExpertise.DesignSkills = designSkills;
+                        techExpertise.Methodologies = methodologies;
+                        techExpertise.ProductionSkills = productionSkills;
+                    }
+                }
+                resumeModel.TechnicalExpertise = techExpertise;
+
+                // 5. Load Education
+                resumeModel.Education = new List<EEEducationItem>();
+                string educationQuery = "SELECT * FROM ElectricalEngineeringEducation WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(educationQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            resumeModel.Education.Add(new EEEducationItem
+                            {
+                                Degree = reader["Degree"].ToString(),
+                                School = reader["School"].ToString(),
+                                Location = reader["Location"].ToString(),
+                                Year = reader["Year"].ToString()
+                            });
+                        }
+                    }
+                }
+
+                // 6. Load Experience and Contributions
+                resumeModel.Experience = new List<EEExperienceItem>();
+                string experienceQuery = "SELECT * FROM ElectricalEngineeringExperience WHERE ResumeID = ?";
+                using (OleDbCommand cmd = new OleDbCommand(experienceQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", resumeId);
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int experienceId = Convert.ToInt32(reader["ID"]);
+                            var expItem = new EEExperienceItem
+                            {
+                                Position = reader["Position"].ToString(),
+                                Company = reader["Company"].ToString(),
+                                Location = reader["Location"].ToString(),
+                                Duration = reader["Duration"].ToString(),
+                                Achievement = reader["Achievement"].ToString(),
+                                Contributions = new List<string>()
+                            };
+                            // Load contributions for this experience
+                            string contribQuery = "SELECT Contribution FROM ElectricalEngineeringExperienceContribution WHERE ExperienceID = ?";
+                            using (OleDbCommand contribCmd = new OleDbCommand(contribQuery, conn))
+                            {
+                                contribCmd.Parameters.AddWithValue("?", experienceId);
+                                using (OleDbDataReader contribReader = contribCmd.ExecuteReader())
+                                {
+                                    while (contribReader.Read())
+                                    {
+                                        expItem.Contributions.Add(contribReader["Contribution"].ToString());
+                                    }
+                                }
+                            }
+                            resumeModel.Experience.Add(expItem);
+                        }
+                    }
+                }
+            }
+            return resumeModel;
+        }
+
+        #endregion
 
         #region Saving Personal Info of templates (this remains the same across all templates)
 
@@ -1327,7 +1946,7 @@ namespace FinalProjectOOP2
         #endregion
 
         #region Doctor Resume Database Methods
-        public bool SaveDoctorResume( int ownerId, string resumeTitle,  List<string> clinicalSkills, List<string> medTechSkills, 
+        public bool SaveDoctorResume( int ownerId, string resumeTitle,  List<string> clinicalSkills, List<string> medTechSkills, List<string> areasOfExpertise, 
             List<DoctorExperienceItem> experience, List<DoctorLicense> licenses, List<DoctorAffiliation> affiliations, List<DoctorEducationItem> education)
         {
             using (OleDbConnection conn = new OleDbConnection(connectionString))
@@ -1367,12 +1986,13 @@ namespace FinalProjectOOP2
 
                         // 3. Insert into DoctorResume
                         using (OleDbCommand cmd = new OleDbCommand(
-                            "INSERT INTO DoctorResume (ResumeID, OwnerID, ClinicalSkills, MedTechSkills) VALUES (?, ?, ?, ?)", conn, transaction))
+                            "INSERT INTO DoctorResume (ResumeID, OwnerID, ClinicalSkills, MedTechSkills, AreasOfExpertise) VALUES (?, ?, ?, ?, ?)", conn, transaction))
                         {
                             cmd.Parameters.AddWithValue("?", resumeId);
                             cmd.Parameters.AddWithValue("?", ownerId);
                             cmd.Parameters.AddWithValue("?", string.Join(";", clinicalSkills));
                             cmd.Parameters.AddWithValue("?", string.Join(";", medTechSkills));
+                            cmd.Parameters.AddWithValue("?", string.Join(";", areasOfExpertise));
                             cmd.ExecuteNonQuery();
                         }
 
@@ -1467,7 +2087,7 @@ namespace FinalProjectOOP2
 
         #endregion
 
-        #region Attorney Datbase Methods
+        #region Attorney Database Methods
         public bool SaveAttorneyResume(int ownerId, string resumeTitle,List<string> coreSkills,List<string> legalTech,List<string> barAdmissions,List<string> expertise,
             List<AttorneyEducation> education,List<AttorneyExperience> experience,List<AttorneyLicense> licenses,List<EarlierPosition> earlierPositions)
         {
@@ -1564,14 +2184,13 @@ namespace FinalProjectOOP2
                             foreach (var lic in licenses)
                             {
                                 using (OleDbCommand cmd = new OleDbCommand(
-                                    "INSERT INTO [AttorneyLicense] ([ResumeID], [OwnerID], [LicenseType], [LicenseNumber], [InitialDate], [ExpiryDate]) VALUES (?, ?, ?, ?, ?, ?)", conn, transaction))
+                                    "INSERT INTO [AttorneyLicense] ([ResumeID], [OwnerID], [LicenseType], [LicenseNumber], [AdmissionDate]) VALUES (?, ?, ?, ?, ?)", conn, transaction))
                                 {
                                     cmd.Parameters.AddWithValue("?", resumeId);
                                     cmd.Parameters.AddWithValue("?", ownerId);
                                     cmd.Parameters.AddWithValue("?", lic.Type ?? "");
                                     cmd.Parameters.AddWithValue("?", lic.LicenseNumber ?? "");
-                                    cmd.Parameters.AddWithValue("?", lic.InitialDate);
-                                    cmd.Parameters.AddWithValue("?", lic.ExpiryDate);
+                                    cmd.Parameters.AddWithValue("?", lic.AdmissionDate);
                                     cmd.ExecuteNonQuery();
                                 }
                             }

@@ -20,8 +20,8 @@ namespace FinalProjectOOP2
 
         // private Home? homeControl;
         private MyResumes? myResumes;
-        private CreateResumes? createResumes;
-       // private Profile? profile;
+        public CreateResumes? createResumes;
+        // private Profile? profile;
         private Messages? messages;
         private Settings? settings;
         private About? about;
@@ -62,7 +62,20 @@ namespace FinalProjectOOP2
 
 
         }
-       
+
+        //public void ShowCreateResumes()
+        //{
+        //    if (createResumes == null)
+        //    {
+        //        createResumes = new CreateResumes();
+        //        createResumes.CurrentUsername = currentUser;
+        //    }
+        //    mainPanel.Controls.Clear();
+        //    mainPanel.Controls.Add(createResumes);
+        //    createResumes.Dock = DockStyle.Fill;
+
+        //}
+
         private void Form_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -175,18 +188,22 @@ namespace FinalProjectOOP2
                 myResumes = new MyResumes();
                 myResumes.Username = currentUser;
                 myResumes.LoadUserResumes(currentUser);
+                
             }
 
             if (!mainPanel.Controls.Contains(myResumes))
             {
                 mainPanel.Controls.Clear();
                 mainPanel.Controls.Add(myResumes);
+                myResumes.Username = currentUser;
+                myResumes.LoadUserResumes(currentUser);
             }
         }
 
         public void createResumeBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(createResumeBtn);
+
             if (createResumes == null)
             {
                 createResumes = new CreateResumes();
@@ -197,6 +214,7 @@ namespace FinalProjectOOP2
             {
                 mainPanel.Controls.Clear();
                 mainPanel.Controls.Add(createResumes);
+              
             }
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Windows.ApplicationModel.Contacts;
 using static FinalProjectOOP2.ResumeDatabase;
 
 namespace FinalProjectOOP2
@@ -11,6 +12,7 @@ namespace FinalProjectOOP2
         private bool templateChosen = false;
         private SavingForm? savingForm;
         private DatabaseHelper? dbHelper;
+        private ResumeDatabase? ResumeDB;
         private int currentUserID;
 
         private string? currentUser;
@@ -27,15 +29,14 @@ namespace FinalProjectOOP2
             set => currentUserID = value;
         }
 
-
         public CreateResumes()
         {
             InitializeComponent();
+
             CenterTemplateSelector();
             templatePanelCorner.Visible = false;
             saveResume.Enabled = false;
             previewResume.Enabled = false;
-            loadResumeBtn.Enabled = false;
         }
 
         private void CenterTemplateSelector()
@@ -65,18 +66,15 @@ namespace FinalProjectOOP2
         {
             if (centerTemplateSelectorCbx.SelectedIndex >= 0)
             {
-                // Hide the center panel
                 templatePanel.Visible = false;
 
-                // Show the top right ComboBox
                 templatePanelCorner.Visible = true;
 
-                // Set the selected item to match
                 templateSelector.SelectedItem = centerTemplateSelectorCbx.SelectedItem;
 
                 saveResume.Enabled = true;
                 previewResume.Enabled = true;
-                loadResumeBtn.Enabled = true;
+
             }
         }
 
@@ -90,20 +88,39 @@ namespace FinalProjectOOP2
             switch (selectedTemplate)
             {
                 case "Call Center Resume":
-                    selectedControl = new CallCenterResume();
+                    var callCenterResume = new CallCenterResume();
+                    callCenterResume.CurrentUsername = currentUser;
+                    callCenterResume.LoadExistingPersonalInfo();
+                    selectedControl = callCenterResume;
+
                     break;
                 case "Electrical Engineer Resume":
-                    selectedControl = new ElectricalEngineeringTemplate();
+
+                    var eeResume = new ElectricalEngineeringTemplate();
+                    eeResume.CurrentUsername = currentUser;
+                    eeResume.LoadExistingPersonalInfo();
+                    selectedControl = eeResume;
+
                     break;
+
                 case "Doctor Resume":
-                    selectedControl = new DoctorResume();
+                    var doctorResume = new DoctorResume();
+                    doctorResume.CurrentUsername = currentUser;
+                    doctorResume.LoadExistingPersonalInfo();
+                    selectedControl = doctorResume;
+
                     break;
+
                 case "Attorney Resume":
-                    selectedControl = new AttorneyResume();
+                    var attorneyResume = new AttorneyResume();
+                    attorneyResume.CurrentUsername = currentUser;
+                    attorneyResume.LoadPersonalInfo();
+                    selectedControl = attorneyResume;
+
                     break;
-                case "Academic Resume":
-                    selectedControl = new AcademicResume();
-                    break;
+                //case "Academic Resume":
+                //    selectedControl = new AcademicResume();
+                //    break;
                 default:
                     MessageBox.Show("Unknown template selected.");
                     break;
@@ -163,7 +180,11 @@ namespace FinalProjectOOP2
 
                             if (saveable.SaveResume(CurrentUsername, resumeTitle))
                             {
+                                ResumeDB = new ResumeDatabase();
+                                currentUserID = ResumeDB.GetCurrentUserID(currentUser);
+                                ResumeDB.IncrementResumesCreatedAndSaved(currentUserID);
                                 MessageBox.Show("Resume saved successfully!");
+
                             }
                         }
                         // else: user cancelled, do nothing
@@ -182,8 +203,130 @@ namespace FinalProjectOOP2
 
         private void loadResumeBtn_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(CurrentUsername))
+            {
+                MessageBox.Show("No user logged in.");
+                return;
+            }
 
+            var db = new ResumeDatabase();
+            int ownerId = db.GetCurrentUserID(CurrentUsername);
+            var resumes = db.GetAllResumesForUser(ownerId);
+
+            // Create a custom form
+            var selectForm = new Form { Text = "Select Resume", Width = 600, Height = 400, StartPosition = FormStartPosition.CenterParent };
+            var dgv = new DataGridView
+            {
+                Dock = DockStyle.Fill,
+                DataSource = resumes,
+                ReadOnly = true,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            };
+            //dgv.Columns["FilePath"].Visible = false; // Hide FilePath if not needed
+
+           //Search
+            var searchBox = new TextBox { Dock = DockStyle.Top, PlaceholderText = "Search by title..." };
+            searchBox.TextChanged += (s, ev) =>
+            {
+                dgv.DataSource = resumes
+                    .Where(r => r.Title != null && r.Title.IndexOf(searchBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .ToList();
+            };
+
+            // Load button
+            var okBtn = new Button { Text = "Load", Dock = DockStyle.Bottom, Height = 40, DialogResult = DialogResult.OK };
+            selectForm.Controls.Add(dgv);
+            selectForm.Controls.Add(searchBox);
+            selectForm.Controls.Add(okBtn);
+
+            ResumeSummary? selectedResume = null;
+
+            // Double-click to select
+            dgv.CellDoubleClick += (s, ev) =>
+            {
+                if (ev.RowIndex >= 0)
+                {
+                    selectedResume = dgv.Rows[ev.RowIndex].DataBoundItem as ResumeSummary;
+                    selectForm.DialogResult = DialogResult.OK;
+                    selectForm.Close();
+                }
+            };
+
+            // Load button click
+            okBtn.Click += (s, ev) =>
+            {
+                if (dgv.SelectedRows.Count > 0)
+                {
+                    selectedResume = dgv.SelectedRows[0].DataBoundItem as ResumeSummary;
+                }
+                else
+                {
+                    MessageBox.Show("Please select a resume to load.");
+                    selectForm.DialogResult = DialogResult.None;
+                }
+            };
+
+            if (selectForm.ShowDialog() == DialogResult.OK && selectedResume != null)
+            {
+                LoadTemplateForResume(selectedResume.TemplateType);
+
+                if (contentPanel.Controls.Count > 0)
+                {
+                    var control = contentPanel.Controls[0];
+                    if (control is ResumeDatabase.IResumeSaveable saveable)
+                    {
+                        saveable.LoadResume(selectedResume);
+                        saveResume.Enabled = true;
+                        previewResume.Enabled = true;
+                    }
+                }
+            }
         }
+
+        public void LoadTemplateForResume(string templateType)
+        { 
+            contentPanel.Controls.Clear();
+
+            UserControl? templateControl = null;
+            switch (templateType)
+            {
+                case "Attorney":
+                    templateControl = new AttorneyResume();
+                    break;
+                case "Doctor":
+                    templateControl = new DoctorResume();
+                    break;
+                case "ElectricalEngineering":
+                    templateControl = new ElectricalEngineeringTemplate();
+                    break;
+                case "CallCenter":
+                    templateControl = new CallCenterResume();
+                    break;
+
+                default:
+                    MessageBox.Show($"Unknown or unsupported template type: {templateType}");
+                    return;
+            }
+            
+            if (templateControl != null)
+            {
+                templateControl.Dock = DockStyle.Fill;
+                contentPanel.Controls.Add(templateControl);
+
+                // Hide the center selection panel if it's still visible
+                templatePanel.Visible = false;
+                templatePanelCorner.Visible = true; // Show the corner selector
+                                                    // Optionally set the corner selector's value
+                templateSelector.Text = $"{templateType} Resume";
+
+                if (templateSelector.Items.Contains(templateType))
+                {
+                    templateSelector.SelectedItem = templateType;
+                }
+            }
+        }
+
     }
 
     public class PersonalInfo //only constant between templates that does not get changed since it is personal info
@@ -210,6 +353,7 @@ namespace FinalProjectOOP2
         public List<string>? Responsibilities { get; set; }
         public string? Achievement { get; set; }
     }
+
     public class EducationItem
     {
         public string? Degree { get; set; }

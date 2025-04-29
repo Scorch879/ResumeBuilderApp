@@ -133,7 +133,7 @@
             logoutBtn.Location = new Point(2, 2);
             logoutBtn.Name = "logoutBtn";
             logoutBtn.Padding = new Padding(3);
-            logoutBtn.Size = new Size(492, 78);
+            logoutBtn.Size = new Size(498, 72);
             logoutBtn.TabIndex = 0;
             logoutBtn.Text = "Logout";
             logoutBtn.UseVisualStyleBackColor = false;
@@ -149,13 +149,12 @@
             tableLayoutPanel3.Controls.Add(panel8, 1, 0);
             tableLayoutPanel3.Controls.Add(panel7, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(5, 5);
+            tableLayoutPanel3.Location = new Point(2, 2);
             tableLayoutPanel3.Margin = new Padding(5);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.Padding = new Padding(5);
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(1500, 92);
+            tableLayoutPanel3.Size = new Size(1506, 76);
             tableLayoutPanel3.TabIndex = 0;
             // 
             // panel9
@@ -163,11 +162,11 @@
             panel9.BackColor = Color.White;
             panel9.Controls.Add(deleteAccBtn);
             panel9.Dock = DockStyle.Fill;
-            panel9.Location = new Point(997, 5);
+            panel9.Location = new Point(1004, 0);
             panel9.Margin = new Padding(0);
             panel9.Name = "panel9";
             panel9.Padding = new Padding(3);
-            panel9.Size = new Size(498, 82);
+            panel9.Size = new Size(502, 76);
             panel9.TabIndex = 2;
             // 
             // deleteAccBtn
@@ -180,7 +179,7 @@
             deleteAccBtn.ForeColor = Color.White;
             deleteAccBtn.Location = new Point(3, 3);
             deleteAccBtn.Name = "deleteAccBtn";
-            deleteAccBtn.Size = new Size(492, 76);
+            deleteAccBtn.Size = new Size(496, 70);
             deleteAccBtn.TabIndex = 6;
             deleteAccBtn.Text = "Delete Account";
             deleteAccBtn.UseVisualStyleBackColor = false;
@@ -191,11 +190,11 @@
             panel8.BackColor = Color.White;
             panel8.Controls.Add(logoutBtn);
             panel8.Dock = DockStyle.Fill;
-            panel8.Location = new Point(501, 5);
+            panel8.Location = new Point(502, 0);
             panel8.Margin = new Padding(0);
             panel8.Name = "panel8";
             panel8.Padding = new Padding(2);
-            panel8.Size = new Size(496, 82);
+            panel8.Size = new Size(502, 76);
             panel8.TabIndex = 1;
             // 
             // panel7
@@ -203,11 +202,11 @@
             panel7.BackColor = Color.White;
             panel7.Controls.Add(updateProfileBtn);
             panel7.Dock = DockStyle.Fill;
-            panel7.Location = new Point(5, 5);
+            panel7.Location = new Point(0, 0);
             panel7.Margin = new Padding(0);
             panel7.Name = "panel7";
             panel7.Padding = new Padding(3);
-            panel7.Size = new Size(496, 82);
+            panel7.Size = new Size(502, 76);
             panel7.TabIndex = 0;
             // 
             // updateProfileBtn
@@ -220,7 +219,7 @@
             updateProfileBtn.ForeColor = Color.White;
             updateProfileBtn.Location = new Point(3, 3);
             updateProfileBtn.Name = "updateProfileBtn";
-            updateProfileBtn.Size = new Size(490, 76);
+            updateProfileBtn.Size = new Size(496, 70);
             updateProfileBtn.TabIndex = 7;
             updateProfileBtn.Text = "Update Profile";
             updateProfileBtn.UseVisualStyleBackColor = false;
@@ -230,10 +229,10 @@
             // 
             panel4.Controls.Add(tableLayoutPanel3);
             panel4.Dock = DockStyle.Bottom;
-            panel4.Location = new Point(0, 748);
+            panel4.Location = new Point(0, 770);
             panel4.Name = "panel4";
-            panel4.Padding = new Padding(5);
-            panel4.Size = new Size(1510, 102);
+            panel4.Padding = new Padding(2);
+            panel4.Size = new Size(1510, 80);
             panel4.TabIndex = 29;
             // 
             // panel12
@@ -242,6 +241,7 @@
             panel12.Controls.Add(label6);
             panel12.Dock = DockStyle.Top;
             panel12.Location = new Point(390, 108);
+            panel12.Margin = new Padding(0);
             panel12.Name = "panel12";
             panel12.Size = new Size(1120, 75);
             panel12.TabIndex = 33;
@@ -276,7 +276,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 8.279221F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 46.42857F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 12.1753244F));
-            tableLayoutPanel1.Size = new Size(390, 640);
+            tableLayoutPanel1.Size = new Size(390, 662);
             tableLayoutPanel1.TabIndex = 9;
             // 
             // panel10
@@ -284,9 +284,9 @@
             panel10.BackColor = Color.Transparent;
             panel10.Controls.Add(usernameLbl);
             panel10.Dock = DockStyle.Fill;
-            panel10.Location = new Point(3, 216);
+            panel10.Location = new Point(3, 223);
             panel10.Name = "panel10";
-            panel10.Size = new Size(384, 46);
+            panel10.Size = new Size(384, 48);
             panel10.TabIndex = 0;
             // 
             // usernameLbl
@@ -297,7 +297,7 @@
             usernameLbl.ForeColor = Color.Black;
             usernameLbl.Location = new Point(0, 0);
             usernameLbl.Name = "usernameLbl";
-            usernameLbl.Size = new Size(384, 46);
+            usernameLbl.Size = new Size(384, 48);
             usernameLbl.TabIndex = 17;
             usernameLbl.Text = "Username";
             usernameLbl.TextAlign = ContentAlignment.MiddleCenter;
@@ -307,9 +307,9 @@
             panel15.BackColor = Color.FromArgb(41, 128, 185);
             panel15.Controls.Add(panel11);
             panel15.Dock = DockStyle.Fill;
-            panel15.Location = new Point(3, 564);
+            panel15.Location = new Point(3, 583);
             panel15.Name = "panel15";
-            panel15.Size = new Size(384, 73);
+            panel15.Size = new Size(384, 76);
             panel15.TabIndex = 13;
             // 
             // panel11
@@ -321,7 +321,7 @@
             panel11.Margin = new Padding(0);
             panel11.Name = "panel11";
             panel11.Padding = new Padding(3);
-            panel11.Size = new Size(384, 73);
+            panel11.Size = new Size(384, 76);
             panel11.TabIndex = 2;
             // 
             // changeProfilePicBtn
@@ -334,7 +334,7 @@
             changeProfilePicBtn.ForeColor = Color.White;
             changeProfilePicBtn.Location = new Point(3, 3);
             changeProfilePicBtn.Name = "changeProfilePicBtn";
-            changeProfilePicBtn.Size = new Size(378, 67);
+            changeProfilePicBtn.Size = new Size(378, 70);
             changeProfilePicBtn.TabIndex = 18;
             changeProfilePicBtn.Text = "Change Profile Picture";
             changeProfilePicBtn.UseVisualStyleBackColor = false;
@@ -346,9 +346,9 @@
             panel14.Controls.Add(descriptionTbx);
             panel14.Controls.Add(label3);
             panel14.Dock = DockStyle.Fill;
-            panel14.Location = new Point(3, 268);
+            panel14.Location = new Point(3, 277);
             panel14.Name = "panel14";
-            panel14.Size = new Size(384, 290);
+            panel14.Size = new Size(384, 300);
             panel14.TabIndex = 12;
             // 
             // descriptionTbx
@@ -360,7 +360,7 @@
             descriptionTbx.Location = new Point(0, 34);
             descriptionTbx.Name = "descriptionTbx";
             descriptionTbx.Padding = new Padding(10);
-            descriptionTbx.Size = new Size(384, 256);
+            descriptionTbx.Size = new Size(384, 266);
             descriptionTbx.TabIndex = 3;
             // 
             // label3
@@ -382,7 +382,7 @@
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(3, 3);
             panel6.Name = "panel6";
-            panel6.Size = new Size(384, 207);
+            panel6.Size = new Size(384, 214);
             panel6.TabIndex = 10;
             // 
             // profilePic
@@ -392,7 +392,7 @@
             profilePic.Image = Properties.Resources.default_profile1;
             profilePic.Location = new Point(0, 0);
             profilePic.Name = "profilePic";
-            profilePic.Size = new Size(384, 207);
+            profilePic.Size = new Size(384, 214);
             profilePic.SizeMode = PictureBoxSizeMode.Zoom;
             profilePic.TabIndex = 2;
             profilePic.TabStop = false;
@@ -403,7 +403,7 @@
             panel2.Dock = DockStyle.Left;
             panel2.Location = new Point(0, 108);
             panel2.Name = "panel2";
-            panel2.Size = new Size(390, 640);
+            panel2.Size = new Size(390, 662);
             panel2.TabIndex = 30;
             // 
             // panel5
@@ -415,7 +415,7 @@
             panel5.Location = new Point(390, 183);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(5);
-            panel5.Size = new Size(1120, 565);
+            panel5.Size = new Size(1120, 587);
             panel5.TabIndex = 34;
             // 
             // tableLayoutPanel2
@@ -431,13 +431,11 @@
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(5, 5);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 5;
+            tableLayoutPanel2.RowCount = 3;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 12.1568632F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 12.1568632F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 75.68627F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(1106, 551);
+            tableLayoutPanel2.Size = new Size(1106, 573);
             tableLayoutPanel2.TabIndex = 3;
             // 
             // panel20
@@ -445,9 +443,9 @@
             panel20.BackColor = Color.Transparent;
             panel20.Controls.Add(emaillbl);
             panel20.Dock = DockStyle.Fill;
-            panel20.Location = new Point(233, 65);
+            panel20.Location = new Point(233, 72);
             panel20.Name = "panel20";
-            panel20.Size = new Size(870, 56);
+            panel20.Size = new Size(870, 63);
             panel20.TabIndex = 16;
             // 
             // emaillbl
@@ -468,9 +466,9 @@
             panel19.BackColor = Color.Transparent;
             panel19.Controls.Add(label);
             panel19.Dock = DockStyle.Fill;
-            panel19.Location = new Point(3, 65);
+            panel19.Location = new Point(3, 72);
             panel19.Name = "panel19";
-            panel19.Size = new Size(224, 56);
+            panel19.Size = new Size(224, 63);
             panel19.TabIndex = 15;
             // 
             // label
@@ -492,7 +490,7 @@
             panel18.Dock = DockStyle.Fill;
             panel18.Location = new Point(233, 3);
             panel18.Name = "panel18";
-            panel18.Size = new Size(870, 56);
+            panel18.Size = new Size(870, 63);
             panel18.TabIndex = 14;
             // 
             // fullnameLbl
@@ -514,7 +512,7 @@
             panel17.Dock = DockStyle.Fill;
             panel17.Location = new Point(3, 3);
             panel17.Name = "panel17";
-            panel17.Size = new Size(224, 56);
+            panel17.Size = new Size(224, 63);
             panel17.TabIndex = 13;
             // 
             // label2
@@ -539,6 +537,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(panel4);
+            Margin = new Padding(0);
             Name = "Profile";
             Size = new Size(1510, 850);
             panel1.ResumeLayout(false);

@@ -13,6 +13,7 @@ namespace FinalProjectOOP2
 {
     public partial class ElectricalEngineeringTemplate : UserControl, IResumeSaveable
     {
+        public string? CurrentUsername { get; set; }
         private List<string> tempResponsibilities = new List<string>();
         private DataGridViewRow? selectedExpRow = null;
         private DataGridViewRow? selectedTechRow;
@@ -80,6 +81,39 @@ namespace FinalProjectOOP2
             return true;
         }
 
+        public void LoadExistingPersonalInfo()
+        {
+            try
+            {
+                var db = new ResumeDatabase();
+                string? username = this.CurrentUsername;
+                if (!string.IsNullOrEmpty(username))
+                {
+                    int userId = db.GetCurrentUserID(username);
+                    if (userId > 0)
+                    {
+                        var personalInfo = db.LoadPersonalInfo(userId);
+                        if (personalInfo != null)
+                        {
+                            firstNameTbx.Text = personalInfo.FirstName ?? "";
+                            middleNameTbx.Text = personalInfo.MiddleName ?? "";
+                            lastNameTbx.Text = personalInfo.LastName ?? "";
+                            emailTbx.Text = personalInfo.Email ?? "";
+                            phoneNumTbx.Text = personalInfo.Phone ?? "";
+                            addressTbx.Text = personalInfo.Address ?? "";
+                            titleTbx.Text = personalInfo.Title ?? "";
+                            summaryTbx.Text = personalInfo.Summary ?? "";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading personal information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //FOr saving
         public bool SaveResume(string currentUsername, string resumeTitle)
         {
 
@@ -134,6 +168,128 @@ namespace FinalProjectOOP2
                 return false;
             }
         }
+
+        //For Loading
+        public void LoadResume(ResumeSummary resumeSummary)
+        {
+            try
+            {
+                var db = new ResumeDatabase();
+                var resumeModel = db.LoadEEResume(resumeSummary.ResumeID);
+
+                // Populate personal info
+                firstNameTbx.Text = resumeModel.FirstName;
+                middleNameTbx.Text = resumeModel.MiddleName;
+                lastNameTbx.Text = resumeModel.LastName;
+                emailTbx.Text = resumeModel.Email;
+                phoneNumTbx.Text = resumeModel.Phone;
+                addressTbx.Text = resumeModel.Address;
+                titleTbx.Text = resumeModel.Title;
+                summaryTbx.Text = resumeModel.Summary;
+
+                // Populate core skills
+                coreSkillsLstBx.Items.Clear();
+                if (resumeModel.CoreSkills != null)
+                {
+                    foreach (var skill in resumeModel.CoreSkills)
+                    {
+                        coreSkillsLstBx.Items.Add(skill);
+                    }
+                }
+
+                // Populate tech skills
+                techSkillsLstBx.Items.Clear();
+                if (resumeModel.TechSkills != null)
+                {
+                    foreach (var skill in resumeModel.TechSkills)
+                    {
+                        techSkillsLstBx.Items.Add(skill);
+                    }
+                }
+
+                // Populate professional development
+                developmentLstBx.Items.Clear();
+                if (resumeModel.ProfessionalDevelopment != null)
+                {
+                    foreach (var dev in resumeModel.ProfessionalDevelopment)
+                    {
+                        developmentLstBx.Items.Add(dev);
+                    }
+                }
+
+                // Populate technical expertise
+                dgvTechExpertise.Rows.Clear();
+                if (resumeModel.TechnicalExpertise != null)
+                {
+                    int maxRows = new[]
+                    {
+                        resumeModel.TechnicalExpertise.PLCs?.Count ?? 0,
+                        resumeModel.TechnicalExpertise.DesignSkills?.Count ?? 0,
+                        resumeModel.TechnicalExpertise.Methodologies?.Count ?? 0,
+                        resumeModel.TechnicalExpertise.ProductionSkills?.Count ?? 0
+                    }.Max();
+                    for (int i = 0; i < maxRows; i++)
+                    {
+                        dgvTechExpertise.Rows.Add(
+                            resumeModel.TechnicalExpertise.PLCs != null && i < resumeModel.TechnicalExpertise.PLCs.Count ? resumeModel.TechnicalExpertise.PLCs[i] : "",
+                            resumeModel.TechnicalExpertise.DesignSkills != null && i < resumeModel.TechnicalExpertise.DesignSkills.Count ? resumeModel.TechnicalExpertise.DesignSkills[i] : "",
+                            resumeModel.TechnicalExpertise.Methodologies != null && i < resumeModel.TechnicalExpertise.Methodologies.Count ? resumeModel.TechnicalExpertise.Methodologies[i] : "",
+                            resumeModel.TechnicalExpertise.ProductionSkills != null && i < resumeModel.TechnicalExpertise.ProductionSkills.Count ? resumeModel.TechnicalExpertise.ProductionSkills[i] : ""
+                        );
+                    }
+                }
+
+                // Populate education
+                dgvEducation.Rows.Clear();
+                if (resumeModel.Education != null)
+                {
+                    foreach (var edu in resumeModel.Education)
+                    {
+                        dgvEducation.Rows.Add(
+                            edu.Degree,
+                            edu.School,
+                            edu.Location,
+                            edu.Year
+                        );
+                    }
+                }
+
+                // Populate experience
+                dgvProfExp.Rows.Clear();
+                if (resumeModel.Experience != null)
+                {
+                    foreach (var exp in resumeModel.Experience)
+                    {
+                        int rowIndex = dgvProfExp.Rows.Add(
+                            exp.Position,
+                            exp.Company,
+                            exp.Location,
+                            exp.Duration,
+                            exp.Achievement
+                        );
+                        var row = dgvProfExp.Rows[rowIndex];
+                        // Add contributions to columns if they exist
+                        if (exp.Contributions != null)
+                        {
+                            for (int i = 0; i < exp.Contributions.Count; i++)
+                            {
+                                string colName = $"Contribution{i + 1}";
+                                if (!dgvProfExp.Columns.Contains(colName))
+                                {
+                                    dgvProfExp.Columns.Add(colName, $"Contribution {i + 1}");
+                                }
+                                row.Cells[colName].Value = exp.Contributions[i];
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading resume: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         //Selection changed handlers
         private void dgvProfExp_SelectionChanged(object sender, EventArgs e)
@@ -710,7 +866,6 @@ namespace FinalProjectOOP2
 
 #endregion
     }
-
 
     public class ElectricalEngineeringResumeModel : PersonalInfo
     {

@@ -13,7 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (components != null)) 
             {
                 components.Dispose();
             }
@@ -32,11 +32,11 @@
             createResumeBtn = new FontAwesome.Sharp.IconButton();
             panel6 = new Panel();
             saveResume = new FontAwesome.Sharp.IconButton();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            panel2 = new Panel();
+            loadResumeBtn = new FontAwesome.Sharp.IconButton();
             panel7 = new Panel();
             previewResume = new FontAwesome.Sharp.IconButton();
-            tableLayoutPanel3 = new TableLayoutPanel();
-            panel10 = new Panel();
-            loadResumeBtn = new FontAwesome.Sharp.IconButton();
             panel8 = new Panel();
             userLbl = new Label();
             label1 = new Label();
@@ -54,9 +54,9 @@
             titleLbl = new Label();
             panel11.SuspendLayout();
             panel6.SuspendLayout();
-            panel7.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
-            panel10.SuspendLayout();
+            panel2.SuspendLayout();
+            panel7.SuspendLayout();
             panel8.SuspendLayout();
             panel1.SuspendLayout();
             templatePanelCorner.SuspendLayout();
@@ -132,7 +132,7 @@
             saveResume.Location = new Point(4, 4);
             saveResume.Margin = new Padding(2);
             saveResume.Name = "saveResume";
-            saveResume.Padding = new Padding(70, 0, 0, 0);
+            saveResume.Padding = new Padding(90, 0, 0, 0);
             saveResume.Size = new Size(365, 74);
             saveResume.TabIndex = 23;
             saveResume.Text = " Save \r\n Information";
@@ -140,6 +140,64 @@
             saveResume.TextImageRelation = TextImageRelation.ImageBeforeText;
             saveResume.UseVisualStyleBackColor = false;
             saveResume.Click += saveResume_Click;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 4;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel3.Controls.Add(panel2, 3, 0);
+            tableLayoutPanel3.Controls.Add(panel7, 2, 0);
+            tableLayoutPanel3.Controls.Add(panel6, 1, 0);
+            tableLayoutPanel3.Controls.Add(panel11, 0, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(0, 0);
+            tableLayoutPanel3.Margin = new Padding(0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new Size(1510, 86);
+            tableLayoutPanel3.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(216, 225, 233);
+            panel2.Controls.Add(loadResumeBtn);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(1133, 2);
+            panel2.Margin = new Padding(2);
+            panel2.Name = "panel2";
+            panel2.Padding = new Padding(4);
+            panel2.Size = new Size(375, 82);
+            panel2.TabIndex = 10;
+            // 
+            // loadResumeBtn
+            // 
+            loadResumeBtn.BackColor = Color.FromArgb(41, 128, 185);
+            loadResumeBtn.Cursor = Cursors.Hand;
+            loadResumeBtn.Dock = DockStyle.Fill;
+            loadResumeBtn.FlatAppearance.BorderSize = 0;
+            loadResumeBtn.FlatStyle = FlatStyle.Flat;
+            loadResumeBtn.Font = new Font("Century Gothic", 13.8F);
+            loadResumeBtn.ForeColor = Color.White;
+            loadResumeBtn.IconChar = FontAwesome.Sharp.IconChar.Server;
+            loadResumeBtn.IconColor = Color.FromArgb(216, 225, 233);
+            loadResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            loadResumeBtn.IconSize = 50;
+            loadResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            loadResumeBtn.Location = new Point(4, 4);
+            loadResumeBtn.Margin = new Padding(2);
+            loadResumeBtn.Name = "loadResumeBtn";
+            loadResumeBtn.Padding = new Padding(70, 0, 0, 0);
+            loadResumeBtn.Size = new Size(367, 74);
+            loadResumeBtn.TabIndex = 23;
+            loadResumeBtn.Text = " Load Resume";
+            loadResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
+            loadResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            loadResumeBtn.UseVisualStyleBackColor = false;
+            loadResumeBtn.Click += loadResumeBtn_Click;
             // 
             // panel7
             // 
@@ -170,72 +228,14 @@
             previewResume.Location = new Point(4, 4);
             previewResume.Margin = new Padding(2);
             previewResume.Name = "previewResume";
-            previewResume.Padding = new Padding(100, 0, 0, 0);
+            previewResume.Padding = new Padding(40, 0, 0, 0);
             previewResume.Size = new Size(365, 74);
             previewResume.TabIndex = 23;
-            previewResume.Text = " Preview \r\n Resume";
+            previewResume.Text = " Preview Resume";
             previewResume.TextAlign = ContentAlignment.MiddleLeft;
             previewResume.TextImageRelation = TextImageRelation.ImageBeforeText;
             previewResume.UseVisualStyleBackColor = false;
             previewResume.Click += previewResume_Click;
-            // 
-            // tableLayoutPanel3
-            // 
-            tableLayoutPanel3.ColumnCount = 4;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
-            tableLayoutPanel3.Controls.Add(panel10, 3, 0);
-            tableLayoutPanel3.Controls.Add(panel7, 2, 0);
-            tableLayoutPanel3.Controls.Add(panel6, 1, 0);
-            tableLayoutPanel3.Controls.Add(panel11, 0, 0);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(0, 0);
-            tableLayoutPanel3.Margin = new Padding(0);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 1;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(1510, 86);
-            tableLayoutPanel3.TabIndex = 0;
-            // 
-            // panel10
-            // 
-            panel10.BackColor = Color.FromArgb(216, 225, 233);
-            panel10.Controls.Add(loadResumeBtn);
-            panel10.Dock = DockStyle.Fill;
-            panel10.Location = new Point(1133, 2);
-            panel10.Margin = new Padding(2);
-            panel10.Name = "panel10";
-            panel10.Padding = new Padding(4);
-            panel10.Size = new Size(375, 82);
-            panel10.TabIndex = 10;
-            // 
-            // loadResumeBtn
-            // 
-            loadResumeBtn.BackColor = Color.FromArgb(41, 128, 185);
-            loadResumeBtn.Cursor = Cursors.Hand;
-            loadResumeBtn.Dock = DockStyle.Fill;
-            loadResumeBtn.FlatAppearance.BorderSize = 0;
-            loadResumeBtn.FlatStyle = FlatStyle.Flat;
-            loadResumeBtn.Font = new Font("Century Gothic", 13.8F);
-            loadResumeBtn.ForeColor = Color.White;
-            loadResumeBtn.IconChar = FontAwesome.Sharp.IconChar.File;
-            loadResumeBtn.IconColor = Color.FromArgb(216, 225, 233);
-            loadResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            loadResumeBtn.IconSize = 50;
-            loadResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            loadResumeBtn.Location = new Point(4, 4);
-            loadResumeBtn.Margin = new Padding(2);
-            loadResumeBtn.Name = "loadResumeBtn";
-            loadResumeBtn.Padding = new Padding(100, 0, 0, 0);
-            loadResumeBtn.Size = new Size(367, 74);
-            loadResumeBtn.TabIndex = 27;
-            loadResumeBtn.Text = " Load\r\n Resume";
-            loadResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
-            loadResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-            loadResumeBtn.UseVisualStyleBackColor = false;
-            loadResumeBtn.Click += loadResumeBtn_Click;
             // 
             // panel8
             // 
@@ -335,6 +335,7 @@
             contentPanel.Controls.Add(templatePanel);
             contentPanel.Dock = DockStyle.Fill;
             contentPanel.Location = new Point(0, 106);
+            contentPanel.Margin = new Padding(0);
             contentPanel.Name = "contentPanel";
             contentPanel.Size = new Size(1510, 658);
             contentPanel.TabIndex = 35;
@@ -413,13 +414,14 @@
             Controls.Add(contentPanel);
             Controls.Add(panel8);
             Controls.Add(panel1);
+            Margin = new Padding(0);
             Name = "CreateResumes";
             Size = new Size(1510, 850);
             panel11.ResumeLayout(false);
             panel6.ResumeLayout(false);
-            panel7.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
-            panel10.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -434,8 +436,6 @@
 
         #endregion
         private TableLayoutPanel tableLayoutPanel3;
-        private Panel panel7;
-        private FontAwesome.Sharp.IconButton previewResume;
         private Panel panel6;
         private FontAwesome.Sharp.IconButton saveResume;
         private Panel panel11;
@@ -448,14 +448,16 @@
         private Panel templatePanelCorner;
         private Label label14;
         private ComboBox templateSelector;
-        private Panel panel10;
-        private Panel contentPanel;
+        public Panel contentPanel;
         private Panel templatePanel;
         private Panel panel5;
         private Label titleLbl;
         private Panel panel12;
         private Panel panel13;
         private ComboBox centerTemplateSelectorCbx;
+        private Panel panel2;
         private FontAwesome.Sharp.IconButton loadResumeBtn;
+        private Panel panel7;
+        private FontAwesome.Sharp.IconButton previewResume;
     }
 }

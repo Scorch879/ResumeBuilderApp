@@ -15,6 +15,7 @@ namespace FinalProjectOOP2
 {
     public partial class CallCenterResume : UserControl, IResumeSaveable
     {
+        public string? CurrentUsername { get; set; }
         private List<string> tempResponsibilities = new List<string>();
         private DataGridViewRow? selectedExpRow = null;
         private ResumeDatabase _db;
@@ -67,6 +68,39 @@ namespace FinalProjectOOP2
             return true;
         }
 
+        public void LoadExistingPersonalInfo()
+        {
+            try
+            {
+                var db = new ResumeDatabase();
+                string? username = this.CurrentUsername;
+                if (!string.IsNullOrEmpty(username))
+                {
+                    int userId = db.GetCurrentUserID(username);
+                    if (userId > 0)
+                    {
+                        var personalInfo = db.LoadPersonalInfo(userId);
+                        if (personalInfo != null)
+                        {
+                            firstNameTbx.Text = personalInfo.FirstName ?? "";
+                            middleNameTbx.Text = personalInfo.MiddleName ?? "";
+                            lastNameTbx.Text = personalInfo.LastName ?? "";
+                            emailTbx.Text = personalInfo.Email ?? "";
+                            phoneNumTbx.Text = personalInfo.Phone ?? "";
+                            addressTbx.Text = personalInfo.Address ?? "";
+                            titleTbx.Text = personalInfo.Title ?? "";
+                            summaryTbx.Text = personalInfo.Summary ?? "";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading personal information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //For saving
         public bool SaveResume(string currentUsername, string resumeTitle)
         {
             if (!ValidateInputs())
@@ -108,6 +142,108 @@ namespace FinalProjectOOP2
                 return false;
             }
         }
+
+        //For loading data
+        public void LoadResume(ResumeSummary resumeSummary)
+        {
+            try
+            {
+                var db = new ResumeDatabase();
+                var resumeModel = db.LoadCallCenterResume(resumeSummary.ResumeID);
+
+                // Populate personal info
+                firstNameTbx.Text = resumeModel.FirstName;
+                middleNameTbx.Text = resumeModel.MiddleName;
+                lastNameTbx.Text = resumeModel.LastName;
+                emailTbx.Text = resumeModel.Email;
+                phoneNumTbx.Text = resumeModel.Phone;
+                addressTbx.Text = resumeModel.Address;
+                titleTbx.Text = resumeModel.Title;
+                summaryTbx.Text = resumeModel.Summary;
+
+                // Populate core skills
+                coreSkillsLstBx.Items.Clear();
+                if (resumeModel.CoreSkills != null)
+                {
+                    foreach (var skill in resumeModel.CoreSkills)
+                    {
+                        coreSkillsLstBx.Items.Add(skill);
+                    }
+                }
+
+                // Populate tech skills
+                techSkillsLstBx.Items.Clear();
+                if (resumeModel.TechSkills != null)
+                {
+                    foreach (var skill in resumeModel.TechSkills)
+                    {
+                        techSkillsLstBx.Items.Add(skill);
+                    }
+                }
+
+                // Populate languages
+                languageLstBx.Items.Clear();
+                if (resumeModel.Languages != null)
+                {
+                    foreach (var lang in resumeModel.Languages)
+                    {
+                        languageLstBx.Items.Add(lang);
+                    }
+                }
+
+                // Populate education
+                dgvEducation.Rows.Clear();
+                if (resumeModel.Education != null)
+                {
+                    foreach (var edu in resumeModel.Education)
+                    {
+                        dgvEducation.Rows.Add(
+                            edu.Degree,
+                            edu.School,
+                            edu.Location,
+                            edu.Year
+                        );
+                    }
+                }
+
+                // Populate experience
+                dgvProfExp.Rows.Clear();
+                if (resumeModel.Experience != null)
+                {
+                    foreach (var exp in resumeModel.Experience)
+                    {
+                        // Add experience row
+                        int rowIndex = dgvProfExp.Rows.Add(
+                            exp.Title,
+                            exp.Company,
+                            exp.Location,
+                            exp.Duration,
+                            exp.Achievement
+                        );
+                        var row = dgvProfExp.Rows[rowIndex];
+                        // Add responsibilities to columns if they exist
+                        if (exp.Responsibilities != null)
+                        {
+                            for (int i = 0; i < exp.Responsibilities.Count; i++)
+                            {
+                                string colName = $"Responsibility{i + 1}";
+                                if (!dgvProfExp.Columns.Contains(colName))
+                                {
+                                    dgvProfExp.Columns.Add(colName, $"Responsibility {i + 1}");
+                                }
+                                row.Cells[colName].Value = exp.Responsibilities[i];
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading resume: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
 
         private List<string> GetListBoxItems(ListBox listBox)
         {
@@ -249,10 +385,21 @@ namespace FinalProjectOOP2
         //Core Skills Section
         private void btnAddCoreSkill_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(coreSkillTbx.Text))
+            string skill = coreSkillTbx.Text;
+            if (string.IsNullOrWhiteSpace(coreSkillTbx.Text) || skill == "Enter your skill")
+            {
+                MessageBox.Show("Please enter a core skill.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+               
+            }
+            if (!coreSkillsLstBx.Items.Contains(skill))
             {
                 coreSkillsLstBx.Items.Add(coreSkillTbx.Text.Trim());
                 coreSkillTbx.Clear();
+            }
+            else
+            {
+                MessageBox.Show("This core skill already exists.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -264,17 +411,27 @@ namespace FinalProjectOOP2
             }
             else
             {
-                return; //do nothing if there's nothing selected
+                MessageBox.Show("Please select a core skill to remove.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         //Tech Skill Section
         private void btnAddTechSkill_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(techSkillTbx.Text))
+            string skill = techSkillTbx.Text;
+            if (string.IsNullOrEmpty(techSkillTbx.Text) || skill == "Enter your skill")
+            {
+                MessageBox.Show("Please enter a Tech skill.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!techSkillsLstBx.Items.Contains(skill))
             {
                 techSkillsLstBx.Items.Add(techSkillTbx.Text.Trim());
                 techSkillTbx.Clear();
+            }
+            else
+            {
+                MessageBox.Show("This core skill already exists.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -293,12 +450,23 @@ namespace FinalProjectOOP2
         //Language Section
         private void btnLangAdd_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(languageTbx.Text))
+            string lang = languageTbx.Text;
+            if (string.IsNullOrEmpty(lang))
+            {
+                MessageBox.Show("Please enter a language.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!languageLstBx.Items.Contains(lang))
             {
                 languageLstBx.Items.Add(languageTbx.Text.Trim());
                 languageTbx.Clear();
             }
+            else
+            {
+                MessageBox.Show("This language is already in the list.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
+        
 
         private void btnLangRemove_Click(object sender, EventArgs e)
         {
