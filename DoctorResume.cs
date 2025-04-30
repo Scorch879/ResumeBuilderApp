@@ -1,9 +1,10 @@
 ﻿using System.Data;
 using static FinalProjectOOP2.ResumeDatabase;
+using SelectPdf;
 
 namespace FinalProjectOOP2
 {
-    public partial class DoctorResume : UserControl, IResumeSaveable
+    public partial class DoctorResume : UserControl, IResumeSaveable, IResumeExportable
     {
         public string? CurrentUsername { get; set; }
 
@@ -15,37 +16,7 @@ namespace FinalProjectOOP2
             LoadExistingPersonalInfo();
         }
 
-        public void LoadExistingPersonalInfo()
-        {
-            try
-            {
-                var db = new ResumeDatabase();
-                string? username = this.CurrentUsername;
-                if (!string.IsNullOrEmpty(username))
-                {
-                    int userId = db.GetCurrentUserID(username);
-                    if (userId > 0)
-                    {
-                        var personalInfo = db.LoadPersonalInfo(userId);
-                        if (personalInfo != null)
-                        {
-                            firstNameTbx.Text = personalInfo.FirstName ?? "";
-                            middleNameTbx.Text = personalInfo.MiddleName ?? "";
-                            lastNameTbx.Text = personalInfo.LastName ?? "";
-                            emailTbx.Text = personalInfo.Email ?? "";
-                            phoneNumTbx.Text = personalInfo.Phone ?? "";
-                            addressTbx.Text = personalInfo.Address ?? "";
-                            titleTbx.Text = personalInfo.Title ?? "";
-                            summaryTbx.Text = personalInfo.Summary ?? "";
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading personal information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+      
 
         #region These methods are for the Button Click within the EditContributions Column
         private void dgvProfExp_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -146,6 +117,148 @@ namespace FinalProjectOOP2
             // You can add more detailed checks for each section if needed
 
             return true;
+        }
+
+        #region CRUD Operations
+        //Fetching Data
+        private DoctorResumeModel GetResumeData()
+        {
+            return new DoctorResumeModel
+            {
+                Name = $"{firstNameTbx.Text} {middleNameTbx.Text} {lastNameTbx.Text}".Trim(),
+                Address = addressTbx.Text,
+                Phone = phoneNumTbx.Text,
+                Email = emailTbx.Text,
+                Title = titleTbx.Text,
+                Summary = summaryTbx.Text,
+                ClinicalSkills = coreSkillsLstBx.Items.Cast<string>().ToList(),
+                MedicalTech = techSkillsLstBx.Items.Cast<string>().ToList(),
+                Licenses = GetLicenses(),
+                AreasOfExpertise = expertiseLstBx.Items.Cast<string>().ToList(),
+                Experience = GetExperience(),
+                Education = GetEducationItems(),
+                Affiliations = GetAffiliations()
+            };
+        }
+
+        private List<DoctorExperienceItem> GetExperience()
+        {
+            var experienceList = new List<DoctorExperienceItem>();
+
+            foreach (DataGridViewRow row in dgvProfExp.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                string? position = row.Cells["JobTitle"]?.Value?.ToString();
+                string? company = row.Cells["Company"]?.Value?.ToString();
+                string? location = row.Cells["Location"]?.Value?.ToString();
+                string? duration = row.Cells["Duration"]?.Value?.ToString();
+                string? description = row.Cells["Description"]?.Value?.ToString(); // Optional
+
+                // Prevent "Edit" from being treated as actual data
+                string? contributionsRaw = row.Cells["Contributions"]?.Value?.ToString();
+                List<string> contributions =
+                    (string.IsNullOrWhiteSpace(contributionsRaw) || contributionsRaw.Trim() == "Edit")
+                        ? new List<string>()
+                        : contributionsRaw.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                                           .Select(s => s.Trim()).ToList();
+
+                if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(company))
+                {
+                    experienceList.Add(new DoctorExperienceItem
+                    {
+                        Position = position,
+                        Company = company,
+                        Location = location,
+                        Duration = duration,
+                        Description = description,
+                        Contributions = contributions
+                    });
+                }
+            }
+
+            return experienceList;
+        }
+
+        private List<DoctorEducationItem> GetEducationItems()
+        {
+            var list = new List<DoctorEducationItem>();
+
+            foreach (DataGridViewRow row in dgvEducation.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                var degree = row.Cells["Position"]?.Value?.ToString();
+                var institution = row.Cells["Institution"]?.Value?.ToString();
+                var specialization = row.Cells["Specialization"]?.Value?.ToString();
+                var location = row.Cells["Location_Doc"]?.Value?.ToString();
+
+                if (!string.IsNullOrWhiteSpace(degree) && !string.IsNullOrWhiteSpace(institution))
+                {
+                    list.Add(new DoctorEducationItem
+                    {
+                        Degree = degree,
+                        Institution = institution,
+                        Specialization = specialization,
+                        Location = location
+                    });
+                }
+            }
+
+            return list;
+        }
+
+        private List<DoctorLicense> GetLicenses()
+        {
+            var list = new List<DoctorLicense>();
+
+            foreach (DataGridViewRow row in licenseDgv.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                var type = row.Cells["LiscenseType"]?.Value?.ToString();
+                var licenseNo = row.Cells["LiscenseNo"]?.Value?.ToString();
+                var initialDateStr = row.Cells["InitialLiscenseDate"]?.Value?.ToString();
+                var expiryDateStr = row.Cells["ExpiryDate"]?.Value?.ToString();
+
+                if (DateTime.TryParse(initialDateStr, out var initialDate) &&
+                    DateTime.TryParse(expiryDateStr, out var expiryDate))
+                {
+                    list.Add(new DoctorLicense
+                    {
+                        Type = type,
+                        LicenseNumber = licenseNo,
+                        InitialDate = initialDate,
+                        ExpiryDate = expiryDate
+                    });
+                }
+            }
+
+            return list;
+        }
+
+        private List<DoctorAffiliation> GetAffiliations()
+        {
+            var list = new List<DoctorAffiliation>();
+
+            foreach (DataGridViewRow row in dgvAffiliate.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                string? status = row.Cells["Status"].Value?.ToString();
+                string? institution = row.Cells["InstitutionAffiliate"].Value?.ToString();
+
+                if (!string.IsNullOrWhiteSpace(status) && !string.IsNullOrWhiteSpace(institution))
+                {
+                    list.Add(new DoctorAffiliation
+                    {
+                        Status = status,
+                        Institution = institution
+                    });
+                }
+            }
+
+            return list;
         }
 
         //Saving
@@ -309,147 +422,69 @@ namespace FinalProjectOOP2
             }
         }
 
-        //Fetching Data
-        private DoctorResumeModel GetResumeData()
+        public void LoadExistingPersonalInfo()
         {
-            return new DoctorResumeModel
+            try
             {
-                Name = $"{firstNameTbx.Text} {middleNameTbx.Text} {lastNameTbx.Text}".Trim(),
-                Address = addressTbx.Text,
-                Phone = phoneNumTbx.Text,
-                Email = emailTbx.Text,
-                Title = titleTbx.Text,
-                Summary = summaryTbx.Text,
-                ClinicalSkills = coreSkillsLstBx.Items.Cast<string>().ToList(),
-                MedicalTech = techSkillsLstBx.Items.Cast<string>().ToList(),
-                Licenses = GetLicenses(),
-                AreasOfExpertise = expertiseLstBx.Items.Cast<string>().ToList(),
-                Experience = GetExperience(),
-                Education = GetEducationItems(),
-                Affiliations = GetAffiliations()
-            };
-        }
-
-        private List<DoctorExperienceItem> GetExperience()
-        {
-            var experienceList = new List<DoctorExperienceItem>();
-
-            foreach (DataGridViewRow row in dgvProfExp.Rows)
-            {
-                if (row.IsNewRow) continue;
-
-                string? position = row.Cells["JobTitle"]?.Value?.ToString();
-                string? company = row.Cells["Company"]?.Value?.ToString();
-                string? location = row.Cells["Location"]?.Value?.ToString();
-                string? duration = row.Cells["Duration"]?.Value?.ToString();
-                string? description = row.Cells["Description"]?.Value?.ToString(); // Optional
-
-                // Prevent "Edit" from being treated as actual data
-                string? contributionsRaw = row.Cells["Contributions"]?.Value?.ToString();
-                List<string> contributions =
-                    (string.IsNullOrWhiteSpace(contributionsRaw) || contributionsRaw.Trim() == "Edit")
-                        ? new List<string>()
-                        : contributionsRaw.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
-                                           .Select(s => s.Trim()).ToList();
-
-                if (!string.IsNullOrWhiteSpace(position) && !string.IsNullOrWhiteSpace(company))
+                var db = new ResumeDatabase();
+                string? username = this.CurrentUsername;
+                if (!string.IsNullOrEmpty(username))
                 {
-                    experienceList.Add(new DoctorExperienceItem
+                    int userId = db.GetCurrentUserID(username);
+                    if (userId > 0)
                     {
-                        Position = position,
-                        Company = company,
-                        Location = location,
-                        Duration = duration,
-                        Description = description,
-                        Contributions = contributions
-                    });
+                        var personalInfo = db.LoadPersonalInfo(userId);
+                        if (personalInfo != null)
+                        {
+                            firstNameTbx.Text = personalInfo.FirstName ?? "";
+                            middleNameTbx.Text = personalInfo.MiddleName ?? "";
+                            lastNameTbx.Text = personalInfo.LastName ?? "";
+                            emailTbx.Text = personalInfo.Email ?? "";
+                            phoneNumTbx.Text = personalInfo.Phone ?? "";
+                            addressTbx.Text = personalInfo.Address ?? "";
+                            titleTbx.Text = personalInfo.Title ?? "";
+                            summaryTbx.Text = personalInfo.Summary ?? "";
+                        }
+                    }
                 }
             }
-
-            return experienceList;
-        }
-
-        private List<DoctorEducationItem> GetEducationItems()
-        {
-            var list = new List<DoctorEducationItem>();
-
-            foreach (DataGridViewRow row in dgvEducation.Rows)
+            catch (Exception ex)
             {
-                if (row.IsNewRow) continue;
-
-                var degree = row.Cells["Position"]?.Value?.ToString();
-                var institution = row.Cells["Institution"]?.Value?.ToString();
-                var specialization = row.Cells["Specialization"]?.Value?.ToString();
-                var location = row.Cells["Location_Doc"]?.Value?.ToString();
-
-                if (!string.IsNullOrWhiteSpace(degree) && !string.IsNullOrWhiteSpace(institution))
-                {
-                    list.Add(new DoctorEducationItem
-                    {
-                        Degree = degree,
-                        Institution = institution,
-                        Specialization = specialization,
-                        Location = location
-                    });
-                }
+                MessageBox.Show($"Error loading personal information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            return list;
         }
 
-        private List<DoctorLicense> GetLicenses()
+        #endregion
+
+        //Export Operation
+        public void ExportToPDF(string outputPath, int resumeId)
         {
-            var list = new List<DoctorLicense>();
-
-            foreach (DataGridViewRow row in licenseDgv.Rows)
+            try
             {
-                if (row.IsNewRow) continue;
+                // Load the resume data from the database
+                var db = new ResumeDatabase();
+                var resumeData = db.LoadDoctorResume(resumeId);
 
-                var type = row.Cells["LiscenseType"]?.Value?.ToString();
-                var licenseNo = row.Cells["LiscenseNo"]?.Value?.ToString();
-                var initialDateStr = row.Cells["InitialLiscenseDate"]?.Value?.ToString();
-                var expiryDateStr = row.Cells["ExpiryDate"]?.Value?.ToString();
+                // Load the HTML template
+                string templatePath = Path.Combine(Application.StartupPath, "Templates", "DoctorTemplate.html");
+                string templateContent = File.ReadAllText(templatePath);
 
-                if (DateTime.TryParse(initialDateStr, out var initialDate) &&
-                    DateTime.TryParse(expiryDateStr, out var expiryDate))
-                {
-                    list.Add(new DoctorLicense
-                    {
-                        Type = type,
-                        LicenseNumber = licenseNo,
-                        InitialDate = initialDate,
-                        ExpiryDate = expiryDate
-                    });
-                }
+                // Parse and render with Scriban
+                var template = Scriban.Template.Parse(templateContent);
+                string htmlContent = template.Render(resumeData, member => member.Name);
+
+                // Convert HTML to PDF
+                var converter = new HtmlToPdf();
+                var doc = converter.ConvertHtmlString(htmlContent);
+                doc.Save(outputPath);
+                doc.Close();
+
             }
-
-            return list;
-        }
-
-        private List<DoctorAffiliation> GetAffiliations()
-        {
-            var list = new List<DoctorAffiliation>();
-
-            foreach (DataGridViewRow row in dgvAffiliate.Rows)
+            catch (Exception ex)
             {
-                if (row.IsNewRow) continue;
-
-                string? status = row.Cells["Status"].Value?.ToString();
-                string? institution = row.Cells["InstitutionAffiliate"].Value?.ToString();
-
-                if (!string.IsNullOrWhiteSpace(status) && !string.IsNullOrWhiteSpace(institution))
-                {
-                    list.Add(new DoctorAffiliation
-                    {
-                        Status = status,
-                        Institution = institution
-                    });
-                }
+                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            return list;
         }
-
 
         #region For cursor enter and leave methods to replace the placeholder text 
 

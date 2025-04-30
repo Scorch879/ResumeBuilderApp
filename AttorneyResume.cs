@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SelectPdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,13 +12,13 @@ using static FinalProjectOOP2.ResumeDatabase;
 
 namespace FinalProjectOOP2
 {
-    public partial class AttorneyResume : UserControl, IResumeSaveable
+    public partial class AttorneyResume : UserControl, IResumeSaveable, IResumeExportable
     {
         // Add constants for column indices
         private const int TYPE_COLUMN = 0;
         private const int INITIAL_DATE_COLUMN = 1;
         private const int LICENSE_NUMBER_COLUMN = 2;
-
+         
         // Simplified column constants
         private const int DEGREE_POSITION_COLUMN = 0;
         private const int INSTITUTION_COLUMN = 1;
@@ -137,6 +138,37 @@ namespace FinalProjectOOP2
 
             return true;
         }
+
+      
+        public void ExportToPDF(string outputPath, int resumeId)
+        {
+            try
+            {
+                // Load the resume data from the database (not from the form)
+                var db = new ResumeDatabase();
+                var resumeData = db.LoadAttorneyResume(resumeId);
+
+                // Load the HTML template
+                string templatePath = Path.Combine(Application.StartupPath, "Templates", "AttorneyTemplate.html");
+                string templateContent = File.ReadAllText(templatePath);
+
+                // Parse and render with Scriban
+                var template = Scriban.Template.Parse(templateContent);
+                string htmlContent = template.Render(resumeData, member => member.Name);
+
+                // Convert HTML to PDF
+                var converter = new HtmlToPdf();
+                var doc = converter.ConvertHtmlString(htmlContent);
+                doc.Save(outputPath);
+                doc.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+       
 
         //Saving Resume to database
         public bool SaveResume(string currentUsername, string resumeTitle)

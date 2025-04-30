@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using static FinalProjectOOP2.ResumeDatabase; 
 
 namespace FinalProjectOOP2
 {
@@ -44,6 +35,11 @@ namespace FinalProjectOOP2
             {
                 dgvResumes.Columns["FilePath"].Visible = false;
             }
+
+            if (dgvResumes.Columns["ResumeID"] != null)
+            {
+                dgvResumes.Columns["ResumeID"].Visible = false;
+            }
         }
 
         private void createNewBtn_Click(object sender, EventArgs e)
@@ -57,35 +53,79 @@ namespace FinalProjectOOP2
 
         private void sendResumeBtn_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Not yet implemented");
         }
+
 
         private void exportResumeBtn_Click(object sender, EventArgs e)
         {
+            if (dgvResumes.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a resume to export.");
+                return;
+            }
 
+            var selectedResume = dgvResumes.SelectedRows[0].DataBoundItem as ResumeSummary;
+            if (selectedResume == null)
+            {
+                MessageBox.Show("Invalid resume selection.");
+                return;
+            }
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.DefaultExt = "pdf";
+                saveFileDialog.FileName = $"{selectedResume.Title}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        var db = new ResumeDatabase();
+                        int userId = db.GetCurrentUserID(currentUser);
+                        var resumeData = db.LoadResume(selectedResume.ResumeID, selectedResume.TemplateType);
+                        
+                        if (resumeData != null && selectedResume.TemplateType != null)
+                        {
+                            var templateControl = CreateTemplateControl(selectedResume.TemplateType);
+
+                            if (templateControl is IResumeExportable exportable)
+                            {
+                                exportable.ExportToPDF(saveFileDialog.FileName, selectedResume.ResumeID);
+                                MessageBox.Show("Resume exported successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                db.IncrementResumesExported(userId); // userId = current user's ID
+                            }
+                            else
+                            {
+                                MessageBox.Show($"PDF export is not supported for this resume type. ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Could not load resume data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error exporting resume: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
-        //private void sendResumeBtn_Click(object sender, EventArgs e)
-        //{
-        //    if (dgvResumes.SelectedRows.Count == 0)
-        //    {
-        //        MessageBox.Show("Please select a resume to send.");
-        //        return;
-        //    }
-        //    int resumeId = (int)dgvResumes.SelectedRows[0].Cells["ResumeID"].Value;
-        //    string recipientEmail = Microsoft.VisualBasic.Interaction.InputBox("Enter recipient email:", "Send Resume", "");
-        //    if (string.IsNullOrWhiteSpace(recipientEmail))
-        //        return;
-        //    var db = new ResumeDatabase();
-        //    string filePath = db.GetResumeFilePath(resumeId); // Implement this
-        //    if (string.IsNullOrEmpty(filePath) || !System.IO.File.Exists(filePath))
-        //    {
-        //        MessageBox.Show("Resume file not found. Please export the resume first.");
-        //        return;
-        //    }
-        //    bool sent = EmailHelper.SendEmailWithAttachment(recipientEmail, "My Resume", "Please find my resume attached.", filePath); // Implement this
-        //    MessageBox.Show(sent ? "Resume sent successfully!" : "Failed to send resume.");
-        //}
+        private UserControl CreateTemplateControl(string templateType)
+        {
+            return templateType switch
+            {
+                "CallCenter" => new CallCenterResume(),
+                "ElectricalEngineering" => new ElectricalEngineeringTemplate(),
+                "Doctor" => new DoctorResume(),
+                "Attorney" => new AttorneyResume(),
+                _ => throw new ArgumentException($"Unknown template type: {templateType}")
+            };
+        }
 
         private void deleteResumeBtn_Click(object sender, EventArgs e)
         {
@@ -141,10 +181,10 @@ namespace FinalProjectOOP2
                         resumeData = db.LoadCallCenterResume(resumeSummary.ResumeID);
                         templateFileName = "CallCenterTemplate.html";
                         break;
-                    //case "ElectricalEngineering":
-                    //    resumeData = db.LoadElectricalEngineeringResume(resumeSummary.ResumeID);
-                    //    templateFileName = "ElectricalEngineeringTemplate.html";
-                    //    break;
+                    case "ElectricalEngineering":
+                        resumeData = db.LoadEEResume(resumeSummary.ResumeID);
+                        templateFileName = "ElectricalEngineeringTemplate.html";
+                        break;
                     //// Add more cases as needed
                     default:
                         MessageBox.Show("Unknown template type.");

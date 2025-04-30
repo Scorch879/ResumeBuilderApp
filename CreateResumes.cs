@@ -178,16 +178,16 @@ namespace FinalProjectOOP2
                         {
                             string resumeTitle = dialog.ResumeTitle;
 
-                            if (saveable.SaveResume(CurrentUsername, resumeTitle))
+                            if (saveable.SaveResume(CurrentUsername, resumeTitle) && currentUser != null)
                             {
                                 ResumeDB = new ResumeDatabase();
                                 currentUserID = ResumeDB.GetCurrentUserID(currentUser);
                                 ResumeDB.IncrementResumesCreatedAndSaved(currentUserID);
-                                MessageBox.Show("Resume saved successfully!");
-
+                                MessageBox.Show("Resume saved successfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                         // else: user cancelled, do nothing
+                        MessageBox.Show("Resume saved successfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
@@ -213,32 +213,146 @@ namespace FinalProjectOOP2
             int ownerId = db.GetCurrentUserID(CurrentUsername);
             var resumes = db.GetAllResumesForUser(ownerId);
 
-            // Create a custom form
-            var selectForm = new Form { Text = "Select Resume", Width = 600, Height = 400, StartPosition = FormStartPosition.CenterParent };
+            // Create a custom form with project's design style
+            var selectForm = new Form 
+            { 
+                Text = "Select Resume", 
+                Width = 800, 
+                Height = 600, 
+                StartPosition = FormStartPosition.CenterParent,
+                BackColor = Color.FromArgb(216, 225, 233),
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+
+            // Create header panel
+            var headerPanel = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 60,
+                BackColor = Color.FromArgb(41, 128, 185)
+            };
+
+            var headerLabel = new Label
+            {
+                Text = "Select a Resume to Load",
+                Font = new Font("Century Gothic", 16, FontStyle.Bold),
+                ForeColor = Color.White,
+                Dock = DockStyle.Fill,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+            headerPanel.Controls.Add(headerLabel);
+
+            // Create search panel
+            var searchPanel = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 50,
+                Padding = new Padding(10)
+            };
+
+            var searchBox = new TextBox 
+            { 
+                Dock = DockStyle.Fill,
+                Font = new Font("Century Gothic", 12),
+                PlaceholderText = "Search by title...",
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            // Create DataGridView with project's design
             var dgv = new DataGridView
             {
                 Dock = DockStyle.Fill,
                 DataSource = resumes,
                 ReadOnly = true,
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                BackgroundColor = Color.FromArgb(216, 225, 233),
+                BorderStyle = BorderStyle.None,
+                RowHeadersVisible = false,
+                AllowUserToAddRows = false,
+                AllowUserToDeleteRows = false,
+                AllowUserToResizeRows = false,
+                Font = new Font("Century Gothic", 12),
+                CellBorderStyle = DataGridViewCellBorderStyle.None,
+                GridColor = Color.FromArgb(216, 225, 233)
             };
-            //dgv.Columns["FilePath"].Visible = false; // Hide FilePath if not needed
 
-           //Search
-            var searchBox = new TextBox { Dock = DockStyle.Top, PlaceholderText = "Search by title..." };
+            dgv.RowTemplate.Height = 40; // Set row height for better readability
+
+            // Style the DataGridView
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(41, 128, 185);
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Century Gothic", 12, FontStyle.Bold);
+            dgv.EnableHeadersVisualStyles = false;
+            dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(0, 31, 84);
+            dgv.DefaultCellStyle.SelectionForeColor = Color.White;
+            dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(230, 235, 240);
+            dgv.RowsDefaultCellStyle.Padding = new Padding(5);
+
+            // Hide columns and set headers after data binding
+            dgv.DataBindingComplete += (s, ev) =>
+            {
+                if (dgv.Columns.Contains("FilePath")) dgv.Columns["FilePath"].Visible = false;
+                if (dgv.Columns.Contains("ResumeID")) dgv.Columns["ResumeID"].Visible = false;
+                if (dgv.Columns.Contains("DateModified")) dgv.Columns["DateModified"].HeaderText = "Date Modified";
+                if (dgv.Columns.Contains("DateCreated")) dgv.Columns["DateCreated"].HeaderText = "Date Created";
+                if (dgv.Columns.Contains("TemplateType")) dgv.Columns["TemplateType"].HeaderText = "Template Type";
+                if (dgv.Columns.Contains("Title")) dgv.Columns["Title"].HeaderText = "Resume Title";
+            };
+
+            // Create button panel
+            var buttonPanel = new Panel
+            {
+                Dock = DockStyle.Bottom,
+                Height = 60,
+                Padding = new Padding(10)
+            };
+
+            var okBtn = new Button 
+            { 
+                Text = "Load",
+                Font = new Font("Century Gothic", 12),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(41, 128, 185),
+                FlatStyle = FlatStyle.Flat,
+                Dock = DockStyle.Right,
+                Width = 100,
+                Height = 40
+            };
+
+            var cancelBtn = new Button
+            {
+                Text = "Cancel",
+                Font = new Font("Century Gothic", 12),
+                ForeColor = Color.White,
+                BackColor = Color.FromArgb(41, 128, 185),
+                FlatStyle = FlatStyle.Flat,
+                Dock = DockStyle.Right,
+                Width = 100,
+                Height = 40,
+                Margin = new Padding(0, 0, 10, 0)
+            };
+
+            // Add controls to panels
+            searchPanel.Controls.Add(searchBox);
+            buttonPanel.Controls.Add(okBtn);
+            buttonPanel.Controls.Add(cancelBtn);
+
+            // Add panels to form
+            selectForm.Controls.Add(dgv);
+            selectForm.Controls.Add(searchPanel);
+            selectForm.Controls.Add(headerPanel);
+            selectForm.Controls.Add(buttonPanel);
+
+            // Search functionality
             searchBox.TextChanged += (s, ev) =>
             {
                 dgv.DataSource = resumes
                     .Where(r => r.Title != null && r.Title.IndexOf(searchBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                     .ToList();
             };
-
-            // Load button
-            var okBtn = new Button { Text = "Load", Dock = DockStyle.Bottom, Height = 40, DialogResult = DialogResult.OK };
-            selectForm.Controls.Add(dgv);
-            selectForm.Controls.Add(searchBox);
-            selectForm.Controls.Add(okBtn);
 
             ResumeSummary? selectedResume = null;
 
@@ -259,22 +373,30 @@ namespace FinalProjectOOP2
                 if (dgv.SelectedRows.Count > 0)
                 {
                     selectedResume = dgv.SelectedRows[0].DataBoundItem as ResumeSummary;
+                    selectForm.DialogResult = DialogResult.OK;
+                    selectForm.Close();
                 }
                 else
                 {
                     MessageBox.Show("Please select a resume to load.");
-                    selectForm.DialogResult = DialogResult.None;
                 }
             };
 
-            if (selectForm.ShowDialog() == DialogResult.OK && selectedResume != null)
+            // Cancel button click
+            cancelBtn.Click += (s, ev) =>
+            {
+                selectForm.DialogResult = DialogResult.Cancel;
+                selectForm.Close();
+            };
+
+            if (selectForm.ShowDialog() == DialogResult.OK && selectedResume != null && selectedResume.TemplateType != null)
             {
                 LoadTemplateForResume(selectedResume.TemplateType);
 
                 if (contentPanel.Controls.Count > 0)
                 {
                     var control = contentPanel.Controls[0];
-                    if (control is ResumeDatabase.IResumeSaveable saveable)
+                    if (control is IResumeSaveable saveable)
                     {
                         saveable.LoadResume(selectedResume);
                         saveResume.Enabled = true;

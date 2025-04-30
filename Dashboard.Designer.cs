@@ -319,7 +319,7 @@
             headerPanel.ForeColor = Color.FromArgb(41, 128, 185);
             headerPanel.Location = new Point(309, 0);
             headerPanel.Name = "headerPanel";
-            headerPanel.Size = new Size(1515, 48);
+            headerPanel.Size = new Size(1512, 48);
             headerPanel.TabIndex = 22;
             // 
             // minimizeBtn
@@ -331,7 +331,7 @@
             minimizeBtn.IconColor = Color.White;
             minimizeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             minimizeBtn.IconSize = 28;
-            minimizeBtn.Location = new Point(1458, 0);
+            minimizeBtn.Location = new Point(1455, 0);
             minimizeBtn.Margin = new Padding(3, 4, 3, 4);
             minimizeBtn.Name = "minimizeBtn";
             minimizeBtn.Size = new Size(28, 48);
@@ -351,7 +351,7 @@
             closeBtn.IconColor = Color.White;
             closeBtn.IconFont = FontAwesome.Sharp.IconFont.Regular;
             closeBtn.IconSize = 29;
-            closeBtn.Location = new Point(1486, 0);
+            closeBtn.Location = new Point(1483, 0);
             closeBtn.Margin = new Padding(0);
             closeBtn.Name = "closeBtn";
             closeBtn.Size = new Size(29, 48);
@@ -376,7 +376,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1824, 901);
+            ClientSize = new Size(1821, 901);
             Controls.Add(mainPanel);
             Controls.Add(headerPanel);
             Controls.Add(sidePanel);

@@ -47,7 +47,7 @@ namespace FinalProjectOOP2
         {
             var db = new ResumeDatabase();
             int ownerId = db.GetCurrentUserID(currentUsername);
-            var recentResumes = db.GetRecentResumesForUser(ownerId, 5);
+            var recentResumes = db.GetRecentResumesForUser(ownerId, 6);
 
            
             resumeCardFlowLayoutPanel.Controls.Clear();
@@ -105,7 +105,7 @@ namespace FinalProjectOOP2
             savedResumeslbl = new Label();
             pictureBox2 = new PictureBox();
             panel14 = new Panel();
-            chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            chartCreated = new System.Windows.Forms.DataVisualization.Charting.Chart();
             panel26 = new Panel();
             resumeCardFlowLayoutPanel = new FlowLayoutPanel();
             panel13 = new Panel();
@@ -123,7 +123,7 @@ namespace FinalProjectOOP2
             panel3.SuspendLayout();
             ((ISupportInitialize)pictureBox2).BeginInit();
             panel14.SuspendLayout();
-            ((ISupportInitialize)chart1).BeginInit();
+            ((ISupportInitialize)chartCreated).BeginInit();
             panel26.SuspendLayout();
             panel19.SuspendLayout();
             SuspendLayout();
@@ -384,29 +384,30 @@ namespace FinalProjectOOP2
             // 
             // panel14
             // 
-            panel14.Controls.Add(chart1);
+            panel14.Controls.Add(chartCreated);
             panel14.Dock = DockStyle.Right;
             panel14.Location = new Point(649, 112);
             panel14.Name = "panel14";
             panel14.Size = new Size(861, 738);
             panel14.TabIndex = 30;
             // 
-            // chart1
+            // chartCreated
             // 
             chartArea1.Name = "ChartArea1";
-            chart1.ChartAreas.Add(chartArea1);
-            chart1.Dock = DockStyle.Fill;
+            chartCreated.ChartAreas.Add(chartArea1);
+            chartCreated.Dock = DockStyle.Fill;
             legend1.Name = "Legend1";
-            chart1.Legends.Add(legend1);
-            chart1.Location = new Point(0, 0);
-            chart1.Name = "chart1";
+            chartCreated.Legends.Add(legend1);
+            chartCreated.Location = new Point(0, 0);
+            chartCreated.Name = "chartCreated";
             series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            chart1.Series.Add(series1);
-            chart1.Size = new Size(861, 738);
-            chart1.TabIndex = 0;
-            chart1.Text = "chart1";
+            chartCreated.Series.Add(series1);
+            chartCreated.Size = new Size(861, 738);
+            chartCreated.TabIndex = 0;
+            chartCreated.Text = "chart1";
             // 
             // panel26
             // 
@@ -496,7 +497,7 @@ namespace FinalProjectOOP2
             panel3.ResumeLayout(false);
             ((ISupportInitialize)pictureBox2).EndInit();
             panel14.ResumeLayout(false);
-            ((ISupportInitialize)chart1).EndInit();
+            ((ISupportInitialize)chartCreated).EndInit();
             panel26.ResumeLayout(false);
             panel19.ResumeLayout(false);
             panel19.PerformLayout();
@@ -514,39 +515,30 @@ namespace FinalProjectOOP2
             resumesExportlbl.Text = analytics.resumesExported.ToString();
             resumesSentlbl.Text = analytics.resumesSent.ToString();
 
-            // Configure the chart
-            chart1.Series.Clear();
-            chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-            chart1.ChartAreas[0].AxisX.LabelStyle.Enabled = false;
-            chart1.ChartAreas[0].AxisY.LabelStyle.Enabled = true;
-            chart1.ChartAreas[0].AxisX.LineColor = Color.FromArgb(41, 128, 185);
-            chart1.ChartAreas[0].AxisY.LineColor = Color.FromArgb(41, 128, 185);
-            chart1.ChartAreas[0].BackColor = Color.FromArgb(216, 225, 233);
+            // Fetch monthly created trend
+            var monthlyTrend = db.GetMonthlyCreatedTrend(userId);
 
-            // Configure Y-axis labels
-            chart1.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Century Gothic", 10, FontStyle.Bold);
-            chart1.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.FromArgb(41, 128, 185);
-            chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-            chart1.ChartAreas[0].AxisY.LineWidth = 0;
-            chart1.ChartAreas[0].AxisX.LineWidth = 0;
+            // Update the chart (assume chartCreated is set up as a line chart in the designer)
+            chartCreated.Series[0].Points.Clear();
+            chartCreated.Titles.Clear();
+            chartCreated.Titles.Add("Resumes Created Per Month");
+            chartCreated.ChartAreas[0].AxisX.Title = "Month";
+            chartCreated.ChartAreas[0].AxisY.Title = "Created";
+            chartCreated.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chartCreated.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            chartCreated.ChartAreas[0].AxisX.LabelStyle.Enabled = true;
+            chartCreated.ChartAreas[0].AxisY.LabelStyle.Enabled = true;
+            chartCreated.ChartAreas[0].AxisX.LineColor = Color.FromArgb(41, 128, 185);
+            chartCreated.ChartAreas[0].AxisY.LineColor = Color.FromArgb(41, 128, 185);
+            chartCreated.ChartAreas[0].BackColor = Color.FromArgb(216, 225, 233);
 
-            var series = new System.Windows.Forms.DataVisualization.Charting.Series();
-            series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-            series.Color = Color.FromArgb(41, 128, 185);
-            series.IsValueShownAsLabel = true;
-            series.LabelForeColor = Color.FromArgb(41, 128, 185);
-            series.Font = new Font("Century Gothic", 10, FontStyle.Bold);
-            series.LabelFormat = "N0"; // Format numbers without decimals
-
-            // Add data points in reverse order for better visual flow
-            series.Points.AddXY("Sent", analytics.resumesSent);
-            series.Points.AddXY("Exported", analytics.resumesExported);
-            series.Points.AddXY("Saved", analytics.resumesSaved);
-            series.Points.AddXY("Created", analytics.resumesCreated);
-
-            chart1.Series.Add(series);
+            foreach (var (month, count) in monthlyTrend)
+            {
+                chartCreated.Series[0].Points.AddXY(month, count);
+            }
         }
+
+      
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {

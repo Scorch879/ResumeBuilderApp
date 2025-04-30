@@ -1,19 +1,10 @@
-﻿using Scriban;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
+﻿using System.Data;
 using static FinalProjectOOP2.ResumeDatabase;
+using SelectPdf;
 
 namespace FinalProjectOOP2
 {
-    public partial class CallCenterResume : UserControl, IResumeSaveable
+    public partial class CallCenterResume : UserControl, IResumeSaveable, IResumeExportable
     {
         public string? CurrentUsername { get; set; }
         private List<string> tempResponsibilities = new List<string>();
@@ -52,7 +43,6 @@ namespace FinalProjectOOP2
                 return false;
             }
 
-            // Example: Check if at least one core skill, tech skill, language, education, and experience is added
             if (coreSkillsLstBx.Items.Count == 0 ||
                 techSkillsLstBx.Items.Count == 0 ||
                 languageLstBx.Items.Count == 0 ||
@@ -62,42 +52,18 @@ namespace FinalProjectOOP2
                 MessageBox.Show("Please add at least one entry for each section (skills, education, experience, etc.).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-
-            // You can add more detailed checks for each section if needed
-
             return true;
         }
 
-        public void LoadExistingPersonalInfo()
+        private void dgvProfExp_SelectionChanged(object sender, EventArgs e)
         {
-            try
+            if (dgvProfExp.SelectedRows.Count > 0 && !dgvProfExp.SelectedRows[0].IsNewRow)
             {
-                var db = new ResumeDatabase();
-                string? username = this.CurrentUsername;
-                if (!string.IsNullOrEmpty(username))
-                {
-                    int userId = db.GetCurrentUserID(username);
-                    if (userId > 0)
-                    {
-                        var personalInfo = db.LoadPersonalInfo(userId);
-                        if (personalInfo != null)
-                        {
-                            firstNameTbx.Text = personalInfo.FirstName ?? "";
-                            middleNameTbx.Text = personalInfo.MiddleName ?? "";
-                            lastNameTbx.Text = personalInfo.LastName ?? "";
-                            emailTbx.Text = personalInfo.Email ?? "";
-                            phoneNumTbx.Text = personalInfo.Phone ?? "";
-                            addressTbx.Text = personalInfo.Address ?? "";
-                            titleTbx.Text = personalInfo.Title ?? "";
-                            summaryTbx.Text = personalInfo.Summary ?? "";
-                        }
-                    }
-                }
+                selectedExpRow = dgvProfExp.SelectedRows[0];
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading personal information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            warningResponsibilityLbl.Text = "";
+            warningJobLbl.Text = "";
         }
 
         //For saving
@@ -243,25 +209,71 @@ namespace FinalProjectOOP2
             }
         }
 
+        public void ExportToPDF(string outputPath, int resumeId)
+        {
+            try
+            {
+                var db = new ResumeDatabase();
 
+                var resumeData = db.LoadCallCenterResume(resumeId);
+
+                string templatePath = Path.Combine(Application.StartupPath, "Templates", "CallCenterTemplate.html");
+                string templateContent = File.ReadAllText(templatePath);
+
+                var template = Scriban.Template.Parse(templateContent);
+                string htmlContent = template.Render(resumeData, member => member.Name);
+
+                var converter = new HtmlToPdf();
+                var doc = converter.ConvertHtmlString(htmlContent);
+                doc.Save(outputPath);
+                doc.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        #region fetching data 
+        public void LoadExistingPersonalInfo()
+        {
+            try
+            {
+                var db = new ResumeDatabase();
+                string? username = this.CurrentUsername;
+                if (!string.IsNullOrEmpty(username))
+                {
+                    int userId = db.GetCurrentUserID(username);
+                    if (userId > 0)
+                    {
+                        var personalInfo = db.LoadPersonalInfo(userId);
+                        if (personalInfo != null)
+                        {
+                            firstNameTbx.Text = personalInfo.FirstName ?? "";
+                            middleNameTbx.Text = personalInfo.MiddleName ?? "";
+                            lastNameTbx.Text = personalInfo.LastName ?? "";
+                            emailTbx.Text = personalInfo.Email ?? "";
+                            phoneNumTbx.Text = personalInfo.Phone ?? "";
+                            addressTbx.Text = personalInfo.Address ?? "";
+                            titleTbx.Text = personalInfo.Title ?? "";
+                            summaryTbx.Text = personalInfo.Summary ?? "";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading personal information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private List<string> GetListBoxItems(ListBox listBox)
         {
             return listBox.Items.Cast<string>().ToList();
         }
 
-        private void dgvProfExp_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dgvProfExp.SelectedRows.Count > 0 && !dgvProfExp.SelectedRows[0].IsNewRow)
-            {
-                selectedExpRow = dgvProfExp.SelectedRows[0];
-            }
-
-            warningResponsibilityLbl.Text = "";
-            warningJobLbl.Text = "";
-        }
-
-        #region fetching data from data grid methods
         public List<EducationItem> GetEducationFromGrid(DataGridView grid)
         {
             List<EducationItem> educationList = new List<EducationItem>();
@@ -318,7 +330,6 @@ namespace FinalProjectOOP2
 
             return experienceList;
         }
-        #endregion
 
         public CallCenterResumeModel GetResumeData()
         {
@@ -337,7 +348,7 @@ namespace FinalProjectOOP2
                 Education = GetEducationFromGrid(dgvEducation)
             };
         }
-
+        #endregion
 
         #region For cursor enter and leave methods to replace the placeholder text 
 
@@ -691,7 +702,6 @@ namespace FinalProjectOOP2
         }
         #endregion
 
-
         #region Template Specific Information seperated into classes (maybe kind of similar but is not)
         public class CallCenterResumeModel : PersonalInfo
         {
@@ -723,5 +733,7 @@ namespace FinalProjectOOP2
             public string? Year { get; set; }
         }
         #endregion
+
+        
     }
 }

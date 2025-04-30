@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using static FinalProjectOOP2.ResumeDatabase;
+using SelectPdf;
 
 namespace FinalProjectOOP2
 {
-    public partial class ElectricalEngineeringTemplate : UserControl, IResumeSaveable
+    public partial class ElectricalEngineeringTemplate : UserControl, IResumeSaveable, IResumeExportable
     {
         public string? CurrentUsername { get; set; }
         private List<string> tempResponsibilities = new List<string>();
@@ -81,42 +74,40 @@ namespace FinalProjectOOP2
             return true;
         }
 
-        public void LoadExistingPersonalInfo()
+        //Export Operation 
+        public void ExportToPDF(string outputPath, int resumeId)
         {
             try
             {
+                // Load the resume data from the database
                 var db = new ResumeDatabase();
-                string? username = this.CurrentUsername;
-                if (!string.IsNullOrEmpty(username))
-                {
-                    int userId = db.GetCurrentUserID(username);
-                    if (userId > 0)
-                    {
-                        var personalInfo = db.LoadPersonalInfo(userId);
-                        if (personalInfo != null)
-                        {
-                            firstNameTbx.Text = personalInfo.FirstName ?? "";
-                            middleNameTbx.Text = personalInfo.MiddleName ?? "";
-                            lastNameTbx.Text = personalInfo.LastName ?? "";
-                            emailTbx.Text = personalInfo.Email ?? "";
-                            phoneNumTbx.Text = personalInfo.Phone ?? "";
-                            addressTbx.Text = personalInfo.Address ?? "";
-                            titleTbx.Text = personalInfo.Title ?? "";
-                            summaryTbx.Text = personalInfo.Summary ?? "";
-                        }
-                    }
-                }
+                var resumeData = db.LoadEEResume(resumeId);
+
+                // Load the HTML template
+                string templatePath = Path.Combine(Application.StartupPath, "Templates", "ElectricalEngineeringTemplate.html");
+                string templateContent = File.ReadAllText(templatePath);
+
+                // Parse and render with Scriban
+                var template = Scriban.Template.Parse(templateContent);
+                string htmlContent = template.Render(resumeData, member => member.Name);
+
+                // Convert HTML to PDF
+                var converter = new HtmlToPdf();
+                var doc = converter.ConvertHtmlString(htmlContent);
+                doc.Save(outputPath);
+                doc.Close();
+
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading personal information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+       
 
         //FOr saving
         public bool SaveResume(string currentUsername, string resumeTitle)
         {
-
             if (!ValidateInputs())
                 return false;
 
@@ -150,7 +141,6 @@ namespace FinalProjectOOP2
                 }
 
                 // 4. Save to database
-                
                 return dbHelper.SaveElectricalEngineeringResume(
                     ownerId,
                     resumeTitle,
@@ -158,7 +148,8 @@ namespace FinalProjectOOP2
                     resumeData.TechSkills ?? new List<string>(),
                     expertise,
                     resumeData.Experience ?? new List<EEExperienceItem>(),
-                    resumeData.Education ?? new List<EEEducationItem>()
+                    resumeData.Education ?? new List<EEEducationItem>(),
+                    resumeData.ProfessionalDevelopment ?? new List<string>()
                 );
 
             }
@@ -290,6 +281,37 @@ namespace FinalProjectOOP2
             }
         }
 
+        public void LoadExistingPersonalInfo()
+        {
+            try
+            {
+                var db = new ResumeDatabase();
+                string? username = this.CurrentUsername;
+                if (!string.IsNullOrEmpty(username))
+                {
+                    int userId = db.GetCurrentUserID(username);
+                    if (userId > 0)
+                    {
+                        var personalInfo = db.LoadPersonalInfo(userId);
+                        if (personalInfo != null)
+                        {
+                            firstNameTbx.Text = personalInfo.FirstName ?? "";
+                            middleNameTbx.Text = personalInfo.MiddleName ?? "";
+                            lastNameTbx.Text = personalInfo.LastName ?? "";
+                            emailTbx.Text = personalInfo.Email ?? "";
+                            phoneNumTbx.Text = personalInfo.Phone ?? "";
+                            addressTbx.Text = personalInfo.Address ?? "";
+                            titleTbx.Text = personalInfo.Title ?? "";
+                            summaryTbx.Text = personalInfo.Summary ?? "";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading personal information: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         //Selection changed handlers
         private void dgvProfExp_SelectionChanged(object sender, EventArgs e)
@@ -299,6 +321,7 @@ namespace FinalProjectOOP2
                 selectedExpRow = dgvProfExp.SelectedRows[0];
             }
         }
+
         private void dgvTechnicalExpertise_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvTechExpertise.SelectedRows.Count > 0 && !dgvTechExpertise.SelectedRows[0].IsNewRow)
@@ -307,11 +330,7 @@ namespace FinalProjectOOP2
             }
         }
 
-
-        private List<string> GetListBoxItems(ListBox listBox)
-        {
-            return listBox.Items.Cast<string>().ToList();
-        }
+      
 
         #region fetching data from data grid methods
         public List<EEEducationItem> GetEducationFromGrid(DataGridView grid)
@@ -408,6 +427,11 @@ namespace FinalProjectOOP2
         }
 
         #endregion
+
+        private List<string> GetListBoxItems(ListBox listBox)
+        {
+            return listBox.Items.Cast<string>().ToList();
+        }
 
         public ElectricalEngineeringResumeModel GetResumeData()
         {
@@ -865,6 +889,127 @@ namespace FinalProjectOOP2
         }
 
 #endregion
+
+        public void ExportToPDF(string outputPath)
+        {
+            try
+            {
+                // Get the resume data
+                var resumeData = GetResumeData();
+
+                // Load the HTML template
+                string templatePath = Path.Combine(Application.StartupPath, "Templates", "ElectricalEngineeringTemplate.html");
+                string htmlContent = File.ReadAllText(templatePath);
+
+                // Replace placeholders with actual data
+                htmlContent = htmlContent.Replace("{{Name}}", resumeData.Name ?? "")
+                                       .Replace("{{Address}}", resumeData.Address ?? "")
+                                       .Replace("{{Phone}}", resumeData.Phone ?? "")
+                                       .Replace("{{Email}}", resumeData.Email ?? "")
+                                       .Replace("{{Title}}", resumeData.Title ?? "")
+                                       .Replace("{{Summary}}", resumeData.Summary ?? "");
+
+                // Replace Core Skills
+                string coreSkillsHtml = resumeData.CoreSkills != null ? 
+                    string.Join("<br>", resumeData.CoreSkills.Select(s => $"• {s}")) : "";
+                htmlContent = htmlContent.Replace("{{CoreSkills}}", coreSkillsHtml);
+
+                // Replace Tech Skills
+                string techSkillsHtml = resumeData.TechSkills != null ? 
+                    string.Join("<br>", resumeData.TechSkills.Select(s => $"• {s}")) : "";
+                htmlContent = htmlContent.Replace("{{TechSkills}}", techSkillsHtml);
+
+                // Replace Professional Development
+                string developmentHtml = resumeData.ProfessionalDevelopment != null ? 
+                    string.Join("<br>", resumeData.ProfessionalDevelopment.Select(s => $"• {s}")) : "";
+                htmlContent = htmlContent.Replace("{{ProfessionalDevelopment}}", developmentHtml);
+
+                // Replace Technical Expertise
+                if (resumeData.TechnicalExpertise != null)
+                {
+                    string plcsHtml = resumeData.TechnicalExpertise.PLCs != null ? 
+                        string.Join("<br>", resumeData.TechnicalExpertise.PLCs.Select(s => $"• {s}")) : "";
+                    string designHtml = resumeData.TechnicalExpertise.DesignSkills != null ? 
+                        string.Join("<br>", resumeData.TechnicalExpertise.DesignSkills.Select(s => $"• {s}")) : "";
+                    string methodsHtml = resumeData.TechnicalExpertise.Methodologies != null ? 
+                        string.Join("<br>", resumeData.TechnicalExpertise.Methodologies.Select(s => $"• {s}")) : "";
+                    string productionHtml = resumeData.TechnicalExpertise.ProductionSkills != null ? 
+                        string.Join("<br>", resumeData.TechnicalExpertise.ProductionSkills.Select(s => $"• {s}")) : "";
+
+                    htmlContent = htmlContent.Replace("{{PLCs}}", plcsHtml)
+                                           .Replace("{{DesignSkills}}", designHtml)
+                                           .Replace("{{Methodologies}}", methodsHtml)
+                                           .Replace("{{ProductionSkills}}", productionHtml);
+                }
+
+                // Replace Education
+                string educationHtml = "";
+                if (resumeData.Education != null)
+                {
+                    foreach (var edu in resumeData.Education)
+                    {
+                        educationHtml += $@"
+                            <div class='education-item'>
+                                <strong>{edu.Degree}</strong><br>
+                                {edu.School}<br>
+                                {edu.Location} | {edu.Year}
+                            </div>";
+                    }
+                }
+                htmlContent = htmlContent.Replace("{{Education}}", educationHtml);
+
+                // Replace Experience
+                string experienceHtml = "";
+                if (resumeData.Experience != null)
+                {
+                    foreach (var exp in resumeData.Experience)
+                    {
+                        string contributionsHtml = "";
+                        if (exp.Contributions != null)
+                        {
+                            contributionsHtml = string.Join("<br>", exp.Contributions.Select(c => $"• {c}"));
+                        }
+
+                        experienceHtml += $@"
+                            <div class='experience-item'>
+                                <strong>{exp.Position}</strong><br>
+                                {exp.Company} | {exp.Location} | {exp.Duration}<br>
+                                {exp.Achievement}<br>
+                                {contributionsHtml}
+                            </div>";
+                    }
+                }
+                htmlContent = htmlContent.Replace("{{Experience}}", experienceHtml);
+
+                // Convert HTML to PDF using Select.HtmlToPdf
+                var converter = new HtmlToPdf();
+                var doc = converter.ConvertHtmlString(htmlContent);
+                doc.Save(outputPath);
+                doc.Close();
+
+                MessageBox.Show("Resume exported to PDF successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportPDF_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.DefaultExt = "pdf";
+                saveFileDialog.FileName = $"ElectricalEngineeringResume_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    ExportToPDF(saveFileDialog.FileName);
+                }
+            }
+        }
     }
 
     public class ElectricalEngineeringResumeModel : PersonalInfo

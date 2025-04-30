@@ -47,7 +47,7 @@
         private Panel panel19;
         private Label label21;
         private Label label22;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private FlowLayoutPanel resumeCardFlowLayoutPanel;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartCreated;
     }
 }

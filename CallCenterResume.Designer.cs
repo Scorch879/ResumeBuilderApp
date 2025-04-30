@@ -867,6 +867,7 @@
             btnAddEduc.TabIndex = 1;
             btnAddEduc.Text = "Add Education";
             btnAddEduc.UseVisualStyleBackColor = false;
+            btnAddEduc.Click += btnAddEduc_Click;
             // 
             // btnRemoveEduc
             // 
@@ -884,6 +885,7 @@
             btnRemoveEduc.TabIndex = 35;
             btnRemoveEduc.Text = "Remove Education";
             btnRemoveEduc.UseVisualStyleBackColor = false;
+            btnRemoveEduc.Click += btnRemoveEduc_Click;
             // 
             // tableLayoutPanel6
             // 

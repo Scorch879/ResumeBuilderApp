@@ -1593,10 +1593,10 @@
             panel16.Controls.Add(dgvEducation);
             panel16.Controls.Add(panel25);
             panel16.Dock = DockStyle.Left;
-            panel16.Location = new Point(721, 56);
+            panel16.Location = new Point(676, 56);
             panel16.Name = "panel16";
             panel16.Padding = new Padding(10);
-            panel16.Size = new Size(667, 554);
+            panel16.Size = new Size(807, 554);
             panel16.TabIndex = 52;
             // 
             // dgvEducation
@@ -1605,12 +1605,12 @@
             dgvEducation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvEducation.Columns.AddRange(new DataGridViewColumn[] { Degree, School, Location_Educ, Year });
             dgvEducation.Dock = DockStyle.Top;
-            dgvEducation.Location = new Point(10, 56);
+            dgvEducation.Location = new Point(10, 49);
             dgvEducation.Name = "dgvEducation";
             dgvEducation.ReadOnly = true;
             dgvEducation.RowHeadersWidth = 51;
             dgvEducation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEducation.Size = new Size(647, 316);
+            dgvEducation.Size = new Size(787, 316);
             dgvEducation.TabIndex = 59;
             // 
             // Degree
@@ -1652,7 +1652,7 @@
             panel25.Dock = DockStyle.Top;
             panel25.Location = new Point(10, 10);
             panel25.Name = "panel25";
-            panel25.Size = new Size(647, 46);
+            panel25.Size = new Size(787, 39);
             panel25.TabIndex = 58;
             // 
             // warningLbl
@@ -1661,7 +1661,7 @@
             warningLbl.Dock = DockStyle.Right;
             warningLbl.Font = new Font("Century Gothic", 13.8F);
             warningLbl.ForeColor = Color.White;
-            warningLbl.Location = new Point(647, 0);
+            warningLbl.Location = new Point(787, 0);
             warningLbl.Name = "warningLbl";
             warningLbl.Size = new Size(0, 27);
             warningLbl.TabIndex = 50;
@@ -1681,9 +1681,9 @@
             // panel19
             // 
             panel19.Dock = DockStyle.Left;
-            panel19.Location = new Point(663, 56);
+            panel19.Location = new Point(657, 56);
             panel19.Name = "panel19";
-            panel19.Size = new Size(58, 554);
+            panel19.Size = new Size(19, 554);
             panel19.TabIndex = 51;
             // 
             // panel17
@@ -1694,7 +1694,7 @@
             panel17.Location = new Point(0, 56);
             panel17.Name = "panel17";
             panel17.Padding = new Padding(10);
-            panel17.Size = new Size(663, 554);
+            panel17.Size = new Size(657, 554);
             panel17.TabIndex = 50;
             // 
             // tableLayoutPanel10
@@ -1710,7 +1710,7 @@
             tableLayoutPanel10.Padding = new Padding(10);
             tableLayoutPanel10.RowCount = 1;
             tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel10.Size = new Size(643, 78);
+            tableLayoutPanel10.Size = new Size(637, 78);
             tableLayoutPanel10.TabIndex = 55;
             // 
             // addEducBtn
@@ -1725,7 +1725,7 @@
             addEducBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             addEducBtn.Location = new Point(13, 13);
             addEducBtn.Name = "addEducBtn";
-            addEducBtn.Size = new Size(300, 52);
+            addEducBtn.Size = new Size(297, 52);
             addEducBtn.TabIndex = 1;
             addEducBtn.Text = "Add Education";
             addEducBtn.UseVisualStyleBackColor = false;
@@ -1741,9 +1741,9 @@
             removeEducBtn.IconChar = FontAwesome.Sharp.IconChar.None;
             removeEducBtn.IconColor = Color.Black;
             removeEducBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            removeEducBtn.Location = new Point(319, 13);
+            removeEducBtn.Location = new Point(316, 13);
             removeEducBtn.Name = "removeEducBtn";
-            removeEducBtn.Size = new Size(311, 52);
+            removeEducBtn.Size = new Size(308, 52);
             removeEducBtn.TabIndex = 35;
             removeEducBtn.Text = "Remove Education";
             removeEducBtn.UseVisualStyleBackColor = false;
@@ -1770,7 +1770,7 @@
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 20.2290077F));
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 20.9923668F));
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 19.08397F));
-            tableLayoutPanel6.Size = new Size(643, 238);
+            tableLayoutPanel6.Size = new Size(637, 238);
             tableLayoutPanel6.TabIndex = 41;
             // 
             // label24
@@ -1810,7 +1810,7 @@
             // 
             degreeTbx.Dock = DockStyle.Fill;
             degreeTbx.Font = new Font("Century Gothic", 13.8F);
-            degreeTbx.Location = new Point(156, 3);
+            degreeTbx.Location = new Point(150, 3);
             degreeTbx.Name = "degreeTbx";
             degreeTbx.Size = new Size(484, 36);
             degreeTbx.TabIndex = 40;
@@ -1830,7 +1830,7 @@
             // 
             schoolTbx.Dock = DockStyle.Fill;
             schoolTbx.Font = new Font("Century Gothic", 13.8F);
-            schoolTbx.Location = new Point(156, 59);
+            schoolTbx.Location = new Point(150, 59);
             schoolTbx.Name = "schoolTbx";
             schoolTbx.Size = new Size(484, 36);
             schoolTbx.TabIndex = 36;
@@ -1839,7 +1839,7 @@
             // 
             locationTbx.Dock = DockStyle.Fill;
             locationTbx.Font = new Font("Century Gothic", 13.8F);
-            locationTbx.Location = new Point(156, 119);
+            locationTbx.Location = new Point(150, 119);
             locationTbx.Name = "locationTbx";
             locationTbx.Size = new Size(484, 36);
             locationTbx.TabIndex = 37;
@@ -1848,7 +1848,7 @@
             // 
             yearTbx.Dock = DockStyle.Fill;
             yearTbx.Font = new Font("Century Gothic", 13.8F);
-            yearTbx.Location = new Point(156, 182);
+            yearTbx.Location = new Point(150, 182);
             yearTbx.Name = "yearTbx";
             yearTbx.Size = new Size(484, 36);
             yearTbx.TabIndex = 38;
