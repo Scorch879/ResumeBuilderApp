@@ -11,10 +11,12 @@ namespace FinalProjectOOP2
         private DataGridViewRow? selectedExpRow = null;
         private DataGridViewRow? selectedTechRow;
         private ResumeDatabase? dbHelper;
+        private byte[]? selectedProfilePicBytes = null;
 
         public ElectricalEngineeringTemplate()
         {
             InitializeComponent();
+            chooseImgBtn.Click += chooseImgBtn_Click;
         }
 
         public void PreviewResume()
@@ -87,21 +89,64 @@ namespace FinalProjectOOP2
                 string templatePath = Path.Combine(Application.StartupPath, "Templates", "ElectricalEngineeringTemplate.html");
                 string templateContent = File.ReadAllText(templatePath);
 
+                // Create template data dictionary
+                var templateData = new Dictionary<string, object>();
+
+                // Copy all properties from resumeData to templateData
+                foreach (var prop in resumeData.GetType().GetProperties())
+                {
+                    if (prop.Name == "ProfilePic" && prop.GetValue(resumeData) is byte[] profilePicBytes)
+                    {
+                        // Convert profile picture to base64
+                        string mimeType = GetImageMimeType(profilePicBytes);
+                        string base64Image = Convert.ToBase64String(profilePicBytes);
+                        templateData["ProfilePicPath"] = $"data:{mimeType};base64,{base64Image}";
+                    }
+                    else if (prop.Name != "FirstName" && prop.Name != "MiddleName" && prop.Name != "LastName")
+                    {
+                        var value = prop.GetValue(resumeData);
+                        if (value != null)
+                        {
+                            templateData[prop.Name] = value;
+                        }
+                    }
+                }
+
+                // If no profile picture was set, use a default image
+                if (!templateData.ContainsKey("ProfilePicPath"))
+                {
+                    templateData["ProfilePicPath"] = "Assets/default-profile.png";
+                }
+
                 // Parse and render with Scriban
                 var template = Scriban.Template.Parse(templateContent);
-                string htmlContent = template.Render(resumeData, member => member.Name);
+                string htmlContent = template.Render(templateData);
 
                 // Convert HTML to PDF
                 var converter = new HtmlToPdf();
                 var doc = converter.ConvertHtmlString(htmlContent);
                 doc.Save(outputPath);
                 doc.Close();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string GetImageMimeType(byte[] imageBytes)
+        {
+            // Check the first few bytes to determine the image type
+            if (imageBytes.Length >= 2)
+            {
+                if (imageBytes[0] == 0xFF && imageBytes[1] == 0xD8)
+                    return "image/jpeg";
+                if (imageBytes[0] == 0x89 && imageBytes[1] == 0x50)
+                    return "image/png";
+                if (imageBytes[0] == 0x47 && imageBytes[1] == 0x49)
+                    return "image/gif";
+            }
+            return "image/jpeg"; // Default to JPEG if unknown
         }
        
 
@@ -125,6 +170,7 @@ namespace FinalProjectOOP2
 
                 // 2. Gather all data from the form/model
                 var resumeData = GetResumeData();
+                resumeData.ProfilePic = selectedProfilePicBytes;
 
                 // 3. Flatten technical expertise for DB
                 var expertise = new List<(string Category, string Skill)>();
@@ -303,6 +349,22 @@ namespace FinalProjectOOP2
                             addressTbx.Text = personalInfo.Address ?? "";
                             titleTbx.Text = personalInfo.Title ?? "";
                             summaryTbx.Text = personalInfo.Summary ?? "";
+                            if (personalInfo.ProfilePic != null)
+                            {
+                                using (var ms = new System.IO.MemoryStream(personalInfo.ProfilePic))
+                                {
+                                    var img = Image.FromStream(ms);
+                                    imageNameTbx.Text = "Image Loaded";
+                                    imageNameTbx.BackColor = Color.LightGreen;
+                                    selectedProfilePicBytes = personalInfo.ProfilePic;
+                                }
+                            }
+                            else
+                            {
+                                imageNameTbx.Text = "No Image";
+                                imageNameTbx.BackColor = Color.White;
+                                selectedProfilePicBytes = null;
+                            }
                         }
                     }
                 }
@@ -448,7 +510,8 @@ namespace FinalProjectOOP2
                 TechnicalExpertise = GetTechExpertiseFromGrid(dgvTechExpertise),
                 Experience = GetExperienceFromGrid(dgvProfExp),
                 Education = GetEducationFromGrid(dgvEducation),
-                ProfessionalDevelopment = GetListBoxItems(developmentLstBx)
+                ProfessionalDevelopment = GetListBoxItems(developmentLstBx),
+                ProfilePic = selectedProfilePicBytes
             };
         }
 
@@ -1007,6 +1070,20 @@ namespace FinalProjectOOP2
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     ExportToPDF(saveFileDialog.FileName);
+                }
+            }
+        }
+
+        private void chooseImgBtn_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    selectedProfilePicBytes = System.IO.File.ReadAllBytes(ofd.FileName);
+                    imageNameTbx.Text = System.IO.Path.GetFileName(ofd.FileName);
+                    imageNameTbx.BackColor = Color.LightGreen;
                 }
             }
         }

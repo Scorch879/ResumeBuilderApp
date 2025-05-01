@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel11 = new Panel();
-            createResumeBtn = new FontAwesome.Sharp.IconButton();
             panel6 = new Panel();
             saveResume = new FontAwesome.Sharp.IconButton();
             tableLayoutPanel3 = new TableLayoutPanel();
@@ -43,6 +41,7 @@
             comboBox1 = new ComboBox();
             panel1 = new Panel();
             templatePanelCorner = new Panel();
+            seeSampleBtn = new FontAwesome.Sharp.IconButton();
             label14 = new Label();
             templateSelector = new ComboBox();
             contentPanel = new Panel();
@@ -52,7 +51,6 @@
             panel12 = new Panel();
             panel5 = new Panel();
             titleLbl = new Label();
-            panel11.SuspendLayout();
             panel6.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -66,53 +64,16 @@
             panel5.SuspendLayout();
             SuspendLayout();
             // 
-            // panel11
-            // 
-            panel11.BackColor = Color.FromArgb(216, 225, 233);
-            panel11.Controls.Add(createResumeBtn);
-            panel11.Dock = DockStyle.Fill;
-            panel11.Location = new Point(2, 2);
-            panel11.Margin = new Padding(2);
-            panel11.Name = "panel11";
-            panel11.Padding = new Padding(4);
-            panel11.Size = new Size(373, 82);
-            panel11.TabIndex = 5;
-            // 
-            // createResumeBtn
-            // 
-            createResumeBtn.BackColor = Color.FromArgb(41, 128, 185);
-            createResumeBtn.Cursor = Cursors.Hand;
-            createResumeBtn.Dock = DockStyle.Fill;
-            createResumeBtn.FlatAppearance.BorderSize = 0;
-            createResumeBtn.FlatStyle = FlatStyle.Flat;
-            createResumeBtn.Font = new Font("Century Gothic", 13.8F);
-            createResumeBtn.ForeColor = Color.White;
-            createResumeBtn.IconChar = FontAwesome.Sharp.IconChar.Add;
-            createResumeBtn.IconColor = Color.FromArgb(216, 225, 233);
-            createResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            createResumeBtn.IconSize = 50;
-            createResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            createResumeBtn.Location = new Point(4, 4);
-            createResumeBtn.Margin = new Padding(2);
-            createResumeBtn.Name = "createResumeBtn";
-            createResumeBtn.Padding = new Padding(70, 0, 0, 0);
-            createResumeBtn.Size = new Size(365, 74);
-            createResumeBtn.TabIndex = 23;
-            createResumeBtn.Text = " Create \r\n New Resume";
-            createResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
-            createResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-            createResumeBtn.UseVisualStyleBackColor = false;
-            // 
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(216, 225, 233);
             panel6.Controls.Add(saveResume);
             panel6.Dock = DockStyle.Fill;
-            panel6.Location = new Point(379, 2);
+            panel6.Location = new Point(2, 2);
             panel6.Margin = new Padding(2);
             panel6.Name = "panel6";
-            panel6.Padding = new Padding(4);
-            panel6.Size = new Size(373, 82);
+            panel6.Padding = new Padding(2);
+            panel6.Size = new Size(499, 82);
             panel6.TabIndex = 8;
             // 
             // saveResume
@@ -129,13 +90,13 @@
             saveResume.IconFont = FontAwesome.Sharp.IconFont.Auto;
             saveResume.IconSize = 50;
             saveResume.ImageAlign = ContentAlignment.MiddleLeft;
-            saveResume.Location = new Point(4, 4);
+            saveResume.Location = new Point(2, 2);
             saveResume.Margin = new Padding(2);
             saveResume.Name = "saveResume";
-            saveResume.Padding = new Padding(90, 0, 0, 0);
-            saveResume.Size = new Size(365, 74);
+            saveResume.Padding = new Padding(100, 0, 0, 0);
+            saveResume.Size = new Size(495, 78);
             saveResume.TabIndex = 23;
-            saveResume.Text = " Save \r\n Information";
+            saveResume.Text = " Save Information";
             saveResume.TextAlign = ContentAlignment.MiddleLeft;
             saveResume.TextImageRelation = TextImageRelation.ImageBeforeText;
             saveResume.UseVisualStyleBackColor = false;
@@ -143,15 +104,14 @@
             // 
             // tableLayoutPanel3
             // 
-            tableLayoutPanel3.ColumnCount = 4;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel3.Controls.Add(panel2, 3, 0);
-            tableLayoutPanel3.Controls.Add(panel7, 2, 0);
-            tableLayoutPanel3.Controls.Add(panel6, 1, 0);
-            tableLayoutPanel3.Controls.Add(panel11, 0, 0);
+            tableLayoutPanel3.ColumnCount = 3;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel3.Controls.Add(panel2, 2, 0);
+            tableLayoutPanel3.Controls.Add(panel7, 1, 0);
+            tableLayoutPanel3.Controls.Add(panel6, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(0, 0);
             tableLayoutPanel3.Margin = new Padding(0);
@@ -166,11 +126,11 @@
             panel2.BackColor = Color.FromArgb(216, 225, 233);
             panel2.Controls.Add(loadResumeBtn);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(1133, 2);
+            panel2.Location = new Point(1008, 2);
             panel2.Margin = new Padding(2);
             panel2.Name = "panel2";
-            panel2.Padding = new Padding(4);
-            panel2.Size = new Size(375, 82);
+            panel2.Padding = new Padding(2);
+            panel2.Size = new Size(500, 82);
             panel2.TabIndex = 10;
             // 
             // loadResumeBtn
@@ -187,12 +147,12 @@
             loadResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             loadResumeBtn.IconSize = 50;
             loadResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            loadResumeBtn.Location = new Point(4, 4);
+            loadResumeBtn.Location = new Point(2, 2);
             loadResumeBtn.Margin = new Padding(2);
             loadResumeBtn.Name = "loadResumeBtn";
-            loadResumeBtn.Padding = new Padding(70, 0, 0, 0);
-            loadResumeBtn.Size = new Size(367, 74);
-            loadResumeBtn.TabIndex = 23;
+            loadResumeBtn.Padding = new Padding(130, 0, 0, 0);
+            loadResumeBtn.Size = new Size(496, 78);
+            loadResumeBtn.TabIndex = 24;
             loadResumeBtn.Text = " Load Resume";
             loadResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
             loadResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -204,11 +164,11 @@
             panel7.BackColor = Color.FromArgb(216, 225, 233);
             panel7.Controls.Add(previewResume);
             panel7.Dock = DockStyle.Fill;
-            panel7.Location = new Point(756, 2);
+            panel7.Location = new Point(505, 2);
             panel7.Margin = new Padding(2);
             panel7.Name = "panel7";
-            panel7.Padding = new Padding(4);
-            panel7.Size = new Size(373, 82);
+            panel7.Padding = new Padding(2);
+            panel7.Size = new Size(499, 82);
             panel7.TabIndex = 9;
             // 
             // previewResume
@@ -225,11 +185,11 @@
             previewResume.IconFont = FontAwesome.Sharp.IconFont.Auto;
             previewResume.IconSize = 50;
             previewResume.ImageAlign = ContentAlignment.MiddleLeft;
-            previewResume.Location = new Point(4, 4);
+            previewResume.Location = new Point(2, 2);
             previewResume.Margin = new Padding(2);
             previewResume.Name = "previewResume";
-            previewResume.Padding = new Padding(40, 0, 0, 0);
-            previewResume.Size = new Size(365, 74);
+            previewResume.Padding = new Padding(110, 0, 0, 0);
+            previewResume.Size = new Size(495, 78);
             previewResume.TabIndex = 23;
             previewResume.Text = " Preview Resume";
             previewResume.TextAlign = ContentAlignment.MiddleLeft;
@@ -296,12 +256,29 @@
             // templatePanelCorner
             // 
             templatePanelCorner.BackColor = Color.FromArgb(10, 17, 40);
+            templatePanelCorner.Controls.Add(seeSampleBtn);
             templatePanelCorner.Controls.Add(label14);
             templatePanelCorner.Controls.Add(templateSelector);
             templatePanelCorner.Location = new Point(1108, 0);
             templatePanelCorner.Name = "templatePanelCorner";
             templatePanelCorner.Size = new Size(402, 106);
             templatePanelCorner.TabIndex = 7;
+            // 
+            // seeSampleBtn
+            // 
+            seeSampleBtn.BackColor = Color.FromArgb(10, 17, 40);
+            seeSampleBtn.FlatAppearance.BorderSize = 0;
+            seeSampleBtn.FlatStyle = FlatStyle.Flat;
+            seeSampleBtn.ForeColor = Color.White;
+            seeSampleBtn.IconChar = FontAwesome.Sharp.IconChar.Eye;
+            seeSampleBtn.IconColor = Color.White;
+            seeSampleBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            seeSampleBtn.Location = new Point(13, 43);
+            seeSampleBtn.Name = "seeSampleBtn";
+            seeSampleBtn.Size = new Size(43, 44);
+            seeSampleBtn.TabIndex = 5;
+            seeSampleBtn.UseVisualStyleBackColor = false;
+            seeSampleBtn.Click += seeSampleBtn_Click;
             // 
             // label14
             // 
@@ -322,10 +299,10 @@
             templateSelector.DropDownStyle = ComboBoxStyle.DropDownList;
             templateSelector.Font = new Font("Century Gothic", 13.8F);
             templateSelector.FormattingEnabled = true;
-            templateSelector.Items.AddRange(new object[] { "Academic Resume", "Attorney Resume", "Call Center Resume", "Doctor Resume", "Electrical Engineer Resume" });
-            templateSelector.Location = new Point(31, 43);
+            templateSelector.Items.AddRange(new object[] { "Attorney Resume", "Call Center Resume", "Doctor Resume", "Electrical Engineer Resume" });
+            templateSelector.Location = new Point(66, 45);
             templateSelector.Name = "templateSelector";
-            templateSelector.Size = new Size(347, 35);
+            templateSelector.Size = new Size(327, 35);
             templateSelector.Sorted = true;
             templateSelector.TabIndex = 0;
             templateSelector.SelectedIndexChanged += templateSelector_SelectedIndexChanged;
@@ -365,7 +342,7 @@
             centerTemplateSelectorCbx.DropDownStyle = ComboBoxStyle.DropDownList;
             centerTemplateSelectorCbx.Font = new Font("Century Gothic", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
             centerTemplateSelectorCbx.FormattingEnabled = true;
-            centerTemplateSelectorCbx.Items.AddRange(new object[] { "Academic Resume", "Attorney Resume", "Call Center Resume", "Doctor Resume", "Electrical Engineer Resume" });
+            centerTemplateSelectorCbx.Items.AddRange(new object[] { "Attorney Resume", "Call Center Resume", "Doctor Resume", "Electrical Engineer Resume" });
             centerTemplateSelectorCbx.Location = new Point(87, 78);
             centerTemplateSelectorCbx.Name = "centerTemplateSelectorCbx";
             centerTemplateSelectorCbx.Size = new Size(424, 48);
@@ -417,7 +394,6 @@
             Margin = new Padding(0);
             Name = "CreateResumes";
             Size = new Size(1510, 850);
-            panel11.ResumeLayout(false);
             panel6.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -438,8 +414,6 @@
         private TableLayoutPanel tableLayoutPanel3;
         private Panel panel6;
         private FontAwesome.Sharp.IconButton saveResume;
-        private Panel panel11;
-        private FontAwesome.Sharp.IconButton createResumeBtn;
         private Panel panel8;
         private Label userLbl;
         private Label label1;
@@ -456,8 +430,9 @@
         private Panel panel13;
         private ComboBox centerTemplateSelectorCbx;
         private Panel panel2;
-        private FontAwesome.Sharp.IconButton loadResumeBtn;
         private Panel panel7;
         private FontAwesome.Sharp.IconButton previewResume;
+        private FontAwesome.Sharp.IconButton loadResumeBtn;
+        private FontAwesome.Sharp.IconButton seeSampleBtn;
     }
 }

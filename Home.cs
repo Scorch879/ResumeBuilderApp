@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
+
 using static FinalProjectOOP2.ResumeDatabase;
 
 namespace FinalProjectOOP2
@@ -401,7 +394,7 @@ namespace FinalProjectOOP2
             chartCreated.Location = new Point(0, 0);
             chartCreated.Name = "chartCreated";
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             chartCreated.Series.Add(series1);
@@ -515,15 +508,13 @@ namespace FinalProjectOOP2
             resumesExportlbl.Text = analytics.resumesExported.ToString();
             resumesSentlbl.Text = analytics.resumesSent.ToString();
 
-            // Fetch monthly created trend
-            var monthlyTrend = db.GetMonthlyCreatedTrend(userId);
-
-            // Update the chart (assume chartCreated is set up as a line chart in the designer)
-            chartCreated.Series[0].Points.Clear();
+            chartCreated.Series.Clear();
             chartCreated.Titles.Clear();
-            chartCreated.Titles.Add("Resumes Created Per Month");
-            chartCreated.ChartAreas[0].AxisX.Title = "Month";
-            chartCreated.ChartAreas[0].AxisY.Title = "Created";
+            chartCreated.Titles.Add("Resume Activity");
+
+            // Configure chart area
+            chartCreated.ChartAreas[0].AxisX.Title = "Activity";
+            chartCreated.ChartAreas[0].AxisY.Title = "Count";
             chartCreated.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chartCreated.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
             chartCreated.ChartAreas[0].AxisX.LabelStyle.Enabled = true;
@@ -531,11 +522,80 @@ namespace FinalProjectOOP2
             chartCreated.ChartAreas[0].AxisX.LineColor = Color.FromArgb(41, 128, 185);
             chartCreated.ChartAreas[0].AxisY.LineColor = Color.FromArgb(41, 128, 185);
             chartCreated.ChartAreas[0].BackColor = Color.FromArgb(216, 225, 233);
+            chartCreated.ChartAreas[0].AxisX.Interval = 1;
+            chartCreated.ChartAreas[0].AxisX.LabelStyle.Angle = 0;
+            chartCreated.ChartAreas[0].AxisX.LabelStyle.Font = new Font("Century Gothic", 10, FontStyle.Bold);
+            chartCreated.ChartAreas[0].AxisY.LabelStyle.Font = new Font("Century Gothic", 10, FontStyle.Bold);
 
-            foreach (var (month, count) in monthlyTrend)
+            // Custom X axis labels
+            chartCreated.ChartAreas[0].AxisX.CustomLabels.Clear();
+            string[] categories = { "Created", "Saved", "Exported", "Sent" };
+            for (int i = 0; i < categories.Length; i++)
             {
-                chartCreated.Series[0].Points.AddXY(month, count);
+                var customLabel = new System.Windows.Forms.DataVisualization.Charting.CustomLabel(i - 0.5, i + 0.5, categories[i], 0, System.Windows.Forms.DataVisualization.Charting.LabelMarkStyle.None);
+                chartCreated.ChartAreas[0].AxisX.CustomLabels.Add(customLabel);
             }
+
+            // Add each summary as its own series with one data point
+            var createdSeries = new System.Windows.Forms.DataVisualization.Charting.Series
+            {
+                Name = "Created Resumes",
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column,
+                Color = Color.FromArgb(41, 128, 185),
+                IsValueShownAsLabel = true
+            };
+            createdSeries.Points.AddXY(0, analytics.resumesCreated);
+            createdSeries["PointWidth"] = "0.7";
+
+            var savedSeries = new System.Windows.Forms.DataVisualization.Charting.Series
+            {
+                Name = "Saved Resumes",
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column,
+                Color = Color.FromArgb(243, 156, 18),
+                IsValueShownAsLabel = true
+            };
+            savedSeries.Points.AddXY(1, analytics.resumesSaved);
+            savedSeries["PointWidth"] = "0.7";
+
+            var exportedSeries = new System.Windows.Forms.DataVisualization.Charting.Series
+            {
+                Name = "Exported Resumes",
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column,
+                Color = Color.FromArgb(46, 204, 113),
+                IsValueShownAsLabel = true
+            };
+            exportedSeries.Points.AddXY(2, analytics.resumesExported);
+            exportedSeries["PointWidth"] = "0.7";
+
+            var sentSeries = new System.Windows.Forms.DataVisualization.Charting.Series
+            {
+                Name = "Sent Resumes",
+                ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column,
+                Color = Color.FromArgb(155, 89, 182),
+                IsValueShownAsLabel = true
+            };
+            sentSeries.Points.AddXY(3, analytics.resumesSent);
+            sentSeries["PointWidth"] = "0.7";
+
+            // Add series to chart
+            chartCreated.Series.Add(createdSeries);
+            chartCreated.Series.Add(savedSeries);
+            chartCreated.Series.Add(exportedSeries);
+            chartCreated.Series.Add(sentSeries);
+
+            // Configure legend for better readability and fit
+            chartCreated.Legends[0].Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+            chartCreated.Legends[0].Alignment = System.Drawing.StringAlignment.Center;
+            chartCreated.Legends[0].BackColor = Color.FromArgb(216, 225, 233);
+            chartCreated.Legends[0].Font = new Font("Century Gothic", 12, FontStyle.Bold);
+            chartCreated.Legends[0].LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Table;
+            chartCreated.Legends[0].IsTextAutoFit = false;
+            chartCreated.Legends[0].TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Wide;
+            chartCreated.Legends[0].MaximumAutoSize = 100;
+
+            // Configure title (graph name) to be larger and bold
+            chartCreated.Titles[0].Font = new Font("Century Gothic", 20, FontStyle.Bold);
+            chartCreated.Titles[0].ForeColor = Color.FromArgb(41, 128, 185);
         }
 
       

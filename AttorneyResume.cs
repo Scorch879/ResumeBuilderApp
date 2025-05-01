@@ -18,7 +18,7 @@ namespace FinalProjectOOP2
         private const int TYPE_COLUMN = 0;
         private const int INITIAL_DATE_COLUMN = 1;
         private const int LICENSE_NUMBER_COLUMN = 2;
-         
+
         // Simplified column constants
         private const int DEGREE_POSITION_COLUMN = 0;
         private const int INSTITUTION_COLUMN = 1;
@@ -32,17 +32,19 @@ namespace FinalProjectOOP2
         private List<EarlierPosition> earlierPositionsList = new List<EarlierPosition>();
 
         private string? currentUsername;
-        public string? CurrentUsername 
+        public string? CurrentUsername
         {
             get
             {
-                return currentUsername; 
-            }        
+                return currentUsername;
+            }
             set
             {
                 currentUsername = value;
             }
         }
+
+        private byte[]? selectedProfilePicBytes = null;
 
         public AttorneyResume()
         {
@@ -77,9 +79,25 @@ namespace FinalProjectOOP2
                 addressTbx.Text = model.Address;
                 titleTbx.Text = model.Title;
                 summaryTbx.Text = model.Summary;
-
+                if (model.ProfilePic != null)
+                {
+                    // Use OLE extraction helper to get the actual image bytes
+                    var extractedBytes = ResumeDatabase.ExtractImageFromOLEField(model.ProfilePic);
+                    using (var ms = new System.IO.MemoryStream(extractedBytes))
+                    {
+                        var img = Image.FromStream(ms);
+                        imageNameTbx.Text = "Image Loaded";
+                        imageNameTbx.BackColor = Color.LightGreen;
+                        selectedProfilePicBytes = extractedBytes;
+                    }
+                }
+                else
+                {
+                    imageNameTbx.Text = "No Image";
+                    imageNameTbx.BackColor = Color.White;
+                    selectedProfilePicBytes = null;
+                }
             }
-
         }
 
         private bool ValidateInputs()
@@ -139,7 +157,7 @@ namespace FinalProjectOOP2
             return true;
         }
 
-      
+
         public void ExportToPDF(string outputPath, int resumeId)
         {
             try
@@ -148,27 +166,88 @@ namespace FinalProjectOOP2
                 var db = new ResumeDatabase();
                 var resumeData = db.LoadAttorneyResume(resumeId);
 
+                // Ensure all job.Contributions are never null
+                if (resumeData.Experience != null)
+                {
+                    foreach (var job in resumeData.Experience)
+                    {
+                        if (job.Contributions == null)
+                            job.Contributions = new List<string>();
+                    }
+                }
+
                 // Load the HTML template
                 string templatePath = Path.Combine(Application.StartupPath, "Templates", "AttorneyTemplate.html");
                 string templateContent = File.ReadAllText(templatePath);
 
-                // Parse and render with Scriban
+                // Create template data dictionary
+                var templateData = new Dictionary<string, object>();
+
+                // Copy all properties from resumeData to templateData
+                foreach (var prop in resumeData.GetType().GetProperties())
+                {
+                    if (prop.Name != "FirstName" && prop.Name != "MiddleName" && prop.Name != "LastName")
+                    {
+                        var value = prop.GetValue(resumeData);
+                        if (value != null)
+                        {
+                            templateData[prop.Name] = value;
+                        }
+                    }
+                }
+
+                // Always get the profile picture from PersonalInfo (current user)
+                string? currentUsername = this.CurrentUsername;
+                byte[]? profilePicBytes = null;
+                if (!string.IsNullOrEmpty(currentUsername))
+                {
+                    int userId = db.GetCurrentUserID(currentUsername);
+                    var personalInfo = db.LoadPersonalInfo(userId);
+                    profilePicBytes = personalInfo?.ProfilePic;
+                }
+
+                if (profilePicBytes != null && profilePicBytes.Length > 0)
+                {
+                    string mimeType = GetImageMimeType(profilePicBytes);
+                    string base64Image = Convert.ToBase64String(profilePicBytes);
+                    templateData["ProfilePicPath"] = $"data:{mimeType};base64,{base64Image}";
+                }
+                else
+                {
+                    templateData["ProfilePicPath"] = "Assets/default-profile.png";
+                }
+
+                // Render HTML with Scriban
                 var template = Scriban.Template.Parse(templateContent);
-                string htmlContent = template.Render(resumeData, member => member.Name);
+                var htmlOutput = template.Render(templateData);
 
                 // Convert HTML to PDF
-                var converter = new HtmlToPdf();
-                var doc = converter.ConvertHtmlString(htmlContent);
+                HtmlToPdf converter = new HtmlToPdf();
+                PdfDocument doc = converter.ConvertHtmlString(htmlOutput);
                 doc.Save(outputPath);
                 doc.Close();
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Export failed: {ex.Message}");
             }
         }
-       
+
+        private string GetImageMimeType(byte[] imageBytes)
+        {
+            // Check the first few bytes to determine the image type
+            if (imageBytes.Length >= 2)
+            {
+                if (imageBytes[0] == 0xFF && imageBytes[1] == 0xD8)
+                    return "image/jpeg";
+                if (imageBytes[0] == 0x89 && imageBytes[1] == 0x50)
+                    return "image/png";
+                if (imageBytes[0] == 0x47 && imageBytes[1] == 0x49)
+                    return "image/gif";
+            }
+            return "image/jpeg"; // Default to JPEG if unknown
+        }
+
 
         //Saving Resume to database
         public bool SaveResume(string currentUsername, string resumeTitle)
@@ -190,7 +269,8 @@ namespace FinalProjectOOP2
                     Phone = phoneNumTbx.Text,
                     Address = addressTbx.Text,
                     Title = titleTbx.Text,
-                    Summary = summaryTbx.Text
+                    Summary = summaryTbx.Text,
+                    ProfilePic = selectedProfilePicBytes
                 };
 
                 // Save or update personal info
@@ -375,7 +455,9 @@ namespace FinalProjectOOP2
                 EarlierPositions = earlierPositionsList,
                 Licenses = GetAttorneyLicenses(),
                 Education = GetAttorneyEducation(),
-                Experience = GetExperiences()
+                Experience = GetExperiences(),
+                ProfilePic = selectedProfilePicBytes,
+                CurrentUsername = this.CurrentUsername
             };
         }
 
@@ -534,7 +616,7 @@ namespace FinalProjectOOP2
                             : contributionsRaw.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
                                            .Select(s => s.Trim()).ToList();
 
-                    experience.Contributions = contributions;
+                    experience.Contributions = contributions ?? new List<string>();
 
                     if (IsValidExperience(experience))
                     {
@@ -602,7 +684,7 @@ namespace FinalProjectOOP2
                 MessageBox.Show("Please select a core skill to remove.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        
+
         private void btnAddTechSkill_Click(object sender, EventArgs e)
         {
             string skill = techSkillTbx.Text.Trim();
@@ -797,7 +879,7 @@ namespace FinalProjectOOP2
                 string licenseType = licenseTypeCbx.Text;
                 string licenseNo = licenseNoTbx.Text.Trim();
                 DateTime admissionDate = admissionDatePicker.Value;
-               
+
 
                 // Validate all inputs
                 if (string.IsNullOrWhiteSpace(licenseType))
@@ -1034,9 +1116,26 @@ namespace FinalProjectOOP2
             }
         }
 
+        private void chooseImgBtn_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    selectedProfilePicBytes = System.IO.File.ReadAllBytes(ofd.FileName);
+                    imageNameTbx.Text = System.IO.Path.GetFileName(ofd.FileName);
+                    imageNameTbx.BackColor = Color.LightGreen;
+                }
+            }
+        }
 
         #endregion
 
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
     public class AttorneyResumeModel : PersonalInfo
@@ -1047,10 +1146,11 @@ namespace FinalProjectOOP2
         public List<string>? BarAdmissions { get; set; }
         public List<string>? Expertise { get; set; }
         public List<EarlierPosition>? EarlierPositions { get; set; }
-
         public List<AttorneyLicense>? Licenses { get; set; }
         public List<AttorneyEducation>? Education { get; set; }
         public List<AttorneyExperience>? Experience { get; set; }
+        public byte[]? ProfilePic { get; set; }
+        public string? CurrentUsername { get; set; }
     }
 
     public class AttorneyExperience

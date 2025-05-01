@@ -1,12 +1,20 @@
 ﻿using System.Data;
 using static FinalProjectOOP2.ResumeDatabase;
 using SelectPdf;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Net.Mime;
 
 namespace FinalProjectOOP2
 {
     public partial class DoctorResume : UserControl, IResumeSaveable, IResumeExportable
     {
         public string? CurrentUsername { get; set; }
+        private byte[]? selectedProfilePicBytes = null;
 
         public DoctorResume()
         {
@@ -14,6 +22,7 @@ namespace FinalProjectOOP2
             dgvProfExp.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgvProfExp.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             LoadExistingPersonalInfo();
+            chooseImgBtn.Click += chooseImgBtn_Click;
         }
 
       
@@ -137,7 +146,8 @@ namespace FinalProjectOOP2
                 AreasOfExpertise = expertiseLstBx.Items.Cast<string>().ToList(),
                 Experience = GetExperience(),
                 Education = GetEducationItems(),
-                Affiliations = GetAffiliations()
+                Affiliations = GetAffiliations(),
+                ProfilePic = selectedProfilePicBytes
             };
         }
 
@@ -280,7 +290,8 @@ namespace FinalProjectOOP2
                     Phone = phoneNumTbx.Text,
                     Address = addressTbx.Text,
                     Title = titleTbx.Text,
-                    Summary = summaryTbx.Text
+                    Summary = summaryTbx.Text,
+                    ProfilePic = selectedProfilePicBytes
                 };
                 
                 // Save or update personal info
@@ -444,6 +455,22 @@ namespace FinalProjectOOP2
                             addressTbx.Text = personalInfo.Address ?? "";
                             titleTbx.Text = personalInfo.Title ?? "";
                             summaryTbx.Text = personalInfo.Summary ?? "";
+                            if (personalInfo.ProfilePic != null)
+                            {
+                                using (var ms = new System.IO.MemoryStream(personalInfo.ProfilePic))
+                                {
+                                    var img = Image.FromStream(ms);
+                                    imageNameTbx.Text = "Image Loaded";
+                                    imageNameTbx.BackColor = Color.LightGreen;
+                                    selectedProfilePicBytes = personalInfo.ProfilePic;
+                                }
+                            }
+                            else
+                            {
+                                imageNameTbx.Text = "No Image";
+                                imageNameTbx.BackColor = Color.White;
+                                selectedProfilePicBytes = null;
+                            }
                         }
                     }
                 }
@@ -469,21 +496,64 @@ namespace FinalProjectOOP2
                 string templatePath = Path.Combine(Application.StartupPath, "Templates", "DoctorTemplate.html");
                 string templateContent = File.ReadAllText(templatePath);
 
+                // Create template data dictionary
+                var templateData = new Dictionary<string, object>();
+
+                // Copy all properties from resumeData to templateData
+                foreach (var prop in resumeData.GetType().GetProperties())
+                {
+                    if (prop.Name == "ProfilePic" && prop.GetValue(resumeData) is byte[] profilePicBytes)
+                    {
+                        // Convert profile picture to base64
+                        string mimeType = GetImageMimeType(profilePicBytes);
+                        string base64Image = Convert.ToBase64String(profilePicBytes);
+                        templateData["ProfilePicPath"] = $"data:{mimeType};base64,{base64Image}";
+                    }
+                    else if (prop.Name != "FirstName" && prop.Name != "MiddleName" && prop.Name != "LastName")
+                    {
+                        var value = prop.GetValue(resumeData);
+                        if (value != null)
+                        {
+                            templateData[prop.Name] = value;
+                        }
+                    }
+                }
+
+                // If no profile picture was set, use a default image
+                if (!templateData.ContainsKey("ProfilePicPath"))
+                {
+                    templateData["ProfilePicPath"] = "Assets/default-profile.png";
+                }
+
                 // Parse and render with Scriban
                 var template = Scriban.Template.Parse(templateContent);
-                string htmlContent = template.Render(resumeData, member => member.Name);
+                string htmlContent = template.Render(templateData);
 
                 // Convert HTML to PDF
                 var converter = new HtmlToPdf();
                 var doc = converter.ConvertHtmlString(htmlContent);
                 doc.Save(outputPath);
                 doc.Close();
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error exporting to PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string GetImageMimeType(byte[] imageBytes)
+        {
+            // Check the first few bytes to determine the image type
+            if (imageBytes.Length >= 2)
+            {
+                if (imageBytes[0] == 0xFF && imageBytes[1] == 0xD8)
+                    return "image/jpeg";
+                if (imageBytes[0] == 0x89 && imageBytes[1] == 0x50)
+                    return "image/png";
+                if (imageBytes[0] == 0x47 && imageBytes[1] == 0x49)
+                    return "image/gif";
+            }
+            return "image/jpeg"; // Default to JPEG if unknown
         }
 
         #region For cursor enter and leave methods to replace the placeholder text 
@@ -823,6 +893,20 @@ namespace FinalProjectOOP2
             }
         }
         #endregion
+
+        private void chooseImgBtn_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    selectedProfilePicBytes = System.IO.File.ReadAllBytes(ofd.FileName);
+                    imageNameTbx.Text = System.IO.Path.GetFileName(ofd.FileName);
+                    imageNameTbx.BackColor = Color.LightGreen;
+                }
+            }
+        }
     }
 
     public class DoctorResumeModel : PersonalInfo
@@ -836,6 +920,7 @@ namespace FinalProjectOOP2
         public List<DoctorExperienceItem>? Experience { get; set; }
         public List<DoctorEducationItem>? Education { get; set; }
         public List<DoctorAffiliation>? Affiliations { get; set; }
+        public byte[]? ProfilePic { get; set; }
     }
 
     public class DoctorEducationItem : EducationItem

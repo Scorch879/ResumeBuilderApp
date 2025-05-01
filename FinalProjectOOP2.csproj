@@ -9,11 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Samples\SampleAttorneyTemplate.html" />
+    <None Remove="Resources\Samples\SampleCallCenter.html" />
+    <None Remove="Resources\Samples\SampleDoctorTemplate.html" />
+    <None Remove="Resources\Samples\SampleEETemplate.html" />
     <None Remove="Resources\Templates\AcademicTemplate.html" />
     <None Remove="Resources\Templates\AttorneyTemplate.html" />
     <None Remove="Resources\Templates\CallCenterTemplate.html" />
     <None Remove="Resources\Templates\DoctorTemplate.html" />
     <None Remove="Resources\Templates\ElectricalEngineeringTemplate.html" />
+    <None Remove="Resources\Templates\SampleAttorneyTemplate.html" />
+    <None Remove="Resources\Templates\SampleCallCenter.html" />
+    <None Remove="Resources\Templates\SampleDoctorTemplate.html" />
+    <None Remove="Resources\Templates\SampleEETemplate.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,11 +43,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Samples\SampleAttorneyTemplate.html" />
+    <EmbeddedResource Include="Resources\Samples\SampleCallCenter.html" />
+    <EmbeddedResource Include="Resources\Samples\SampleDoctorTemplate.html" />
+    <EmbeddedResource Include="Resources\Samples\SampleEETemplate.html" />
     <EmbeddedResource Include="Resources\Templates\AcademicTemplate.html" />
     <EmbeddedResource Include="Resources\Templates\AttorneyTemplate.html" />
     <EmbeddedResource Include="Resources\Templates\CallCenterTemplate.html" />
     <EmbeddedResource Include="Resources\Templates\DoctorTemplate.html" />
     <EmbeddedResource Include="Resources\Templates\ElectricalEngineeringTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\SampleAttorneyTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\SampleCallCenter.html" />
+    <EmbeddedResource Include="Resources\Templates\SampleDoctorTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\SampleEETemplate.html" />
   </ItemGroup>
 
   <ItemGroup>

@@ -38,7 +38,7 @@ namespace FinalProjectOOP2
             saveResume.Enabled = false;
             previewResume.Enabled = false;
         }
-
+        
         private void CenterTemplateSelector()
         {
 
@@ -133,6 +133,7 @@ namespace FinalProjectOOP2
             }
         }
 
+        #region Button Click Event Handlers
         private void previewResume_Click(object sender, EventArgs e)
         {
             if (contentPanel.Controls.Count > 0)
@@ -187,7 +188,6 @@ namespace FinalProjectOOP2
                             }
                         }
                         // else: user cancelled, do nothing
-                        MessageBox.Show("Resume saved successfully!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
@@ -406,6 +406,8 @@ namespace FinalProjectOOP2
             }
         }
 
+        #endregion
+
         public void LoadTemplateForResume(string templateType)
         { 
             contentPanel.Controls.Clear();
@@ -415,15 +417,18 @@ namespace FinalProjectOOP2
             {
                 case "Attorney":
                     templateControl = new AttorneyResume();
+                   
                     break;
                 case "Doctor":
                     templateControl = new DoctorResume();
                     break;
                 case "ElectricalEngineering":
                     templateControl = new ElectricalEngineeringTemplate();
+                    templateType = "Electrical Engineer";
                     break;
                 case "CallCenter":
                     templateControl = new CallCenterResume();
+                    templateType = "Call Center";
                     break;
 
                 default:
@@ -449,6 +454,58 @@ namespace FinalProjectOOP2
             }
         }
 
+        private void seeSampleBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string? selectedTemplate = templateSelector.SelectedItem?.ToString();
+                if (string.IsNullOrEmpty(selectedTemplate))
+                {
+                    MessageBox.Show("Please select a template first.");
+                    return;
+                }
+
+                // Create a sample resume data object based on the selected template
+                var sampleData = new PersonalInfo
+                {
+                    FirstName = "John",
+                    MiddleName = "William",
+                    LastName = "Doe",
+                    Title = "Sample Title",
+                    Email = "sample@email.com",
+                    Phone = "123-456-7890",
+                    Address = "Sample Address",
+                    Summary = "Sample Summary"
+                };
+
+                // Load the sample template
+                var previewForm = new ResumePreviewForm();
+                previewForm.LoadResumePreview(sampleData, GetSampleTemplateFileName(selectedTemplate));
+                previewForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load sample template: {ex.Message}");
+            }
+        }
+
+        private string GetSampleTemplateFileName(string templateType)
+        {
+            switch (templateType)
+            {
+                case "Call Center Resume":
+                    return "SampleCallCenter.html";
+                case "Doctor Resume":
+                    return "SampleDoctorTemplate.html";
+                case "Attorney Resume":
+                    return "SampleAttorneyTemplate.html";
+                case "Electrical Engineer Resume":
+                    return "SampleEETemplate.html";
+                default:
+                    return "Sample.html"; // fallback or handle as needed
+            }
+        }
+
     }
 
     public class PersonalInfo //only constant between templates that does not get changed since it is personal info
@@ -464,6 +521,8 @@ namespace FinalProjectOOP2
         public string? Email { get; set; }
         public string? Title { get; set; }
         public string? Summary { get; set; }
+
+        public byte[]? ProfilePic { get; set; } // Add this property for profile picture
     }
 
     public class ExperienceItem

@@ -518,7 +518,32 @@ namespace FinalProjectOOP2
             return isUpdated;
         }
 
-
+        public bool UpdateUser(UserRow user)
+        {
+            string query = "UPDATE UserQuery SET Email = ?, Role = ?, FullName = ?, Description = ? WHERE Username = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("?", user.Email);
+                        cmd.Parameters.AddWithValue("?", user.Role);
+                        cmd.Parameters.AddWithValue("?", user.FullName);
+                        cmd.Parameters.AddWithValue("?", user.Description);
+                        cmd.Parameters.AddWithValue("?", user.Username);
+                        int rows = cmd.ExecuteNonQuery();
+                        return rows > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating user: {ex.Message}");
+                    return false;
+                }
+            }
+        }
 
         //Delete Operations
         public bool DeleteAccount(string username, string password)
@@ -626,6 +651,130 @@ namespace FinalProjectOOP2
             catch
             {
                 return false;
+            }
+        }
+
+        public string GetUserRole(string username)
+        {
+            string role = "User";
+            string query = "SELECT Role FROM UserQuery WHERE Username = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("?", username);
+                        object? result = cmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                        {
+                            role = result.ToString();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error fetching user role: {ex.Message}");
+                }
+            }
+            return role;
+        }
+
+        public List<UserRow> GetAllUsers()
+        {
+            var users = new List<UserRow>();
+            string query = "SELECT Username, Email, Role, FullName, Description FROM UserQuery";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            users.Add(new UserRow
+                            {
+                                Username = reader["Username"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                Role = reader["Role"].ToString(),
+                                FullName = reader["FullName"].ToString(),
+                                Description = reader["Description"].ToString()
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading users: {ex.Message}");
+                }
+            }
+            return users;
+        }
+
+        public bool DeleteUser(string username)
+        {
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // 1. Get user ID
+                    int userId = 0;
+                    using (OleDbCommand cmd = new OleDbCommand("SELECT ID FROM UserQuery WHERE Username = ?", conn))
+                    {
+                        cmd.Parameters.AddWithValue("?", username);
+                        var result = cmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            userId = Convert.ToInt32(result);
+                        else
+                            throw new Exception("User not found.");
+                    }
+
+                    // 2. Delete all related data (order matters!)
+                    // Delete from SentResumes
+                    try {
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM SentResumes WHERE UserID = ?", conn))
+                        {
+                            cmd.Parameters.AddWithValue("?", userId);
+                            cmd.ExecuteNonQuery();
+                        }
+                    } catch { }
+
+                    // Delete from Resumes
+                    try {
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM Resumes WHERE OwnerID = ?", conn))
+                        {
+                            cmd.Parameters.AddWithValue("?", userId);
+                            cmd.ExecuteNonQuery();
+                        }
+                    } catch { }
+
+                    // Delete from UserInfo
+                    try {
+                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM UserInfo WHERE ID = ?", conn))
+                        {
+                            cmd.Parameters.AddWithValue("?", userId);
+                            cmd.ExecuteNonQuery();
+                        }
+                    } catch { }
+
+                    // 3. Delete the user
+                    using (OleDbCommand cmd = new OleDbCommand("DELETE FROM UserQuery WHERE ID = ?", conn))
+                    {
+                        cmd.Parameters.AddWithValue("?", userId);
+                        int rows = cmd.ExecuteNonQuery();
+                        return rows > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting user: {ex.Message}");
+                    return false;
+                }
             }
         }
     }

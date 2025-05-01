@@ -141,7 +141,7 @@
 <div class="container">
     <div class="sidebar">
         <center>
-            <img src="Assets/default-profile.png" alt="Profile Photo">
+            <img src="{{ ProfilePicPath }}" alt="Profile Photo">
         </center>
 
         <h3>CORE SKILLS</h3>
@@ -194,14 +194,15 @@
             </div>
             <div class="job-title">{{ job.Position }}</div>
             <p>{{ job.Description }}</p>
-            {{ if job.Contributions.size > 0 }}
-            <strong>Contributions:</strong>
-            <ul class="job-contributions">
-                {{ for contrib in job.Contributions }}
-                    <li>{{ contrib }}</li>
-                {{ end }}
-            </ul>
-            {{ end }}
+
+             {{ if job.Contributions }}
+<strong>Contributions:</strong>
+<ul class="job-contributions">
+    {{ for contrib in job.Contributions }}
+        <li>{{ contrib }}</li>
+    {{ end }}
+</ul>
+{{ end }}
         </div>
         {{ end }}
 

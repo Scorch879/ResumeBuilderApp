@@ -1,8 +1,9 @@
-using FinalProjectOOP2;
-using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-
+using System.Data;
+using System.Net.Mail;
+using System.Net;
+using System.IO;
+using System.Linq;
 
 namespace FinalProjectOOP2
 {
@@ -167,6 +168,41 @@ namespace FinalProjectOOP2
         #region Fetching Data from Database (Not resume specific)
 
         //Fetching Methods
+        public DataTable LoadSentResumes(int userId)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"
+                        SELECT 
+                            ID,
+                            ResumePath,
+                            Recipients,
+                            Subject,
+                            Message,
+                            HasCoverLetter,
+                            SentDate
+                        FROM SentResumes 
+                        WHERE UserID = ? 
+                        ORDER BY SentDate DESC";
+
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("?", userId);
+                        dt.Load(cmd.ExecuteReader());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error loading sent resumes: {ex.Message}");
+            }
+            return dt;
+        }
+
         public List<ResumeSummary> GetRecentResumesForUser(int ownerId, int count = 5)
         {
             return GetAllResumesForUser(ownerId).OrderByDescending(r => r.DateCreated).Take(count).ToList();
@@ -249,6 +285,111 @@ namespace FinalProjectOOP2
 
         #endregion
 
+        //For PersonalInfo
+        public int SavePersonalInfo(PersonalInfo personalInfo, string currentUsername)
+        {
+            int ownerID = GetCurrentUserID(currentUsername);
+            if (ownerID == 0)
+            {
+                MessageBox.Show("Error: Could not find current user.");
+                return 0;
+            }
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+
+                // 1. Check if record exists
+                string checkQuery = "SELECT COUNT(*) FROM PersonalInfo WHERE OwnerID = ?";
+                using (OleDbCommand checkCmd = new OleDbCommand(checkQuery, connection))
+                {
+                    checkCmd.Parameters.AddWithValue("?", ownerID);
+                    int count = (int)checkCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        // 2. Update existing record
+                        string updateQuery = @"
+                            UPDATE PersonalInfo 
+                            SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, PhoneNum = ?, Address = ?, Designation = ?, Summary = ?, ProfilePic = ?
+                            WHERE OwnerID = ?";
+                        using (OleDbCommand updateCmd = new OleDbCommand(updateQuery, connection))
+                        {
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.ProfilePic ?? (object)DBNull.Value);
+                            updateCmd.Parameters.AddWithValue("?", ownerID);
+                            updateCmd.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        // 3. Insert new record
+                        string insertQuery = @"
+                            INSERT INTO PersonalInfo (OwnerID, FirstName, MiddleName, LastName, Email, PhoneNum, Address, Designation, Summary, ProfilePic) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, connection))
+                        {
+                            insertCmd.Parameters.AddWithValue("?", ownerID);
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.ProfilePic ?? (object)DBNull.Value);
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                return ownerID;
+            }
+        }
+
+        // Helper to extract image bytes from OLE Object
+        public static byte[] ExtractImageFromOLEField(byte[] oleFieldBytes)
+        {
+            // JPEG header: FF D8
+            byte[] jpegHeader = new byte[] { 0xFF, 0xD8 };
+            // PNG header: 89 50 4E 47
+            byte[] pngHeader = new byte[] { 0x89, 0x50, 0x4E, 0x47 };
+
+            int startIndex = -1;
+
+            // Search for JPEG header
+            for (int i = 0; i < oleFieldBytes.Length - jpegHeader.Length; i++)
+            {
+                if (oleFieldBytes[i] == jpegHeader[0] && oleFieldBytes[i + 1] == jpegHeader[1])
+                {
+                    startIndex = i;
+                    break;
+                }
+                // Search for PNG header
+                if (oleFieldBytes[i] == pngHeader[0] && oleFieldBytes[i + 1] == pngHeader[1] &&
+                    oleFieldBytes[i + 2] == pngHeader[2] && oleFieldBytes[i + 3] == pngHeader[3])
+                {
+                    startIndex = i;
+                    break;
+                }
+            }
+
+            if (startIndex >= 0)
+            {
+                byte[] imgBytes = new byte[oleFieldBytes.Length - startIndex];
+                Array.Copy(oleFieldBytes, startIndex, imgBytes, 0, imgBytes.Length);
+                return imgBytes;
+            }
+            // If not found, return original
+            return oleFieldBytes;
+        }
 
         //Delete Methods
         public bool DeleteResume(int resumeId)
@@ -260,6 +401,24 @@ namespace FinalProjectOOP2
                 {
                     try
                     {
+                        // Check if there are any sent resume records first
+                        bool hasSentResumes = false;
+                        using (OleDbCommand checkCmd = new OleDbCommand("SELECT COUNT(*) FROM SentResumes WHERE ResumePath LIKE ?", conn, transaction))
+                        {
+                            checkCmd.Parameters.AddWithValue("?", $"%{resumeId}%");
+                            hasSentResumes = Convert.ToInt32(checkCmd.ExecuteScalar()) > 0;
+                        }
+
+                        // Only try to delete from SentResumes if records exist
+                        if (hasSentResumes)
+                        {
+                            using (OleDbCommand cmd = new OleDbCommand("DELETE FROM SentResumes WHERE ResumePath LIKE ?", conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("?", $"%{resumeId}%");
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
                         // 1. Delete from child tables first (order matters due to FK constraints)
                         // Electrical Engineering
                         using (OleDbCommand cmd = new OleDbCommand("DELETE FROM ElectricalEngineeringExperienceContribution WHERE ExperienceID IN (SELECT ID FROM ElectricalEngineeringExperience WHERE ResumeID = ?)", conn, transaction))
@@ -403,7 +562,6 @@ namespace FinalProjectOOP2
             };
         }
 
-        //For PersonalInfo
         public PersonalInfo LoadPersonalInfo(int OwnerID)
         {
             var info = new PersonalInfo();
@@ -438,6 +596,8 @@ namespace FinalProjectOOP2
                                     info.Address = reader["Address"].ToString();
                                     info.Title = reader["Designation"].ToString();
                                     info.Summary = reader["Summary"].ToString();
+                                    var rawBytes = reader["ProfilePic"] == DBNull.Value ? null : (byte[])reader["ProfilePic"];
+                                    info.ProfilePic = rawBytes != null ? ExtractImageFromOLEField(rawBytes) : null;
                                 }
                             }
                         }
@@ -475,8 +635,9 @@ namespace FinalProjectOOP2
                             resumeModel.Address = reader["Address"].ToString();
                             resumeModel.Title = reader["Designation"].ToString();
                             resumeModel.Summary = reader["Summary"].ToString();
-
                             resumeModel.Name = $"{resumeModel.FirstName} {resumeModel.MiddleName} {resumeModel.LastName}";
+                            var rawBytes = reader["ProfilePic"] == DBNull.Value ? null : (byte[])reader["ProfilePic"];
+                            resumeModel.ProfilePic = rawBytes != null ? ExtractImageFromOLEField(rawBytes) : null;
                         }
                     }
                 }
@@ -535,7 +696,9 @@ namespace FinalProjectOOP2
                                 Location = reader["Location"].ToString(),
                                 Duration = reader["Duration"].ToString(),
                                 Description = reader["Description"].ToString(),
-                                Contributions = reader["Contributions"].ToString()?.Split(';').ToList()
+                                Contributions = reader["Contributions"] == DBNull.Value
+                                    ? new List<string>()
+                                    : reader["Contributions"].ToString().Split(';').Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToList()
                             });
                         }
                     }
@@ -612,8 +775,9 @@ namespace FinalProjectOOP2
                             resumeModel.Address = reader["Address"].ToString();
                             resumeModel.Title = reader["Designation"].ToString();
                             resumeModel.Summary = reader["Summary"].ToString();
-
                             resumeModel.Name = $"{resumeModel.FirstName} {resumeModel.MiddleName} {resumeModel.LastName}";
+                            var rawBytes = reader["ProfilePic"] == DBNull.Value ? null : (byte[])reader["ProfilePic"];
+                            resumeModel.ProfilePic = rawBytes != null ? ExtractImageFromOLEField(rawBytes) : null;
                         }
                     }
                 }
@@ -765,8 +929,9 @@ namespace FinalProjectOOP2
                             resumeModel.Address = reader["Address"].ToString();
                             resumeModel.Title = reader["Designation"].ToString();
                             resumeModel.Summary = reader["Summary"].ToString();
-
                             resumeModel.Name = $"{resumeModel.FirstName} {resumeModel.MiddleName} {resumeModel.LastName}";
+                            var rawBytes = reader["ProfilePic"] == DBNull.Value ? null : (byte[])reader["ProfilePic"];
+                            resumeModel.ProfilePic = rawBytes != null ? ExtractImageFromOLEField(rawBytes) : null;
                         }
                     }
                 }
@@ -871,8 +1036,9 @@ namespace FinalProjectOOP2
                             resumeModel.Address = reader["Address"].ToString();
                             resumeModel.Title = reader["Designation"].ToString();
                             resumeModel.Summary = reader["Summary"].ToString();
-
                             resumeModel.Name = $"{resumeModel.FirstName} {resumeModel.MiddleName} {resumeModel.LastName}";
+                            var rawBytes = reader["ProfilePic"] == DBNull.Value ? null : (byte[])reader["ProfilePic"];
+                            resumeModel.ProfilePic = rawBytes != null ? ExtractImageFromOLEField(rawBytes) : null;
                         }
                     }
                 }
@@ -991,71 +1157,6 @@ namespace FinalProjectOOP2
 
         #region Saving Personal Info of templates (this remains the same across all templates)
 
-        public int SavePersonalInfo(PersonalInfo personalInfo, string currentUsername)
-        {
-            int ownerID = GetCurrentUserID(currentUsername);
-            if (ownerID == 0)
-            {
-                MessageBox.Show("Error: Could not find current user.");
-                return 0;
-            }
-
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
-            {
-                connection.Open();
-
-                // 1. Check if record exists
-                string checkQuery = "SELECT COUNT(*) FROM PersonalInfo WHERE OwnerID = ?";
-                using (OleDbCommand checkCmd = new OleDbCommand(checkQuery, connection))
-                {
-                    checkCmd.Parameters.AddWithValue("?", ownerID);
-                    int count = (int)checkCmd.ExecuteScalar();
-
-                    if (count > 0)
-                    {
-                        // 2. Update existing record
-                        string updateQuery = @"
-                            UPDATE PersonalInfo 
-                            SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, PhoneNum = ?, Address = ?, Designation = ?, Summary = ?
-                            WHERE OwnerID = ?";
-                        using (OleDbCommand updateCmd = new OleDbCommand(updateQuery, connection))
-                        {
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
-                            updateCmd.Parameters.AddWithValue("?", ownerID);
-                            updateCmd.ExecuteNonQuery();
-                        }
-                    }
-                    else
-                    {
-                        // 3. Insert new record
-                        string insertQuery = @"
-                            INSERT INTO PersonalInfo (OwnerID, FirstName, MiddleName, LastName, Email, PhoneNum, Address, Designation, Summary) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                        using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, connection))
-                        {
-                            insertCmd.Parameters.AddWithValue("?", ownerID);
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
-                            insertCmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-                return ownerID;
-            }
-        }
         #endregion
 
         #region CallCenterResume Database Methods
@@ -1810,6 +1911,138 @@ namespace FinalProjectOOP2
                 }
             }
             return result;
+        }
+
+        // Fetch monthly sent trend for  analytics
+        public List<(string Month, int SentCount)> GetMonthlySentTrend(int userId)
+        {
+            var result = new List<(string, int)>();
+            using (var conn = new OleDbConnection(connectionString))
+            {
+                conn.Open();
+                string query = @"
+                    SELECT Format(SentDate, 'yyyy-mm') AS [Month], COUNT(*) AS SentCount
+                    FROM SentResumes
+                    WHERE UserID = ?
+                    GROUP BY Format(SentDate, 'yyyy-mm')
+                    ORDER BY Format(SentDate, 'yyyy-mm')";
+                using (var cmd = new OleDbCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("?", userId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string? month = reader["Month"].ToString();
+                            int count = Convert.ToInt32(reader["SentCount"]);
+                            result.Add((month, count));
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        public bool SendResumeEmail(string fromEmail, string fromName, string recipients, string subject, string message, string resumePath, string coverLetterPath = null)
+        {
+            try
+            {
+                using (MailMessage mail = new MailMessage())
+                {
+                    mail.From = new MailAddress(fromEmail, fromName);
+                    
+                    // Add recipients
+                    foreach (string recipient in recipients.Split(';'))
+                    {
+                        if (!string.IsNullOrWhiteSpace(recipient))
+                        {
+                            mail.To.Add(recipient.Trim());
+                        }
+                    }
+
+                    mail.Subject = subject;
+                    mail.Body = message;
+                    mail.IsBodyHtml = true;
+
+                    // Attach resume
+                    if (File.Exists(resumePath))
+                    {
+                        mail.Attachments.Add(new Attachment(resumePath));
+                    }
+
+                    // Attach cover letter if provided
+                    if (!string.IsNullOrEmpty(coverLetterPath) && File.Exists(coverLetterPath))
+                    {
+                        mail.Attachments.Add(new Attachment(coverLetterPath));
+                    }
+
+                    using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                    {
+                        smtp.Credentials = new NetworkCredential("scorch857@gmail.com", "geuj lqnj rkfo prvs");
+                        smtp.EnableSsl = true;
+                        smtp.Send(mail);
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error sending email: {ex.Message}");
+            }
+        }
+
+        public bool TrackSentResume(int userId, string resumePath, string recipients, string subject, string message, bool hasCoverLetter)
+        {
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"
+                        INSERT INTO SentResumes 
+                        (UserID, ResumePath, Recipients, Subject, Message, HasCoverLetter, SentDate)
+                        VALUES 
+                        (?, ?, ?, ?, ?, ?, ?)";
+
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                    {
+                        cmd.Parameters.Add("@UserID", OleDbType.Integer).Value = userId;
+                        cmd.Parameters.Add("@ResumePath", OleDbType.VarWChar).Value = resumePath;
+                        cmd.Parameters.Add("@Recipients", OleDbType.VarWChar).Value = recipients;
+                        cmd.Parameters.Add("@Subject", OleDbType.VarWChar).Value = subject;
+                        cmd.Parameters.Add("@Message", OleDbType.VarWChar).Value = message;
+                        cmd.Parameters.Add("@HasCoverLetter", OleDbType.Boolean).Value = hasCoverLetter;
+                        cmd.Parameters.Add("@SentDate", OleDbType.Date).Value = DateTime.Today;
+
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error tracking sent resume: {ex.Message}");
+            }
+        }
+
+        public bool DeleteSentResume(int id)
+        {
+            try
+            {
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = "DELETE FROM SentResumes WHERE ID = ?";
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("?", id);
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting sent resume: {ex.Message}");
+            }
         }
     }
 }

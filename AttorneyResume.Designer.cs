@@ -35,13 +35,11 @@
             tabPersonalInfo = new TabPage();
             panel5 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
+            label5 = new Label();
             emailTbx = new TextBox();
             label9 = new Label();
             firstNameTbx = new TextBox();
             label2 = new Label();
-            phoneNumTbx = new TextBox();
-            label11 = new Label();
-            label10 = new Label();
             addressTbx = new TextBox();
             titleTbx = new TextBox();
             label7 = new Label();
@@ -49,12 +47,14 @@
             lastNameTbx = new TextBox();
             label4 = new Label();
             label3 = new Label();
-            label5 = new Label();
+            middleNameTbx = new TextBox();
+            label11 = new Label();
+            summaryTbx = new RichTextBox();
+            label10 = new Label();
+            phoneNumTbx = new TextBox();
             flowLayoutPanel2 = new FlowLayoutPanel();
             chooseImgBtn = new FontAwesome.Sharp.IconButton();
             imageNameTbx = new TextBox();
-            middleNameTbx = new TextBox();
-            summaryTbx = new RichTextBox();
             panel2 = new Panel();
             label8 = new Label();
             tabSkills = new TabPage();
@@ -311,13 +311,11 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+            tableLayoutPanel1.Controls.Add(label5, 0, 2);
             tableLayoutPanel1.Controls.Add(emailTbx, 0, 5);
             tableLayoutPanel1.Controls.Add(label9, 0, 4);
             tableLayoutPanel1.Controls.Add(firstNameTbx, 0, 1);
             tableLayoutPanel1.Controls.Add(label2, 0, 0);
-            tableLayoutPanel1.Controls.Add(phoneNumTbx, 1, 5);
-            tableLayoutPanel1.Controls.Add(label11, 2, 4);
-            tableLayoutPanel1.Controls.Add(label10, 1, 4);
             tableLayoutPanel1.Controls.Add(addressTbx, 2, 3);
             tableLayoutPanel1.Controls.Add(titleTbx, 1, 3);
             tableLayoutPanel1.Controls.Add(label7, 2, 2);
@@ -325,10 +323,12 @@
             tableLayoutPanel1.Controls.Add(lastNameTbx, 2, 1);
             tableLayoutPanel1.Controls.Add(label4, 2, 0);
             tableLayoutPanel1.Controls.Add(label3, 1, 0);
-            tableLayoutPanel1.Controls.Add(label5, 0, 2);
-            tableLayoutPanel1.Controls.Add(flowLayoutPanel2, 0, 3);
             tableLayoutPanel1.Controls.Add(middleNameTbx, 1, 1);
+            tableLayoutPanel1.Controls.Add(label11, 2, 4);
             tableLayoutPanel1.Controls.Add(summaryTbx, 2, 5);
+            tableLayoutPanel1.Controls.Add(label10, 1, 4);
+            tableLayoutPanel1.Controls.Add(phoneNumTbx, 1, 5);
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel2, 0, 3);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 56);
             tableLayoutPanel1.Margin = new Padding(10);
@@ -344,6 +344,18 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(1492, 544);
             tableLayoutPanel1.TabIndex = 7;
+            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Century Gothic", 13.8F);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(13, 119);
+            label5.Name = "label5";
+            label5.Size = new Size(142, 27);
+            label5.TabIndex = 53;
+            label5.Text = "Your Image";
             // 
             // emailTbx
             // 
@@ -387,38 +399,6 @@
             label2.Size = new Size(129, 27);
             label2.TabIndex = 33;
             label2.Text = "First Name";
-            // 
-            // phoneNumTbx
-            // 
-            phoneNumTbx.BackColor = Color.White;
-            phoneNumTbx.Dock = DockStyle.Fill;
-            phoneNumTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
-            phoneNumTbx.Location = new Point(503, 269);
-            phoneNumTbx.Name = "phoneNumTbx";
-            phoneNumTbx.Size = new Size(484, 36);
-            phoneNumTbx.TabIndex = 22;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Century Gothic", 13.8F);
-            label11.ForeColor = Color.White;
-            label11.Location = new Point(993, 233);
-            label11.Name = "label11";
-            label11.Size = new Size(256, 27);
-            label11.TabIndex = 20;
-            label11.Text = "Professional Summary";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Century Gothic", 13.8F);
-            label10.ForeColor = Color.White;
-            label10.Location = new Point(503, 233);
-            label10.Name = "label10";
-            label10.Size = new Size(128, 27);
-            label10.TabIndex = 19;
-            label10.Text = "Phone No.";
             // 
             // addressTbx
             // 
@@ -494,26 +474,65 @@
             label3.TabIndex = 7;
             label3.Text = "Middle Name (Optional)";
             // 
-            // label5
+            // middleNameTbx
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Century Gothic", 13.8F);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(13, 119);
-            label5.Name = "label5";
-            label5.Size = new Size(142, 27);
-            label5.TabIndex = 24;
-            label5.Text = "Your Image";
+            middleNameTbx.BackColor = Color.White;
+            middleNameTbx.Dock = DockStyle.Fill;
+            middleNameTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            middleNameTbx.Location = new Point(503, 53);
+            middleNameTbx.Name = "middleNameTbx";
+            middleNameTbx.Size = new Size(484, 36);
+            middleNameTbx.TabIndex = 10;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Century Gothic", 13.8F);
+            label11.ForeColor = Color.White;
+            label11.Location = new Point(993, 233);
+            label11.Name = "label11";
+            label11.Size = new Size(256, 27);
+            label11.TabIndex = 20;
+            label11.Text = "Professional Summary";
+            // 
+            // summaryTbx
+            // 
+            summaryTbx.Location = new Point(993, 269);
+            summaryTbx.Name = "summaryTbx";
+            summaryTbx.Size = new Size(484, 262);
+            summaryTbx.TabIndex = 49;
+            summaryTbx.Text = "";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Century Gothic", 13.8F);
+            label10.ForeColor = Color.White;
+            label10.Location = new Point(503, 233);
+            label10.Name = "label10";
+            label10.Size = new Size(128, 27);
+            label10.TabIndex = 19;
+            label10.Text = "Phone No.";
+            // 
+            // phoneNumTbx
+            // 
+            phoneNumTbx.BackColor = Color.White;
+            phoneNumTbx.Dock = DockStyle.Fill;
+            phoneNumTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
+            phoneNumTbx.Location = new Point(503, 269);
+            phoneNumTbx.Name = "phoneNumTbx";
+            phoneNumTbx.Size = new Size(484, 36);
+            phoneNumTbx.TabIndex = 50;
             // 
             // flowLayoutPanel2
             // 
             flowLayoutPanel2.Controls.Add(chooseImgBtn);
             flowLayoutPanel2.Controls.Add(imageNameTbx);
-            flowLayoutPanel2.Dock = DockStyle.Top;
+            flowLayoutPanel2.Dock = DockStyle.Fill;
             flowLayoutPanel2.Location = new Point(13, 164);
             flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(484, 36);
-            flowLayoutPanel2.TabIndex = 40;
+            flowLayoutPanel2.Size = new Size(484, 66);
+            flowLayoutPanel2.TabIndex = 52;
             // 
             // chooseImgBtn
             // 
@@ -527,6 +546,7 @@
             chooseImgBtn.TabIndex = 0;
             chooseImgBtn.Text = "Choose Image";
             chooseImgBtn.UseVisualStyleBackColor = true;
+            chooseImgBtn.Click += chooseImgBtn_Click;
             // 
             // imageNameTbx
             // 
@@ -538,25 +558,6 @@
             imageNameTbx.ReadOnly = true;
             imageNameTbx.Size = new Size(302, 36);
             imageNameTbx.TabIndex = 1;
-            // 
-            // middleNameTbx
-            // 
-            middleNameTbx.BackColor = Color.White;
-            middleNameTbx.Dock = DockStyle.Fill;
-            middleNameTbx.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold);
-            middleNameTbx.Location = new Point(503, 53);
-            middleNameTbx.Name = "middleNameTbx";
-            middleNameTbx.Size = new Size(484, 36);
-            middleNameTbx.TabIndex = 10;
-            // 
-            // summaryTbx
-            // 
-            summaryTbx.Dock = DockStyle.Fill;
-            summaryTbx.Location = new Point(993, 269);
-            summaryTbx.Name = "summaryTbx";
-            summaryTbx.Size = new Size(486, 262);
-            summaryTbx.TabIndex = 42;
-            summaryTbx.Text = "";
             // 
             // panel2
             // 
@@ -2245,7 +2246,6 @@
         private Label label9;
         private TextBox firstNameTbx;
         private Label label2;
-        private TextBox phoneNumTbx;
         private Label label11;
         private Label label10;
         private TextBox addressTbx;
@@ -2255,12 +2255,7 @@
         private TextBox lastNameTbx;
         private Label label4;
         private Label label3;
-        private Label label5;
-        private FlowLayoutPanel flowLayoutPanel2;
-        private FontAwesome.Sharp.IconButton chooseImgBtn;
-        private TextBox imageNameTbx;
         private TextBox middleNameTbx;
-        private RichTextBox summaryTbx;
         private Panel panel2;
         private Label label8;
         private TabPage tabSkills;
@@ -2389,5 +2384,11 @@
         private DataGridViewTextBoxColumn LiscenseType;
         private DataGridViewTextBoxColumn AdmissionDate;
         private DataGridViewTextBoxColumn LiscenseNo;
+        private RichTextBox summaryTbx;
+        private TextBox phoneNumTbx;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private FontAwesome.Sharp.IconButton chooseImgBtn;
+        private TextBox imageNameTbx;
+        private Label label5;
     }
 }
