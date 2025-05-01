@@ -11,7 +11,6 @@ namespace FinalProjectOOP2
     public partial class AccountsAdminControl : UserControl
     {
         private BindingList<UserRow> usersList;
-        private List<UserRow> allUsers;
 
         public AccountsAdminControl()
         {
@@ -46,7 +45,7 @@ namespace FinalProjectOOP2
             cellStyle.ForeColor = Color.Black;
             cellStyle.SelectionBackColor = Color.FromArgb(41, 128, 185);
             cellStyle.SelectionForeColor = Color.White;
-            cellStyle.WrapMode = DataGridViewTriState.False;
+            cellStyle.WrapMode = DataGridViewTriState.True;
             usersGrid.DefaultCellStyle = cellStyle;
 
             // Row style
@@ -55,6 +54,7 @@ namespace FinalProjectOOP2
             rowStyle.ForeColor = Color.Black;
             rowStyle.SelectionBackColor = Color.FromArgb(41, 128, 185);
             rowStyle.SelectionForeColor = Color.White;
+            rowStyle.WrapMode = DataGridViewTriState.True;
             usersGrid.RowsDefaultCellStyle = rowStyle;
 
             usersGrid.BackgroundColor = Color.FromArgb(216, 225, 233);
@@ -63,20 +63,23 @@ namespace FinalProjectOOP2
             usersGrid.GridColor = Color.FromArgb(0, 31, 84);
             usersGrid.RowTemplate.Height = 50;
             usersGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            usersGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void LoadUsers()
         {
             var db = new DatabaseHelper();
-            allUsers = db.GetAllUsers();
-            usersList = new BindingList<UserRow>(allUsers.ToList());
+            var users = db.GetAllUsers(); // Always fetch fresh from DB
+            usersList = new BindingList<UserRow>(users);
             usersGrid.DataSource = usersList;
         }
 
         private void searchBox_TextChanged(object sender, EventArgs e)
         {
+            var db = new DatabaseHelper();
+            var users = db.GetAllUsers();
             string search = searchBox.Text.Trim().ToLower();
-            var filtered = allUsers.Where(u =>
+            var filtered = users.Where(u =>
                 u.Username.ToLower().Contains(search) ||
                 u.Email.ToLower().Contains(search) ||
                 u.Role.ToLower().Contains(search)).ToList();
@@ -102,12 +105,8 @@ namespace FinalProjectOOP2
                     var db = new DatabaseHelper();
                     if (db.UpdateUser(updated))
                     {
-                        row.Email = updated.Email;
-                        row.Role = updated.Role;
-                        row.FullName = updated.FullName;
-                        row.Description = updated.Description;
-                        usersGrid.Refresh();
                         MessageBox.Show("User updated.");
+                        LoadUsers(); // Refresh from DB
                     }
                     else
                     {
@@ -132,9 +131,8 @@ namespace FinalProjectOOP2
                 var db = new DatabaseHelper();
                 if (db.DeleteUser(row.Username))
                 {
-                    allUsers.Remove(row);
-                    usersList.Remove(row);
                     MessageBox.Show("User deleted.");
+                    LoadUsers(); // Refresh from DB
                 }
                 else
                 {

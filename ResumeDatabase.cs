@@ -285,74 +285,7 @@ namespace FinalProjectOOP2
 
         #endregion
 
-        //For PersonalInfo
-        public int SavePersonalInfo(PersonalInfo personalInfo, string currentUsername)
-        {
-            int ownerID = GetCurrentUserID(currentUsername);
-            if (ownerID == 0)
-            {
-                MessageBox.Show("Error: Could not find current user.");
-                return 0;
-            }
-
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
-            {
-                connection.Open();
-
-                // 1. Check if record exists
-                string checkQuery = "SELECT COUNT(*) FROM PersonalInfo WHERE OwnerID = ?";
-                using (OleDbCommand checkCmd = new OleDbCommand(checkQuery, connection))
-                {
-                    checkCmd.Parameters.AddWithValue("?", ownerID);
-                    int count = (int)checkCmd.ExecuteScalar();
-
-                    if (count > 0)
-                    {
-                        // 2. Update existing record
-                        string updateQuery = @"
-                            UPDATE PersonalInfo 
-                            SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, PhoneNum = ?, Address = ?, Designation = ?, Summary = ?, ProfilePic = ?
-                            WHERE OwnerID = ?";
-                        using (OleDbCommand updateCmd = new OleDbCommand(updateQuery, connection))
-                        {
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
-                            updateCmd.Parameters.AddWithValue("?", personalInfo.ProfilePic ?? (object)DBNull.Value);
-                            updateCmd.Parameters.AddWithValue("?", ownerID);
-                            updateCmd.ExecuteNonQuery();
-                        }
-                    }
-                    else
-                    {
-                        // 3. Insert new record
-                        string insertQuery = @"
-                            INSERT INTO PersonalInfo (OwnerID, FirstName, MiddleName, LastName, Email, PhoneNum, Address, Designation, Summary, ProfilePic) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                        using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, connection))
-                        {
-                            insertCmd.Parameters.AddWithValue("?", ownerID);
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
-                            insertCmd.Parameters.AddWithValue("?", personalInfo.ProfilePic ?? (object)DBNull.Value);
-                            insertCmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-                return ownerID;
-            }
-        }
+       
 
         // Helper to extract image bytes from OLE Object
         public static byte[] ExtractImageFromOLEField(byte[] oleFieldBytes)
@@ -1156,6 +1089,75 @@ namespace FinalProjectOOP2
         #endregion
 
         #region Saving Personal Info of templates (this remains the same across all templates)
+
+        //For PersonalInfo
+        public int SavePersonalInfo(PersonalInfo personalInfo, string currentUsername)
+        {
+            int ownerID = GetCurrentUserID(currentUsername);
+            if (ownerID == 0)
+            {
+                MessageBox.Show("Error: Could not find current user.");
+                return 0;
+            }
+
+            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            {
+                connection.Open();
+
+                // 1. Check if record exists
+                string checkQuery = "SELECT COUNT(*) FROM PersonalInfo WHERE OwnerID = ?";
+                using (OleDbCommand checkCmd = new OleDbCommand(checkQuery, connection))
+                {
+                    checkCmd.Parameters.AddWithValue("?", ownerID);
+                    int count = (int)checkCmd.ExecuteScalar();
+
+                    if (count > 0)
+                    {
+                        // 2. Update existing record
+                        string updateQuery = @"
+                            UPDATE PersonalInfo 
+                            SET FirstName = ?, MiddleName = ?, LastName = ?, Email = ?, PhoneNum = ?, Address = ?, Designation = ?, Summary = ?, ProfilePic = ?
+                            WHERE OwnerID = ?";
+                        using (OleDbCommand updateCmd = new OleDbCommand(updateQuery, connection))
+                        {
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
+                            updateCmd.Parameters.AddWithValue("?", personalInfo.ProfilePic ?? (object)DBNull.Value);
+                            updateCmd.Parameters.AddWithValue("?", ownerID);
+                            updateCmd.ExecuteNonQuery();
+                        }
+                    }
+                    else
+                    {
+                        // 3. Insert new record
+                        string insertQuery = @"
+                            INSERT INTO PersonalInfo (OwnerID, FirstName, MiddleName, LastName, Email, PhoneNum, Address, Designation, Summary, ProfilePic) 
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        using (OleDbCommand insertCmd = new OleDbCommand(insertQuery, connection))
+                        {
+                            insertCmd.Parameters.AddWithValue("?", ownerID);
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.FirstName ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.MiddleName ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.LastName ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Email ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Phone ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Address ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Title ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.Summary ?? "");
+                            insertCmd.Parameters.AddWithValue("?", personalInfo.ProfilePic ?? (object)DBNull.Value);
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                return ownerID;
+            }
+        }
 
         #endregion
 

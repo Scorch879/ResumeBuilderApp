@@ -716,65 +716,71 @@ namespace FinalProjectOOP2
 
         public bool DeleteUser(string username)
         {
-            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            try
             {
-                try
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
                 {
                     conn.Open();
 
-                    // 1. Get user ID
-                    int userId = 0;
-                    using (OleDbCommand cmd = new OleDbCommand("SELECT ID FROM UserQuery WHERE Username = ?", conn))
+                    // 1. Get user ID first
+                    int userId;
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "SELECT ID FROM UserQuery WHERE Username = @Username", conn))
                     {
-                        cmd.Parameters.AddWithValue("?", username);
+                        cmd.Parameters.Add("@Username", OleDbType.VarChar).Value = username;
                         var result = cmd.ExecuteScalar();
                         if (result != null && result != DBNull.Value)
-                            userId = Convert.ToInt32(result);
+                            userId = (int)result;
                         else
                             throw new Exception("User not found.");
                     }
 
-                    // 2. Delete all related data (order matters!)
-                    // Delete from SentResumes
-                    try {
-                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM SentResumes WHERE UserID = ?", conn))
-                        {
-                            cmd.Parameters.AddWithValue("?", userId);
-                            cmd.ExecuteNonQuery();
-                        }
-                    } catch { }
-
-                    // Delete from Resumes
-                    try {
-                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM Resumes WHERE OwnerID = ?", conn))
-                        {
-                            cmd.Parameters.AddWithValue("?", userId);
-                            cmd.ExecuteNonQuery();
-                        }
-                    } catch { }
-
-                    // Delete from UserInfo
-                    try {
-                        using (OleDbCommand cmd = new OleDbCommand("DELETE FROM UserInfo WHERE ID = ?", conn))
-                        {
-                            cmd.Parameters.AddWithValue("?", userId);
-                            cmd.ExecuteNonQuery();
-                        }
-                    } catch { }
-
-                    // 3. Delete the user
-                    using (OleDbCommand cmd = new OleDbCommand("DELETE FROM UserQuery WHERE ID = ?", conn))
+                    // 2. Delete from SentResumes
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "DELETE FROM SentResumes WHERE UserID = @ID", conn))
                     {
-                        cmd.Parameters.AddWithValue("?", userId);
+                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 3. Delete from Resumes
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "DELETE FROM Resumes WHERE OwnerID = @ID", conn))
+                    {
+                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 4. Delete from UserInfo
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "DELETE FROM UserInfo WHERE ID = @ID", conn))
+                    {
+                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 5. Delete from UserQuery
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "DELETE FROM UserQuery WHERE ID = @ID", conn))
+                    {
+                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 6. Delete from Users (the login table) LAST
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "DELETE FROM Users WHERE ID = @ID", conn))
+                    {
+                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
                         int rows = cmd.ExecuteNonQuery();
                         return rows > 0;
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error deleting user: {ex.Message}");
-                    return false;
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting user: {ex.Message}");
+                return false;
             }
         }
     }

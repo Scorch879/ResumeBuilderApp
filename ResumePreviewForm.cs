@@ -60,38 +60,33 @@ namespace FinalProjectOOP2
                         var templateContent = reader.ReadToEnd();
                         var template = Scriban.Template.Parse(templateContent);
 
-                        // Create a dictionary with the resume data and profile picture path
-                        var templateData = new Dictionary<string, object>();
-
-                        // Copy all properties from resumeData to templateData
-                        foreach (var prop in resumeData.GetType().GetProperties())
-                        {
-                            if (prop.Name != "FirstName" && prop.Name != "MiddleName" && prop.Name != "LastName")
-                            {
-                                var value = prop.GetValue(resumeData);
-                                if (value != null)
-                                {
-                                    templateData[prop.Name] = value;
-                                }
-                            }
-                        }
+                        // Recursively convert resumeData to a dictionary
+                        var templateData = ObjectToDictionary(resumeData);
 
                         // Always get the profile picture from PersonalInfo (current user)
                         string? currentUsername = null;
                         if (resumeData is PersonalInfo pi && !string.IsNullOrEmpty(pi.Email))
                         {
-                            // Try to get username from the resumeData if possible
                             currentUsername = pi.Email;
                         }
+
                         else if (resumeData.GetType().GetProperty("CurrentUsername") != null)
                         {
                             currentUsername = resumeData.GetType().GetProperty("CurrentUsername")?.GetValue(resumeData)?.ToString();
                         }
-                        // Fallback: try to get from a static/global if you have one
-                        // currentUsername = AppGlobals.CurrentUsername ?? currentUsername;
 
+                        // Always get the profile picture from the resume data first, then fallback to DB
                         byte[]? profilePicBytes = null;
-                        if (!string.IsNullOrEmpty(currentUsername))
+
+                        // 1. Try to get from resumeData if it has a ProfilePic property
+                        var profilePicProp = resumeData.GetType().GetProperty("ProfilePic");
+                        if (profilePicProp != null)
+                        {
+                            profilePicBytes = profilePicProp.GetValue(resumeData) as byte[];
+                        }
+
+                        // 2. If not found, get from DB using currentUsername
+                        if ((profilePicBytes == null || profilePicBytes.Length == 0) && !string.IsNullOrEmpty(currentUsername))
                         {
                             var db = new ResumeDatabase();
                             int userId = db.GetCurrentUserID(currentUsername);
@@ -134,6 +129,47 @@ namespace FinalProjectOOP2
                     return "image/gif";
             }
             return "image/jpeg"; // Default to JPEG if unknown
+        }
+
+        // Recursively convert an object to a dictionary for Scriban
+        private Dictionary<string, object> ObjectToDictionary(object obj)
+        {
+            var dict = new Dictionary<string, object>();
+            if (obj == null) return dict;
+            var type = obj.GetType();
+            foreach (var prop in type.GetProperties())
+            {
+                if (prop.Name == "FirstName" || prop.Name == "MiddleName" || prop.Name == "LastName")
+                    continue;
+                var value = prop.GetValue(obj);
+                if (value == null) continue;
+                if (value is string || value.GetType().IsValueType)
+                {
+                    dict[prop.Name] = value;
+                }
+                else if (value is System.Collections.IEnumerable enumerable && !(value is string))
+                {
+                    var list = new List<object>();
+                    foreach (var item in enumerable)
+                    {
+                        if (item == null) continue;
+                        if (item is string || item.GetType().IsValueType)
+                        {
+                            list.Add(item);
+                        }
+                        else
+                        {
+                            list.Add(ObjectToDictionary(item));
+                        }
+                    }
+                    dict[prop.Name] = list;
+                }
+                else // nested object
+                {
+                    dict[prop.Name] = ObjectToDictionary(value);
+                }
+            }
+            return dict;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
