@@ -110,7 +110,7 @@ namespace FinalProjectOOP2
                     }
                     else
                     {
-                        MessageBox.Show("Failed to update user.");
+                       // MessageBox.Show("Failed to update user.");
                     }
                 }
             }
@@ -136,7 +136,7 @@ namespace FinalProjectOOP2
                 }
                 else
                 {
-                    MessageBox.Show("Failed to delete user.");
+                  //  MessageBox.Show("Failed to delete user.");
                 }
             }
         }

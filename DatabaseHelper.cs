@@ -51,7 +51,7 @@ namespace FinalProjectOOP2
         //Login & Register Methods
         public bool RegisterUser(string username, string password, string role, string email)
         {
-            string existMessage = UserExists(username, email); //checks if user or email or both already exists
+            string existMessage = UserExists(username, email);
 
             if (!string.IsNullOrEmpty(existMessage))
             {
@@ -59,27 +59,56 @@ namespace FinalProjectOOP2
                 return false;
             }
 
-            string query = "INSERT INTO UserQuery (Username, [Password], Role, Email) VALUES (@Username, @Password, @role, @email)";
-
             using (OleDbConnection conn = new OleDbConnection(connectionString))
-            using (OleDbCommand cmd = new OleDbCommand(query, conn))
             {
-
-                string hashedPassword = HashPassword(password);
-
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@Password", hashedPassword);
-                cmd.Parameters.AddWithValue("@role", role);
-                cmd.Parameters.AddWithValue("@email", email);
+                conn.Open();
+                OleDbTransaction transaction = conn.BeginTransaction();
 
                 try
                 {
-                    conn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0; // will return true if insertion was successful
+                 
+                    string userQueryTableQuery = @"INSERT INTO UserQuery 
+                        (Username, [Password], Role, [Email], LastLogin) 
+                        VALUES (@Username, @Password, @Role, @Email, @LastLogin)";
+
+                    using (OleDbCommand queryCmd = new OleDbCommand(userQueryTableQuery, conn, transaction))
+                    {
+                        string hashedPassword = HashPassword(password);
+                        string currentDate = DateTime.Now.ToString("yyyy-MM-dd");
+
+                        queryCmd.Parameters.AddWithValue("@Username", username);
+                        queryCmd.Parameters.AddWithValue("@Password", hashedPassword);
+                        queryCmd.Parameters.AddWithValue("@Role", role);
+                        queryCmd.Parameters.AddWithValue("@Email", email);
+                        queryCmd.Parameters.AddWithValue("@LastLogin", currentDate);
+
+                        queryCmd.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                    return true;
                 }
-                catch (Exception)
+                catch (OleDbException ex)
                 {
+                    transaction.Rollback();
+                    string errorMessage = "Database error during registration: ";
+                    switch (ex.ErrorCode)
+                    {
+                        case -2147467259: // Constraint violation
+                            errorMessage += "Username or email already exists.";
+                            break;
+                        default:
+                            errorMessage += ex.Message;
+                            break;
+                    }
+                    MessageBox.Show(errorMessage + ex, "Registration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"Unexpected error during registration: {ex.Message}", "Registration Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -735,39 +764,6 @@ namespace FinalProjectOOP2
                             throw new Exception("User not found.");
                     }
 
-                    // 2. Delete from SentResumes
-                    using (OleDbCommand cmd = new OleDbCommand(
-                        "DELETE FROM SentResumes WHERE UserID = @ID", conn))
-                    {
-                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    // 3. Delete from Resumes
-                    using (OleDbCommand cmd = new OleDbCommand(
-                        "DELETE FROM Resumes WHERE OwnerID = @ID", conn))
-                    {
-                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    // 4. Delete from UserInfo
-                    using (OleDbCommand cmd = new OleDbCommand(
-                        "DELETE FROM UserInfo WHERE ID = @ID", conn))
-                    {
-                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    // 5. Delete from UserQuery
-                    using (OleDbCommand cmd = new OleDbCommand(
-                        "DELETE FROM UserQuery WHERE ID = @ID", conn))
-                    {
-                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    // 6. Delete from Users (the login table) LAST
                     using (OleDbCommand cmd = new OleDbCommand(
                         "DELETE FROM Users WHERE ID = @ID", conn))
                     {
@@ -775,6 +771,7 @@ namespace FinalProjectOOP2
                         int rows = cmd.ExecuteNonQuery();
                         return rows > 0;
                     }
+                    
                 }
             }
             catch (Exception ex)
