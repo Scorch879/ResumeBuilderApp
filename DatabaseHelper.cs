@@ -3,6 +3,11 @@ using System.Data.OleDb;
 using System.Security.Cryptography;
 using System.Text;
 using Windows.Networking;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using System.Collections;
+using System.Linq;
 
 namespace FinalProjectOOP2
 {
@@ -17,9 +22,6 @@ namespace FinalProjectOOP2
         OleDbDataAdapter? da;
         DataSet? ds;
         private OleDbConnection? myConn;
-
-      
-
 
         public DatabaseHelper()
         {
@@ -49,7 +51,7 @@ namespace FinalProjectOOP2
         //Login & Register Methods
         public bool RegisterUser(string username, string password, string role, string email)
         {
-            string existMessage = UserExists(username, email); //checks if user or email or both already exists
+            string existMessage = UserExists(username, email);
 
             if (!string.IsNullOrEmpty(existMessage))
             {
@@ -57,27 +59,56 @@ namespace FinalProjectOOP2
                 return false;
             }
 
-            string query = "INSERT INTO UserQuery (Username, [Password], Role, Email) VALUES (@Username, @Password, @role, @email)";
-
             using (OleDbConnection conn = new OleDbConnection(connectionString))
-            using (OleDbCommand cmd = new OleDbCommand(query, conn))
             {
-
-                string hashedPassword = HashPassword(password);
-
-                cmd.Parameters.AddWithValue("@Username", username);
-                cmd.Parameters.AddWithValue("@Password", hashedPassword);
-                cmd.Parameters.AddWithValue("@role", role);
-                cmd.Parameters.AddWithValue("@email", email);
+                conn.Open();
+                OleDbTransaction transaction = conn.BeginTransaction();
 
                 try
                 {
-                    conn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0; // will return true if insertion was successful
+                 
+                    string userQueryTableQuery = @"INSERT INTO UserQuery 
+                        (Username, [Password], Role, [Email], LastLogin) 
+                        VALUES (@Username, @Password, @Role, @Email, @LastLogin)";
+
+                    using (OleDbCommand queryCmd = new OleDbCommand(userQueryTableQuery, conn, transaction))
+                    {
+                        string hashedPassword = HashPassword(password);
+                        string currentDate = DateTime.Now.ToString("yyyy-MM-dd");
+
+                        queryCmd.Parameters.AddWithValue("@Username", username);
+                        queryCmd.Parameters.AddWithValue("@Password", hashedPassword);
+                        queryCmd.Parameters.AddWithValue("@Role", role);
+                        queryCmd.Parameters.AddWithValue("@Email", email);
+                        queryCmd.Parameters.AddWithValue("@LastLogin", currentDate);
+
+                        queryCmd.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                    return true;
                 }
-                catch (Exception)
+                catch (OleDbException ex)
                 {
+                    transaction.Rollback();
+                    string errorMessage = "Database error during registration: ";
+                    switch (ex.ErrorCode)
+                    {
+                        case -2147467259: // Constraint violation
+                            errorMessage += "Username or email already exists.";
+                            break;
+                        default:
+                            errorMessage += ex.Message;
+                            break;
+                    }
+                    MessageBox.Show(errorMessage + ex, "Registration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"Unexpected error during registration: {ex.Message}", "Registration Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
             }
@@ -309,17 +340,6 @@ namespace FinalProjectOOP2
             return currentUserID;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="newUsername"></param>
-        /// <param name="newEmail"></param>
-        /// <param name="newProfilePicPath"></param>
-        /// <param name="newDescription"></param>
-        /// <returns></returns>
-        /// 
-
 
         //Update Operations
         public bool UpdateUsername(string newUsername, string currentUsername)
@@ -348,6 +368,8 @@ namespace FinalProjectOOP2
                 }
             }
         }
+        
+
         public bool UpdateEmail(string newEmail, string currentUsername)
         {
             // Ensure correct table name
@@ -402,6 +424,7 @@ namespace FinalProjectOOP2
                 }
             }
         }
+
         public bool UpdateDescription(string username, string newDescription)
         {
             string query = "UPDATE UserQuery SET Description = ? WHERE Username = ?";
@@ -449,8 +472,6 @@ namespace FinalProjectOOP2
                 }
             }
         }
-
-
 
         public void UpdateLastLogin(string username)
         {
@@ -524,6 +545,33 @@ namespace FinalProjectOOP2
                 }
             }
             return isUpdated;
+        }
+
+        public bool UpdateUser(UserRow user)
+        {
+            string query = "UPDATE UserQuery SET Email = ?, Role = ?, FullName = ?, Description = ? WHERE Username = ?";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("?", user.Email);
+                        cmd.Parameters.AddWithValue("?", user.Role);
+                        cmd.Parameters.AddWithValue("?", user.FullName);
+                        cmd.Parameters.AddWithValue("?", user.Description);
+                        cmd.Parameters.AddWithValue("?", user.Username);
+                        int rows = cmd.ExecuteNonQuery();
+                        return rows > 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating user: {ex.Message}");
+                    return false;
+                }
+            }
         }
 
         //Delete Operations
@@ -634,131 +682,103 @@ namespace FinalProjectOOP2
                 return false;
             }
         }
-    }
 
-    public class ResumeDatabase : DatabaseHelper
-    {
-
-        //Template Related Operations
-
-        public string LoadAndFillTemplate(string templatePath, Dictionary<string, string> data)
+        public string GetUserRole(string username)
         {
-            string template = File.ReadAllText(templatePath);
-            foreach (var entry in data)
-            {
-                template = template.Replace($"{{{entry.Key}}}", entry.Value);
-            }
-            return template;
-        }
-
-        public bool SavePersonalInfo(int ownerId, string firstName, string middleName, string lastName, string email,
-                              string phoneNum, string address, string designation, string summary)
-        {
+            string role = "User";
+            string query = "SELECT Role FROM UserQuery WHERE Username = ?";
             using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
-                conn.Open();
-
-                using (OleDbTransaction transaction = conn.BeginTransaction())
+                try
                 {
-                    try
+                    conn.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
                     {
-                        // 1. Always insert data into PersonalInfo (no checks, just insert)
-                        string personalInfoQuery = @"
-                    INSERT INTO PersonalInfo (
-                        OwnerID, FirstName, MiddleName, LastName, 
-                        Email, PhoneNum, Address, Designation, Summary
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-                        using (OleDbCommand cmd = new OleDbCommand(personalInfoQuery, conn, transaction))
+                        cmd.Parameters.AddWithValue("?", username);
+                        object? result = cmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
                         {
-                            cmd.Parameters.AddWithValue("?", ownerId);
-                            cmd.Parameters.AddWithValue("?", firstName);
-                            cmd.Parameters.AddWithValue("?", middleName);
-                            cmd.Parameters.AddWithValue("?", lastName);
-                            cmd.Parameters.AddWithValue("?", email);
-                            cmd.Parameters.AddWithValue("?", phoneNum);
-                            cmd.Parameters.AddWithValue("?", address);
-                            cmd.Parameters.AddWithValue("?", designation);
-                            cmd.Parameters.AddWithValue("?", summary);
-                            cmd.ExecuteNonQuery();
+                            role = result.ToString();
                         }
-
-                        // 2. Now update the ResumeInfo if the OwnerID exists (no need to check PersonalInfo)
-                        string sectionType = "PersonalInfo"; // The section for Personal Info
-                        string content = $"Contains Basic Information of the User"; // You can expand this content as needed
-
-                        // Insert or update ResumeInfo (this will either update an existing entry or insert a new one)
-                        SaveResumeInfo(conn, transaction, ownerId, sectionType, content);
-
-                        // Commit the entire transaction
-                        transaction.Commit();
-
-                        MessageBox.Show("Personal info and resume info saved successfully!");
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        // Rollback the transaction if any error occurs
-                        transaction.Rollback();
-                        MessageBox.Show($"Save failed: {ex.Message}");
-                        return false;
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error fetching user role: {ex.Message}");
+                }
             }
+            return role;
         }
 
-        private void SaveResumeInfo(OleDbConnection conn, OleDbTransaction transaction,
-     int ownerId, string sectionType, string content)
+        public List<UserRow> GetAllUsers()
         {
-            // Check if record exists
-            bool exists = false;
-            using (OleDbCommand checkCmd = new OleDbCommand(
-                "SELECT COUNT(*) FROM ResumeInfo WHERE OwnerID = ? AND SectionType = ?",
-                conn, transaction))
+            var users = new List<UserRow>();
+            string query = "SELECT Username, Email, Role, FullName, Description FROM UserQuery";
+            using (OleDbConnection conn = new OleDbConnection(connectionString))
             {
-                checkCmd.Parameters.Add(new OleDbParameter("?", OleDbType.Integer)).Value = ownerId;
-                checkCmd.Parameters.Add(new OleDbParameter("?", OleDbType.VarChar)).Value = sectionType;
-                exists = ((int)checkCmd.ExecuteScalar()) > 0;
-            }
-
-            if (exists)
-            {
-                // UPDATE
-                string updateQuery = @"UPDATE ResumeInfo SET 
-                            Content = ?, 
-                            LastUpdated = ? 
-                            WHERE OwnerID = ? AND SectionType = ?";
-
-                using (OleDbCommand cmd = new OleDbCommand(updateQuery, conn, transaction))
+                try
                 {
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.LongVarChar)).Value = content;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Date)).Value = DateTime.Now;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Integer)).Value = ownerId;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.VarChar)).Value = sectionType;
-
-                    cmd.ExecuteNonQuery();
+                    conn.Open();
+                    using (OleDbCommand cmd = new OleDbCommand(query, conn))
+                    using (OleDbDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            users.Add(new UserRow
+                            {
+                                Username = reader["Username"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                Role = reader["Role"].ToString(),
+                                FullName = reader["FullName"].ToString(),
+                                Description = reader["Description"].ToString()
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading users: {ex.Message}");
                 }
             }
-            else
+            return users;
+        }
+
+        public bool DeleteUser(string username)
+        {
+            try
             {
-                // INSERT
-                string insertQuery = @"INSERT INTO ResumeInfo 
-                            (OwnerID, SectionType, Content, DateCreated, LastUpdated) 
-                            VALUES (?, ?, ?, ?, ?)";
-
-                using (OleDbCommand cmd = new OleDbCommand(insertQuery, conn, transaction))
+                using (OleDbConnection conn = new OleDbConnection(connectionString))
                 {
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Integer)).Value = ownerId;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.VarChar)).Value = sectionType;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.LongVarChar)).Value = content;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Date)).Value = DateTime.Now;
-                    cmd.Parameters.Add(new OleDbParameter("?", OleDbType.Date)).Value = DateTime.Now;
+                    conn.Open();
 
-                    cmd.ExecuteNonQuery();
+                    // 1. Get user ID first
+                    int userId;
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "SELECT ID FROM UserQuery WHERE Username = @Username", conn))
+                    {
+                        cmd.Parameters.Add("@Username", OleDbType.VarChar).Value = username;
+                        var result = cmd.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
+                            userId = (int)result;
+                        else
+                            throw new Exception("User not found.");
+                    }
+
+                    using (OleDbCommand cmd = new OleDbCommand(
+                        "DELETE FROM Users WHERE ID = @ID", conn))
+                    {
+                        cmd.Parameters.Add("@ID", OleDbType.Integer).Value = userId;
+                        int rows = cmd.ExecuteNonQuery();
+                        return rows > 0;
+                    }
+                    
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error deleting user: {ex.Message}");
+                return false;
             }
         }
     }
 }
-
-/*  */

@@ -31,6 +31,7 @@
             label4 = new Label();
             label2 = new Label();
             panel1 = new Panel();
+            label5 = new Label();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             label8 = new Label();
@@ -56,7 +57,6 @@
             pictureBox5 = new PictureBox();
             RegisterTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             warningLbl = new SiticoneNetCoreUI.SiticoneLabel();
-            label5 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -107,6 +107,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(356, 726);
             panel1.TabIndex = 13;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(142, 249);
+            label5.Name = "label5";
+            label5.Size = new Size(196, 37);
+            label5.TabIndex = 16;
+            label5.Text = "ProResume+";
             // 
             // pictureBox1
             // 
@@ -418,18 +430,6 @@
             warningLbl.Text = "Password must be at least 8 characters.\r\nNo whitespaces allowed.\r\nMake a strong password!\r\n";
             warningLbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(142, 249);
-            label5.Name = "label5";
-            label5.Size = new Size(196, 37);
-            label5.TabIndex = 16;
-            label5.Text = "ProResume+";
-            // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -451,7 +451,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Register";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Register";
             Load += Register_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

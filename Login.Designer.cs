@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            testConnection = new Button();
             panel3 = new Panel();
             label6 = new Label();
             label5 = new Label();
@@ -65,7 +64,6 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(41, 128, 185);
-            panel1.Controls.Add(testConnection);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(label5);
@@ -78,23 +76,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(356, 615);
             panel1.TabIndex = 1;
-            // 
-            // testConnection
-            // 
-            testConnection.BackColor = Color.FromArgb(41, 128, 185);
-            testConnection.Cursor = Cursors.Hand;
-            testConnection.Enabled = false;
-            testConnection.FlatStyle = FlatStyle.Flat;
-            testConnection.Font = new Font("Century Gothic", 10F);
-            testConnection.ForeColor = Color.White;
-            testConnection.Location = new Point(0, 583);
-            testConnection.Name = "testConnection";
-            testConnection.Size = new Size(172, 32);
-            testConnection.TabIndex = 22;
-            testConnection.Text = "Test Connection";
-            testConnection.UseVisualStyleBackColor = false;
-            testConnection.Visible = false;
-            testConnection.Click += testConnection_Click;
+           
             // 
             // panel3
             // 
@@ -409,7 +391,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Login";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Login";
             KeyDown += Login_KeyDown;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -449,7 +431,6 @@
         private Label label10;
         private LinkLabel linkLabel1;
         private Button registerBtn;
-        private Button testConnection;
         private Label label9;
         private Guna.UI2.WinForms.Guna2HtmlToolTip LoginTooltip;
     }

@@ -8,9 +8,12 @@ namespace FinalProjectOOP2
         {
             InitializeComponent();
             instance = this;
-            Dashboard dashboard = new Dashboard("");
+
+            Dashboard db = new Dashboard();
+            db.Hide();
         }
 
+        
         private void closeBtn_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -57,23 +60,28 @@ namespace FinalProjectOOP2
             DatabaseHelper dbHelper = new DatabaseHelper();
             loginBtn.Enabled = false;
 
+            string user = usernameTbx.Text.Trim();
+            string password = passwordTbx.Text.Trim();
             try
             {
-                if (string.IsNullOrWhiteSpace(usernameTbx.Text) || string.IsNullOrWhiteSpace(passwordTbx.Text))
+                if (string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(password))
                 {
                     MessageBox.Show($"Please enter your username and password!", "Error", MessageBoxButtons.OK,
                                MessageBoxIcon.Warning);
                 }
 
-                else if (dbHelper.LoginUser(usernameTbx.Text, passwordTbx.Text))
+                else if (dbHelper.LoginUser(user, password))
                 {
-                    string currentUser = usernameTbx.Text;
-                    Dashboard dashboard = new Dashboard(currentUser);
+                    string currentUser = user;
+                    Dashboard dashboard = new Dashboard();
+                    dashboard.CurrentUser = currentUser;
 
                     MessageBox.Show("Login Successful!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     usernameTbx.Text = "";
                     passwordTbx.Text = "";
+                    user = "";
+                    password = "";
                     this.Hide();
                     dashboard.Show();
                 }
@@ -96,12 +104,6 @@ namespace FinalProjectOOP2
             usernameTbx.Text = "";
             passwordTbx.Text = "";
             this.Hide();
-        }
-
-        private void testConnection_Click(object sender, EventArgs e)
-        {
-            DatabaseHelper dbHelper = new DatabaseHelper();
-            dbHelper.TestConnection();
         }
 
         private void Login_KeyDown(object sender, KeyEventArgs e)

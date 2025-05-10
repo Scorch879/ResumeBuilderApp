@@ -9,8 +9,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Samples\SampleAttorneyTemplate.html" />
+    <None Remove="Resources\Samples\SampleCallCenter.html" />
+    <None Remove="Resources\Samples\SampleDoctorTemplate.html" />
+    <None Remove="Resources\Samples\SampleEETemplate.html" />
+    <None Remove="Resources\Templates\AcademicTemplate.html" />
+    <None Remove="Resources\Templates\AttorneyTemplate.html" />
+    <None Remove="Resources\Templates\CallCenterTemplate.html" />
+    <None Remove="Resources\Templates\DoctorTemplate.html" />
+    <None Remove="Resources\Templates\ElectricalEngineeringTemplate.html" />
+    <None Remove="Resources\Templates\SampleAttorneyTemplate.html" />
+    <None Remove="Resources\Templates\SampleCallCenter.html" />
+    <None Remove="Resources\Templates\SampleDoctorTemplate.html" />
+    <None Remove="Resources\Templates\SampleEETemplate.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="Guna.UI2.WinForms" Version="2.0.4.7" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3179.45" />
+    <PackageReference Include="Scriban" Version="6.2.0" />
+    <PackageReference Include="Select.HtmlToPdf" Version="25.1.0" />
+    <PackageReference Include="Select.HtmlToPdf.NetCore" Version="25.1.0" />
+    <PackageReference Include="Select.Pdf" Version="25.1.0" />
     <PackageReference Include="Siticone.Desktop.UI" Version="2.1.1" />
     <PackageReference Include="Siticone.NetCore.UI" Version="2025.2.14" />
     <PackageReference Include="Siticone.NetFramework.UI" Version="2025.2.14" />
@@ -19,6 +40,22 @@
     <PackageReference Include="Uno.WinUI" Version="5.6.81" />
     <PackageReference Include="WinFormAnimation" Version="1.6.0.4" />
     <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Samples\SampleAttorneyTemplate.html" />
+    <EmbeddedResource Include="Resources\Samples\SampleCallCenter.html" />
+    <EmbeddedResource Include="Resources\Samples\SampleDoctorTemplate.html" />
+    <EmbeddedResource Include="Resources\Samples\SampleEETemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\AcademicTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\AttorneyTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\CallCenterTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\DoctorTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\ElectricalEngineeringTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\SampleAttorneyTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\SampleCallCenter.html" />
+    <EmbeddedResource Include="Resources\Templates\SampleDoctorTemplate.html" />
+    <EmbeddedResource Include="Resources\Templates\SampleEETemplate.html" />
   </ItemGroup>
 
   <ItemGroup>

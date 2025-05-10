@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            max-width: 950px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .sidebar {
+            background-color: #2c3e50;
+            color: white;
+            width: 30%;
+            padding: 20px;
+        }
+        .sidebar img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .sidebar h3 {
+            margin-top: 20px;
+            border-bottom: 1px solid white;
+            padding-bottom: 5px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .main {
+            width: 70%;
+            padding: 30px;
+        }
+        .main h1 {
+            margin: 0;
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+        .main h2 {
+            color: #2980b9;
+            margin-top: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .main p {
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        .highlighted-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        .highlighted-skills span {
+            background-color: #eaf2f8;
+            color: #1a5276;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: 500;
+        }
+        .job-section {
+            margin-bottom: 20px;
+        }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        .job-title {
+            font-weight: bold;
+        }
+        .job-company {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .job-duration {
+            color: #7f8c8d;
+        }
+        .job-location {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .job-contributions {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .job-contributions li {
+            margin-bottom: 8px;
+        }
+        .contact-info {
+            font-size: 16px;
+            color: #555;
+            margin-top: 5px;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+            margin: 10px 0;
+        }
+        .expertise-columns {
+            display: flex;
+            gap: 40px;
+            margin-top: 15px;
+            margin-bottom: 25px;
+        }
+        .expertise-columns ul {
+            list-style: disc inside;
+            padding: 0;
+            margin: 0;
+        }
+        .expertise-columns li {
+            margin-bottom: 8px;
+        }
+        .education-item {
+            margin-bottom: 15px;
+        }
+        .education-degree {
+            font-weight: bold;
+        }
+        .education-school {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar">
+        <center>
+            <img src="{{ ProfilePicPath }}" alt="Profile Photo">
+        </center>
+
+        <h3>CORE SKILLS</h3>
+        <ul class="highlighted-skills">
+            {{ for skill in CoreSkills }}
+                <li>{{ skill }}</li>
+            {{ end }}
+        </ul>
+
+        <h3>LEGAL TECHNOLOGY</h3>
+        <ul>
+            {{ for tech in LegalTech }}
+                <li>{{ tech }}</li>
+            {{ end }}
+        </ul>
+
+        <h3>BAR ADMISSIONS</h3>
+        <ul>
+            {{ for bar in BarAdmissions }}
+                <li>{{ bar }}</li>
+            {{ end }}
+        </ul>
+    </div>
+
+    <div class="main">
+        <h1>{{ Name }}</h1>
+        <div class="contact-info">
+            {{ Address }} | {{ Phone }} | {{ Email }} | {{ LinkedIn }}
+        </div>
+        
+        <p><strong>{{ Title }}</strong></p>
+        <p>{{ Summary }}</p>
+
+        <h2>Expertise</h2>
+        <ul>
+            {{ for item in Expertise }}
+                <li><em>{{ item }}</em></li>
+            {{ end }}
+        </ul>
+
+        <h2>Professional Experience</h2>
+        {{ for job in Experience }}
+        <div class="job-section">
+            <div class="job-header">
+                <div>
+                    <span class="job-company">{{ job.Company }}</span>, 
+                    <span class="job-location">{{ job.Location }}</span>
+                </div>
+                <div class="job-duration">{{ job.Duration }}</div>
+            </div>
+            <div class="job-title">{{ job.Position }}</div>
+            <p>{{ job.Description }}</p>
+
+             {{ if job.Contributions }}
+<strong>Contributions:</strong>
+<ul class="job-contributions">
+    {{ for contrib in job.Contributions }}
+        <li>{{ contrib }}</li>
+    {{ end }}
+</ul>
+{{ end }}
+        </div>
+        {{ end }}
+
+        {{ if EarlierPositions.size > 0 }}
+        <h3>Earlier Positions</h3>
+        <ul>
+            {{ for position in EarlierPositions }}
+                <li>
+                    <strong>{{ position.Position }}</strong>, {{ position.Duration }} -- {{ position.Company }}, {{ position.Location }}
+                </li>
+            {{ end }}
+        </ul>
+        {{ end }}
+
+        <h2>Education & Credentials</h2>
+	{{ for edu in Education }}
+	<div class="education-item">
+    		<div class="education-degree">{{ edu.DegreePosition }}</div>
+    		<div class="education-school">{{ edu.Institution }}</div>
+    		<div class="education-location">{{ edu.Location }}</div>
+	</div>
+	{{ end }}
+    </div> <!-- CLOSE .main -->
+</div> <!-- CLOSE .container -->
+
+</body>
+</html>

@@ -31,6 +31,7 @@
             Guna.UI2.AnimatorNS.Animation animation1 = new Guna.UI2.AnimatorNS.Animation();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VerifyUser));
             panel1 = new Panel();
+            label7 = new Label();
             label6 = new Label();
             label5 = new Label();
             pictureBox1 = new PictureBox();
@@ -54,7 +55,6 @@
             closeBtn = new Button();
             VerifyUserTooltip = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             guna2Transition1 = new Guna.UI2.WinForms.Guna2Transition();
-            label7 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel4.SuspendLayout();
@@ -80,6 +80,19 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(356, 615);
             panel1.TabIndex = 15;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label7.AutoSize = true;
+            guna2Transition1.SetDecoration(label7, Guna.UI2.AnimatorNS.DecorationType.None);
+            label7.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(142, 249);
+            label7.Name = "label7";
+            label7.Size = new Size(196, 37);
+            label7.TabIndex = 18;
+            label7.Text = "ProResume+";
             // 
             // label6
             // 
@@ -389,19 +402,6 @@
             animation1.TransparencyCoeff = 0F;
             guna2Transition1.DefaultAnimation = animation1;
             // 
-            // label7
-            // 
-            label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label7.AutoSize = true;
-            guna2Transition1.SetDecoration(label7, Guna.UI2.AnimatorNS.DecorationType.None);
-            label7.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.ForeColor = Color.White;
-            label7.Location = new Point(142, 249);
-            label7.Name = "label7";
-            label7.Size = new Size(196, 37);
-            label7.TabIndex = 18;
-            label7.Text = "ProResume+";
-            // 
             // VerifyUser
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -423,7 +423,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "VerifyUser";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "W";
+            Text = "User Verification";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

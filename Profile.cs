@@ -14,22 +14,26 @@ namespace FinalProjectOOP2
     {
         private string? currentUser;
 
-        public string? CurrentUsername 
+        public string? CurrentUsername
         {
             get => currentUser;
             set
             {
                 currentUser = value;
-                usernameLbl.Text = currentUser; // update the profile label or textbox
+                if (!string.IsNullOrEmpty(currentUser))
+                    usernameLbl.Text = currentUser;
             }
         }
 
-        public Profile(string username)
+        public Profile()
         {
 
             InitializeComponent();
-            currentUser = username;
+           
+        }
 
+        public void LoadProfileData()
+        {
             var userDetails = new DatabaseHelper().GetUserDetailsByUsername(currentUser);
             usernameLbl.Text = userDetails.username;
             emaillbl.Text = userDetails.email;
@@ -207,7 +211,7 @@ namespace FinalProjectOOP2
         {
             // Clear session or user-specific data
             currentUser = null;  // Reset the current user
-            currentUsername = null;  // If you're using a property to hold the current username
+            CurrentUsername = null;  // If you're using a property to hold the current username
 
             // Optionally, clear any UI elements that are user-specific
             usernameLbl.Text = "Guest";

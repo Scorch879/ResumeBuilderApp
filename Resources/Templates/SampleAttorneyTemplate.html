@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      background-color: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      max-width: 950px;
+      margin: 20px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: white;
+    }
+    .sidebar {
+      background-color: #2c3e50;
+      color: white;
+      width: 30%;
+      padding: 20px;
+    }
+    .sidebar img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+    }
+    .sidebar h3 {
+      margin-top: 20px;
+      border-bottom: 1px solid white;
+      padding-bottom: 5px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar ul li {
+      margin-bottom: 10px;
+    }
+    .highlighted-skills li {
+      background-color: #eaf2f8;
+      color: #1a5276;
+      padding: 5px 10px;
+      margin: 5px 5px 5px 0;
+      border-radius: 15px;
+      font-weight: 500;
+    }
+    .main {
+      width: 70%;
+      padding: 30px;
+    }
+    .main h1 {
+      margin: 0;
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+    .main h2 {
+      color: #2980b9;
+      margin-top: 25px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+      text-transform: uppercase;
+    }
+    .main p {
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+    .contact-info {
+      font-size: 16px;
+      color: #555;
+      margin-top: 5px;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+      margin: 10px 0;
+    }
+    .job-section {
+      margin-bottom: 20px;
+    }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .job-title {
+      font-weight: bold;
+    }
+    .job-company {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    .job-location {
+      font-style: italic;
+      margin-left: 5px;
+    }
+    .job-duration {
+      color: #7f8c8d;
+    }
+    .job-contributions {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+    .job-contributions li {
+      margin-bottom: 8px;
+    }
+    .education-item {
+      margin-bottom: 15px;
+    }
+    .education-degree {
+      font-weight: bold;
+    }
+    .education-school {
+      font-style: italic;
+    }
+    .education-location {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <center>
+      <img src="{{ ProfilePicPath }}" alt="Profile Photo">
+    </center>
+
+    <h3>CORE SKILLS</h3>
+    <ul class="highlighted-skills">
+      <li>Litigation Strategy & Management</li>
+      <li>Client Advocacy</li>
+      <li>Legal Research</li>
+      <li>Mass Tort Litigation</li>
+      <li>Trial Preparation</li>
+    </ul>
+
+    <h3>LEGAL TECHNOLOGY</h3>
+    <ul>
+      <li>LexisNexis</li>
+      <li>Westlaw</li>
+      <li>Clio</li>
+    </ul>
+
+    <h3>BAR ADMISSIONS</h3>
+    <ul>
+      <li>New York, 2011</li>
+      <li>New Jersey, 2013</li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h1>Margo Watts</h1>
+    <div class="contact-info">
+      Sometown, NY 55555 | 555-555-5555 | mw@somedomain.com | linkedin.com/in/margo-watts
+    </div>
+
+    <p><strong>Litigation Defense Attorney</strong></p>
+    <p>Persuasive litigator backed by dual-state licensure (NY, NJ) and practice-area expertise spanning antitrust, product liability and catastrophic personal injury defense. Passionately represent client interests, working diligently to analyze case merits, minimize risk and propel positive resolutions to complex legal matters. Proven success achieving case dismissals, no-fault judgments, advantageous settlements and favorable verdicts.</p>
+
+    <h2>Expertise</h2>
+    <ul>
+      <li><em>Litigation Strategy & Management</em></li>
+      <li><em>Client Advocacy & Trial Preparation</em></li>
+      <li><em>Legal Research & Documentation</em></li>
+      <li><em>Product Liability & Mass Tort</em></li>
+      <li><em>Antitrust Law</em></li>
+    </ul>
+
+    <h2>Professional Experience</h2>
+    <div class="job-section">
+      <div class="job-header">
+        <div>
+          <span class="job-company">ABC LAW FIRM</span>, 
+          <span class="job-location">Sometown, NY</span>
+        </div>
+        <div class="job-duration">2011 – Present</div>
+      </div>
+      <div class="job-title">Civil Litigation Associate</div>
+      <p>Partner with in-house counsel to defend against complex legal actions involving product liability, personal injury, and antitrust. Handle all aspects of case management, trial prep, and settlement negotiations.</p>
+      <strong>Contributions:</strong>
+      <ul class="job-contributions">
+        <li>Entrusted with multimillion-dollar lawsuits for major corporate clients.</li>
+        <li>Secured early dismissals or favorable judgments in over 80% of cases.</li>
+        <li>Defended pharmaceutical firm in publicized mass tort trial with successful verdict.</li>
+        <li>Negotiated $50M explosion claim to less than 5% payout.</li>
+      </ul>
+    </div>
+
+    <h3>Earlier Positions</h3>
+    <ul>
+      <li><strong>Law Clerk</strong>, 2009–2011 – Smith & Jones LLP, Newark, NJ</li>
+      <li><strong>Legal Intern</strong>, 2008–2009 – NY Attorney General's Office, Albany, NY</li>
+    </ul>
+
+    <h2>Education & Credentials</h2>
+    <div class="education-item">
+      <div class="education-degree">Juris Doctor (J.D.)</div>
+      <div class="education-school">Columbia Law School</div>
+      <div class="education-location">New York, NY</div>
+    </div>
+    <div class="education-item">
+      <div class="education-degree">B.A. in Political Science</div>
+      <div class="education-school">University of Michigan</div>
+      <div class="education-location">Ann Arbor, MI</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -29,213 +29,41 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            ListViewItem listViewItem1 = new ListViewItem(new string[] { "John_Doe_Resume" }, 0, Color.Empty, Color.Empty, new Font("Century Gothic", 13.8F, FontStyle.Bold));
-            ListViewItem listViewItem2 = new ListViewItem(new string[] { "Resume" }, 0, Color.Empty, Color.Empty, new Font("Century Gothic", 13.8F, FontStyle.Bold));
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MyResumes));
-            tableLayoutPanel3 = new TableLayoutPanel();
-            panel12 = new Panel();
-            iconButton2 = new FontAwesome.Sharp.IconButton();
-            panel11 = new Panel();
-            iconButton1 = new FontAwesome.Sharp.IconButton();
-            panel9 = new Panel();
-            homeBtn = new FontAwesome.Sharp.IconButton();
-            panel1 = new Panel();
-            label1 = new Label();
-            userLbl = new Label();
-            listView1 = new ListView();
-            columnHeader = new ColumnHeader();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             images = new ImageList(components);
-            tableLayoutPanel3.SuspendLayout();
-            panel12.SuspendLayout();
-            panel11.SuspendLayout();
-            panel9.SuspendLayout();
+            userLbl = new Label();
+            label1 = new Label();
+            panel1 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            panel7 = new Panel();
+            deleteResumeBtn = new FontAwesome.Sharp.IconButton();
+            panel6 = new Panel();
+            sendResumeBtn = new FontAwesome.Sharp.IconButton();
+            panel2 = new Panel();
+            dgvResumes = new DataGridView();
+            templatePanelCorner = new Panel();
+            clearFiltersBtn = new SiticoneNetCoreUI.SiticoneButton();
+            label2 = new Label();
+            templateSelector = new ComboBox();
+            iconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            searchTbx = new SiticoneNetCoreUI.SiticoneTextBox();
+            panel3 = new Panel();
+            exportResumeBtn = new FontAwesome.Sharp.IconButton();
+            createResumeBtn = new FontAwesome.Sharp.IconButton();
             panel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            panel7.SuspendLayout();
+            panel6.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvResumes).BeginInit();
+            templatePanelCorner.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
-            // 
-            // tableLayoutPanel3
-            // 
-            tableLayoutPanel3.BackColor = Color.FromArgb(216, 225, 233);
-            tableLayoutPanel3.ColumnCount = 3;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 383F));
-            tableLayoutPanel3.Controls.Add(panel12, 2, 0);
-            tableLayoutPanel3.Controls.Add(panel11, 1, 0);
-            tableLayoutPanel3.Controls.Add(panel9, 0, 0);
-            tableLayoutPanel3.Dock = DockStyle.Bottom;
-            tableLayoutPanel3.Location = new Point(0, 800);
-            tableLayoutPanel3.Margin = new Padding(30, 29, 30, 29);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.Padding = new Padding(3);
-            tableLayoutPanel3.RowCount = 1;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle());
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 101F));
-            tableLayoutPanel3.Size = new Size(1550, 107);
-            tableLayoutPanel3.TabIndex = 24;
-            // 
-            // panel12
-            // 
-            panel12.BackColor = Color.FromArgb(41, 128, 185);
-            panel12.BorderStyle = BorderStyle.FixedSingle;
-            panel12.Controls.Add(iconButton2);
-            panel12.Location = new Point(768, 8);
-            panel12.Margin = new Padding(5);
-            panel12.Name = "panel12";
-            panel12.Padding = new Padding(1);
-            panel12.Size = new Size(370, 90);
-            panel12.TabIndex = 19;
-            // 
-            // iconButton2
-            // 
-            iconButton2.BackColor = Color.FromArgb(41, 128, 185);
-            iconButton2.Cursor = Cursors.Hand;
-            iconButton2.Dock = DockStyle.Fill;
-            iconButton2.FlatAppearance.BorderSize = 0;
-            iconButton2.FlatStyle = FlatStyle.Flat;
-            iconButton2.Font = new Font("Century Gothic", 13.8F);
-            iconButton2.ForeColor = Color.White;
-            iconButton2.IconChar = FontAwesome.Sharp.IconChar.PaperPlane;
-            iconButton2.IconColor = Color.FromArgb(216, 225, 233);
-            iconButton2.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton2.IconSize = 50;
-            iconButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton2.Location = new Point(1, 1);
-            iconButton2.Name = "iconButton2";
-            iconButton2.Padding = new Padding(69, 0, 0, 0);
-            iconButton2.Size = new Size(366, 86);
-            iconButton2.TabIndex = 23;
-            iconButton2.Text = "Send Resume";
-            iconButton2.TextAlign = ContentAlignment.MiddleLeft;
-            iconButton2.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton2.UseVisualStyleBackColor = false;
-            // 
-            // panel11
-            // 
-            panel11.BackColor = Color.FromArgb(41, 128, 185);
-            panel11.BorderStyle = BorderStyle.FixedSingle;
-            panel11.Controls.Add(iconButton1);
-            panel11.Location = new Point(388, 8);
-            panel11.Margin = new Padding(5);
-            panel11.Name = "panel11";
-            panel11.Padding = new Padding(1);
-            panel11.Size = new Size(370, 90);
-            panel11.TabIndex = 18;
-            // 
-            // iconButton1
-            // 
-            iconButton1.BackColor = Color.FromArgb(41, 128, 185);
-            iconButton1.Cursor = Cursors.Hand;
-            iconButton1.Dock = DockStyle.Fill;
-            iconButton1.FlatAppearance.BorderSize = 0;
-            iconButton1.FlatStyle = FlatStyle.Flat;
-            iconButton1.Font = new Font("Century Gothic", 13.8F);
-            iconButton1.ForeColor = Color.White;
-            iconButton1.IconChar = FontAwesome.Sharp.IconChar.Download;
-            iconButton1.IconColor = Color.FromArgb(216, 225, 233);
-            iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.IconSize = 50;
-            iconButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            iconButton1.Location = new Point(1, 1);
-            iconButton1.Name = "iconButton1";
-            iconButton1.Padding = new Padding(69, 0, 0, 0);
-            iconButton1.Size = new Size(366, 86);
-            iconButton1.TabIndex = 22;
-            iconButton1.Text = "Export Resume";
-            iconButton1.TextAlign = ContentAlignment.MiddleLeft;
-            iconButton1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            iconButton1.UseVisualStyleBackColor = false;
-            // 
-            // panel9
-            // 
-            panel9.BackColor = Color.FromArgb(41, 128, 185);
-            panel9.BorderStyle = BorderStyle.FixedSingle;
-            panel9.Controls.Add(homeBtn);
-            panel9.Location = new Point(8, 8);
-            panel9.Margin = new Padding(5);
-            panel9.Name = "panel9";
-            panel9.Padding = new Padding(1);
-            panel9.Size = new Size(370, 90);
-            panel9.TabIndex = 17;
-            // 
-            // homeBtn
-            // 
-            homeBtn.BackColor = Color.FromArgb(41, 128, 185);
-            homeBtn.Cursor = Cursors.Hand;
-            homeBtn.Dock = DockStyle.Fill;
-            homeBtn.FlatAppearance.BorderSize = 0;
-            homeBtn.FlatStyle = FlatStyle.Flat;
-            homeBtn.Font = new Font("Century Gothic", 13.8F);
-            homeBtn.ForeColor = Color.White;
-            homeBtn.IconChar = FontAwesome.Sharp.IconChar.Add;
-            homeBtn.IconColor = Color.FromArgb(216, 225, 233);
-            homeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            homeBtn.IconSize = 50;
-            homeBtn.ImageAlign = ContentAlignment.MiddleLeft;
-            homeBtn.Location = new Point(1, 1);
-            homeBtn.Name = "homeBtn";
-            homeBtn.Padding = new Padding(29, 0, 0, 0);
-            homeBtn.Size = new Size(366, 86);
-            homeBtn.TabIndex = 22;
-            homeBtn.Text = " Create New Resume";
-            homeBtn.TextAlign = ContentAlignment.MiddleLeft;
-            homeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-            homeBtn.UseVisualStyleBackColor = false;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(userLbl);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1550, 125);
-            panel1.TabIndex = 20;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.FromArgb(41, 128, 185);
-            label1.Location = new Point(3, 76);
-            label1.Name = "label1";
-            label1.Size = new Size(474, 27);
-            label1.TabIndex = 4;
-            label1.Text = "\"Here's a quick overview of your activity\"";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // userLbl
-            // 
-            userLbl.AutoSize = true;
-            userLbl.Font = new Font("Century Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            userLbl.ForeColor = Color.FromArgb(41, 128, 185);
-            userLbl.Location = new Point(3, 20);
-            userLbl.Name = "userLbl";
-            userLbl.Size = new Size(292, 47);
-            userLbl.TabIndex = 3;
-            userLbl.Text = "Your Resumes";
-            userLbl.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // listView1
-            // 
-            listView1.BackColor = Color.FromArgb(216, 225, 233);
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader });
-            listView1.Dock = DockStyle.Left;
-            listView1.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            listView1.Items.AddRange(new ListViewItem[] { listViewItem1, listViewItem2 });
-            listView1.Location = new Point(0, 125);
-            listView1.Margin = new Padding(3, 4, 3, 4);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(308, 675);
-            listView1.SmallImageList = images;
-            listView1.Sorting = SortOrder.Ascending;
-            listView1.TabIndex = 25;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
-            // 
-            // columnHeader
-            // 
-            columnHeader.Text = "Name";
-            columnHeader.Width = 300;
             // 
             // images
             // 
@@ -244,38 +72,494 @@
             images.TransparentColor = Color.Transparent;
             images.Images.SetKeyName(0, "resumeIcon.png");
             // 
+            // userLbl
+            // 
+            userLbl.AutoSize = true;
+            userLbl.BackColor = Color.Transparent;
+            userLbl.Font = new Font("Century Gothic", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            userLbl.ForeColor = Color.White;
+            userLbl.Location = new Point(18, 14);
+            userLbl.Name = "userLbl";
+            userLbl.Size = new Size(292, 47);
+            userLbl.TabIndex = 3;
+            userLbl.Text = "Your Resumes";
+            userLbl.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(18, 63);
+            label1.Name = "label1";
+            label1.Size = new Size(259, 27);
+            label1.TabIndex = 4;
+            label1.Text = "\"Here's your creations\"";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(41, 128, 185);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(userLbl);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1510, 106);
+            panel1.TabIndex = 20;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.BackColor = Color.FromArgb(0, 31, 84);
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel1.Controls.Add(panel3, 0, 0);
+            tableLayoutPanel1.Controls.Add(panel7, 3, 0);
+            tableLayoutPanel1.Controls.Add(panel6, 2, 0);
+            tableLayoutPanel1.Controls.Add(panel2, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Bottom;
+            tableLayoutPanel1.Location = new Point(0, 763);
+            tableLayoutPanel1.Margin = new Padding(0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(1510, 87);
+            tableLayoutPanel1.TabIndex = 26;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.FromArgb(216, 225, 233);
+            panel7.Controls.Add(deleteResumeBtn);
+            panel7.Dock = DockStyle.Fill;
+            panel7.Location = new Point(1133, 2);
+            panel7.Margin = new Padding(2);
+            panel7.Name = "panel7";
+            panel7.Padding = new Padding(2);
+            panel7.Size = new Size(375, 83);
+            panel7.TabIndex = 9;
+            // 
+            // deleteResumeBtn
+            // 
+            deleteResumeBtn.BackColor = Color.IndianRed;
+            deleteResumeBtn.Cursor = Cursors.Hand;
+            deleteResumeBtn.Dock = DockStyle.Fill;
+            deleteResumeBtn.FlatAppearance.BorderSize = 0;
+            deleteResumeBtn.FlatStyle = FlatStyle.Flat;
+            deleteResumeBtn.Font = new Font("Century Gothic", 13.8F);
+            deleteResumeBtn.ForeColor = Color.White;
+            deleteResumeBtn.IconChar = FontAwesome.Sharp.IconChar.Trash;
+            deleteResumeBtn.IconColor = Color.FromArgb(216, 225, 233);
+            deleteResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            deleteResumeBtn.IconSize = 50;
+            deleteResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            deleteResumeBtn.Location = new Point(2, 2);
+            deleteResumeBtn.Name = "deleteResumeBtn";
+            deleteResumeBtn.Padding = new Padding(70, 0, 0, 0);
+            deleteResumeBtn.Size = new Size(371, 79);
+            deleteResumeBtn.TabIndex = 27;
+            deleteResumeBtn.Text = "Delete Resume";
+            deleteResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
+            deleteResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            deleteResumeBtn.UseVisualStyleBackColor = false;
+            deleteResumeBtn.Click += deleteResumeBtn_Click;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.FromArgb(216, 225, 233);
+            panel6.Controls.Add(sendResumeBtn);
+            panel6.Dock = DockStyle.Fill;
+            panel6.Location = new Point(756, 2);
+            panel6.Margin = new Padding(2);
+            panel6.Name = "panel6";
+            panel6.Padding = new Padding(2);
+            panel6.Size = new Size(373, 83);
+            panel6.TabIndex = 8;
+            // 
+            // sendResumeBtn
+            // 
+            sendResumeBtn.BackColor = Color.FromArgb(41, 128, 185);
+            sendResumeBtn.Cursor = Cursors.Hand;
+            sendResumeBtn.Dock = DockStyle.Fill;
+            sendResumeBtn.FlatAppearance.BorderSize = 0;
+            sendResumeBtn.FlatStyle = FlatStyle.Flat;
+            sendResumeBtn.Font = new Font("Century Gothic", 13.8F);
+            sendResumeBtn.ForeColor = Color.White;
+            sendResumeBtn.IconChar = FontAwesome.Sharp.IconChar.PaperPlane;
+            sendResumeBtn.IconColor = Color.FromArgb(216, 225, 233);
+            sendResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            sendResumeBtn.IconSize = 50;
+            sendResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            sendResumeBtn.Location = new Point(2, 2);
+            sendResumeBtn.Name = "sendResumeBtn";
+            sendResumeBtn.Padding = new Padding(70, 0, 0, 0);
+            sendResumeBtn.Size = new Size(369, 79);
+            sendResumeBtn.TabIndex = 27;
+            sendResumeBtn.Text = "Send Resume";
+            sendResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
+            sendResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            sendResumeBtn.UseVisualStyleBackColor = false;
+            sendResumeBtn.Click += sendResumeBtn_Click;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(216, 225, 233);
+            panel2.Controls.Add(exportResumeBtn);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(379, 2);
+            panel2.Margin = new Padding(2);
+            panel2.Name = "panel2";
+            panel2.Padding = new Padding(2);
+            panel2.Size = new Size(373, 83);
+            panel2.TabIndex = 5;
+            // 
+            // dgvResumes
+            // 
+            dgvResumes.AllowUserToAddRows = false;
+            dgvResumes.AllowUserToDeleteRows = false;
+            dgvResumes.AllowUserToResizeColumns = false;
+            dgvResumes.AllowUserToResizeRows = false;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(216, 225, 233);
+            dataGridViewCellStyle5.ForeColor = Color.Black;
+            dgvResumes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dgvResumes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvResumes.BackgroundColor = Color.FromArgb(216, 225, 233);
+            dgvResumes.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(10, 17, 40);
+            dataGridViewCellStyle6.Font = new Font("Century Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvResumes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dgvResumes.ColumnHeadersHeight = 50;
+            dgvResumes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(254, 252, 251);
+            dataGridViewCellStyle7.Font = new Font("Century Gothic", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(41, 128, 185);
+            dataGridViewCellStyle7.SelectionForeColor = Color.White;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dgvResumes.DefaultCellStyle = dataGridViewCellStyle7;
+            dgvResumes.Dock = DockStyle.Fill;
+            dgvResumes.EnableHeadersVisualStyles = false;
+            dgvResumes.GridColor = Color.FromArgb(0, 31, 84);
+            dgvResumes.Location = new Point(0, 158);
+            dgvResumes.Name = "dgvResumes";
+            dgvResumes.ReadOnly = true;
+            dgvResumes.RowHeadersWidth = 51;
+            dataGridViewCellStyle8.Font = new Font("Century Gothic", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle8.ForeColor = Color.Black;
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(41, 128, 185);
+            dataGridViewCellStyle8.SelectionForeColor = Color.White;
+            dgvResumes.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dgvResumes.RowTemplate.Height = 50;
+            dgvResumes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvResumes.Size = new Size(1510, 605);
+            dgvResumes.TabIndex = 30;
+            dgvResumes.CellDoubleClick += dgvResumes_CellDoubleClick;
+            // 
+            // templatePanelCorner
+            // 
+            templatePanelCorner.BackColor = Color.FromArgb(10, 17, 40);
+            templatePanelCorner.Controls.Add(clearFiltersBtn);
+            templatePanelCorner.Controls.Add(label2);
+            templatePanelCorner.Controls.Add(templateSelector);
+            templatePanelCorner.Controls.Add(iconPictureBox1);
+            templatePanelCorner.Controls.Add(searchTbx);
+            templatePanelCorner.Dock = DockStyle.Top;
+            templatePanelCorner.Location = new Point(0, 106);
+            templatePanelCorner.Name = "templatePanelCorner";
+            templatePanelCorner.Padding = new Padding(3);
+            templatePanelCorner.Size = new Size(1510, 52);
+            templatePanelCorner.TabIndex = 31;
+            // 
+            // clearFiltersBtn
+            // 
+            clearFiltersBtn.AccessibleDescription = "";
+            clearFiltersBtn.AccessibleName = "Clear Filters";
+            clearFiltersBtn.AutoSizeBasedOnText = false;
+            clearFiltersBtn.BackColor = Color.Transparent;
+            clearFiltersBtn.BadgeBackColor = Color.Red;
+            clearFiltersBtn.BadgeFont = new Font("Century Gothic", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            clearFiltersBtn.BadgeValue = 0;
+            clearFiltersBtn.BadgeValueForeColor = Color.White;
+            clearFiltersBtn.BorderColor = Color.Transparent;
+            clearFiltersBtn.BorderWidth = 2;
+            clearFiltersBtn.ButtonBackColor = Color.FromArgb(41, 128, 185);
+            clearFiltersBtn.ButtonImage = null;
+            clearFiltersBtn.CanBeep = true;
+            clearFiltersBtn.CanGlow = false;
+            clearFiltersBtn.CanShake = true;
+            clearFiltersBtn.ContextMenuStripEx = null;
+            clearFiltersBtn.CornerRadiusBottomLeft = 0;
+            clearFiltersBtn.CornerRadiusBottomRight = 0;
+            clearFiltersBtn.CornerRadiusTopLeft = 0;
+            clearFiltersBtn.CornerRadiusTopRight = 0;
+            clearFiltersBtn.CustomCursor = Cursors.Default;
+            clearFiltersBtn.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            clearFiltersBtn.EnableLongPress = false;
+            clearFiltersBtn.EnablePressAnimation = true;
+            clearFiltersBtn.EnableRippleEffect = true;
+            clearFiltersBtn.EnableShadow = false;
+            clearFiltersBtn.EnableTextWrapping = false;
+            clearFiltersBtn.Font = new Font("Century Gothic", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            clearFiltersBtn.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            clearFiltersBtn.GlowIntensity = 100;
+            clearFiltersBtn.GlowRadius = 20F;
+            clearFiltersBtn.GradientBackground = false;
+            clearFiltersBtn.GradientColor = Color.FromArgb(114, 168, 255);
+            clearFiltersBtn.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            clearFiltersBtn.HintText = null;
+            clearFiltersBtn.HoverBackColor = Color.FromArgb(216, 225, 233);
+            clearFiltersBtn.HoverFontStyle = FontStyle.Regular;
+            clearFiltersBtn.HoverTextColor = Color.Black;
+            clearFiltersBtn.HoverTransitionDuration = 250;
+            clearFiltersBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            clearFiltersBtn.ImagePadding = 5;
+            clearFiltersBtn.ImageSize = new Size(16, 16);
+            clearFiltersBtn.IsRadial = false;
+            clearFiltersBtn.IsReadOnly = false;
+            clearFiltersBtn.IsToggleButton = false;
+            clearFiltersBtn.IsToggled = false;
+            clearFiltersBtn.Location = new Point(967, 6);
+            clearFiltersBtn.LongPressDurationMS = 1000;
+            clearFiltersBtn.Name = "clearFiltersBtn";
+            clearFiltersBtn.NormalFontStyle = FontStyle.Regular;
+            clearFiltersBtn.ParticleColor = Color.FromArgb(200, 200, 200);
+            clearFiltersBtn.ParticleCount = 15;
+            clearFiltersBtn.PressAnimationScale = 0.97F;
+            clearFiltersBtn.PressedBackColor = Color.FromArgb(216, 225, 233);
+            clearFiltersBtn.PressedFontStyle = FontStyle.Regular;
+            clearFiltersBtn.PressTransitionDuration = 150;
+            clearFiltersBtn.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            clearFiltersBtn.RippleColor = Color.FromArgb(255, 255, 255);
+            clearFiltersBtn.RippleOpacity = 0.3F;
+            clearFiltersBtn.RippleRadiusMultiplier = 0.6F;
+            clearFiltersBtn.ShadowBlur = 5;
+            clearFiltersBtn.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            clearFiltersBtn.ShadowOffset = new Point(2, 2);
+            clearFiltersBtn.ShakeDuration = 500;
+            clearFiltersBtn.ShakeIntensity = 5;
+            clearFiltersBtn.Size = new Size(141, 36);
+            clearFiltersBtn.TabIndex = 6;
+            clearFiltersBtn.Text = "Clear Filters";
+            clearFiltersBtn.TextAlign = ContentAlignment.MiddleCenter;
+            clearFiltersBtn.TextColor = Color.White;
+            clearFiltersBtn.TooltipText = null;
+            clearFiltersBtn.UseAdvancedRendering = true;
+            clearFiltersBtn.UseParticles = false;
+            clearFiltersBtn.Click += clearFiltersBtn_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Century Gothic", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(392, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(194, 27);
+            label2.TabIndex = 5;
+            label2.Text = "Template Type :";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // templateSelector
+            // 
+            templateSelector.DropDownStyle = ComboBoxStyle.DropDownList;
+            templateSelector.Font = new Font("Century Gothic", 13.8F);
+            templateSelector.FormattingEnabled = true;
+            templateSelector.Items.AddRange(new object[] { "All", "Attorney", "CallCenter", "Doctor", "ElectricalEngineering" });
+            templateSelector.Location = new Point(601, 7);
+            templateSelector.Name = "templateSelector";
+            templateSelector.Size = new Size(347, 35);
+            templateSelector.Sorted = true;
+            templateSelector.TabIndex = 3;
+            templateSelector.SelectedIndexChanged += templateSelector_SelectedIndexChanged;
+            // 
+            // iconPictureBox1
+            // 
+            iconPictureBox1.BackColor = Color.Transparent;
+            iconPictureBox1.Dock = DockStyle.Left;
+            iconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Search;
+            iconPictureBox1.IconColor = Color.White;
+            iconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            iconPictureBox1.IconSize = 46;
+            iconPictureBox1.Location = new Point(3, 3);
+            iconPictureBox1.Name = "iconPictureBox1";
+            iconPictureBox1.Size = new Size(54, 46);
+            iconPictureBox1.TabIndex = 1;
+            iconPictureBox1.TabStop = false;
+            // 
+            // searchTbx
+            // 
+            searchTbx.AccessibleDescription = "A customizable text input field.";
+            searchTbx.AccessibleName = "Text Box";
+            searchTbx.AccessibleRole = AccessibleRole.Text;
+            searchTbx.BackColor = Color.Transparent;
+            searchTbx.BlinkCount = 3;
+            searchTbx.BlinkShadow = false;
+            searchTbx.BorderColor1 = Color.LightSlateGray;
+            searchTbx.BorderColor2 = Color.LightSlateGray;
+            searchTbx.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
+            searchTbx.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
+            searchTbx.CanShake = true;
+            searchTbx.ContinuousBlink = false;
+            searchTbx.CursorBlinkRate = 500;
+            searchTbx.CursorColor = Color.Black;
+            searchTbx.CursorHeight = 26;
+            searchTbx.CursorOffset = 0;
+            searchTbx.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
+            searchTbx.CursorWidth = 1;
+            searchTbx.DisabledBackColor = Color.WhiteSmoke;
+            searchTbx.DisabledBorderColor = Color.LightGray;
+            searchTbx.DisabledTextColor = Color.Gray;
+            searchTbx.EnableDropShadow = false;
+            searchTbx.FillColor1 = Color.White;
+            searchTbx.FillColor2 = Color.White;
+            searchTbx.Font = new Font("Segoe UI", 9.5F);
+            searchTbx.ForeColor = Color.DimGray;
+            searchTbx.HoverBorderColor1 = Color.Gray;
+            searchTbx.HoverBorderColor2 = Color.Gray;
+            searchTbx.IsEnabled = true;
+            searchTbx.Location = new Point(63, 7);
+            searchTbx.Name = "searchTbx";
+            searchTbx.PlaceholderColor = Color.Gray;
+            searchTbx.PlaceholderText = "Search by Name";
+            searchTbx.ReadOnlyBorderColor1 = Color.LightGray;
+            searchTbx.ReadOnlyBorderColor2 = Color.LightGray;
+            searchTbx.ReadOnlyFillColor1 = Color.WhiteSmoke;
+            searchTbx.ReadOnlyFillColor2 = Color.WhiteSmoke;
+            searchTbx.ReadOnlyPlaceholderColor = Color.DarkGray;
+            searchTbx.SelectionBackColor = Color.FromArgb(77, 77, 255);
+            searchTbx.ShadowAnimationDuration = 1;
+            searchTbx.ShadowBlur = 10;
+            searchTbx.ShadowColor = Color.FromArgb(15, 0, 0, 0);
+            searchTbx.Size = new Size(312, 35);
+            searchTbx.SolidBorderColor = Color.LightSlateGray;
+            searchTbx.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
+            searchTbx.SolidBorderHoverColor = Color.Gray;
+            searchTbx.SolidFillColor = Color.White;
+            searchTbx.TabIndex = 2;
+            searchTbx.TextPadding = new Padding(16, 0, 6, 0);
+            searchTbx.ValidationErrorMessage = "Invalid input.";
+            searchTbx.ValidationFunction = null;
+            searchTbx.TextChanged += searchTbx_TextChanged;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(216, 225, 233);
+            panel3.Controls.Add(createResumeBtn);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(2, 2);
+            panel3.Margin = new Padding(2);
+            panel3.Name = "panel3";
+            panel3.Padding = new Padding(2);
+            panel3.Size = new Size(373, 83);
+            panel3.TabIndex = 10;
+            // 
+            // exportResumeBtn
+            // 
+            exportResumeBtn.BackColor = Color.FromArgb(41, 128, 185);
+            exportResumeBtn.Cursor = Cursors.Hand;
+            exportResumeBtn.Dock = DockStyle.Fill;
+            exportResumeBtn.FlatAppearance.BorderSize = 0;
+            exportResumeBtn.FlatStyle = FlatStyle.Flat;
+            exportResumeBtn.Font = new Font("Century Gothic", 13.8F);
+            exportResumeBtn.ForeColor = Color.White;
+            exportResumeBtn.IconChar = FontAwesome.Sharp.IconChar.Download;
+            exportResumeBtn.IconColor = Color.FromArgb(216, 225, 233);
+            exportResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            exportResumeBtn.IconSize = 50;
+            exportResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            exportResumeBtn.Location = new Point(2, 2);
+            exportResumeBtn.Name = "exportResumeBtn";
+            exportResumeBtn.Padding = new Padding(70, 0, 0, 0);
+            exportResumeBtn.Size = new Size(369, 79);
+            exportResumeBtn.TabIndex = 33;
+            exportResumeBtn.Text = "Export Resume";
+            exportResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
+            exportResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            exportResumeBtn.UseVisualStyleBackColor = false;
+            exportResumeBtn.Click += exportResumeBtn_Click;
+            // 
+            // createResumeBtn
+            // 
+            createResumeBtn.BackColor = Color.FromArgb(41, 128, 185);
+            createResumeBtn.Cursor = Cursors.Hand;
+            createResumeBtn.Dock = DockStyle.Fill;
+            createResumeBtn.FlatAppearance.BorderSize = 0;
+            createResumeBtn.FlatStyle = FlatStyle.Flat;
+            createResumeBtn.Font = new Font("Century Gothic", 13.8F);
+            createResumeBtn.ForeColor = Color.White;
+            createResumeBtn.IconChar = FontAwesome.Sharp.IconChar.Add;
+            createResumeBtn.IconColor = Color.FromArgb(216, 225, 233);
+            createResumeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            createResumeBtn.IconSize = 50;
+            createResumeBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            createResumeBtn.Location = new Point(2, 2);
+            createResumeBtn.Margin = new Padding(2);
+            createResumeBtn.Name = "createResumeBtn";
+            createResumeBtn.Padding = new Padding(70, 0, 0, 0);
+            createResumeBtn.Size = new Size(369, 79);
+            createResumeBtn.TabIndex = 24;
+            createResumeBtn.Text = " Create \r\n New Resume";
+            createResumeBtn.TextAlign = ContentAlignment.MiddleLeft;
+            createResumeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            createResumeBtn.UseVisualStyleBackColor = false;
+            createResumeBtn.Click += createNewBtn_Click;
+            // 
             // MyResumes
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(listView1);
-            Controls.Add(tableLayoutPanel3);
+            Controls.Add(dgvResumes);
+            Controls.Add(templatePanelCorner);
+            Controls.Add(tableLayoutPanel1);
             Controls.Add(panel1);
+            Margin = new Padding(0);
             Name = "MyResumes";
-            Size = new Size(1550, 907);
-            tableLayoutPanel3.ResumeLayout(false);
-            panel12.ResumeLayout(false);
-            panel11.ResumeLayout(false);
-            panel9.ResumeLayout(false);
+            Size = new Size(1510, 850);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvResumes).EndInit();
+            templatePanelCorner.ResumeLayout(false);
+            templatePanelCorner.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)iconPictureBox1).EndInit();
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-        private TableLayoutPanel tableLayoutPanel3;
-        private Panel panel12;
-        private FontAwesome.Sharp.IconButton iconButton2;
-        private Panel panel11;
-        private FontAwesome.Sharp.IconButton iconButton1;
-        private Panel panel9;
-        private FontAwesome.Sharp.IconButton homeBtn;
-        private Panel panel1;
-        private Label label1;
-        private Label userLbl;
-        private ListView listView1;
         private ImageList images;
-        private ColumnHeader columnHeader;
         private SiticoneNetCoreUI.SiticoneSplitContainer siticoneSplitContainer1;
+        private Label userLbl;
+        private Label label1;
+        private Panel panel1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panel7;
+        private Panel panel6;
+        private Panel panel2;
+        private DataGridView dgvResumes;
+        private Panel templatePanelCorner;
+        private FontAwesome.Sharp.IconPictureBox iconPictureBox1;
+        private SiticoneNetCoreUI.SiticoneTextBox searchTbx;
+        private ComboBox templateSelector;
+        private Label label2;
+        private FontAwesome.Sharp.IconButton deleteResumeBtn;
+        private FontAwesome.Sharp.IconButton sendResumeBtn;
+        private SiticoneNetCoreUI.SiticoneButton clearFiltersBtn;
+        private Panel panel3;
+        private FontAwesome.Sharp.IconButton exportResumeBtn;
+        private FontAwesome.Sharp.IconButton createResumeBtn;
     }
 }

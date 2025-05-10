@@ -1,140 +1,282 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
   <Class Name="FinalProjectOOP2.Dashboard" Collapsed="true">
-    <Position X="6.5" Y="0.5" Width="1.5" />
+    <Position X="9.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BEBAMACFAqgAQBPBAGChVQgCQACIEARBQNLBg4BYIgo=</HashCode>
+      <HashCode>AEBAMACEAqgAQBPBAGCjVQgDQCSIEAwBQFJAgQBYAgg=</HashCode>
       <FileName>Dashboard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.Login" Collapsed="true">
-    <Position X="6.5" Y="1.5" Width="1.5" />
+    <Position X="13" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>kAAAABAAACAAANBAAASgCEACIIRAAIAEQAEAASBAgAA=</HashCode>
+      <HashCode>kAAAABAAACAAANBAAASgCEACIIRAAIAEQAEAASBAAAA=</HashCode>
       <FileName>Login.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.DatabaseHelper">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="3.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAgAICAACBkAQgAAAECAEAQIIACAgQAgAACBQAAQAE=</HashCode>
+      <HashCode>EAAgAICAACBkAQgAAAECAEAQIIAAAgQAiAACBQAAQAE=</HashCode>
       <FileName>DatabaseHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinalProjectOOP2.Program" Collapsed="true">
-    <Position X="4.75" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
-      <FileName>Program.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="FinalProjectOOP2.Register" Collapsed="true">
-    <Position X="6.5" Y="2.5" Width="1.5" />
+    <Position X="7.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>coKAAhAAACAAANBAAASgUUACBKCAAIAEQAAAgQBAAAQ=</HashCode>
       <FileName>Register.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.VerifyUser" Collapsed="true">
-    <Position X="4.75" Y="3.5" Width="1.5" />
+    <Position X="13" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>cAIAABAQASAAIBIAAAWgAAkCDAAAAAQAQARACRBJVAA=</HashCode>
       <FileName>VerifyUser.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.ForgotPassword" Collapsed="true">
-    <Position X="10" Y="0.5" Width="1.5" />
+    <Position X="7.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>cAAAABAAACIAAVCECQSkEAACAAAACAAAQAAAgRDIQQA=</HashCode>
       <FileName>ForgotPassword.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.Home" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="3" Y="1.5" Width="1.5" />
+    <Position X="9.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>/gCgNxASACAAAJAAIACBSAICCAACAEAAgEAgAQBPADA=</HashCode>
+      <HashCode>YIAQADAAACBQAZIAIACBAAICiAICAEAAAAAgAQBZAiA=</HashCode>
       <FileName>Home.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="FinalProjectOOP2.MyResumes" Collapsed="true">
-    <Position X="10" Y="1.5" Width="1.5" />
+    <Position X="9.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAYAAAACAAABAAAACBQAACEAAAAAAAwEAAAYAGAAA=</HashCode>
+      <HashCode>gBBAAAACACAACJCgAQChCAACEEAIAAAAQACDg4QUgCA=</HashCode>
       <FileName>MyResumes.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.LoadingForm" Collapsed="true">
-    <Position X="4.75" Y="1.5" Width="1.5" />
+    <Position X="11.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIgCAAAQACAAABIAAAiAAAgCAAAAAAAAACAIAQAABAA=</HashCode>
       <FileName>LoadingForm.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.CreateResumes" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4.75" Y="0.5" Width="1.5" />
+    <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>+AaIICAQCCAAQBCoACGBQQIDEAALAAAAkQFgAYADACA=</HashCode>
+      <HashCode>AYBAAAEGCCAAgDDQIACDQAISEgAAAQIIoIAhAQIMAAE=</HashCode>
       <FileName>CreateResumes.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="FinalProjectOOP2.Messages" Collapsed="true">
-    <Position X="8.25" Y="1.5" Width="1.5" />
+  <Class Name="FinalProjectOOP2.Profile" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Messages.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="FinalProjectOOP2.Profile" Collapsed="true">
-    <Position X="3" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>JKAIAFAQACAAEBCAAQCACAICAAAAAAAAgAIAAwD9Ayg=</HashCode>
+      <HashCode>JKAIAFAQACAAEBGAAQCACAICAAAAAAAAgAIAAwC3Ayg=</HashCode>
       <FileName>Profile.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="FinalProjectOOP2.ResumeDatabase">
-    <Position X="0.5" Y="7.5" Width="1.5" />
+    <Position X="5.5" Y="3" Width="1.5" />
+    <NestedTypes>
+      <Interface Name="FinalProjectOOP2.ResumeDatabase.IResumeSaveable" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ResumeDatabase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Interface>
+      <Interface Name="FinalProjectOOP2.ResumeDatabase.IResumeExportable" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ResumeDatabase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Interface>
+      <Class Name="FinalProjectOOP2.ResumeDatabase.ResumeInfo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ResumeDatabase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAABA=</HashCode>
-      <FileName>DatabaseHelper.cs</FileName>
+      <HashCode>AIAOECAAQRABwAAAgAAAAQAACCAAAACAAJAoGBAAVBA=</HashCode>
+      <FileName>ResumeDatabase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.About" Collapsed="true">
-    <Position X="3" Y="0.5" Width="1.5" />
+    <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>About.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.DoubleBufferedPanel" Collapsed="true">
-    <Position X="8.25" Y="0.5" Width="1.5" />
+    <Position X="13" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Dashboard.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.SavingForm" Collapsed="true">
-    <Position X="8.25" Y="2.5" Width="1.5" />
+    <Position X="9.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAABAAIQCAAAACAAAAAAAAEAAAAQAAACA=</HashCode>
       <FileName>SavingForm.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.Settings" Collapsed="true">
-    <Position X="10" Y="2.5" Width="1.5" />
+    <Position X="9.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FinalProjectOOP2.UpdateProfile" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="3" Y="3.5" Width="1.5" />
+    <Position X="11.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AMIAAAAAAKBAABCAAQKASAICgAEAAQAkAAAEAQAFACA=</HashCode>
+      <HashCode>AMIAAAAAACBAABCAAQKASAICgAEAAQAkAAAEAQAFACA=</HashCode>
       <FileName>UpdateProfile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinalProjectOOP2.CallCenterResume" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>/wpJoKQwlmwCWDAICCewuBpTjKHBgEAQx3EBTRD/yv0=</HashCode>
+      <FileName>CallCenterResume.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinalProjectOOP2.ContributionForm" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoQAAACAAAFAQEACAAEACIACAAAAQgAAQgQEEACA=</HashCode>
+      <FileName>ContributionForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.PersonalInfo" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAGAAACAACEAAAAAQAAAAAAAAAAACAAAAIAAAAAg=</HashCode>
+      <FileName>CreateResumes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.ExperienceItem" Collapsed="true">
+    <Position X="7.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAEAAAAMAAAAAAAAAAgAAAAAABAAAAAA=</HashCode>
+      <FileName>CreateResumes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.AttorneyResumeModel" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACIAAEAEAAAAAAAAAAYAAAAAAAAABAEgAQAAQAA=</HashCode>
+      <FileName>AttorneyResume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.DoctorResumeModel" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAAAACAQAAAAAAAAAAAAAAQCAAAAAAAABAAgAAAAQAA=</HashCode>
+      <FileName>DoctorResume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.ElectricalEngineeringResumeModel" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAEAEAAAAAAAAgAQAAAAAAAAAAAAgAAAAQAA=</HashCode>
+      <FileName>ElectricalEngineeringTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.EducationItem" Collapsed="true">
+    <Position X="0.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAIAAAAQAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>CreateResumes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.DoctorEducationItem" Collapsed="true">
+    <Position X="0.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>DoctorResume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.DoctorResume" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="11.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>/84MjLQ8gCgimBAqTCOUYApLruRFjHATR9ERDRT/93E=</HashCode>
+      <FileName>DoctorResume.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FinalProjectOOP2.DoctorExperienceItem" Collapsed="true">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAiAAAgAAIAAAAAAAAAAAAAAAAQBAAAAAA=</HashCode>
+      <FileName>DoctorResume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.DoctorLicense" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAACAAAAAAAAAEAAAAAAAAAAAAQAAAAAAAwA=</HashCode>
+      <FileName>DoctorResume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.DoctorAffiliation" Collapsed="true">
+    <Position X="7.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DoctorResume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.EarlierPositionsForm" Collapsed="true">
+    <Position X="9.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>jgAAoYAEAGACABBQEAqAEEBCLAAAABAQAAAABQAMACI=</HashCode>
+      <FileName>EarlierPositionsForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.ResumeSummary" Collapsed="true">
+    <Position X="13" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAEAAAAAAAAQAAAAAAAAAAAJEAAAAAAA=</HashCode>
+      <FileName>MyResumes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.ResumeCard" Collapsed="true">
+    <Position X="9.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAgAAAACAAAAAAAACAAAACAAAAAAAEAIAQAAABAAQ=</HashCode>
+      <FileName>ResumeCard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.ResumePreviewForm" Collapsed="true">
+    <Position X="11.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAIAAAACIAAAAAAACAAAACAECCAAAAAQAAAQAAAAA=</HashCode>
+      <FileName>ResumePreviewForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.SendResumeForm" Collapsed="true">
+    <Position X="7.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoAQAAAIQCAQAFEEAgCDAGgCCAADAAAAAJBICQQQEAA=</HashCode>
+      <FileName>SendResumeForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinalProjectOOP2.SentResumesForm" Collapsed="true">
+    <Position X="7.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEFAAAAACAQEBAAAACABAACBAACAAICAAAAAYAAAAA=</HashCode>
+      <FileName>SentResumesForm.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

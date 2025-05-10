@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { margin: 0; font-family: 'Segoe UI', sans-serif; color: #333; background-color: #f4f4f4; }
+    .container { display: flex; max-width: 950px; margin: 20px auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); background: white; }
+    .sidebar { background-color: #2c3e50; color: white; width: 30%; padding: 20px; }
+    .sidebar img { width: 100px; height: 100px; border-radius: 50%; margin-bottom: 20px; }
+    .sidebar h3 { margin-top: 20px; border-bottom: 1px solid white; padding-bottom: 5px; }
+    .sidebar ul { list-style: none; padding: 0; }
+    .sidebar ul li { margin-bottom: 10px; }
+    .main { width: 70%; padding: 30px; }
+    .main h1 { margin: 0; font-size: 28px; }
+    .main h2 { color: #2980b9; margin-top: 25px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+    .main p { margin-top: 5px; margin-bottom: 15px; }
+    .highlighted-skills span { background-color: #eaf2f8; color: #1a5276; padding: 5px 10px; border-radius: 15px; font-weight: 500; margin: 5px 5px 5px 0; display: inline-block; }
+    .job-section { margin-bottom: 20px; }
+    .job-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .job-title { font-weight: bold; }
+    .job-company { font-weight: bold; color: #2c3e50; }
+    .job-duration { color: #7f8c8d; }
+    .job-location { font-style: italic; margin-bottom: 10px; }
+    .job-contributions { margin-top: 10px; padding-left: 20px; }
+    .job-contributions li { margin-bottom: 8px; }
+    .education-item { margin-bottom: 15px; }
+    .education-degree { font-weight: bold; }
+    .education-details { padding-left: 20px; margin-top: 5px; }
+    .affiliations ul { columns: 2; padding-left: 20px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar">
+    <center><img src="{{ ProfilePicPath }}" alt="Profile Photo"></center>
+    <h3>CLINICAL SKILLS</h3>
+    <ul>
+      <li>Vascular Surgery</li>
+      <li>General Surgery</li>
+      <li>Differential Diagnosis</li>
+      <li>Patient Examination</li>
+      <li>Internal Medicine</li>
+      <li>Systems Assessment</li>
+      <li>Critical Care</li>
+      <li>Lab/Imaging Interpretation</li>
+      <li>Healthcare Quality Improvement</li>
+      <li>Clinical Research Protocols</li>
+      <li>Multidisciplinary Care Coordination</li>
+      <li>Evidence-Based Practice (EBP)</li>
+      <li>Electronic Health Records (EHR)</li>
+    </ul>
+
+    <h3>MEDICAL SYSTEMS & TOOLS</h3>
+    <ul><li>Electronic Health Records (EHR)</li></ul>
+
+    <h3>LICENSES</h3>
+    <ul>
+      <li>
+        Washington State Licensed Physician<br><br>
+        <strong>License No:</strong> 123456<br>
+        <strong>Date:</strong> Jan 2015 to Dec 2025
+      </li>
+      <li>
+        Vascular Surgery Certification, American Board of Surgery<br><br>
+        <strong>License No:</strong> 7891011<br>
+        <strong>Date:</strong> Jan 2016 to Jan 2026
+      </li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h1>Henry Wu, M.D., F.A.C.S.</h1>
+    <p class="contact-info">Seattle, WA | (555) 555-5555 | henry@email.com | linkedin.com/henry.wu</p>
+    <p><strong>Physician</strong></p>
+
+    <h2>Summary</h2>
+    <p>Board-Certified Vascular Surgeon with experience in large regional trauma centers and private healthcare systems. Capably performs patient assessments, diagnostic testing, and non-surgical/surgical interventions for various acute and chronic conditions in adult and pediatric populations. Works collaboratively on multidisciplinary teams to enhance coordination of and access to care. Promotes quality, evidence-based practice by mentoring future clinicians in academic, clinical, and research settings.</p>
+
+    <h2>Areas of Expertise</h2>
+    <div class="highlighted-skills">
+      <span>Vascular Surgery</span><span>General Surgery</span><span>Differential Diagnosis</span><span>Patient Examination</span>
+      <span>Internal Medicine</span><span>Systems Assessment</span><span>Critical Care</span><span>Lab/Imaging Interpretation</span>
+      <span>Healthcare Quality Improvement</span><span>Clinical Research Protocols</span><span>Multidisciplinary Care Coordination</span>
+      <span>Evidence-Based Practice (EBP)</span><span>Electronic Health Records (EHR)</span>
+    </div>
+
+    <h2>Professional Experience</h2>
+    <div class="job-section">
+      <div class="job-header">
+        <div><span class="job-title">Board-Certified Vascular Surgeon / Staff Physician</span> • <span class="job-company">Facility One</span>, <span class="job-location">Seattle, WA</span></div>
+        <div class="job-duration">2018 – Present</div>
+      </div>
+      <p>Staff physician in surgical group affiliated with regional teaching hospital and trauma center. Manage a daily caseload of up to 15 patients. Perform scheduled vascular surgeries and urgent procedures.</p>
+      <ul class="job-contributions">
+        <li>Perform simple and complex surgical procedures including bypass, arterial trauma, valve replacement, and aneurysm repairs.</li>
+        <li>Improve patient care through clinical research; published peer-reviewed studies.</li>
+        <li>Enhance care coordination by participating in trauma conferences and risk management forums.</li>
+      </ul>
+    </div>
+
+    <div class="job-section">
+      <div class="job-header">
+        <div><span class="job-title">Clinical Professor</span> • <span class="job-company">University One</span>, <span class="job-location">Seattle, WA</span></div>
+        <div class="job-duration">2016 – Present</div>
+      </div>
+      <p>Coordinate with medical school to design and present evidence-based curriculum.</p>
+      <ul class="job-contributions">
+        <li>Mentor and teach medical students in surgical techniques, vascular interventions, and professional ethics.</li>
+      </ul>
+    </div>
+
+    <h2>Education</h2>
+    <div class="education-item">
+      <div class="education-degree">Doctor of Medicine (M.D.)</div>
+      <div class="education-details">Johns Hopkins University School of Medicine<br><em>Surgery</em><br>Baltimore, MD</div>
+    </div>
+    <div class="education-item">
+      <div class="education-degree">Bachelor of Science in Biology</div>
+      <div class="education-details">University of Washington<br>Seattle, WA</div>
+    </div>
+
+    <h2>Affiliations</h2>
+    <ul>
+      <li>Fellow at American College of Surgeons</li>
+      <li>Member at Society for Vascular Surgery</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,24 +1,45 @@
 ﻿using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace FinalProjectOOP2
 {
     public partial class Dashboard : Form
     {
         private string? currentUser;
-        public string? CurrentUser { get; set; }
-       // private Home? homeControl;
+
+        public string? CurrentUser 
+        {
+            get { return currentUser; }
+            set
+            {
+                currentUser = value;
+                // Add Accounts tab if user is admin and not already added
+                if (!string.IsNullOrEmpty(currentUser))
+                {
+                    var db = new DatabaseHelper();
+                    string role = db.GetUserRole(currentUser);
+                    isAdmin = (role == "Admin");
+                    if (isAdmin && accountsBtn == null)
+                    {
+                        AddAccountsTab();
+                    }
+                }
+            }
+        }
+
+        // private Home? homeControl;
         private MyResumes? myResumes;
-        private CreateResumes? createResumes;
-       // private Profile? profile;
-        private Messages? messages;
-        private Settings? settings;
+        public CreateResumes? createResumes;
+        // private Profile? profile;
         private About? about;
         private Panel highlightPanel;
         private int targetTop;
+        private FontAwesome.Sharp.IconButton? accountsBtn;
+        private bool isAdmin = false;
 
-        public Home Home { get; set; }  // Your Home user control
-        public Profile Profile { get; set; }  // Your Profile user control
-
+        public Home? Home { get; set; }  // Your Home user control
+        public Profile? Profile { get; set; }  // Your Profile user control
+        
         //For dragging the form
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -27,12 +48,11 @@ namespace FinalProjectOOP2
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        public Dashboard(string user)
+        public Dashboard()
         {
             InitializeComponent();
             this.MouseDown += Form_MouseDown;
             headerPanel.MouseDown += Form_MouseDown;
-            currentUser = user;
             highlightTimer = new System.Windows.Forms.Timer();
             highlightTimer.Interval = 1; 
             highlightTimer.Tick += HighlightTimer_Tick;
@@ -48,10 +68,8 @@ namespace FinalProjectOOP2
             highlightPanel.Top = homeBtn.Top + 10;
 
             highlightPanel.BringToFront();
-
-
         }
-       
+
         private void Form_MouseDown(object? sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -79,16 +97,6 @@ namespace FinalProjectOOP2
         private void MinimizeBtn_MouseLeave(object sender, EventArgs e)
         {
             minimizeBtn.BackColor = Color.Transparent;  
-        }
-
-        private void MaximizeBtn_MouseEnter(object sender, EventArgs e)
-        {
-            maximizeBtn.BackColor = Color.LightGray;  // Hover color
-        }
-
-        private void MaximizeBtn_MouseLeave(object sender, EventArgs e)
-        {
-            maximizeBtn.BackColor = Color.Transparent;
         }
 
         private void HighlightTimer_Tick(object? sender, EventArgs e)
@@ -172,18 +180,24 @@ namespace FinalProjectOOP2
             if (myResumes == null)
             {
                 myResumes = new MyResumes();
+                myResumes.Username = currentUser;
+                myResumes.LoadUserResumes(currentUser);
+                
             }
 
             if (!mainPanel.Controls.Contains(myResumes))
             {
                 mainPanel.Controls.Clear();
                 mainPanel.Controls.Add(myResumes);
+                myResumes.Username = currentUser;
+                myResumes.LoadUserResumes(currentUser);
             }
         }
 
-        private void createResumeBtn_Click(object sender, EventArgs e)
+        public void createResumeBtn_Click(object sender, EventArgs e)
         {
             ActivateButton(createResumeBtn);
+
             if (createResumes == null)
             {
                 createResumes = new CreateResumes();
@@ -194,7 +208,47 @@ namespace FinalProjectOOP2
             {
                 mainPanel.Controls.Clear();
                 mainPanel.Controls.Add(createResumes);
+                createResumes.CurrentUsername = currentUser;
+                
             }
+        }
+
+        private void AddAccountsTab()
+        {
+            accountsBtn = new FontAwesome.Sharp.IconButton();
+            accountsBtn.BackColor = Color.FromArgb(41, 128, 185);
+            accountsBtn.Dock = DockStyle.Top;
+            accountsBtn.FlatAppearance.BorderSize = 0;
+            accountsBtn.FlatStyle = FlatStyle.Flat;
+            accountsBtn.Font = new Font("Century Gothic", 13.8F);
+            accountsBtn.ForeColor = Color.White;
+            accountsBtn.IconChar = FontAwesome.Sharp.IconChar.Users;
+            accountsBtn.IconColor = Color.FromArgb(216, 225, 233);
+            accountsBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            accountsBtn.IconSize = 50;
+            accountsBtn.ImageAlign = ContentAlignment.MiddleLeft;
+            accountsBtn.Name = "accountsBtn";
+            accountsBtn.Padding = new Padding(30, 0, 0, 0);
+            accountsBtn.Size = new Size(303, 67);
+            accountsBtn.TabIndex = 40;
+            accountsBtn.Text = " Accounts";
+            accountsBtn.TextAlign = ContentAlignment.MiddleLeft;
+            accountsBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            accountsBtn.UseVisualStyleBackColor = false;
+            accountsBtn.Click += accountsBtn_Click;
+
+            // Insert Accounts tab just above logoutBtn
+            int logoutIndex = sideLayoutTable.Controls.IndexOf(logoutBtn);
+            sideLayoutTable.Controls.Add(accountsBtn, 0, logoutIndex);
+        }
+
+        private void accountsBtn_Click(object? sender, EventArgs e)
+        {
+            ActivateButton(accountsBtn);
+
+            var accountsControl = new AccountsAdminControl();
+            mainPanel.Controls.Clear();
+            mainPanel.Controls.Add(accountsControl);
         }
 
         private void profileBtn_Click(object sender, EventArgs e)
@@ -203,70 +257,30 @@ namespace FinalProjectOOP2
 
             if (Profile == null)
             {
-                Profile = new Profile(CurrentUser);
+                Profile = new Profile();
+                Profile.CurrentUsername = CurrentUser;
+                Profile.LoadProfileData();
             }
-
-            Profile.CurrentUsername = CurrentUser;
+            else
+            {
+                Profile.CurrentUsername = CurrentUser;
+                Profile.LoadProfileData(); 
+            }
 
             if (!mainPanel.Controls.Contains(Profile))
             {
                 mainPanel.Controls.Clear();
                 mainPanel.Controls.Add(Profile);
             }
-
         }
 
-        private void messagesBtn_Click(Object sender, EventArgs e)
+
+        private void sentResumesBtn_Click(object sender, EventArgs e)
         {
-            ActivateButton(messagesBtn);
-
-            if (messages == null)
+            using (SentResumesForm sentResumesForm = new SentResumesForm(CurrentUser))
             {
-                messages = new Messages();
+                sentResumesForm.ShowDialog();
             }
-
-            if (!mainPanel.Controls.Contains(messages))
-            {
-                mainPanel.Controls.Clear();
-                mainPanel.Controls.Add(messages);
-            }
-        }
-
-        private void settingsBtn_Click(Object sender, EventArgs e)
-        {
-            ActivateButton(settingsBtn);
-
-            if (settings == null)
-            {
-                settings = new Settings();
-            }
-
-            if (!mainPanel.Controls.Contains(settings))
-            {
-                mainPanel.Controls.Clear();
-                mainPanel.Controls.Add(settings);
-            }
-        }
-
-        private void aboutBtn_Click(Object sender, EventArgs e)
-        {
-            ActivateButton(aboutBtn);
-
-            if (about == null)
-            {
-                about = new About();
-            }
-
-            if (!mainPanel.Controls.Contains(about))
-            {
-                mainPanel.Controls.Clear();
-                mainPanel.Controls.Add(about);
-            }
-        }
-
-        private void menuBtn_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void Dashboard_Load(object sender, EventArgs e)
@@ -315,11 +329,9 @@ namespace FinalProjectOOP2
         }
 
         public void CloseAndShowLogin()
-        {
-            // Create login form first to prevent application exit
+        {           
             var loginForm = new Login();
 
-            // Use FormClosed event to handle clean transition
             this.FormClosed += (s, args) =>
             {
                 loginForm.Show();
@@ -327,6 +339,8 @@ namespace FinalProjectOOP2
 
             this.Close();
         }
+
+        
     }
 
     public class DoubleBufferedPanel : Panel

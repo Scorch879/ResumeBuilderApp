@@ -85,10 +85,11 @@ namespace FinalProjectOOP2
                 choice += userRadioBtn.Text;
             }
 
+         
+
             if (username != "" && password != "" && choice != "" && email != "" && !password.Any(char.IsWhiteSpace) && dbHelper.isValidEmail(email))
             {
                 bool success = dbHelper.RegisterUser(username, password, choice, email);
-
 
                 if (success)
                 {

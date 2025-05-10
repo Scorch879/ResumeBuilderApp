@@ -11,10 +11,10 @@ namespace FinalProjectOOP2
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
-            //Application.Run(new Dashboard(""));
-           Application.Run(new Login());
-
+           ApplicationConfiguration.Initialize();
+            Dashboard dashboard = new Dashboard();
+            Application.Run(new Login());
+           //Application.Run(new Login());
         }
     }
 }
