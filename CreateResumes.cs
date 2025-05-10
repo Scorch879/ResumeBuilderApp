@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FinalProjectOOP2
-{
+{//try
 
     public interface IResumeTemplate
     {
